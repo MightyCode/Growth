@@ -1,0 +1,8 @@
+<tileset>
+    <texture name="dirt.png" type="1"/>
+    <texture name="grass.png" type="1"/>
+    <texture name="grassLeft.png" type ="1"/>
+    <texture name="grassRight.png" type="1"/>
+    <texture name="dirtLeft.png" type="1"/>
+    <texture name="dirtRight.png" type="1"/>
+</tileset>
