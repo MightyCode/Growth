@@ -1,2 +1,2 @@
 # Growth
-Projet pour faire un piti jeu Plate-Forme
+Projet pour faire un jeu Grandiose Plate-Forme
