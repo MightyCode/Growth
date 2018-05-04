@@ -47,20 +47,18 @@ public class TileMap {
 		
 		// Hard code to add and configure game's panels
 			// Path to map file, and the leftIdPanel, upIdPanel, rightIdPanel and downIdPanel
-		maps.add(new Map("map1.xml",0,0,2,0));
-			// Id of changement (1 to left, 2 to top, 3 to right and 4 to bottom)
+			// Id of translate (1 to left, 2 to top, 3 to right and 4 to bottom)
 			// The second and third parameter is tile position X and tile position Y (double)
+		maps.add(new Map("map1.xml",0,0,2,0));
+
 		maps.get(0).setTileToCome(1,1,6);
 		
 		maps.add(new Map("map2.xml",1,0,3,0));
 		maps.get(1).setTileToCome(3,1,6);
-		maps.get(1).setTileToCome(1,1,6);
+		maps.get(1).setTileToCome(1,1,5);
 		
 		maps.add(new Map("map3.xml",2,0,0,0));
 		maps.get(2).setTileToCome(3,1,14);
-		
-		/*maps.add(new Map("map3.png", 1 , 4 , 3 , 1));
-		maps.add(new Map("map4.png", 3 , 4 , 4 , 2));*/
 		
 		actualMap = 1;
 		
@@ -122,12 +120,9 @@ public class TileMap {
 		ymin = main.HEIGHT - height;
 		
 		double[] newPos = new double[2];
-		System.out.print(width + " , ");
-		System.out.println(width - ( maps.get(actualMap-1).getTileToComeX(side) * tileSize));
-		
-		if(side == 3) {
+		if(side == 1) {
 			newPos[0] = width - ( maps.get(actualMap-1).getTileToComeX(side) * tileSize);
-		}
+		} else  newPos[0] = ( maps.get(actualMap-1).getTileToComeX(side) * tileSize);
 		
 		if(side == 4) newPos[1] = height - (maps.get(actualMap-1).getTileToComeY(side) * tileSize);
 		else newPos[1] = maps.get(actualMap-1).getTileToComeY(side) * tileSize;

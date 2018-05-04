@@ -1,6 +1,5 @@
 package migthycode.growth.Game.entity;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import migthycode.growth.Game.screen.GameScreen;
@@ -19,8 +18,8 @@ public class Player extends Entity {
     private static final int WALKING = 1;
     private static final int JUMPING = 2;
     private static final int FALLING = 3;
-    private static final int ATTACKING = 0;
-    private static final int FIRING = 0;
+    /*private static final int ATTACKING = 0;
+    private static final int FIRING = 0;*/
 	
 	public Player(TileMap tm, int sizeX, int sizeY) {
 		// Call mother constructor
@@ -30,7 +29,7 @@ public class Player extends Entity {
 			// Size, and boxSize
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
-		cX = sizeX;
+		cX = (int)(sizeX*0.7);
 		cY = sizeY;
 		
 			// Movement 

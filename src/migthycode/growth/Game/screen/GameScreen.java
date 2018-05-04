@@ -94,7 +94,7 @@ public class GameScreen extends Screen{
 
 		// Check border player collision to change the map
 		//System.out.println(player.getPosX()-10);
-		if(player.getPosX()- player.getCX()/2 <= 0 ){
+		if(player.getPosX() - player.getCX()/2 <= 0){
 			changeMap(1);
 		} else if (player.getPosX() + player.getCX()/2  >= tileMap.getWidth()){
 			changeMap(3);
@@ -121,10 +121,11 @@ public class GameScreen extends Screen{
 	
 	public void updateTransition() {
 		transitionCounter++;
-		if(transitionCounter == transitionTime/2) {
+		if(transitionCounter == (int)transitionTime/2) {
 			double[] pos;
 			pos = tileMap.setActualMap(transitionSide);
-			player.setPosition(pos[0]/2, pos[1] - player.getCY()/2);
+			System.out.println("newPosX :" + pos[0]);
+			player.setPosition(pos[0], pos[1] - player.getCY()/2);
 			tileMap.setPosition(main.WIDTH / 2 - player.getPosX(), main.HEIGHT / 2 - player.getPosY());
 			player.setSpeed(0, 0);
 		}
@@ -200,6 +201,7 @@ public class GameScreen extends Screen{
 	}
 	
 	public void changeMap(int side) {
+		System.out.println("Change !!!!!! :" + side);
 		if(tileMap.getNeightbour(side) != 0) {
 			transitionSide = side;			
 			screenState = TRANSITIONSCREEN;

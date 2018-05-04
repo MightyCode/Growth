@@ -25,13 +25,15 @@ public class Texture {
 	
 	public void init(){
 		// Set tiles texture
-		tileId = new int[6];
+		tileId = new int[8];
 		tileId[0] = charge("/images/tiles/dirt.png");
 		tileId[1] = charge("/images/tiles/grass.png");
 		tileId[2] = charge("/images/tiles/grassLeft.png");
 		tileId[3] = charge("/images/tiles/grassRight.png");
 		tileId[4] = charge("/images/tiles/dirtLeft.png");
 		tileId[5] = charge("/images/tiles/dirtRight.png");
+		tileId[6] = charge("/images/tiles/grassBorderLeft.png");
+		tileId[7] = charge("/images/tiles/grassBorderRight.png");
 		
 		// Set player texture
 		playerId = new int[8];
