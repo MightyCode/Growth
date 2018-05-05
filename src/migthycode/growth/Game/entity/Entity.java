@@ -107,8 +107,12 @@ public abstract class Entity {
 			else {
 				yTemp += speedY;
 			}
-
-		}else if(speedY > 0) {
+			
+			if(yDest - cY/2 < 0) { 
+				yTemp = 0 + cY/2;
+				speedY = 0;
+			}
+		} else if(speedY > 0) {
 			if(bottomLeft || bottomRight) {
 				speedY = 0;
 				falling = false;
@@ -128,11 +132,12 @@ public abstract class Entity {
 				xTemp += speedX;
 			}
 			
-			if(posX - cX/2 < 0) {
-				posX = 0 + cX/2;
+			if(xDest - cX/2 < 0) { 
+				xTemp = 0 + cX/2;
 				speedX = 0;
 			}
-		}else if(speedX > 0) {
+			
+		} else if(speedX > 0) {
 			if(topRight || bottomRight) {
 				speedX = 0;
 				xTemp = (currCol + 1) * tileSize - cX / 2;
@@ -147,17 +152,6 @@ public abstract class Entity {
 				falling = true;
 			}
 		}
-		
-		if(yDest - cY/2 < 0) { 
-			yTemp = 0 + cY/2;
-			speedY = 0;
-		}
-		
-		if(xDest - cX/2 < 0) { 
-			xTemp = 0 + cX/2;
-			speedX = 0;
-		}
-		
 	}
 	
 	// Calculate corners of the Entity
