@@ -1,0 +1,25 @@
+# Todo list
+* Afficher écriture avec police
+* Menu
+* Menu échap
+* Layer et parallax
+* Système de boite de dialogue
+* Comment stoker et enregistrer les entitées dans une map
+* son
+* Inventaire
+* 2,3 Ennemis
+* Set de mouvement du player amélioré
+* Système des glands et des améliorations d'action
+* Système de sauvegarde, de point de sauvegarde
+* Menu options
+* Changer les touches par defaut
+
+
+# Bugs à régler
+* Branch Rectification:
+transition avec carré noir qui ne se fait pas 
+
+# Objectif atteints
+* Système de map
+* Changement de map
+* Base d'un personnage
