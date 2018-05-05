@@ -1,4 +1,19 @@
-# Growth
-Projet pour faire un jeu Grandiose de Plate-Forme
+Growth
+===========
+Un petit jeu de plateforme.
 
-Chaque ajout voulant être fait pour le jeu nécessite une branche
+Présentation
+-----------------
+Growth est un jeu de plateforme qui embarque des fonctionnalités innovantes et propose aux joueurs des quêtes pour gagner des améliorations.
+
+Demo
+--------
+A Ajouter.
+
+License
+-------
+### Code
+Voir LICENCE.md
+
+### Art
+A définir.
