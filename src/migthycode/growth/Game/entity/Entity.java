@@ -85,14 +85,18 @@ public abstract class Entity {
 	// Check the collision between the Entity and tileMap
 	public void checkTileMapCollision() {
 		
+		// Get position of player in the grid
 		currCol = (int)posX / tileSize;
 		currRow = (int)posY / tileSize;
 		
+		// Next position
 		xDest = posX + speedX;
 		yDest = posY + speedY;
 		
+		// Old position 
 		xTemp = posX;
 		yTemp = posY;
+		
 		
 		calculateCorners(posX, yDest);
 		if(speedY < 0) {
@@ -103,14 +107,13 @@ public abstract class Entity {
 			else {
 				yTemp += speedY;
 			}
-		}
-		if(speedY > 0) {
+
+		}else if(speedY > 0) {
 			if(bottomLeft || bottomRight) {
 				speedY = 0;
 				falling = false;
 				yTemp = (currRow + 1) * tileSize - cY / 2;
-			}
-			else {
+			} else {
 				yTemp += speedY;
 			}
 		}
@@ -121,18 +124,19 @@ public abstract class Entity {
 			if(topLeft || bottomLeft) {
 				speedX = 0;
 				xTemp = currCol * tileSize + cX / 2;
-			}
-			else {
+			} else {
 				xTemp += speedX;
 			}
-		}
-		
-		if(speedX > 0) {
+			
+			if(posX - cX/2 < 0) {
+				posX = 0 + cX/2;
+				speedX = 0;
+			}
+		}else if(speedX > 0) {
 			if(topRight || bottomRight) {
 				speedX = 0;
 				xTemp = (currCol + 1) * tileSize - cX / 2;
-			}
-			else {
+			} else {
 				xTemp += speedX;
 			}
 		}
@@ -143,6 +147,17 @@ public abstract class Entity {
 				falling = true;
 			}
 		}
+		
+		if(yDest - cY/2 < 0) { 
+			yTemp = 0 + cY/2;
+			speedY = 0;
+		}
+		
+		if(xDest - cX/2 < 0) { 
+			xTemp = 0 + cX/2;
+			speedX = 0;
+		}
+		
 	}
 	
 	// Calculate corners of the Entity

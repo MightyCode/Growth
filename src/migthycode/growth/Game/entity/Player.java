@@ -10,7 +10,7 @@ import migthycode.growth.Game.utils.Render;
 public class Player extends Entity {
 	
 	// player stuff
-	private boolean dead;
+	//private boolean dead;
 	
 	// Animation actions
 	private int animationPlayed;
@@ -97,15 +97,6 @@ public class Player extends Entity {
 			if(speedY > maxFallSpeed) speedY = maxFallSpeed;	
 		}
 		
-		if(posX - cX/2 < 0) {
-			posX = 0 + cX/2;
-			speedX = 0;
-		}
-		if(posY - cY/2 < 0) { 
-			posY = 0 + cY/2;
-			speedY = 0;
-		}
-		
 		if(sprint && (left || right)) {
 			if(speedX > 0 && right) {
 				speedX = maxSpeed * runSpeed; 
@@ -118,6 +109,7 @@ public class Player extends Entity {
 	public void update() {
 		// Update position
 		getNextPosition();
+
 		checkTileMapCollision();
 		setPosition(xTemp, yTemp);
 
