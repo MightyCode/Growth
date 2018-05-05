@@ -51,14 +51,14 @@ public class TileMap {
 			// The second and third parameter is tile position X and tile position Y (double)
 		maps.add(new Map("map1.xml",0,0,2,0));
 
-		maps.get(0).setTileToCome(1,1,6);
+		maps.get(0).setTileToCome(1,0.5,6);
 		
 		maps.add(new Map("map2.xml",1,0,3,0));
-		maps.get(1).setTileToCome(3,1,6);
-		maps.get(1).setTileToCome(1,1,5);
+		maps.get(1).setTileToCome(3,0.5,6);
+		maps.get(1).setTileToCome(1,0.5,5);
 		
 		maps.add(new Map("map3.xml",2,0,0,0));
-		maps.get(2).setTileToCome(3,1,14);
+		maps.get(2).setTileToCome(3,0.5,14);
 		
 		actualMap = 1;
 		

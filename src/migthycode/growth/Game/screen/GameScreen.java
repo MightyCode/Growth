@@ -188,20 +188,24 @@ public class GameScreen extends Screen{
 	
 	public void displayMap(Render render) { tileMap.display(render); } // Draw map
 	
-	public void displayPlayer(Render render) { player.display(render); } // Draw player
+	public void displayPlayer(Render render) { 
+		player.display(render); 			
+	} // Draw player
+	
 	
 	public void displayTransition(Render render) { 
+		render.fill(0);
 		if(transitionCounter <= transitionTime/2) {
-			render.setAlpha(UsefulFunction.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));			
+			render.setAlpha((float)UsefulFunction.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));			
 		} else {
-			render.setAlpha(UsefulFunction.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+			render.setAlpha((float)UsefulFunction.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
 		}
+		
 		render.rect(0, 0, main.WIDTH, main.HEIGHT);
-		render.setAlpha(255);
+		render.setAlpha(1);
 	}
 	
 	public void changeMap(int side) {
-		System.out.println("Change !!!!!! :" + side);
 		if(tileMap.getNeightbour(side) != 0) {
 			transitionSide = side;			
 			screenState = TRANSITIONSCREEN;

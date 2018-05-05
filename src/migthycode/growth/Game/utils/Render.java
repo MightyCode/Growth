@@ -8,7 +8,7 @@ import migthycode.growth.main.main;
 public class Render {
 	
 	private byte[] color;
-	private double alpha;
+	private float alpha;
 	private Texture texture;
 	
 	public Render(Texture texture) {
@@ -30,6 +30,10 @@ public class Render {
 		color[0] = (byte)color1;
 		color[1] = (byte)color2;
 		color[2] = (byte)color3;
+	}
+	
+	public void image(int posX, int posY, int sizeX, int sizeY, String object, int textID) {
+		rect(posX,posY,sizeX,sizeY, textID, object);
 	}
 	
 	public void rect(int posX, int posY, int sizeX, int sizeY, int textId , String object) {
@@ -57,6 +61,8 @@ public class Render {
 	
 	public void rect(int posX, int posY, int sizeX, int sizeY) {
 		int	newPosY = main.HEIGHT-posY - sizeY;
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_TEXTURE);
 		glColor4f(color[0], color[1], color[2], (float)alpha);
 		glBegin(GL_QUADS);
 			glVertex2d(posX, newPosY);
@@ -64,10 +70,8 @@ public class Render {
 			glVertex2d(posX+sizeX, newPosY + sizeY);
 			glVertex2d(posX, newPosY + sizeY);
 		glEnd();
-	}
-	
-	public void image(int posX, int posY, int sizeX, int sizeY, String object, int textID) {
-		rect(posX,posY,sizeX,sizeY, textID, object);
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE);
 	}
 	
 	public void glEnable2D() {
@@ -92,5 +96,5 @@ public class Render {
 	   glPopMatrix();	
 	}
 	
-	public void setAlpha(double i) { alpha = i; }
+	public void setAlpha(float i) { alpha = i; }
 }
