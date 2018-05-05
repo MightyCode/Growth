@@ -13,7 +13,7 @@ A Ajouter.
 License
 -------
 ### Code
-Voir LICENCE.md
+Voir le fichier LICENCE
 
 ### Art
 A définir.
