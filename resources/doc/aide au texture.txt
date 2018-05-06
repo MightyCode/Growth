@@ -1,0 +1,7 @@
+ Premières textures = tileset dans le tableau tile
+ 
+ Texture du personnage (6 - 12) 
+ 
+ Texture de l'arbre (13)
+ 
+ 
