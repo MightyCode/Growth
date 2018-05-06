@@ -3,13 +3,12 @@ package migthycode.growth.Game.tilemap;
 import java.util.ArrayList;
 
 import migthycode.growth.Game.utils.Render;
+import migthycode.growth.Game.utils.Texture;
 import migthycode.growth.Game.utils.XmlReader;
 import migthycode.growth.main.main;
 
+
 public class TileMap {
-	
-	// Read Resources
-	XmlReader xmlReader;
 	
 	// position
 	private double x;
@@ -72,8 +71,7 @@ public class TileMap {
 		numColsToDraw = main.WIDTH / tileSize + 2;
 		tween = 1;
 		
-		xmlReader = new XmlReader();
-		tileSet = xmlReader.createTileSet(path2);
+		tileSet = XmlReader.createTileSet(path2);
 		
 		width = numCols * tileSize;
 		height = numRows * tileSize;
@@ -84,7 +82,7 @@ public class TileMap {
 		ymax = 0;
 	}
 	
-	public void display(Render render) {
+	public void display() {
 		
 		for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
 			
@@ -94,13 +92,10 @@ public class TileMap {
 				if(col >= numCols) break;
 				if(map[row][col] == 0) continue;
 
-				render.image(
+				Render.image(
 					(int)x + col * tileSize,
 					(int)y + row * tileSize,
-					tileSize,
-					tileSize,
-					"tile",
-					(map[row][col]-1)
+					tileSize, tileSize, tileSet[map[row][col]-1].getText(),1 
 				);
 			}
 		}	
@@ -161,6 +156,11 @@ public class TileMap {
 		return tileSet[rc].getType();
 	}
 	
+	public void unload() {
+		for(int i = 0; i < tileSet.length; i++) {
+			Texture.unload(tileSet[i].getText());
+		}
+	}
 }
 
 

@@ -1,7 +1,5 @@
 package migthycode.growth.Game.screen;
 
-import migthycode.growth.Game.utils.Render;
-
 public abstract class Screen{
 	
 	protected ScreenManager screenManager;
@@ -11,9 +9,12 @@ public abstract class Screen{
 		this.screenManager = screenManager;
 	}
 	
-	public void init() {}
+	public void load() {}
 	
-	public void display(Render render) {}
+	public void display() {}
 	
-	public void update() {}
+	public void update() {
+	}
+	
+	public void unload() {}
 }

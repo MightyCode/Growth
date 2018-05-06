@@ -14,6 +14,7 @@ import migthycode.growth.main.main;
 public class GameScreen extends Screen{
 	
 	private int screenState;
+	
 	public static final int NORMALSCREEN = 0;
 	public static final int TRANSITIONSCREEN = 1;
 	public static final int ESCAPESCREEN = 2;
@@ -43,15 +44,13 @@ public class GameScreen extends Screen{
 		tileMap = new TileMap(TILESIZE,"/maps/tileset.xml");
 		tileMap.setTween(1);		
 		
+		
 		// Init player
 		player = new Player(tileMap, TILESIZE,TILESIZE);
-	}
-	
-	public void init() {
-		player = new Player(tileMap, 50, 50);
 		// Player begin in the ground on Panel 1
 		player.setPosition(24*TILESIZE,6*TILESIZE - player.getCY()/2);
 		
+		// Set the position of map before the game
 		tileMap.setPosition(main.WIDTH / 2 - player.getPosX(),main.HEIGHT / 2 - player.getPosY());
 	}
 	
@@ -137,23 +136,23 @@ public class GameScreen extends Screen{
 	}
 	
 	/// Function to display the screen
-	public void display(Render render) {
+	public void display() {
 		// clear the framebuffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 		
 		switch(screenState) {
 		case NORMALSCREEN:
-			displayMap(render);
-			displayPlayer(render);
+			displayMap();
+			displayPlayer();
 			break;
 		case TRANSITIONSCREEN:
-			displayMap(render);
-			displayPlayer(render);
-			displayTransition(render);
+			displayMap();
+			displayPlayer();
+			displayTransition();
 			break;
 		case ESCAPESCREEN:
-			displayMap(render);
-			displayPlayer(render);
+			displayMap();
+			displayPlayer();
 			break;
 		case INVENTORYSCREEN:
 			break;
@@ -186,23 +185,19 @@ public class GameScreen extends Screen{
 		}*/
 	}
 	
-	public void displayMap(Render render) { tileMap.display(render); } // Draw map
+	public void displayMap() { tileMap.display(); } // Draw map
 	
-	public void displayPlayer(Render render) { 
-		player.display(render); 			
+	public void displayPlayer() { 
+		player.display(); 			
 	} // Draw player
 	
 	
-	public void displayTransition(Render render) { 
-		render.fill(0);
+	public void displayTransition() { 
 		if(transitionCounter <= transitionTime/2) {
-			render.setAlpha((float)UsefulFunction.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));			
+			Render.rect(0, 0, main.WIDTH, main.HEIGHT, 0, (float)UsefulFunction.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));	
 		} else {
-			render.setAlpha((float)UsefulFunction.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+			Render.rect(0, 0, main.WIDTH, main.HEIGHT, 0, (float)UsefulFunction.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
 		}
-		
-		render.rect(0, 0, main.WIDTH, main.HEIGHT);
-		render.setAlpha(1);
 	}
 	
 	public void changeMap(int side) {
@@ -210,5 +205,10 @@ public class GameScreen extends Screen{
 			transitionSide = side;			
 			screenState = TRANSITIONSCREEN;
 		}
+	}
+
+	public void unload() {
+		tileMap.unload();
+		player.unload();
 	}
 }

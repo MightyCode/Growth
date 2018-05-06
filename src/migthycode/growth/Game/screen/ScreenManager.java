@@ -1,48 +1,47 @@
 package migthycode.growth.Game.screen;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
-import migthycode.growth.Game.utils.Render;
-
 public class ScreenManager {
 	
-	private int screenDisplayed;
 	private long window;
-	private ArrayList <Screen> screen = new ArrayList<Screen>();
+	private Screen ActualScreen;
 	
 	public static final int MENUSCREEN = 0;
 	public static final int GAMESCREEN = 1;
 	
 	public ScreenManager(long window) {
 		this.window = window;
-		init();
-	}
-	
-	public void init() {
-		screen.add(new MenuScreen(this));
-		screen.add(new GameScreen(this));
-		
-		setScreen(GAMESCREEN);
+		ActualScreen = (new GameScreen(this));
 	}
 	
 	// Methode 
 	public void update() {
 		// On update la fenêtre souhaitée
-		screen.get(screenDisplayed).update();
+		ActualScreen.update();
 	}
 	
-	public void display(Render render) {
+	public void display() {
 		// On affiche la fenêtre souhaitée
-		screen.get(screenDisplayed).display(render);
+		ActualScreen.display();
 	}
 
 	public void setScreen(int newScreen) {
-		screenDisplayed = newScreen;	
-		screen.get(screenDisplayed).init();
+		unload();
+		switch(newScreen) {
+		case MENUSCREEN:
+			ActualScreen = (new MenuScreen(this));
+			break;
+		case GAMESCREEN:
+			ActualScreen = (new GameScreen(this));	
+			break;
+		}
 	}
 	
 	public long getWindow() {
 		return window;
+	}
+	
+	public void unload() {
+		ActualScreen.unload();
+		ActualScreen = null;
 	}
 }

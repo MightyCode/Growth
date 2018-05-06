@@ -13,17 +13,16 @@ import migthycode.growth.Game.tilemap.Tile;
 public class XmlReader {
 	public XmlReader() {
 		
-		
 	}
-	    public int[][] createMap(String map_Path) {
-    	
-	    	int[][] map;
+	
+	public static int[][] createMap(String map_Path) {
+		int[][] map;
 	    	
-	    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    	
 	    	try {
 				DocumentBuilder builder = factory.newDocumentBuilder();
-				Document document = builder.parse(getClass().getResourceAsStream(map_Path));
+				Document document = builder.parse(XmlReader.class.getResourceAsStream(map_Path));
 			    Element racine = document.getDocumentElement();
 				
 				// Récupérer tous les noeuds enfants de la racine
@@ -84,63 +83,62 @@ public class XmlReader {
 	    	return map;
 	    }
 	    
-		public boolean estUnEntier(String chaine) {
+		public static boolean estUnEntier(String chaine) {
 			try {
 				Integer.parseInt(chaine);
 			} catch (NumberFormatException e){
 				return false;
 			}
-	 
-			return true;
-	}
-	
-	public Tile[] createTileSet(String tilesetPath_Path){
-    	Tile[] tileset;
-    	
-    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    	
-    	try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(getClass().getResourceAsStream(tilesetPath_Path));
-		    Element racine = document.getDocumentElement();
-			
-			// Récupérer tous les noeuds enfants de la racine
-			final NodeList racineNoeuds1 = racine.getChildNodes();   
-
-			int nbRacineNoeuds = racine.getElementsByTagName("texture").getLength();
-			
-			tileset = new Tile[nbRacineNoeuds];
-			
-			Element layer;
-			int a = 0;
-			
-			for(int i = 1; a < nbRacineNoeuds; i++) {
-				if(racineNoeuds1.item(i).getNodeType() == Node.ELEMENT_NODE) 
-					layer = (Element) racineNoeuds1.item(i);
-				else {
-					i++;
-					layer = (Element) racineNoeuds1.item(i);
-				}
-				
-				tileset[a] = new Tile("/images/tiles/"+(layer.getAttribute("name")),Integer.parseInt(layer.getAttribute("type")));
-				a++;
-			}
-		    
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			tileset = null;
+		return true;
 		}
-    	return tileset;
-    }
+	
+		public static Tile[] createTileSet(String tilesetPath_Path){
+	    	Tile[] tileset;
+	    	
+	    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    	
+	    	try {
+				DocumentBuilder builder = factory.newDocumentBuilder();
+				Document document = builder.parse(XmlReader.class.getResourceAsStream(tilesetPath_Path));
+			    Element racine = document.getDocumentElement();
+				
+				// Récupérer tous les noeuds enfants de la racine
+				final NodeList racineNoeuds1 = racine.getChildNodes();   
+
+				int nbRacineNoeuds = racine.getElementsByTagName("texture").getLength();
+				
+				tileset = new Tile[nbRacineNoeuds];
+				
+				Element layer;
+				int a = 0;
+				
+				for(int i = 1; a < nbRacineNoeuds; i++) {
+					if(racineNoeuds1.item(i).getNodeType() == Node.ELEMENT_NODE) 
+						layer = (Element) racineNoeuds1.item(i);
+					else {
+						i++;
+						layer = (Element) racineNoeuds1.item(i);
+					}
+					
+					tileset[a] = new Tile("/images/tiles/"+(layer.getAttribute("name")),Integer.parseInt(layer.getAttribute("type")));
+					a++;
+				}
+			    
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				tileset = null;
+			}
+	    	return tileset;
+		}
     
-    public int[] createTimer(String path) {
+    public static int[] createTimer(String path) {
     	int[] wainting = null;
     	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     	
     	try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(getClass().getResourceAsStream(path + "config.xml"));
+			Document document = builder.parse(XmlReader.class.getResourceAsStream(path + "config.xml"));
 		    Element racine = document.getDocumentElement();
 			
 			// Récupérer tous les noeuds enfants de la racine

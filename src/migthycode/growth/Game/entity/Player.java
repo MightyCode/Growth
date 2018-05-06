@@ -8,7 +8,6 @@ import migthycode.growth.Game.utils.Animation;
 import migthycode.growth.Game.utils.Render;
 
 public class Player extends Entity {
-	
 	// player stuff
 	//private boolean dead;
 	
@@ -49,10 +48,10 @@ public class Player extends Entity {
 		
 		// Load animation and animationFrame
 		animationFrames = new ArrayList <Animation>();
-		animationFrames.add(new Animation(0,0,100));
-		animationFrames.add(new Animation(1,6,5));
-		animationFrames.add(new Animation(0,0,10));
-		animationFrames.add(new Animation(0,0,10));
+		animationFrames.add(new Animation("/images/character/idle/",1,100));
+		animationFrames.add(new Animation("/images/character/walk/",6,5));
+		animationFrames.add(new Animation("/images/character/idle/",1,10));
+		animationFrames.add(new Animation("/images/character/idle/",1,10));
 	}
 	
 	private void getNextPosition() {
@@ -140,15 +139,23 @@ public class Player extends Entity {
         animationFrames.get(animationPlayed).update();
 	}
 	
-	public void display(Render render) {
+	public void display() {
 		
 		// Set the map position 
 		setMapPosition();
 		// Draw animation left to right if the player go the the right and invert if the player go to the invert direction
 		if(facingRight) {
-			render.image((int)(posX + xMap - sizeX/2), (int)(posY + yMap - sizeY/2), sizeX, sizeY, "player", animationFrames.get(animationPlayed).getCurrentId());
+			Render.image(
+					(int)(posX + xMap - sizeX/2), 
+					(int)(posY + yMap - sizeY/2), 
+					sizeX, sizeY, 
+					animationFrames.get(animationPlayed).getCurrentId(), 1);
 		} else {
-			render.image((int)(posX + xMap - sizeX / 2 + sizeX), (int)(posY + yMap - sizeY/2), -sizeX, sizeY, "player", animationFrames.get(animationPlayed).getCurrentId());		
+			Render.image(
+					(int)(posX + xMap - sizeX / 2 + sizeX), 
+					(int)(posY + yMap - sizeY/2), 
+					-sizeX, sizeY,
+					animationFrames.get(animationPlayed).getCurrentId(), 1);		
 		}	
 	}	
 }

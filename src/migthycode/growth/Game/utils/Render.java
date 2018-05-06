@@ -5,43 +5,13 @@ import static org.lwjgl.opengl.GL13.*;
 
 import migthycode.growth.main.main;
 
-public class Render {
+public class Render {	
 	
-	private byte[] color;
-	private float alpha;
-	private Texture texture;
-	
-	public Render(Texture texture) {
-		alpha = 1;
-		//Set the color
-		color = new byte[3];
-		color[0] = (byte) 0;
-		color[1] = (byte) 0;
-		color[2] = (byte) 0;
-		this.texture = texture;
-		this.texture.init();
-	}
-	
-	public void fill(int color) {
-		this.color[0] = this.color[1] = this.color[2] = (byte)color;
-	}
-	
-	public void fill(int color1,int color2, int color3) {
-		color[0] = (byte)color1;
-		color[1] = (byte)color2;
-		color[2] = (byte)color3;
-	}
-	
-	public void image(int posX, int posY, int sizeX, int sizeY, String object, int textID) {
-		rect(posX,posY,sizeX,sizeY, textID, object);
-	}
-	
-	public void rect(int posX, int posY, int sizeX, int sizeY, int textId , String object) {
-			int text = texture.getId(object, textId);
+	public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float alpha) {
 			//System.out.println(textId + " ," + text);
 			int	newPosY = main.HEIGHT-posY - sizeY;
 			glActiveTexture(GL_TEXTURE0);
-	        glBindTexture(GL_TEXTURE_2D, text);
+	        glBindTexture(GL_TEXTURE_2D, textID);
 	        glColor4f(1.f,1.f,1.f,(float)alpha);
 	        
 	        glBegin(GL_QUADS);
@@ -59,11 +29,11 @@ public class Render {
 	       glEnd();
 	}
 	
-	public void rect(int posX, int posY, int sizeX, int sizeY) {
+	public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
 		int	newPosY = main.HEIGHT-posY - sizeY;
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_TEXTURE);
-		glColor4f(color[0], color[1], color[2], (float)alpha);
+		glColor4f(color, color, color, alpha);
 		glBegin(GL_QUADS);
 			glVertex2d(posX, newPosY);
 		    glVertex2d(posX+sizeX, newPosY);
@@ -74,7 +44,22 @@ public class Render {
 		glEnable(GL_TEXTURE);
 	}
 	
-	public void glEnable2D() {
+	public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
+		int	newPosY = main.HEIGHT-posY - sizeY;
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_TEXTURE);
+		glColor4f(color[0], color[1], color[2], alpha);
+		glBegin(GL_QUADS);
+			glVertex2d(posX, newPosY);
+		    glVertex2d(posX+sizeX, newPosY);
+			glVertex2d(posX+sizeX, newPosY + sizeY);
+			glVertex2d(posX, newPosY + sizeY);
+		glEnd();
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE);
+	}
+	
+	public static void glEnable2D() {
 		int[] vPort = new int[4];
 
 	   glGetIntegerv(GL_VIEWPORT, vPort);
@@ -89,12 +74,10 @@ public class Render {
 	   glLoadIdentity();
 	}
 
-	public void glDisable2D() {
+	public static void glDisable2D() {
 	   glMatrixMode(GL_PROJECTION);
 	   glPopMatrix();   
 	   glMatrixMode(GL_MODELVIEW);
 	   glPopMatrix();	
 	}
-	
-	public void setAlpha(float i) { alpha = i; }
 }

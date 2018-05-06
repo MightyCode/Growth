@@ -7,6 +7,7 @@ import migthycode.growth.Game.tilemap.Tile;
 import migthycode.growth.Game.tilemap.TileMap;
 import migthycode.growth.Game.utils.Animation;
 import migthycode.growth.Game.utils.Render;
+import migthycode.growth.Game.utils.Texture;
 import migthycode.growth.main.main;
 
 public abstract class Entity {
@@ -220,7 +221,16 @@ public abstract class Entity {
 	
 	// Animation method to draw a collision box
 	public void displayCollisionBox(Render render) {
-		render.rect((int)(posX - cX/2 + xMap),(int) (posY - cY/2  + yMap), cX, cY);
+		Render.rect((int)(posX - cX/2 + xMap),(int) (posY - cY/2  + yMap), cX, cY,0,1);
+	}
+	
+	public void unload() {
+		for(int i = 0; i < animationFrames.size(); i++) {
+			int[] textID = animationFrames.get(i).getTextID();
+			for(int j = 0; j < textID.length; j++) {
+				Texture.unload(textID[j]);
+			}
+		}
 	}
 }
 

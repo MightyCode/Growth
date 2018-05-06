@@ -2,37 +2,34 @@ package migthycode.growth.Game.utils;
 
 public class Animation {
 	
-	private int begin, end, range;
 	private int actual;
 	private int delay;
-	private int count1;
+	private int count;
+	private int[] textID;
 	
-	public Animation(int begin, int end) {
-		this.begin = begin;
-		this.end = end;
-		this.range = begin + 1 - end;
-	}
-	
-	public Animation(int begin, int end, int delay) {
-		this.begin = begin;
-		this.end = end;
-		this.range = begin + 1 - end;
+	public Animation(String path, int numbAnimation, int delay) {
+		textID = new int[numbAnimation];
+		for(int i = 0; i < numbAnimation; i++) {
+			textID[i] = Texture.loadTexture((path+Integer.toString(i)+".png"));
+		}
 		this.delay = delay;
-		actual = begin;
 	}
 	
 	public void update() {
-		count1++;
-		if(count1 > delay) { 
-			count1 = 0;
+		count++;
+		if(count > delay) { 
+			count = 0;
 			actual++;
-			if(actual >= end) {
+			if(actual >= textID.length) {
 				actual = 0;
 			}
 		}
 	}
 	
-	public int getCurrentId() { return begin + actual; }
+	public int getCurrentId() { return textID[actual]; }
+	public int[] getTextID() {
+		return textID;
+	}
 }
 
 

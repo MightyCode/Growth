@@ -1,9 +1,35 @@
 package migthycode.growth.main;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL.*;
+import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
+import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
+import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
+import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
+import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
+import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
+import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
+import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
+import static org.lwjgl.glfw.GLFW.glfwInit;
+import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
+import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
+import static org.lwjgl.glfw.GLFW.glfwTerminate;
+import static org.lwjgl.glfw.GLFW.glfwWindowHint;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.opengl.GL.createCapabilities;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -16,7 +42,6 @@ import org.lwjgl.system.MemoryStack;
 
 import migthycode.growth.Game.screen.ScreenManager;
 import migthycode.growth.Game.utils.Render;
-import migthycode.growth.Game.utils.Texture;
 
 public class main {
 
@@ -111,14 +136,11 @@ public class main {
 		screenManager = new ScreenManager(window);
 		
 		glEnable(GL_TEXTURE_2D);
-		render = new Render(new Texture());
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 	}
 	
 	private void loop() {
-		
-
 		// Set the clear color
 		glClearColor(255,255,255,255);
 
@@ -130,14 +152,13 @@ public class main {
 		int fps;
 		int tps;
 		
-		render.glEnable2D();
+		Render.glEnable2D();
 		
 		int counter = 0;
 		start = System.nanoTime();
 		while ( !glfwWindowShouldClose(window) ) {
-			//if()
 			screenManager.update();
-			screenManager.display(render);
+			screenManager.display();
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be
@@ -150,9 +171,9 @@ public class main {
 				start = System.nanoTime();
 				counter = 0;
 			}
-			
 			counter++;
 		}
+		screenManager.unload();
 	}
 
 	public static void main(String[] args) {
