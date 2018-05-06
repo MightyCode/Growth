@@ -40,13 +40,8 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryStack;
 
-<<<<<<< HEAD
-import migthycode.growth.game.screen.ScreenManager;
-import migthycode.growth.game.utils.Render;
-=======
 import migthycode.growth.Game.screen.ScreenManager;
 import migthycode.growth.Game.utils.Render;
->>>>>>> 9e481669f80556e816edcf3a609ab5e1efa104a7
 
 public class main {
 
