@@ -33,9 +33,8 @@ public class XmlReader {
 				layer = (Element) racineNoeuds1.item(i);
 			}
 
-			while (!layer.getNodeName().equals("layer")) {
+			while (!(layer.getNodeName().equals("layer"))) {
 				if (racineNoeuds1.item(i).getNodeType() == Node.ELEMENT_NODE) layer = (Element) racineNoeuds1.item(i);
-
 				i++;
 			}
 
@@ -59,7 +58,7 @@ public class XmlReader {
 
 				while (counter2 < width) {
 
-					while (estUnEntier(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+					while (!iSInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
 						System.out.println(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
 						x = 1;
 						numberOfCharacterRead++;
@@ -69,7 +68,7 @@ public class XmlReader {
 					numberOfCharacterRead++;
 					x *= 10;
 
-					if(estUnEntier(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+					if(!iSInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
 						x = 1;
 						numberOfCharacterRead++;
 						counter2++;
@@ -86,51 +85,51 @@ public class XmlReader {
 		return map;
 	}
 
-	private static boolean estUnEntier(String string) {
+	private static boolean iSInteger(String string) {
 		try {
 			Integer.parseInt(string);
+			return true;
 		} catch (NumberFormatException e) {
 			return false;
 		}
-		return true;
 	}
 
 	public static Tile[] createTileSet(String tilesetPath_Path) {
-        Tile[] tileset;
+		Tile[] tileset;
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-        try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(XmlReader.class.getResourceAsStream(tilesetPath_Path));
-            Element racine = document.getDocumentElement();
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(XmlReader.class.getResourceAsStream(tilesetPath_Path));
+			Element racine = document.getDocumentElement();
 
-            // Récupérer tous les noeuds enfants de la racine
-            final NodeList racineNoeuds1 = racine.getChildNodes();
+			// Récupérer tous les noeuds enfants de la racine
+			final NodeList racineNoeuds1 = racine.getChildNodes();
 
-            int nbRacineNoeuds = racine.getElementsByTagName("texture").getLength();
+			int nbRacineNoeuds = racine.getElementsByTagName("texture").getLength();
 
-            tileset = new Tile[nbRacineNoeuds];
+			tileset = new Tile[nbRacineNoeuds];
 
-            Element layer;
-            int a = 0;
+			Element layer;
+			int a = 0;
 
-            for (int i = 1; a < nbRacineNoeuds; i++) {
-                if (racineNoeuds1.item(i).getNodeType() == Node.ELEMENT_NODE)
-                    layer = (Element) racineNoeuds1.item(i);
-                else {
-                    i++;
-                    layer = (Element) racineNoeuds1.item(i);
-                }
+			for (int i = 1; a < nbRacineNoeuds; i++) {
+				if (racineNoeuds1.item(i).getNodeType() == Node.ELEMENT_NODE)
+					layer = (Element) racineNoeuds1.item(i);
+				else {
+					i++;
+					layer = (Element) racineNoeuds1.item(i);
+				}
 
-                tileset[a] = new Tile("/images/tiles/" + (layer.getAttribute("name")), Integer.parseInt(layer.getAttribute("type")));
-                a++;
-            }
+				tileset[a] = new Tile("/images/tiles/" + (layer.getAttribute("name")), Integer.parseInt(layer.getAttribute("type")));
+				a++;
+			}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            tileset = null;
-        }
-        return tileset;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			tileset = null;
+		}
+		return tileset;
+	}
 }
