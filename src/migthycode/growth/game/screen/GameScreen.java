@@ -11,22 +11,26 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class GameScreen extends Screen {
 
+    public static final int TILESIZE = 64;
+
+    // State of game screen
+    private int screenState;
     private static final int NORMALSCREEN = 0;
     private static final int TRANSITIONSCREEN = 1;
     private static final int ESCAPESCREEN = 2;
     private static final int INVENTORYSCREEN = 3;
     private static final int DEATHSCREEN = 4;
-    public static final int TILESIZE = 64;
-    private int screenState;
+
     // Number of frames to finish a transition between two panels
     private final int transitionTime;
     // The counter to transition
     private int transitionCounter;
     private int transitionSide;
     private final TileMap tileMap;
-    // CONSTRUCTOR
+
     private final Player player;
 
+    // CONSTRUCTOR
     GameScreen(ScreenManager screenManager) {
         super(screenManager);
 
