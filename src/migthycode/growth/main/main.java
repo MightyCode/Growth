@@ -21,7 +21,6 @@ public class main {
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 720;
     public static final int SCALE = 1;
-    public Render render;
     // The window handle
     private long window;
     private ScreenManager screenManager;
