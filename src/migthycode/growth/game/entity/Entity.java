@@ -2,8 +2,8 @@ package migthycode.growth.game.entity;
 
 import migthycode.growth.game.tilemap.Tile;
 import migthycode.growth.game.tilemap.TileMap;
-import migthycode.growth.game.utils.Animation;
-import migthycode.growth.game.utils.Texture;
+import migthycode.growth.game.render.Animation;
+import migthycode.growth.game.render.Texture;
 import java.util.ArrayList;
 
 public abstract class Entity {

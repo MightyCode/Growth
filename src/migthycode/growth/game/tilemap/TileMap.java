@@ -1,7 +1,7 @@
 package migthycode.growth.game.tilemap;
 
-import migthycode.growth.game.utils.Render;
-import migthycode.growth.game.utils.Texture;
+import migthycode.growth.game.render.Render;
+import migthycode.growth.game.render.Texture;
 import migthycode.growth.game.utils.XmlReader;
 import migthycode.growth.main.Growth;
 

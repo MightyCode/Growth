@@ -1,6 +1,6 @@
 package migthycode.growth.game.tilemap;
 
-import migthycode.growth.game.utils.Texture;
+import migthycode.growth.game.render.Texture;
 
 public class Tile {
 

@@ -1,7 +1,7 @@
 package migthycode.growth.main;
 
 import migthycode.growth.game.screen.ScreenManager;
-import migthycode.growth.game.utils.Render;
+import migthycode.growth.game.render.Render;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;

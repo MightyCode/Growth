@@ -2,8 +2,8 @@ package migthycode.growth.game.entity;
 
 import migthycode.growth.game.screen.GameScreen;
 import migthycode.growth.game.tilemap.TileMap;
-import migthycode.growth.game.utils.Animation;
-import migthycode.growth.game.utils.Render;
+import migthycode.growth.game.render.Animation;
+import migthycode.growth.game.render.Render;
 
 import java.util.ArrayList;
 

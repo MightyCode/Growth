@@ -2,8 +2,8 @@ package migthycode.growth.game.screen;
 
 import migthycode.growth.game.entity.Player;
 import migthycode.growth.game.tilemap.TileMap;
-import migthycode.growth.game.utils.Render;
-import migthycode.growth.game.utils.UsefulFunctions;
+import migthycode.growth.game.render.Render;
+import migthycode.growth.game.utils.Math;
 import migthycode.growth.main.Growth;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -185,10 +185,10 @@ public class GameScreen extends Screen {
     private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
             Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0,
-                    (float) UsefulFunctions.map(transitionCounter,
+                    (float) Math.map(transitionCounter,
                             0, transitionTime / 2, 0, 1.5));
         } else {
-            Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0, (float) UsefulFunctions.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+            Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
         }
     }
 
