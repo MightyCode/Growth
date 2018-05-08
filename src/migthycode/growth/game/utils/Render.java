@@ -1,6 +1,6 @@
 package migthycode.growth.game.utils;
 
-import migthycode.growth.main.main;
+import migthycode.growth.main.Growth;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
@@ -10,10 +10,10 @@ public class Render {
 
 	public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float alpha) {
 		//System.out.println(textId + " ," + text);
-		int newPosY = main.HEIGHT - posY - sizeY;
+		int newPosY = Growth.HEIGHT - posY - sizeY;
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textID);
-		glColor4f(1.f, 1.f, 1.f, (float) alpha);
+		glColor4f(1.f, 1.f, 1.f, alpha);
 
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.f, 1.f);
@@ -31,7 +31,7 @@ public class Render {
 	}
 
 	public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
-		int newPosY = main.HEIGHT - posY - sizeY;
+		int newPosY = Growth.HEIGHT - posY - sizeY;
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_TEXTURE);
 		glColor4f(color, color, color, alpha);
@@ -45,8 +45,8 @@ public class Render {
 		glEnable(GL_TEXTURE);
 	}
 
-	public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
-		int newPosY = main.HEIGHT - posY - sizeY;
+	/*public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
+		int newPosY = Growth.HEIGHT - posY - sizeY;
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_TEXTURE);
 		glColor4f(color[0], color[1], color[2], alpha);
@@ -58,7 +58,7 @@ public class Render {
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_TEXTURE);
-	}
+	}*/
 
 	public static void glEnable2D() {
 		int[] vPort = new int[4];
@@ -75,10 +75,10 @@ public class Render {
 		glLoadIdentity();
 	}
 
-	public static void glDisable2D() {
+	/*public static void glDisable2D() {
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
-	}
+	}*/
 }

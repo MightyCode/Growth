@@ -4,22 +4,22 @@ import migthycode.growth.game.entity.Player;
 import migthycode.growth.game.tilemap.TileMap;
 import migthycode.growth.game.utils.Render;
 import migthycode.growth.game.utils.UsefulFunctions;
-import migthycode.growth.main.main;
+import migthycode.growth.main.Growth;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class GameScreen extends Screen {
 
-    public static final int NORMALSCREEN = 0;
-    public static final int TRANSITIONSCREEN = 1;
-    public static final int ESCAPESCREEN = 2;
-    public static final int INVENTORYSCREEN = 3;
-    public static final int DEATHSCREEN = 4;
+    private static final int NORMALSCREEN = 0;
+    private static final int TRANSITIONSCREEN = 1;
+    private static final int ESCAPESCREEN = 2;
+    private static final int INVENTORYSCREEN = 3;
+    private static final int DEATHSCREEN = 4;
     public static final int TILESIZE = 64;
     private int screenState;
     // Number of frames to finish a transition between two panels
-    private int transitionTime;
+    private final int transitionTime;
     // The counter to transition
     private int transitionCounter;
     private int transitionSide;
@@ -27,7 +27,7 @@ public class GameScreen extends Screen {
     // CONSTRUCTOR
     private Player player;
 
-    public GameScreen(ScreenManager screenManager) {
+    GameScreen(ScreenManager screenManager) {
         super(screenManager);
 
         // Init screen vars
@@ -46,7 +46,7 @@ public class GameScreen extends Screen {
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
 
         // Set the position of map before the game
-        tileMap.setPosition(main.WIDTH / 2 - player.getPosX(), main.HEIGHT / 2 - player.getPosY());
+        tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
     }
 
     public void update() {
@@ -81,10 +81,10 @@ public class GameScreen extends Screen {
         mouseY = MouseInfo.getPointerInfo().getLocation().getY()-21;*/
     }
 
-    public void updatePlayer() {
+    private void updatePlayer() {
         // update player
         player.update();
-        tileMap.setPosition(main.WIDTH / 2 - player.getPosX(), main.HEIGHT / 2 - player.getPosY());
+        tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
 
         // Check border player collision to change the map
         //System.out.println(player.getPosX()-10);
@@ -95,7 +95,7 @@ public class GameScreen extends Screen {
         }
     }
 
-    public void updateKeys() {
+    private void updateKeys() {
         // Key update
         if (glfwGetKey(screenManager.getWindow(), GLFW_KEY_W) == 1) player.setJumping(true);
         else player.setJumping(false);
@@ -113,18 +113,16 @@ public class GameScreen extends Screen {
         else player.setSprint(false);
     }
 
-    public void updateTransition() {
+    private void updateTransition() {
         transitionCounter++;
-        if (transitionCounter == (int) transitionTime / 2) {
+        if (transitionCounter == transitionTime / 2) {
             double[] pos;
             pos = tileMap.setActualMap(transitionSide);
             System.out.println("newPosX :" + pos[0]);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            tileMap.setPosition(main.WIDTH / 2 - player.getPosX(), main.HEIGHT / 2 - player.getPosY());
+            tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
             player.setSpeed(0, 0);
-        }
-
-        if (transitionCounter > transitionTime) {
+        } else if (transitionCounter > transitionTime) {
             screenState = NORMALSCREEN;
             transitionCounter = 0;
         }
@@ -137,17 +135,14 @@ public class GameScreen extends Screen {
 
         switch (screenState) {
             case NORMALSCREEN:
-                displayMap();
-                displayPlayer();
+                displayGame();
                 break;
             case TRANSITIONSCREEN:
-                displayMap();
-                displayPlayer();
+                displayGame();
                 displayTransition();
                 break;
             case ESCAPESCREEN:
-                displayMap();
-                displayPlayer();
+                displayGame();
                 break;
             case INVENTORYSCREEN:
                 break;
@@ -180,25 +175,25 @@ public class GameScreen extends Screen {
 		}*/
     }
 
-    public void displayMap() {
+    private void displayGame() {
+        // Draw map
         tileMap.display();
-    } // Draw map
-
-    public void displayPlayer() {
+        // Draw player
         player.display();
-    } // Draw player
+    }
 
-
-    public void displayTransition() {
+    private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
-            Render.rect(0, 0, main.WIDTH, main.HEIGHT, 0, (float) UsefulFunctions.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));
+            Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0,
+                    (float) UsefulFunctions.map(transitionCounter,
+                            0, transitionTime / 2, 0, 1.5));
         } else {
-            Render.rect(0, 0, main.WIDTH, main.HEIGHT, 0, (float) UsefulFunctions.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+            Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0, (float) UsefulFunctions.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
         }
     }
 
-    public void changeMap(int side) {
-        if (tileMap.getNeightbour(side) != 0) {
+    private void changeMap(int side) {
+        if (tileMap.getNeighbour(side) != 0) {
             transitionSide = side;
             screenState = TRANSITIONSCREEN;
         }

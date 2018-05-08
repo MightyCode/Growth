@@ -3,7 +3,7 @@ package migthycode.growth.game.tilemap;
 import migthycode.growth.game.utils.Render;
 import migthycode.growth.game.utils.Texture;
 import migthycode.growth.game.utils.XmlReader;
-import migthycode.growth.main.main;
+import migthycode.growth.main.Growth;
 
 import java.util.ArrayList;
 
@@ -11,35 +11,35 @@ import java.util.ArrayList;
 public class TileMap {
 
 	// position
-	private double x;
-	private double y;
+	private double posX;
+	private double posY;
 
 	// bounds
-	private int xmin;
-	private int ymin;
-	private int xmax;
-	private int ymax;
+	private int xMin;
+	private int yMin;
+	private final int xMax;
+	private final int yMax;
 
 	private double tween;
 
 	// map
 	private int actualMap;
 	private int[][] map;
-	private ArrayList<Map> maps = new ArrayList<Map>();
-	private int tileSize;
+	private final ArrayList<Map> maps = new ArrayList<>();
+	private final int tileSize;
 	private int numRows;
 	private int numCols;
 	private int width;
 	private int height;
 
 	// tileset
-	private Tile[] tileSet;
+	private final Tile[] tileSet;
 
 	// drawing
 	private int rowOffset;
 	private int colOffset;
-	private int numRowsToDraw;
-	private int numColsToDraw;
+	private final int numRowsToDraw;
+	private final int numColsToDraw;
 
 	public TileMap(int tileSize, String path2) {
 		this.tileSize = tileSize;
@@ -67,8 +67,8 @@ public class TileMap {
 		numCols = map[0].length;
 		numRows = map.length;
 
-		numRowsToDraw = main.HEIGHT / tileSize + 2;
-		numColsToDraw = main.WIDTH / tileSize + 2;
+		numRowsToDraw = Growth.HEIGHT / tileSize + 2;
+		numColsToDraw = Growth.WIDTH / tileSize + 2;
 		tween = 1;
 
 		tileSet = XmlReader.createTileSet(path2);
@@ -76,10 +76,10 @@ public class TileMap {
 		width = numCols * tileSize;
 		height = numRows * tileSize;
 
-		xmin = main.WIDTH - width;
-		xmax = 0;
-		ymin = main.HEIGHT - height;
-		ymax = 0;
+		xMin = Growth.WIDTH - width;
+		xMax = 0;
+		yMin = Growth.HEIGHT - height;
+		yMax = 0;
 	}
 
 	public void display() {
@@ -93,8 +93,8 @@ public class TileMap {
 				if (map[row][col] == 0) continue;
 
 				Render.image(
-						(int) x + col * tileSize,
-						(int) y + row * tileSize,
+						(int) posX + col * tileSize,
+						(int) posY + row * tileSize,
 						tileSize, tileSize, tileSet[map[row][col] - 1].getText(), 1
 				);
 			}
@@ -113,8 +113,8 @@ public class TileMap {
 		width = numCols * tileSize;
 		height = numRows * tileSize;
 
-		xmin = main.WIDTH - width;
-		ymin = main.HEIGHT - height;
+		xMin = Growth.WIDTH - width;
+		yMin = Growth.HEIGHT - height;
 
 		double[] newPos = new double[2];
 		if (side == 1) {
@@ -131,20 +131,20 @@ public class TileMap {
 	}
 
 	public void setPosition(double x, double y) {
-		this.x += (x - this.x) * tween;
-		this.y += (y - this.y) * tween;
+		this.posX += (x - this.posX) * tween;
+		this.posY += (y - this.posY) * tween;
 
 		fixBounds();
 
-		colOffset = (int) -this.x / tileSize;
-		rowOffset = (int) -this.y / tileSize;
+		colOffset = (int) -this.posX / tileSize;
+		rowOffset = (int) -this.posY / tileSize;
 	}
 
 	private void fixBounds() {
-		if (x < xmin) x = xmin;
-		if (y < ymin) y = ymin;
-		if (x > xmax) x = xmax;
-		if (y > ymax) y = ymax;
+		if (posX < xMin) posX = xMin;
+		if (posY < yMin) posY = yMin;
+		if (posX > xMax) posX = xMax;
+		if (posY > yMax) posY = yMax;
 	}
 
 	/**
@@ -162,23 +162,19 @@ public class TileMap {
 		return tileSize;
 	}
 
-	public int getx() {
-		return (int) x;
+	public int getPosX() {
+		return (int) posX;
 	}
 
-	public int gety() {
-		return (int) y;
+	public int getPosY() {
+		return (int) posY;
 	}
 
 	public int getWidth() {
 		return width;
 	}
 
-	public int getHeight() {
-		return height;
-	}
-
-	public int getNeightbour(int side) {
+	public int getNeighbour(int side) {
 		return maps.get(actualMap - 1).getNeighbour(side);
 	}
 
@@ -189,8 +185,8 @@ public class TileMap {
 	}
 
 	public void unload() {
-		for (int i = 0; i < tileSet.length; i++) {
-			Texture.unload(tileSet[i].getText());
+		for (Tile set : tileSet) {
+			Texture.unload(set.getText());
 		}
 	}
 }

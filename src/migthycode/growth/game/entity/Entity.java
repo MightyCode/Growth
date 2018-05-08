@@ -3,92 +3,86 @@ package migthycode.growth.game.entity;
 import migthycode.growth.game.tilemap.Tile;
 import migthycode.growth.game.tilemap.TileMap;
 import migthycode.growth.game.utils.Animation;
-import migthycode.growth.game.utils.Render;
 import migthycode.growth.game.utils.Texture;
-import migthycode.growth.main.main;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Entity {
 
 	// Tile stuff
-	protected TileMap tileMap;
-	protected int tileSize;
-	protected double xMap;
-	protected double yMap;
+	private final TileMap tileMap;
+	private int tileSize;
+	double xMap;
+	double yMap;
 
 	// Position and vector
-	protected double posX;
-	protected double posY;
-	protected double speedX;
-	protected double speedY;
+	double posX;
+	double posY;
+	double speedX;
+	double speedY;
 
 	// Dimensions of entity
-	protected int sizeX;
-	protected int sizeY;
+	int sizeX;
+	int sizeY;
 
 	// Collision box
-	protected int cX;
-	protected int cY;
+	int cX;
+	int cY;
 
-	// Collision
-	protected int currRow;
-	protected int currCol;
-	protected double xDest;
-	protected double yDest;
-	protected double xTemp;
-	protected double yTemp;
-	protected boolean topLeft;
-	protected boolean topRight;
-	protected boolean bottomLeft;
-	protected boolean bottomRight;
+	private int currCol;
+	private double xDest;
+	private double yDest;
+	double xTemp;
+	double yTemp;
+	private boolean topLeft;
+	private boolean topRight;
+	private boolean bottomLeft;
+	private boolean bottomRight;
 
 	// Animation
-	protected ArrayList<Animation> animationFrames;
-	protected int currentAction;
-	protected int previousAction;
-	protected boolean facingRight;
-	protected boolean dCollisionBox;
+	ArrayList<Animation> animationFrames;
+	int animationPlayed;
+	boolean facingRight;
+	boolean dCollisionBox;
 
 	// Movement
-	protected boolean left;
-	protected boolean right;
-	protected boolean down;
-	protected boolean jumping;
-	protected boolean falling;
-	protected boolean sprint;
+	boolean left;
+	boolean right;
+	private boolean down;
+	boolean jumping;
+	boolean falling;
+	boolean sprint;
 
 	// Movement attributes
-	protected double walkSpeed;
-	protected double runSpeed; // Coefficient
-	protected double maxSpeed;
-	protected double stopSpeed;
-	protected double fallSpeed;
-	protected double maxFallSpeed;
-	protected double jumpStart;
-	protected double stopJumpSpeed;
+	double walkSpeed;
+	double runSpeed; // Coefficient
+	double maxSpeed;
+	double stopSpeed;
+	double fallSpeed;
+	double maxFallSpeed;
+	double jumpStart;
+	double stopJumpSpeed;
 
 	// Constructor
-	public Entity(TileMap tm) {
+	Entity(TileMap tm) {
 		tileMap = tm;
 		tileSize = tm.getTileSize();
 	}
 
 	// Test if a Entity meet another Entity
-	public boolean intersects(Entity o) {
+	/*public boolean intersects(Entity o) {
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
 		// Call the function intersects of Rectangle
 		return r1.intersects(r2);
-	}
+	}*/
 
 	// Check the collision between the Entity and tileMap
-	public void checkTileMapCollision() {
+	void checkTileMapCollision() {
 
 		// Get position of player in the grid
 		currCol = (int) posX / tileSize;
-		currRow = (int) posY / tileSize;
+		// Collision
+		int currRow = (int) posY / tileSize;
 
 		// Next position
 		xDest = posX + speedX;
@@ -109,7 +103,7 @@ public abstract class Entity {
 			}
 
 			if (yDest - cY / 2 < 0) {
-				yTemp = 0 + cY / 2;
+				yTemp = cY / 2;
 				speedY = 0;
 			}
 		} else if (speedY > 0) {
@@ -133,7 +127,7 @@ public abstract class Entity {
 			}
 
 			if (xDest - cX / 2 < 0) {
-				xTemp = 0 + cX / 2;
+				xTemp = cX / 2;
 				speedX = 0;
 			}
 
@@ -155,7 +149,7 @@ public abstract class Entity {
 	}
 
 	// Calculate corners of the Entity
-	public void calculateCorners(double x, double y) {
+	private void calculateCorners(double x, double y) {
 
 		int leftTile = (int) (x - cX / 2) / tileSize;
 		int rightTile = (int) (x + cX / 2 - 1) / tileSize;
@@ -179,35 +173,18 @@ public abstract class Entity {
 		bottomRight = br == Tile.BLOCKED;
 	}
 
-	// Getting methods
-	public int getPosX() {
-		return (int) posX;
-	}
-
-	public int getPosY() {
-		return (int) posY;
-	}
-
-	public int getSizeX() {
-		return sizeX;
-	}
-
-	public int getSizeY() {
-		return sizeY;
-	}
-
-	public int getCX() {
-		return cX;
-	}
-
-	public int getCY() {
-		return cY;
-	}
+	/*
+	* Getters
+	 */
+	public int getPosX() { return (int) posX; }
+	public int getPosY() { return (int) posY; }
+	public int getCX() { return cX; }
+	public int getCY() { return cY; }
 
 	// Get the rectangle of Entity
-	public Rectangle getRectangle() {
+	/*private Rectangle getRectangle() {
 		return new Rectangle((int) posX - cX, (int) posY - cY, cX, cY);
-	}
+	}*/
 
 	// Setting methods
 	public void setPosition(double posX, double posY) {
@@ -220,49 +197,32 @@ public abstract class Entity {
 		this.speedY = speedY;
 	}
 
-	public void setMapPosition() {
-		xMap = tileMap.getx();
-		yMap = tileMap.gety();
+	void setMapPosition() {
+		xMap = tileMap.getPosX();
+		yMap = tileMap.getPosY();
 	}
-
-	public void setLeft(boolean b) {
-		left = b;
-	}
-
-	public void setRight(boolean b) {
-		right = b;
-	}
-
-	public void setDown(boolean b) {
-		down = b;
-	}
-
-	public void setJumping(boolean b) {
-		jumping = b;
-	}
-
-	public void setSprint(boolean b) {
-		sprint = b;
-	}
+	/*
+	*Setters
+	 */
+	public void setLeft(boolean b) { left = b; }
+	public void setRight(boolean b) { right = b; }
+	public void setDown(boolean b) { down = b; }
+	public void setJumping(boolean b) { jumping = b; }
+	public void setSprint(boolean b) { sprint = b; }
 
 	// Test if the Entity is on screen
-	public boolean notOnScreen() {
+	/*public boolean notOnScreen() {
 		return posX + xMap + sizeX < 0 ||
-				posX + xMap - sizeX > main.WIDTH ||
+				posX + xMap - sizeX > Growth.WIDTH ||
 				posY + yMap + sizeY < 0 ||
-				posY + yMap - sizeY > main.HEIGHT;
-	}
-
-	// Animation method to draw a collision box
-	public void displayCollisionBox(Render render) {
-		Render.rect((int) (posX - cX / 2 + xMap), (int) (posY - cY / 2 + yMap), cX, cY, 0, 1);
-	}
+				posY + yMap - sizeY > Growth.HEIGHT;
+	}*/
 
 	public void unload() {
-		for (int i = 0; i < animationFrames.size(); i++) {
-			int[] textID = animationFrames.get(i).getTextID();
-			for (int j = 0; j < textID.length; j++) {
-				Texture.unload(textID[j]);
+		for(Animation animation: animationFrames) {
+			int[] textID = animation.getTextID();
+			for(int text: textID) {
+				Texture.unload(text);
 			}
 		}
 	}

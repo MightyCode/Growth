@@ -12,13 +12,10 @@ public class Player extends Entity {
 	//private boolean dead;
 
 	// Animation actions
-	private int animationPlayed;
     private static final int IDLE = 0;
     private static final int WALKING = 1;
     private static final int JUMPING = 2;
     private static final int FALLING = 3;
-    /*private static final int ATTACKING = 0;
-    private static final int FIRING = 0;*/
 
 	public Player(TileMap tm, int sizeX, int sizeY) {
 		// Call mother constructor
@@ -47,7 +44,7 @@ public class Player extends Entity {
 		animationPlayed = 0;
 
 		// Load animation and animationFrame
-		animationFrames = new ArrayList<Animation>();
+		animationFrames = new ArrayList<>();
 		animationFrames.add(new Animation("/images/character/idle/", 1, 100));
 		animationFrames.add(new Animation("/images/character/walk/", 6, 5));
 		animationFrames.add(new Animation("/images/character/idle/", 1, 10));

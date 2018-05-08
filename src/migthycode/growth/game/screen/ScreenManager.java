@@ -1,11 +1,10 @@
 package migthycode.growth.game.screen;
 
-
 public class ScreenManager {
 
     public static final int MENUSCREEN = 0;
-    public static final int GAMESCREEN = 1;
-    private long window;
+    private static final int GAMESCREEN = 1;
+    private final long window;
     private Screen ActualScreen;
 
     public ScreenManager(long window) {
@@ -13,14 +12,13 @@ public class ScreenManager {
         ActualScreen = (new GameScreen(this));
     }
 
-    // Methode
     public void update() {
-        // On update la fenêtre souhaitée
+        // Update the good window
         ActualScreen.update();
     }
 
     public void display() {
-        // On affiche la fenêtre souhaitée
+        // Display the good window
         ActualScreen.display();
     }
 
@@ -36,7 +34,7 @@ public class ScreenManager {
         }
     }
 
-    public long getWindow() {
+    long getWindow() {
         return window;
     }
 

@@ -57,7 +57,7 @@ public class XmlReader {
                 // For all rows
 				while (counter2 < width) {
 
-					while (!isInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+					while (notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
 						System.out.println(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
 						x = 1;
 						numberOfCharacterRead++;
@@ -67,7 +67,7 @@ public class XmlReader {
 					numberOfCharacterRead++;
 					x *= 10;
 
-					if(!isInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+					if(notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
 						x = 1;
 						numberOfCharacterRead++;
 						counter2++;
@@ -84,12 +84,12 @@ public class XmlReader {
 		}
 	}
 
-	private static boolean isInteger(String string) {
+	private static boolean notInteger(String string) {
 		try {
 			Integer.parseInt(string);
-			return true;
-		} catch (NumberFormatException e) {
 			return false;
+		} catch (NumberFormatException e) {
+			return true;
 		}
 	}
 

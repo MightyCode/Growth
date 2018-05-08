@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
+import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -16,22 +17,21 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-public class main {
+public class Growth {
 
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 720;
-    public static final int SCALE = 1;
-    // The window handle
+
+    // WindowID
     private long window;
     private ScreenManager screenManager;
-    private int TPS = 60;
-    private long targetTime = 1000 / TPS;
+    private static final int TPS = 60;
 
     public static void main(String[] args) {
-        new main().run();
+        new Growth().run();
     }
 
-    public void run() {
+    private void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
         init();
@@ -43,7 +43,7 @@ public class main {
 
         // Terminate GLFW and free the error callback
         glfwTerminate();
-        glfwSetErrorCallback(null).free();
+        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
     private void init() {
@@ -88,7 +88,7 @@ public class main {
             // Center the window
             glfwSetWindowPos(
                     window,
-                    (vidmode.width() - pWidth.get(0)) / 2,
+                    (Objects.requireNonNull(vidmode).width() - pWidth.get(0)) / 2,
                     (vidmode.height() - pHeight.get(0)) / 2
             );
         } // the stack frame is popped automatically
@@ -97,7 +97,7 @@ public class main {
         glfwMakeContextCurrent(window);
 
         // Enable v-sync
-        glfwSwapInterval(1);
+        //glfwSwapInterval(1);
 
         // Make the window visible
         glfwShowWindow(window);
@@ -115,35 +115,38 @@ public class main {
     private void loop() {
         // Set the clear color
         glClearColor(255, 255, 255, 255);
+        Render.glEnable2D();
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         long start;
-        long elapsed;
         long wait;
-        int fps;
-        int tps;
+        int fps = 0;
+        int tps = 0;
+        long seconde = System.nanoTime();
+        wait = 1000000000/TPS;
+        start = 0;
 
-        Render.glEnable2D();
-
-        int counter = 0;
-        start = System.nanoTime();
         while (!glfwWindowShouldClose(window)) {
-            screenManager.update();
+            long now = System.nanoTime();
+            if(now - start > wait){
+                screenManager.update();
+                start = System.nanoTime();
+                tps++;
+            }
+
             screenManager.display();
+            fps++;
             glfwSwapBuffers(window); // swap the color buffers
 
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
-
-            elapsed = System.nanoTime() - start;
-            if (elapsed > 1000000000) {
-                System.out.println(counter);
-                start = System.nanoTime();
-                counter = 0;
+            if(seconde + 1000000000 < System.nanoTime()){
+                System.out.println("FPS : " + fps + " ,TPS : " + tps);
+                fps = tps = 0;
+                seconde = System.nanoTime();
             }
-            counter++;
         }
         screenManager.unload();
     }

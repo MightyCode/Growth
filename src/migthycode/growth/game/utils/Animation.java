@@ -3,9 +3,9 @@ package migthycode.growth.game.utils;
 public class Animation {
 
 	private int actual;
-	private int delay;
+	private final int delay;
 	private int count;
-	private int[] textID;
+	private final int[] textID;
 
 	public Animation(String path, int numbAnimation, int delay) {
 		textID = new int[numbAnimation];
