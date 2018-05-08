@@ -146,13 +146,13 @@ public class Player extends Entity {
 					(int) (posX + xMap - sizeX / 2),
 					(int) (posY + yMap - sizeY / 2),
 					sizeX, sizeY,
-					animationFrames.get(animationPlayed).getCurrentId(), 1);
+					animationFrames.get(animationPlayed).getCurrentID(), 1);
 		} else {
 			Render.image(
 					(int) (posX + xMap - sizeX / 2 + sizeX),
 					(int) (posY + yMap - sizeY / 2),
 					-sizeX, sizeY,
-					animationFrames.get(animationPlayed).getCurrentId(), 1);
+					animationFrames.get(animationPlayed).getCurrentID(), 1);
 		}
 	}
 }

@@ -6,16 +6,21 @@ public class Tile {
 
     // Tile types
     public static final int BLOCKED = 1;
-    private final int textId;
+    private final Texture texture;
     private final int type;
 
     public Tile(String path, int type) {
         this.type = type;
-        textId = Texture.loadTexture(path);
+        texture = new Texture();
+        texture.load(path);
     }
 
-    int getText() {
-        return textId;
+    Texture getTexture() {
+        return texture;
+    }
+
+    int getTextureID() {
+        return texture.getID();
     }
 
     int getType() {

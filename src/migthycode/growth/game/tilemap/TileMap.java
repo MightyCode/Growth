@@ -94,15 +94,17 @@ public class TileMap {
 				Render.image(
 						(int) posX + col * tileSize,
 						(int) posY + row * tileSize,
-						tileSize, tileSize, tileSet[map[row][col] - 1].getText(), 1
+						tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 1
 				);
 			}
 		}
 	}
 
-	/**
-	 * Setters
-	 **/
+
+	//
+	// Setters
+	//
+
 	public double[] setActualMap(int side) {
 		actualMap = maps.get(actualMap - 1).getNeighbour(side);
 		map = maps.get(actualMap - 1).getMap();
@@ -146,9 +148,11 @@ public class TileMap {
 		if (posY > yMax) posY = yMax;
 	}
 
-	/**
-	 * Getters
-	 **/
+
+	//
+	// Getters
+	//
+
 	public int getNumRows() {
 		return numRows;
 	}
@@ -184,8 +188,8 @@ public class TileMap {
 	}
 
 	public void unload() {
-		for (Tile set : tileSet) {
-			Texture.unload(set.getText());
+		for (Tile tile : tileSet) {
+			tile.getTexture().unload();
 		}
 	}
 }

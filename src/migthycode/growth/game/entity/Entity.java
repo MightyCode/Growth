@@ -221,9 +221,9 @@ public abstract class Entity {
 
 	public void unload() {
 		for(Animation animation: animationFrames) {
-			int[] textID = animation.getTextID();
-			for(int text: textID) {
-				Texture.unload(text);
+			Texture[] textures = animation.getTextures();
+			for(Texture texture: textures) {
+				texture.unload();
 			}
 		}
 	}

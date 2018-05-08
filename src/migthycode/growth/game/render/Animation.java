@@ -7,12 +7,13 @@ public class Animation {
 	private int actual;
 	private final int delay;
 	private int count;
-	private final int[] textID;
+	private final Texture[] textures;
 
 	public Animation(String path, int numbAnimation, int delay) {
-		textID = new int[numbAnimation];
+		textures = new Texture[numbAnimation];
 		for (int i = 0; i < numbAnimation; i++) {
-			textID[i] = Texture.loadTexture((path + Integer.toString(i) + ".png"));
+			textures[i] = new Texture();
+			textures[i].load((path + Integer.toString(i) + ".png"));
 		}
 		this.delay = delay;
 	}
@@ -22,33 +23,17 @@ public class Animation {
 		if (count > delay) {
 			count = 0;
 			actual++;
-			if (actual >= textID.length) {
+			if (actual >= textures.length) {
 				actual = 0;
 			}
 		}
 	}
 
-	public int getCurrentId() {
-		return textID[actual];
+	public int getCurrentID() {
+		return textures[actual].getID();
 	}
 
-	public int[] getTextID() {
-		return textID;
+	public Texture[] getTextures() {
+		return textures;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
