@@ -5,36 +5,33 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class XmlReader {
 
 	public static int[][] createMap(String map_Path) {
-		int[][] map;
-
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(XmlReader.class.getResourceAsStream(map_Path));
-			Element racine = document.getDocumentElement();
+			Element root = document.getDocumentElement();
 
-			// Récupérer tout les noeuds enfants de la racine
-			final NodeList racineNoeuds1 = racine.getChildNodes();
+			// Get all child nodes of the root
+            NodeList rootNode = root.getChildNodes();
 
 			int i = 0;
 			Element layer;
 
-			if (racineNoeuds1.item(i).getNodeType() == Node.ELEMENT_NODE) layer = (Element) racineNoeuds1.item(i);
+			if (rootNode.item(i).getNodeType() == Node.ELEMENT_NODE) layer = (Element) rootNode.item(i);
 			else {
 				i++;
-				layer = (Element) racineNoeuds1.item(i);
+				layer = (Element) rootNode.item(i);
 			}
 
 			while (!(layer.getNodeName().equals("layer"))) {
-				if (racineNoeuds1.item(i).getNodeType() == Node.ELEMENT_NODE) layer = (Element) racineNoeuds1.item(i);
+				if (rootNode.item(i).getNodeType() == Node.ELEMENT_NODE) layer = (Element) rootNode.item(i);
 				i++;
 			}
 
@@ -44,21 +41,23 @@ public class XmlReader {
 			int width = Integer.parseInt(layer.getAttribute("width"));
 			int height = Integer.parseInt(layer.getAttribute("height"));
 
-			map = new int[height][width];
+			int[][] map = new int[height][width];
 
 			String sMap = data.getTextContent();
 
-			// Traduction de la map
+			// Map converting from String to int[][]
 			int counter1 = 0;
 			int numberOfCharacterRead = 1;
 
+			// For all cols
 			while (counter1 < height) {
 				int x = 1;
 				int counter2 = 0;
 
+                // For all rows
 				while (counter2 < width) {
 
-					while (!iSInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+					while (!isInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
 						System.out.println(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
 						x = 1;
 						numberOfCharacterRead++;
@@ -68,7 +67,7 @@ public class XmlReader {
 					numberOfCharacterRead++;
 					x *= 10;
 
-					if(!iSInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+					if(!isInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
 						x = 1;
 						numberOfCharacterRead++;
 						counter2++;
@@ -77,15 +76,16 @@ public class XmlReader {
 				counter1++;
 				numberOfCharacterRead++;
 			}
+
+			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
-			map = null;
+            int[][] map = null;
+            return map;
 		}
-
-		return map;
 	}
 
-	private static boolean iSInteger(String string) {
+	private static boolean isInteger(String string) {
 		try {
 			Integer.parseInt(string);
 			return true;
@@ -94,42 +94,40 @@ public class XmlReader {
 		}
 	}
 
-	public static Tile[] createTileSet(String tilesetPath_Path) {
-		Tile[] tileset;
-
+	public static Tile[] createTileSet(String tileSetPath) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream(tilesetPath_Path));
-			Element racine = document.getDocumentElement();
+			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSetPath));
+			Element root = document.getDocumentElement();
 
-			// Récupérer tous les noeuds enfants de la racine
-			final NodeList racineNoeuds1 = racine.getChildNodes();
+            // Get all child nodes of the root
+            NodeList rootNode = root.getChildNodes();
 
-			int nbRacineNoeuds = racine.getElementsByTagName("texture").getLength();
+			int nbNodes = root.getElementsByTagName("texture").getLength();
 
-			tileset = new Tile[nbRacineNoeuds];
+            Tile[] tileSet = new Tile[nbNodes];
 
 			Element layer;
 			int a = 0;
 
-			for (int i = 1; a < nbRacineNoeuds; i++) {
-				if (racineNoeuds1.item(i).getNodeType() == Node.ELEMENT_NODE)
-					layer = (Element) racineNoeuds1.item(i);
+			for (int i = 1; a < nbNodes; i++) {
+				if (rootNode.item(i).getNodeType() == Node.ELEMENT_NODE)
+					layer = (Element) rootNode.item(i);
 				else {
 					i++;
-					layer = (Element) racineNoeuds1.item(i);
+					layer = (Element) rootNode.item(i);
 				}
 
-				tileset[a] = new Tile("/images/tiles/" + (layer.getAttribute("name")), Integer.parseInt(layer.getAttribute("type")));
+				tileSet[a] = new Tile("/images/tiles/" + (layer.getAttribute("name")), Integer.parseInt(layer.getAttribute("type")));
 				a++;
 			}
-
+            return tileSet;
 		} catch (Exception e) {
 			e.printStackTrace();
-			tileset = null;
+            Tile[] tileSet = null;
+            return tileSet;
 		}
-		return tileset;
 	}
 }
