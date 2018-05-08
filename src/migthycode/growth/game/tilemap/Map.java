@@ -5,9 +5,9 @@ import migthycode.growth.game.utils.XmlReader;
 class Map {
 
 	private final int[] idMapNeighbour = new int[4];
-	private double[][] tileToCome = new double[4][2];
+	private final double[][] tileToCome = new double[4][2];
 
-	private int[][] map;
+	private final int[][] map;
 
 	Map(String path, int left, int up, int right, int down) {
 		map = XmlReader.createMap("/maps/" + path);

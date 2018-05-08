@@ -10,7 +10,7 @@ public abstract class Entity {
 
 	// Tile stuff
 	private final TileMap tileMap;
-	private int tileSize;
+	private final int tileSize;
 	double xMap;
 	double yMap;
 
@@ -28,6 +28,8 @@ public abstract class Entity {
 	int cX;
 	int cY;
 
+	// Collision
+	private int currRow;
 	private int currCol;
 	private double xDest;
 	private double yDest;
@@ -81,8 +83,7 @@ public abstract class Entity {
 
 		// Get position of player in the grid
 		currCol = (int) posX / tileSize;
-		// Collision
-		int currRow = (int) posY / tileSize;
+		currRow = (int) posY / tileSize;
 
 		// Next position
 		xDest = posX + speedX;

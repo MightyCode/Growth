@@ -7,7 +7,7 @@ public class Tile {
     // Tile types
     public static final int BLOCKED = 1;
     private final int textId;
-    private int type;
+    private final int type;
 
     public Tile(String path, int type) {
         this.type = type;

@@ -23,9 +23,9 @@ public class GameScreen extends Screen {
     // The counter to transition
     private int transitionCounter;
     private int transitionSide;
-    private TileMap tileMap;
+    private final TileMap tileMap;
     // CONSTRUCTOR
-    private Player player;
+    private final Player player;
 
     GameScreen(ScreenManager screenManager) {
         super(screenManager);

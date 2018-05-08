@@ -2,7 +2,7 @@ package migthycode.growth.game.screen;
 
 public class ScreenManager {
 
-    public static final int MENUSCREEN = 0;
+    private static final int MENUSCREEN = 0;
     private static final int GAMESCREEN = 1;
     private final long window;
     private Screen ActualScreen;
