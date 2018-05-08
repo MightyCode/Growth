@@ -1,7 +1,11 @@
 package migthycode.growth.game.render;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -66,36 +70,42 @@ public class Texture {
     /**
      * Load a texture from a file.
      */
-    public void load(String path) throws RuntimeException {
+    public void load(String path) {
         id = glGenTextures();
         loaded = true;
 
-        ByteBuffer image;
+        try {
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(path));
+            int[] pixels = new int[image.getHeight() * image.getWidth()];
 
-        try (MemoryStack stack = stackPush()) {
-            IntBuffer w = stack.mallocInt(1);
-            IntBuffer h = stack.mallocInt(1);
-            IntBuffer comp = stack.mallocInt(1);
+            image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
-            stbi_set_flip_vertically_on_load(true);
+            ByteBuffer buffer = BufferUtils.createByteBuffer(image.getHeight() * image.getWidth() * 4);
 
-            image = stbi_load(getClass().getResource(path).getFile(), w, h, comp, 4);
-
-            if (image == null) {
-                throw new RuntimeException("Failed to load a texture file!" + System.lineSeparator() + stbi_failure_reason());
+            for (int i = 0; i < image.getHeight(); i++) {
+                for (int j = 0; j < image.getWidth(); j++) {
+                    int pixel = pixels[i * image.getWidth() + j];
+                    buffer.put((byte) ((pixel >> 16) & 0xFF)); // RED
+                    buffer.put((byte) ((pixel >> 8) & 0xFF)); // GREEN
+                    buffer.put((byte) (pixel & 0xFF)); // BLUE
+                    buffer.put((byte) ((pixel >> 24) & 0xFF)); // ALPHA
+                }
             }
 
-            stbi_image_free(image);
+            buffer.flip();
 
-            this.width = w.get();
-            this.height = h.get();
+            this.width = image.getWidth();
+            this.height = image.getHeight();
 
             setParam(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
             setParam(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
             setParam(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
             setParam(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-            upload(image);
+            upload(buffer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            unload();
         }
     }
 
