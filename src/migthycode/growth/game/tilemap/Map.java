@@ -10,7 +10,7 @@ class Map {
 	private final int[][] map;
 
 	Map(String path, int left, int up, int right, int down) {
-		map = XmlReader.createMap("/maps/" + path);
+		map = XmlReader.createMap("/map/" + path);
 		idMapNeighbour[0] = left;
 		idMapNeighbour[1] = up;
 		idMapNeighbour[2] = right;

@@ -36,7 +36,7 @@ public class GameScreen extends Screen {
         transitionCounter = 0;
 
         // Init tileMap
-        tileMap = new TileMap(TILESIZE, "/maps/tileset.xml");
+        tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
         tileMap.setTween(1);
 
 
@@ -87,7 +87,6 @@ public class GameScreen extends Screen {
         tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
 
         // Check border player collision to change the map
-        //System.out.println(player.getPosX()-10);
         if (player.getPosX() - player.getCX() / 2 <= 0) {
             changeMap(1);
         } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getWidth()) {
@@ -118,7 +117,6 @@ public class GameScreen extends Screen {
         if (transitionCounter == transitionTime / 2) {
             double[] pos;
             pos = tileMap.setActualMap(transitionSide);
-            System.out.println("newPosX :" + pos[0]);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
             tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
             player.setSpeed(0, 0);

@@ -7,14 +7,13 @@ import migthycode.growth.main.Growth;
 
 import java.util.ArrayList;
 
-
 public class TileMap {
 
-	// position
+	// Position
 	private double posX;
 	private double posY;
 
-	// bounds
+	// Bounds
 	private int xMin;
 	private int yMin;
 	private final int xMax;
@@ -22,7 +21,7 @@ public class TileMap {
 
 	private double tween;
 
-	// map
+	// Map
 	private int actualMap;
 	private int[][] map;
 	private final ArrayList<Map> maps = new ArrayList<>();
@@ -32,10 +31,10 @@ public class TileMap {
 	private int width;
 	private int height;
 
-	// tileset
+	// Tileset
 	private final Tile[] tileSet;
 
-	// drawing
+	// Drawing
 	private int rowOffset;
 	private int colOffset;
 	private final int numRowsToDraw;
