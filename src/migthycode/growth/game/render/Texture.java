@@ -1,23 +1,18 @@
 package migthycode.growth.game.render;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.system.MemoryStack;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
-import static org.lwjgl.stb.STBImage.*;
-import static org.lwjgl.system.MemoryStack.stackPush;
 
 /**
  * Basic texture class.
  * This class is the most basic texture class possible. It holds a OpenGL Texture.
- * <p>
+ *
  * Warning : Don't forget to use the clean() function when you do not use that texture anymore.
  *
  * @author yoctoctet
@@ -63,7 +58,7 @@ public class Texture {
         if (isTextureLoaded()) {
             glBindTexture(GL_TEXTURE_2D, id);
         } else {
-            // TODO: Handle Exception
+            System.err.println("[Error] Texture::bind() Binding a unloaded texture.");
         }
     }
 
@@ -115,12 +110,8 @@ public class Texture {
      * @param image Image to upload.
      */
     private void upload(ByteBuffer image) {
-        if (isTextureLoaded()) {
-            bind();
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-        } else {
-            // TODO: Handle Exception
-        }
+        bind();
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     }
 
     /**
@@ -130,12 +121,8 @@ public class Texture {
      * @param value Parameter value.
      */
     private void setParam(int param, int value) {
-        if (isTextureLoaded()) {
-            bind();
-            glTexParameteri(GL_TEXTURE_2D, param, value);
-        } else {
-            // TODO: Handle Exception
-        }
+        bind();
+        glTexParameteri(GL_TEXTURE_2D, param, value);
     }
 
     /**
@@ -146,7 +133,7 @@ public class Texture {
             glDeleteTextures(id);
             loaded = false;
         } else {
-            // TODO: Handle Exception
+            System.err.println("[Error] Texture::unload() Unloading an already unloaded texture.");
         }
     }
 
