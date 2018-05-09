@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2018. yoctoctet - All Rights Reserved.
+ * You may use, distribute and modify this code under the terms of the
+ * GNU GPLv3 License.
+ *
+ * You should have received a copy of the GNU GPLv3 License with this
+ * file. If not, please visit  https://www.gnu.org/licenses/gpl-3.0.fr.html.
+ */
+
 package migthycode.growth.game.render;
 
 import org.lwjgl.BufferUtils;
@@ -16,7 +25,6 @@ import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
  * Warning : Don't forget to use the clean() function when you do not use that texture anymore.
  *
  * @author yoctoctet
- * created on 2018/05/08
  * @version 1.0
  */
 public class Texture {
