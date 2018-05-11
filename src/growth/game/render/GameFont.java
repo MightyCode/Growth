@@ -13,8 +13,8 @@ import static org.lwjgl.opengl.GL11.glRotatef;
 
 public class GameFont {
     private Texture[] charactersp, characterso;
-    private HashMap<String, IntObject> charlistp = new HashMap<String, IntObject>();
-    private HashMap<String, IntObject> charlisto = new HashMap<String, IntObject>();
+    private HashMap<String, IntObject> charlistp = new HashMap<>();
+    private HashMap<String, IntObject> charlisto = new HashMap<>();
     private int kerneling;
     private int fontsize = 32;
     private Font font;
@@ -64,7 +64,6 @@ public class GameFont {
             charactersp[i] = new Texture(image);
 
             charlistp.put(String.valueOf(ch), new IntObject(i));
-
         }
     }
 
@@ -229,10 +228,10 @@ public class GameFont {
             glDisable(GL_LIGHTING);
         }
 
-        glTranslatef(x, y, z);
+        /*glTranslatef(x, y, z);
         glRotatef(rotxpass,1,0,0);
         glRotatef(rotypass,0,1,0);
-        glRotatef(rotzpass,0,0,1);
+        glRotatef(rotzpass,0,0,1);*/
         float totalwidth = 0;
         if (centered) {
             totalwidth = -realwidth/2f;
@@ -243,6 +242,7 @@ public class GameFont {
             drawtexture(charactersp[k],fontsizeratio,totalwidth, 0, color, rotxpass, rotypass, rotzpass);
             totalwidth += (charactersp[k].getWidth()*fontsizeratio + tempkerneling);
         }
+
         if (islightingon) {
             glEnable(GL_LIGHTING);
         }
@@ -300,7 +300,7 @@ public class GameFont {
         if (centered) {
             totalwidth = -realwidth/2f;
         }
-        for (int i=0; i < whatchars.length(); i++) {
+        for (int i = 0; i < whatchars.length(); i++) {
             String tempstr = whatchars.substring(i,i+1);
             ko = ((charlisto.get(tempstr))).charnum;
             drawtexture(characterso[ko],fontsizeratio,totalwidth,0,outlinecolor, rotxpass, rotypass, rotzpass);
@@ -308,7 +308,7 @@ public class GameFont {
             k = ((charlistp.get(tempstr))).charnum;
             xoffset = (characterso[k].getWidth() - charactersp[k].getWidth())*fontsizeratio/2f;
             yoffset = (characterso[k].getHeight() - charactersp[k].getHeight())*fontsizeratio/2f;
-            drawtexture(charactersp[k],fontsizeratio,totalwidth + xoffset,yoffset,color, rotxpass, rotypass, rotzpass);
+            drawtexture(charactersp[k],fontsizeratio,totalwidth + xoffset,20,color, rotxpass, rotypass, rotzpass);
             totalwidth += ((characterso[k].getWidth()*fontsizeratio) + tempkerneling);
         }
         if (islightingon) {
@@ -324,32 +324,7 @@ public class GameFont {
         // Get the appropriate measurements from the texture itself
         float imgwidth = texture.getWidth() * ratio;
         float imgheight = -texture.getHeight() * ratio;
-        float texwidth = texture.getWidth();
-        float texheight = texture.getHeight();
-
-        // Bind the texture
-        texture.bind();
-
-        // translate to the right location
-        glColor4f(color,color,color, 1);
-
-        // draw a quad with to place the character onto
-        glBegin(GL_QUADS);
-        {
-            glTexCoord2f(0, 0);
-            glVertex2f(0 + x, 0 - y);
-
-            glTexCoord2f(0, texheight);
-            glVertex2f(0 + x, imgheight - y);
-
-            glTexCoord2f(texwidth, texheight);
-            glVertex2f(imgwidth + x,imgheight - y);
-
-            glTexCoord2f(texwidth, 0);
-            glVertex2f(imgwidth + x,0 - y);
-        }
-        glEnd();
-
+        Render.image((int)x, (int)y, (int)imgwidth, (int)imgheight, texture.getID(),1);
     }
 
     /*

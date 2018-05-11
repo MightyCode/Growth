@@ -9,7 +9,6 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 public class Render {
 
 	public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float alpha) {
-		//System.out.println(textId + " ," + text);
 		int newPosY = Growth.HEIGHT - posY - sizeY;
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textID);

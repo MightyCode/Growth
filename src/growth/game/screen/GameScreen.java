@@ -165,8 +165,18 @@ public class GameScreen extends Screen {
         tileMap.display();
         // Draw player
         player.display();
-        ScreenManager.MONOFONTO.drawText("hello, world!", 22, 20, 680, 0, 0, 0, 0, 0, false);
+
+        ScreenManager.MONOFONTO.drawText("hello, world!", 22,
+                20, 680,
+                0, 0,
+                0, 0, 0, false);
+
+        ScreenManager.MONOFONTO.drawText("hello, world!", 22,
+                500, 20,
+                0, 255,
+                0, 0, 0, false);
     }
+
 	
     /**
     * Display the transition between two map

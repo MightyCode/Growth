@@ -122,7 +122,6 @@ public class Texture {
 
             image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
             System.out.println(id + " :" + (image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth())));
-            System.out.println(id + " :" + (image.getRGB(0, 0)));
             ByteBuffer buffer = BufferUtils.createByteBuffer(image.getHeight() * image.getWidth() * 4);
 
             for (int i = 0; i < image.getHeight(); i++) {
