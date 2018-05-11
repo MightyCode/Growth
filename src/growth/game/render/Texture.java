@@ -70,6 +70,22 @@ public class Texture {
     }
 
     /**
+     * Texture surcharge class constructor.
+     * Instance the class and set the texture with the path.
+     */
+    public Texture(String path) {
+        load(path);
+    }
+
+    /**
+     * Texture surcharge class constructor.
+     * Instance the class and set the texture with the bufferedImage.
+     */
+    public Texture(BufferedImage image) {
+        createImage(image);
+    }
+
+    /**
      * Bind the loaded texture.
      */
     public void bind() {
@@ -81,14 +97,27 @@ public class Texture {
     }
 
     /**
-     * Load a texture from a file.
+     * Load a bufferedImage from a file.
      */
     public void load(String path) {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(path));
+            createImage(image);
+        } catch (Exception e) {
+            e.printStackTrace();
+            unload();
+        }
+    }
+
+
+    /**
+     * Load a texture from a bufferedImage.
+     */
+    public void createImage(BufferedImage image) {
         id = glGenTextures();
         loaded = true;
 
         try {
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(path));
             int[] pixels = new int[image.getHeight() * image.getWidth()];
 
             image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
@@ -171,5 +200,23 @@ public class Texture {
      */
     public int getID() {
         return id;
+    }
+
+    /**
+     * Return texture width.
+     *
+     * @return width
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Return texture height
+     *
+     * @return height
+     */
+    public int getHeight() {
+        return height;
     }
 }

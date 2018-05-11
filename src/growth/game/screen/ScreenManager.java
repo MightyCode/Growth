@@ -1,12 +1,16 @@
 package growth.game.screen;
 
+import growth.game.render.GameFont;
+
 public class ScreenManager {
 
-    private static final int MENUSCREEN = 0;
-    private static final int GAMESCREEN = 1;
-    private final long window;
-
     private Screen ActualScreen;
+    public static final int MENUSCREEN = 0;
+    public static final int GAMESCREEN = 1;
+
+    public static final GameFont MONOFONTO = new GameFont("/font/monofonto.ttf",16,0);
+
+    private final long window;
 
     public ScreenManager(long window) {
         this.window = window;
@@ -42,5 +46,6 @@ public class ScreenManager {
     public void unload() {
         ActualScreen.unload();
         ActualScreen = null;
+        MONOFONTO.unload();
     }
 }
