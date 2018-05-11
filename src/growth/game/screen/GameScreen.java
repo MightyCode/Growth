@@ -35,7 +35,7 @@ public class GameScreen extends Screen {
         super(screenManager);
 
         // Init screen vars
-        screenState = NORMALSCREEN;
+        gameState = NORMALSCREEN;
         transitionTime = 40;
         transitionCounter = 0;
 
@@ -72,8 +72,8 @@ public class GameScreen extends Screen {
             case DEATHSCREEN:
                 break;
             default:
-                updateKeys();
-                updatePlayer();
+                updateGameKeys();
+                updateGame();
                 break;
         }
     }
