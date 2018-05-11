@@ -13,8 +13,8 @@ public class GameScreen extends Screen {
 
     public static final int TILESIZE = 64;
 
-    // State of game screen
-    private int screenState;
+    // State of game
+    private int gameState;
     private static final int NORMALSCREEN = 0;
     private static final int TRANSITIONSCREEN = 1;
     private static final int ESCAPESCREEN = 2;
@@ -52,12 +52,15 @@ public class GameScreen extends Screen {
         // Set the position of map before the game
         tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
     }
-
+     
+    /**
+    * Update the screen in terms of the game's state.
+    */
     public void update() {
-        switch (screenState) {
+        switch (gameState) {
             case NORMALSCREEN:
-                updateKeys();
-                updatePlayer();
+                updateGameKeys();
+                updateGame();
                 break;
             case TRANSITIONSCREEN:
                 updateTransition();
@@ -73,20 +76,13 @@ public class GameScreen extends Screen {
                 updatePlayer();
                 break;
         }
-		
-		/*} else {
-		if (buttonSelected < 0) {
-			buttonSelected = button.length-1;
-		} else if (buttonSelected > button.length-1){
-			buttonSelected = 0;
-		}
-		
-        mouseX = MouseInfo.getPointerInfo().getLocation().getX();
-        mouseY = MouseInfo.getPointerInfo().getLocation().getY()-21;*/
     }
-
-    private void updatePlayer() {
-        // update player
+    
+    /**
+    * Update the player and the map.
+    */	
+    private void updateGame() {
+        // Update player
         player.update();
         tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
 
@@ -97,8 +93,11 @@ public class GameScreen extends Screen {
             changeMap(3);
         }
     }
-
-    private void updateKeys() {
+	
+    /**
+    * Update the key in game.
+    */	
+    private void updateGameKeys() {
         // Key update
         if (glfwGetKey(screenManager.getWindow(), GLFW_KEY_W) == 1) player.setJumping(true);
         else player.setJumping(false);
@@ -115,27 +114,33 @@ public class GameScreen extends Screen {
         if (glfwGetKey(screenManager.getWindow(), GLFW_KEY_LEFT_SHIFT) == 1) player.setSprint(true);
         else player.setSprint(false);
     }
-
+	
+    /**
+    * Update the transition between two maps.
+    */	
     private void updateTransition() {
         transitionCounter++;
         if (transitionCounter == transitionTime / 2) {
+	    // Set the new position of the player in the new map
             double[] pos;
             pos = tileMap.setActualMap(transitionSide);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
             tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
-            screenState = NORMALSCREEN;
+            gameState = NORMALSCREEN;
             transitionCounter = 0;
         }
     }
 
-    /// Function to display the screen
+    /**
+    * Display the screen in terms of the game'state
+    */	
     public void display() {
         // clear the framebuffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        switch (screenState) {
+        switch (gameState) {
             case NORMALSCREEN:
                 displayGame();
                 break;
@@ -151,39 +156,21 @@ public class GameScreen extends Screen {
             case DEATHSCREEN:
                 break;
         }
-		
-		/*if(pause) {
-			// Draw global black background
-			graphics.drawImage(pauseBg, 0, 0, GamePanel.WIDTH, GamePanel.HEIGHT, null);
-			// Draw pause background
-			graphics.drawImage(
-					pauseBg,
-					(int)GamePanel.WIDTH/5,
-					(int)GamePanel.HEIGHT/5,
-					(int)(GamePanel.WIDTH - GamePanel.WIDTH/2.5),
-					(int)(GamePanel.HEIGHT - GamePanel.HEIGHT/2.5),
-					null);
-			
-			Render.drawStringCenter(graphics, "Pause", titleFont,  GamePanel.WIDTH/2, GamePanel.HEIGHT/5);
-			//graphics.drawOval((int)mouseX - 50, (int)mouseY -50 , 100, 100);
-			
-			for(int i = 0; i < button.length ; i++) {
-				if(buttonSelected == i) {
-					Render.drawStringCenter(graphics,button[i], buttonSelectedFont, GamePanel.WIDTH/2,GamePanel.HEIGHT/2 + 100*i);
-				} else {
-					Render.drawStringCenter(graphics,button[i], buttonFont, GamePanel.WIDTH/2,GamePanel.HEIGHT/2 + 100*i);;
-				}
-			}
-		}*/
     }
-
+    
+    /**
+    * Display the map and the player
+    */	
     private void displayGame() {
         // Draw map
         tileMap.display();
         // Draw player
         player.display();
     }
-
+	
+    /**
+    * Display the transition between two map
+    */	
     private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
             Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0,
@@ -194,13 +181,19 @@ public class GameScreen extends Screen {
         }
     }
 
+    /**
+    * Set the change when the player touch a screen'edge
+    */	
     private void changeMap(int side) {
         if (tileMap.getNeighbour(side) != 0) {
             transitionSide = side;
-            screenState = TRANSITIONSCREEN;
+            gameState = TRANSITIONSCREEN;
         }
     }
 
+    /**
+    * Unload the texture to free memory
+    */		
     public void unload() {
         tileMap.unload();
         player.unload();
