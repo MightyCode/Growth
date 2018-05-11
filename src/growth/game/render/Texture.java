@@ -67,7 +67,6 @@ public class Texture {
      * Texture class constructor. Empty.
      */
     public Texture() {
-
     }
 
     /**

@@ -5,6 +5,7 @@ public class ScreenManager {
     private static final int MENUSCREEN = 0;
     private static final int GAMESCREEN = 1;
     private final long window;
+
     private Screen ActualScreen;
 
     public ScreenManager(long window) {
