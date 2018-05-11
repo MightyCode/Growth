@@ -43,7 +43,6 @@ public class GameScreen extends Screen {
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
         tileMap.setTween(1);
 
-
         // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
         // Player begin in the ground on Panel 1

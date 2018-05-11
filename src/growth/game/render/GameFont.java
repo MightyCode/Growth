@@ -1,7 +1,5 @@
 package growth.game.render;
 
-import growth.game.screen.ScreenManager;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -76,7 +74,7 @@ public class GameFont {
     private void createOutlineSet() {
         characterso = new Texture[256];
 
-        for(int i=0;i<256;i++) {
+        for(int i = 0; i < 256; i++) {
             char ch = (char)i;
 
             BufferedImage image = getOutlineFontImage(ch);
