@@ -6,7 +6,14 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-public class TextureRenderer {
+/**
+ * Texture rendering abstract class.
+ * This class is only call by the Render class to display texture with gl11 technicals.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
+public abstract class TextureRenderer {
 
     /**
      * Display an image.

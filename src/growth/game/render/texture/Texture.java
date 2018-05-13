@@ -40,19 +40,19 @@ import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
  */
 public class Texture {
     /**
-     * texture ID.
+     * Texture ID.
      * This variable contains the OpenGL texture ID, generated in the class constructor.
      */
     private int id;
 
     /**
-     * texture Width.
+     * Texture Width.
      * This variable contains the width of the loaded texture.
      */
     private int width;
 
     /**
-     * texture Width.
+     * Texture Width.
      * This variable contains the width of the loaded texture.
      */
     private int height;
@@ -64,13 +64,13 @@ public class Texture {
     private boolean loaded;
 
     /**
-     * texture class constructor. Empty.
+     * Texture class constructor. Empty.
      */
     public Texture() {
     }
 
     /**
-     * texture surcharge class constructor.
+     * Texture surcharge class constructor.
      * Instance the class and set the texture with the path.
      *
      * @param path path to file's image to load.
@@ -80,7 +80,7 @@ public class Texture {
     }
 
     /**
-     * texture surcharge class constructor.
+     * Texture surcharge class constructor.
      * Instance the class and set the texture with the bufferedImage.
      *
      * @param image BufferedImage to load.
