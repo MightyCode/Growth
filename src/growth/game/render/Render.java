@@ -1,38 +1,57 @@
 package growth.game.render;
 
-import growth.game.render.Font.FontRender;
-import growth.game.render.Font.GameFont;
-import growth.game.render.Shape.ShapeRender;
-import growth.game.render.Texture.TextureRender;
+import growth.game.render.shape.ShapeRenderer;
+import growth.game.render.texture.TextureRenderer;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Render {
-
+public abstract class Render {
 
 	/**
-	 * Definition of methods call in different ...Render
+	 * Display an image.
+	 *
+	 * @param posX Position x of the top-left corner image.
+	 * @param posY Position y of the top-left corner image.
+	 * @param sizeX Image's width.
+	 * @param sizeY Image's height.
+	 * @param textID ID of the image.
+	 * @param alpha Opacity of the image.
 	 */
 	public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float alpha) {
-		TextureRender.image(posX, posY, sizeX, sizeY, textID, alpha);
+		TextureRenderer.image(posX, posY, sizeX, sizeY, textID, alpha);
 	}
 
+	/**
+	 * Display an black shades rectangle.
+	 *
+	 * @param posX Position x of the top-left corner image.
+	 * @param posY Position y of the top-left corner image.
+	 * @param sizeX Image's width.
+	 * @param sizeY Image's height.
+	 * @param color Black shades colour.
+	 * @param alpha Opacity of the image.
+	*/
 	public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
-		ShapeRender.rect(posX,posY,sizeX,sizeY,color,alpha);
+		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
 	}
 
+	/**
+	 * Display an multicolour rectangle.
+	 *
+	 * @param posX Position x of the top-left corner image.
+	 * @param posY Position y of the top-left corner image.
+	 * @param sizeX Image's width.
+	 * @param sizeY Image's height.
+	 * @param color Colour of the rectangle.
+	 * @param alpha Opacity of the image.
+	*/
 	public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
-		ShapeRender.rect(posX,posY,sizeX,sizeY,color,alpha);
+		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
 	}
 
-	public static void text(String text, GameFont font, int color, int alpha){
-		FontRender.text(text, font, color, alpha);
-	}
-
-	public static void text(String text, GameFont font, int[] color, int alpha){
-		FontRender.text(text, font, color, alpha);
-	}
-
+	/**
+	 * Set the 2D view.
+	*/
 	public static void glEnable2D() {
 		int[] vPort = new int[4];
 
@@ -48,6 +67,9 @@ public class Render {
 		glLoadIdentity();
 	}
 
+	/**
+	 * Set the 3D view.
+	*/
 	public static void glDisable2D() {
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();

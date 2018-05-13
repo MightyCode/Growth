@@ -1,7 +1,5 @@
 package growth.game.screen;
 
-import growth.game.render.Font.Fonts;
-
 public class ScreenManager {
 
     private Screen ActualScreen;
@@ -44,6 +42,5 @@ public class ScreenManager {
     public void unload() {
         ActualScreen.unload();
         ActualScreen = null;
-        Fonts.unload();
     }
 }

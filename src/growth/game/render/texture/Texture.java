@@ -18,7 +18,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-package growth.game.render.Texture;
+package growth.game.render.texture;
 
 import org.lwjgl.BufferUtils;
 
@@ -31,7 +31,7 @@ import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
 
 /**
  * Basic texture class.
- * This class is the most basic texture class possible. It holds a OpenGL Texture.
+ * This class is the most basic texture class possible. It holds a OpenGL texture.
  *
  * Warning : Don't forget to use the clean() function when you do not use that texture anymore.
  *
@@ -40,19 +40,19 @@ import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
  */
 public class Texture {
     /**
-     * Texture ID.
+     * texture ID.
      * This variable contains the OpenGL texture ID, generated in the class constructor.
      */
     private int id;
 
     /**
-     * Texture Width.
+     * texture Width.
      * This variable contains the width of the loaded texture.
      */
     private int width;
 
     /**
-     * Texture Width.
+     * texture Width.
      * This variable contains the width of the loaded texture.
      */
     private int height;
@@ -64,22 +64,26 @@ public class Texture {
     private boolean loaded;
 
     /**
-     * Texture class constructor. Empty.
+     * texture class constructor. Empty.
      */
     public Texture() {
     }
 
     /**
-     * Texture surcharge class constructor.
+     * texture surcharge class constructor.
      * Instance the class and set the texture with the path.
+     *
+     * @param path path to file's image to load.
      */
     public Texture(String path) {
         load(path);
     }
 
     /**
-     * Texture surcharge class constructor.
+     * texture surcharge class constructor.
      * Instance the class and set the texture with the bufferedImage.
+     *
+     * @param image BufferedImage to load.
      */
     public Texture(BufferedImage image) {
         createImage(image);
@@ -92,12 +96,14 @@ public class Texture {
         if (isTextureLoaded()) {
             glBindTexture(GL_TEXTURE_2D, id);
         } else {
-            System.err.println("[Error] Texture::bind() Binding a unloaded texture.");
+            System.err.println("[Error] texture::bind() Binding a unloaded texture.");
         }
     }
 
     /**
      * Load a bufferedImage from a file.
+     *
+     * @param path path of file to load.
      */
     public void load(String path) {
         try {
@@ -112,6 +118,8 @@ public class Texture {
 
     /**
      * Load a texture from a bufferedImage.
+     *
+     * @param image BufferedImage to load.
      */
     public void createImage(BufferedImage image) {
         id = glGenTextures();
@@ -121,7 +129,9 @@ public class Texture {
             int[] pixels = new int[image.getHeight() * image.getWidth()];
 
             image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
-            System.out.println(id + " :" + (image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth())));
+
+            System.out.println("Texture num : " + id + " , loaded.");
+
             ByteBuffer buffer = BufferUtils.createByteBuffer(image.getHeight() * image.getWidth() * 4);
 
             for (int i = 0; i < image.getHeight(); i++) {
@@ -179,8 +189,9 @@ public class Texture {
         if (isTextureLoaded()) {
             glDeleteTextures(id);
             loaded = false;
+            System.out.println("Texture num : " + id + " , unloaded.");
         } else {
-            System.err.println("[Error] Texture::unload() Unloading an already unloaded texture.");
+            System.err.println("[Error] texture::unload() Unloading an already unloaded texture.");
         }
     }
 

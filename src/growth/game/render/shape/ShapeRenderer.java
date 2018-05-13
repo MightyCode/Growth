@@ -1,12 +1,21 @@
-package growth.game.render.Shape;
+package growth.game.render.shape;
 
-import growth.game.render.Render;
 import growth.main.Growth;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class ShapeRender{
+public class ShapeRenderer {
 
+    /**
+     * Display an multicolour rectangle.
+     *
+     * @param posX Position x of the top-left corner image.
+     * @param posY Position y of the top-left corner image.
+     * @param sizeX Image's width.
+     * @param sizeY Image's height.
+     * @param color Colour of the rectangle.
+     * @param alpha Opacity of the image.
+     */
     public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
         int newPosY = Growth.HEIGHT - posY - sizeY;
         glDisable(GL_TEXTURE_2D);
@@ -22,6 +31,16 @@ public class ShapeRender{
         glEnable(GL_TEXTURE);
     }
 
+    /**
+     * Display an black shades rectangle.
+     *
+     * @param posX Position x of the top-left corner image.
+     * @param posY Position y of the top-left corner image.
+     * @param sizeX Image's width.
+     * @param sizeY Image's height.
+     * @param color Black shades colour.
+     * @param alpha Opacity of the image.
+     */
     public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
         int newPosY = Growth.HEIGHT - posY - sizeY;
         glDisable(GL_TEXTURE_2D);

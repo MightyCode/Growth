@@ -1,7 +1,6 @@
 package growth.game.screen;
 
 import growth.game.render.Render;
-import growth.game.render.Shape.ShapeRender;
 import growth.game.tilemap.TileMap;
 import growth.main.Growth;
 import growth.game.entity.Player;
@@ -54,7 +53,7 @@ public class GameScreen extends Screen {
     }
      
     /**
-    * Update the screen in terms of the game's state.
+     * Update the screen in terms of the game's state.
     */
     public void update() {
         switch (gameState) {
@@ -79,7 +78,7 @@ public class GameScreen extends Screen {
     }
     
     /**
-    * Update the player and the map.
+     * Update the player and the map.
     */	
     private void updateGame() {
         // Update player
@@ -95,7 +94,7 @@ public class GameScreen extends Screen {
     }
 	
     /**
-    * Update the key in game.
+     * Update the key in game.
     */	
     private void updateGameKeys() {
         // Key update
@@ -116,7 +115,7 @@ public class GameScreen extends Screen {
     }
 	
     /**
-    * Update the transition between two maps.
+     * Update the transition between two maps.
     */	
     private void updateTransition() {
         transitionCounter++;
@@ -134,7 +133,7 @@ public class GameScreen extends Screen {
     }
 
     /**
-    * Display the screen in terms of the game'state
+     * Display the screen in terms of the game'state
     */	
     public void display() {
         // clear the framebuffer
@@ -159,23 +158,18 @@ public class GameScreen extends Screen {
     }
     
     /**
-    * Display the map and the player
+     * Display the map and the player
     */	
     private void displayGame() {
         // Draw map
         tileMap.display();
         // Draw player
         player.display();
-
-        /*ScreenManager.MONOFONTO.drawText("hello, world!", 22,
-                20, 680,
-                0, 0,
-                0, 0, 0, false);*/
     }
 
 	
     /**
-    * Display the transition between two map
+     * Display the transition between two map
     */	
     private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
@@ -188,7 +182,7 @@ public class GameScreen extends Screen {
     }
 
     /**
-    * Set the change when the player touch a screen'edge
+     * Set the change when the player touch a screen'edge.
     */	
     private void changeMap(int side) {
         if (tileMap.getNeighbour(side) != 0) {

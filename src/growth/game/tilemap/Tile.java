@@ -1,6 +1,6 @@
 package growth.game.tilemap;
 
-import growth.game.render.Texture.Texture;
+import growth.game.render.texture.Texture;
 
 public class Tile {
 
