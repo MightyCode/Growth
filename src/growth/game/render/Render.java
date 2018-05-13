@@ -1,63 +1,37 @@
 package growth.game.render;
 
-import growth.main.Growth;
+import growth.game.render.Font.FontRender;
+import growth.game.render.Font.GameFont;
+import growth.game.render.Shape.ShapeRender;
+import growth.game.render.Texture.TextureRender;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 public class Render {
 
+
+	/**
+	 * Definition of methods call in different ...Render
+	 */
 	public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float alpha) {
-		int newPosY = Growth.HEIGHT - posY - sizeY;
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textID);
-		glColor4f(1.f, 1.f, 1.f, alpha);
-
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.f, 1.f);
-		glVertex2f(posX, newPosY);
-
-		glTexCoord2f(0.f, 0.f);
-		glVertex2f(posX, newPosY + sizeY);
-
-		glTexCoord2f(1.f, 0.f);
-		glVertex2f(posX + sizeX, newPosY + sizeY);
-
-		glTexCoord2f(1.f, 1.f);
-		glVertex2f(posX + sizeX, newPosY);
-		glEnd();
+		TextureRender.image(posX, posY, sizeX, sizeY, textID, alpha);
 	}
 
 	public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
-		int newPosY = Growth.HEIGHT - posY - sizeY;
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_TEXTURE);
-		glColor4f(color, color, color, alpha);
-		glBegin(GL_QUADS);
-		glVertex2d(posX, newPosY);
-		glVertex2d(posX + sizeX, newPosY);
-		glVertex2d(posX + sizeX, newPosY + sizeY);
-		glVertex2d(posX, newPosY + sizeY);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_TEXTURE);
+		ShapeRender.rect(posX,posY,sizeX,sizeY,color,alpha);
 	}
 
-	/*public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
-		int newPosY = Growth.HEIGHT - posY - sizeY;
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_TEXTURE);
-		glColor4f(color[0], color[1], color[2], alpha);
-		glBegin(GL_QUADS);
-		glVertex2d(posX, newPosY);
-		glVertex2d(posX + sizeX, newPosY);
-		glVertex2d(posX + sizeX, newPosY + sizeY);
-		glVertex2d(posX, newPosY + sizeY);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_TEXTURE);
-	}*/
+	public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
+		ShapeRender.rect(posX,posY,sizeX,sizeY,color,alpha);
+	}
+
+	public static void text(String text, GameFont font, int color, int alpha){
+		FontRender.text(text, font, color, alpha);
+	}
+
+	public static void text(String text, GameFont font, int[] color, int alpha){
+		FontRender.text(text, font, color, alpha);
+	}
 
 	public static void glEnable2D() {
 		int[] vPort = new int[4];
@@ -74,10 +48,10 @@ public class Render {
 		glLoadIdentity();
 	}
 
-	/*public static void glDisable2D() {
+	public static void glDisable2D() {
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
-	}*/
+	}
 }

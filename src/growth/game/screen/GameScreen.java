@@ -1,9 +1,10 @@
 package growth.game.screen;
 
+import growth.game.render.Render;
+import growth.game.render.Shape.ShapeRender;
 import growth.game.tilemap.TileMap;
 import growth.main.Growth;
 import growth.game.entity.Player;
-import growth.game.render.Render;
 import growth.game.utils.Math;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -166,15 +167,10 @@ public class GameScreen extends Screen {
         // Draw player
         player.display();
 
-        ScreenManager.MONOFONTO.drawText("hello, world!", 22,
+        /*ScreenManager.MONOFONTO.drawText("hello, world!", 22,
                 20, 680,
                 0, 0,
-                0, 0, 0, false);
-
-        ScreenManager.MONOFONTO.drawText("hello, world!", 22,
-                500, 20,
-                0, 255,
-                0, 0, 0, false);
+                0, 0, 0, false);*/
     }
 
 	

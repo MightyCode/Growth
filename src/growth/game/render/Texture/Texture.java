@@ -18,7 +18,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-package growth.game.render;
+package growth.game.render.Texture;
 
 import org.lwjgl.BufferUtils;
 

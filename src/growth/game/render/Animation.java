@@ -1,5 +1,7 @@
 package growth.game.render;
 
+import growth.game.render.Texture.Texture;
+
 public class Animation {
 
 	private int actual;
