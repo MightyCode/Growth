@@ -17,7 +17,7 @@ class Map {
 		idMapNeighbour[3] = down;
 	}
 
-	/**
+	/*
 	 * Setters
 	 */
 
@@ -26,9 +26,9 @@ class Map {
 		tileToCome[side - 1][1] = beginY;
 	}
 
-	/**
+	/*
 	 * Getters
-	 **/
+	 */
 	int getNeighbour(int side) {
 		return idMapNeighbour[side - 1];
 	}

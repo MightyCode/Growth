@@ -500,10 +500,7 @@ public abstract class Entity {
 	 */
 	public void unload() {
 		for(Animation animation: animations) {
-			Texture[] textures = animation.getTextures();
-			for(Texture texture: textures) {
-				texture.unload();
-			}
+			animation.unload();
 		}
 	}
 }

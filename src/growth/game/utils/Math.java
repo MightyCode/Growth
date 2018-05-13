@@ -1,5 +1,12 @@
 package growth.game.utils;
 
+/**
+ * Math class.
+ * This class is used to compute complicated calculations.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
 public abstract class Math {
 
 	/**
@@ -13,7 +20,6 @@ public abstract class Math {
 	 *
 	 * @return result
 	*/
-
 	public static double map(double x, double a, double b, double c, double d) {
 		return (x - a) / (b - a) * (d - c) + c;
 	}

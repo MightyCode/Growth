@@ -10,6 +10,9 @@ import java.util.ArrayList;
 /**
  * Player class.
  * This class is the class of player controlled by the played.
+ *
+ * @author MightyCode
+ * @version 1.0
  */
 public class Player extends Entity {
 

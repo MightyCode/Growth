@@ -8,8 +8,14 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class XmlReader {
-
+/**
+ * XmlReader class.
+ * This class charge the different xml's files.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
+public abstract class XmlReader {
 
 	/**
 	 * Charge the map from the Xml's file.

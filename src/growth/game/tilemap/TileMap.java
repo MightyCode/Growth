@@ -6,29 +6,50 @@ import growth.game.utils.XmlReader;
 
 import java.util.ArrayList;
 
+/**
+ * TileMap class.
+ * This class is use to store the game structure.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
 public class TileMap {
 
-	// Position
+	/**
+	 * Map position x.
+	 * This variable contains the position y of the beginning of the rendering of the map.
+	 */
 	private double posX;
+
+	/**
+	 * Map position y.
+	 * This variable contains the position y of the beginning of the rendering of the map.
+	 */
 	private double posY;
 
-	// Bounds
 	private int xMin;
 	private int yMin;
 	private final int xMax;
 	private final int yMax;
 
+	/**
+	 * Tween.
+	 * This variable contains the smooth movement of camera (1 -> rigid and immediate).
+	 */
 	private double tween;
 
-	// Map
-	private int actualMap;
+	/**
+	 * Current.
+	 * This variable contains the current map.
+	 */
+	private int currentMap;
 	private int[][] map;
 	private final ArrayList<Map> maps = new ArrayList<>();
 	private final int tileSize;
 	private int numRows;
 	private int numCols;
-	private int width;
-	private int height;
+	private int sizeX;
+	private int sizeY;
 
 	// Tileset
 	private final Tile[] tileSet;
@@ -57,11 +78,11 @@ public class TileMap {
 		maps.add(new Map("map3.xml", 2, 0, 0, 0));
 		maps.get(2).setTileToCome(3, 0.5, 14);
 
-		actualMap = 1;
+		currentMap = 1;
 
 		// Init variables
 
-		map = maps.get(actualMap - 1).getMap();
+		map = maps.get(currentMap - 1).getMap();
 		numCols = map[0].length;
 		numRows = map.length;
 
@@ -71,12 +92,12 @@ public class TileMap {
 
 		tileSet = XmlReader.createTileSet(path2);
 
-		width = numCols * tileSize;
-		height = numRows * tileSize;
+		sizeX = numCols * tileSize;
+		sizeY = numRows * tileSize;
 
-		xMin = Growth.WIDTH - width;
+		xMin = Growth.WIDTH - sizeX;
 		xMax = 0;
-		yMin = Growth.HEIGHT - height;
+		yMin = Growth.HEIGHT - sizeY;
 		yMax = 0;
 	}
 
@@ -105,24 +126,24 @@ public class TileMap {
 	//
 
 	public double[] setActualMap(int side) {
-		actualMap = maps.get(actualMap - 1).getNeighbour(side);
-		map = maps.get(actualMap - 1).getMap();
+		currentMap = maps.get(currentMap - 1).getNeighbour(side);
+		map = maps.get(currentMap - 1).getMap();
 		numCols = map[0].length;
 		numRows = map.length;
 
-		width = numCols * tileSize;
-		height = numRows * tileSize;
+		sizeX = numCols * tileSize;
+		sizeY = numRows * tileSize;
 
-		xMin = Growth.WIDTH - width;
-		yMin = Growth.HEIGHT - height;
+		xMin = Growth.WIDTH - sizeX;
+		yMin = Growth.HEIGHT - sizeY;
 
 		double[] newPos = new double[2];
 		if (side == 1) {
-			newPos[0] = width - (maps.get(actualMap - 1).getTileToComeX(side) * tileSize);
-		} else newPos[0] = (maps.get(actualMap - 1).getTileToComeX(side) * tileSize);
+			newPos[0] = sizeX - (maps.get(currentMap - 1).getTileToComeX(side) * tileSize);
+		} else newPos[0] = (maps.get(currentMap - 1).getTileToComeX(side) * tileSize);
 
-		if (side == 4) newPos[1] = height - (maps.get(actualMap - 1).getTileToComeY(side) * tileSize);
-		else newPos[1] = maps.get(actualMap - 1).getTileToComeY(side) * tileSize;
+		if (side == 4) newPos[1] = sizeY - (maps.get(currentMap - 1).getTileToComeY(side) * tileSize);
+		else newPos[1] = maps.get(currentMap - 1).getTileToComeY(side) * tileSize;
 		return newPos;
 	}
 
@@ -148,9 +169,9 @@ public class TileMap {
 	}
 
 
-	//
-	// Getters
-	//
+	/*
+	 * Getters
+	 */
 
 	public int getNumRows() {
 		return numRows;
@@ -172,12 +193,12 @@ public class TileMap {
 		return (int) posY;
 	}
 
-	public int getWidth() {
-		return width;
+	public int getSizeX() {
+		return sizeX;
 	}
 
 	public int getNeighbour(int side) {
-		return maps.get(actualMap - 1).getNeighbour(side);
+		return maps.get(currentMap - 1).getNeighbour(side);
 	}
 
 	public int getType(int row, int col) {

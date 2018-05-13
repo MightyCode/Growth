@@ -65,6 +65,15 @@ public class Animation {
 		}
 	}
 
+    /**
+     * Delete the texture.
+     */
+	public void unload(){
+	    for(Texture tex : textures){
+	        tex.unload();
+        }
+    }
+
 	/**
 	 * Get the id of the current texture.
 	 *
@@ -72,9 +81,5 @@ public class Animation {
 	 */
 	public int getCurrentID() {
 		return textures[current].getID();
-	}
-
-	public Texture[] getTextures() {
-		return textures;
 	}
 }
