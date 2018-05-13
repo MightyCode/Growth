@@ -1,65 +1,57 @@
 package growth.game.render;
 
-import growth.main.Growth;
+import growth.game.render.shape.ShapeRenderer;
+import growth.game.render.texture.TextureRenderer;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-public class Render {
+public abstract class Render {
 
+	/**
+	 * Display an image.
+	 *
+	 * @param posX Position x of the top-left corner image.
+	 * @param posY Position y of the top-left corner image.
+	 * @param sizeX Image's width.
+	 * @param sizeY Image's height.
+	 * @param textID ID of the image.
+	 * @param alpha Opacity of the image.
+	 */
 	public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float alpha) {
-		//System.out.println(textId + " ," + text);
-		int newPosY = Growth.HEIGHT - posY - sizeY;
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textID);
-		glColor4f(1.f, 1.f, 1.f, alpha);
-
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.f, 1.f);
-		glVertex2f(posX, newPosY);
-
-		glTexCoord2f(0.f, 0.f);
-		glVertex2f(posX, newPosY + sizeY);
-
-		glTexCoord2f(1.f, 0.f);
-		glVertex2f(posX + sizeX, newPosY + sizeY);
-
-		glTexCoord2f(1.f, 1.f);
-		glVertex2f(posX + sizeX, newPosY);
-		glEnd();
+		TextureRenderer.image(posX, posY, sizeX, sizeY, textID, alpha);
 	}
 
+	/**
+	 * Display an black shades rectangle.
+	 *
+	 * @param posX Position x of the top-left corner image.
+	 * @param posY Position y of the top-left corner image.
+	 * @param sizeX Image's width.
+	 * @param sizeY Image's height.
+	 * @param color Black shades colour.
+	 * @param alpha Opacity of the image.
+	*/
 	public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
-		int newPosY = Growth.HEIGHT - posY - sizeY;
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_TEXTURE);
-		glColor4f(color, color, color, alpha);
-		glBegin(GL_QUADS);
-		glVertex2d(posX, newPosY);
-		glVertex2d(posX + sizeX, newPosY);
-		glVertex2d(posX + sizeX, newPosY + sizeY);
-		glVertex2d(posX, newPosY + sizeY);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_TEXTURE);
+		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
 	}
 
-	/*public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
-		int newPosY = Growth.HEIGHT - posY - sizeY;
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_TEXTURE);
-		glColor4f(color[0], color[1], color[2], alpha);
-		glBegin(GL_QUADS);
-		glVertex2d(posX, newPosY);
-		glVertex2d(posX + sizeX, newPosY);
-		glVertex2d(posX + sizeX, newPosY + sizeY);
-		glVertex2d(posX, newPosY + sizeY);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_TEXTURE);
-	}*/
+	/**
+	 * Display an multicolour rectangle.
+	 *
+	 * @param posX Position x of the top-left corner image.
+	 * @param posY Position y of the top-left corner image.
+	 * @param sizeX Image's width.
+	 * @param sizeY Image's height.
+	 * @param color Colour of the rectangle.
+	 * @param alpha Opacity of the image.
+	*/
+	public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
+		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
+	}
 
+	/**
+	 * Set the 2D view.
+	*/
 	public static void glEnable2D() {
 		int[] vPort = new int[4];
 
@@ -75,10 +67,13 @@ public class Render {
 		glLoadIdentity();
 	}
 
-	/*public static void glDisable2D() {
+	/**
+	 * Set the 3D view.
+	*/
+	public static void glDisable2D() {
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
-	}*/
+	}
 }

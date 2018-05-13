@@ -1,7 +1,7 @@
 package growth.game.entity;
 
 import growth.game.render.Animation;
-import growth.game.render.Texture;
+import growth.game.render.texture.Texture;
 import growth.game.tilemap.Tile;
 import growth.game.tilemap.TileMap;
 

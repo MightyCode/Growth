@@ -2,10 +2,11 @@ package growth.game.screen;
 
 public class ScreenManager {
 
-    private static final int MENUSCREEN = 0;
-    private static final int GAMESCREEN = 1;
-    private final long window;
     private Screen ActualScreen;
+    public static final int MENUSCREEN = 0;
+    public static final int GAMESCREEN = 1;
+
+    private final long window;
 
     public ScreenManager(long window) {
         this.window = window;

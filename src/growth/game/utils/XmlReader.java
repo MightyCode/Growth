@@ -10,12 +10,20 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class XmlReader {
 
-	public static int[][] createMap(String map_Path) {
+
+	/**
+	 * Charge the map from the Xml's file.
+	 *
+	 * @param map_path Path to find the Xml's file
+	 *
+	 * @return map
+	*/
+	public static int[][] createMap(String map_path) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream(map_Path));
+			Document document = builder.parse(XmlReader.class.getResourceAsStream(map_path));
 			Element root = document.getDocumentElement();
 
 			// Get all child nodes of the root
@@ -84,6 +92,13 @@ public class XmlReader {
 		}
 	}
 
+	/**
+	 * Test if a string is a number
+	 *
+	 * @param string String to test
+	 *
+	 * @return boolean's result
+	 */
 	private static boolean notInteger(String string) {
 		try {
 			Integer.parseInt(string);
@@ -93,12 +108,19 @@ public class XmlReader {
 		}
 	}
 
-	public static Tile[] createTileSet(String tileSetPath) {
+	/**
+	 * Create the tileSet from the xml's file.
+	 *
+	 * @param tileSet_path Path to find the Xml's file
+	 *
+	 * @return tileSet
+	 */
+	public static Tile[] createTileSet(String tileSet_path) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSetPath));
+			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSet_path));
 			Element root = document.getDocumentElement();
 
             // Get all child nodes of the root
