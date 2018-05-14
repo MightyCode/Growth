@@ -223,7 +223,7 @@ public class Texture {
     }
 
     /**
-     * Return texture height
+     * Return texture height.
      *
      * @return height
      */

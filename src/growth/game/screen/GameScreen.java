@@ -165,7 +165,7 @@ public class GameScreen extends Screen {
         if (transitionCounter == transitionTime / 2) {
 	    // Set the new position of the player in the new map
             double[] pos;
-            pos = tileMap.setActualMap(transitionSide);
+            pos = tileMap.changeMap(transitionSide);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
             tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
             player.setSpeed(0, 0);
@@ -237,7 +237,7 @@ public class GameScreen extends Screen {
     }
 
     /**
-     * Unload the texture to free memory
+     * Unload the texture to free memory.
      */
     public void unload() {
         tileMap.unload();

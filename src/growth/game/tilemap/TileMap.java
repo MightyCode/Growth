@@ -69,23 +69,61 @@ public class TileMap {
 	private int numRows;
 	
 	/**
-	 * Number of columne.
-	 * This variable contains the number of columne in the current map.
+	 * Number of column.
+	 * This variable contains the number of column in the current map.
 	 */
 	private int numCols;
+
+	/**
+	 * Map size x.
+	 * This variable contains the map's size x.
+	 */
 	private int sizeX;
+
+	/**
+	 * Map size y.
+	 * This variable contains the map's size y.
+	 */
 	private int sizeY;
 
-	// Tileset
+	/**
+	 * Map tile set.
+	 * This variable contains tile set.
+	 */
 	private final Tile[] tileSet;
 
-	// Drawing
+	/**
+	 * Row off set.
+	 * This variable contains the number of row where the player is.
+	 */
 	private int rowOffset;
+
+	/**
+	 * Column off set.
+	 * This variable contains the number of column where the player is.
+	 */
 	private int colOffset;
+
+	/**
+	 * Number rows to draw.
+	 * This variable contains the number of row to draw.
+	 */
 	private final int numRowsToDraw;
+
+	/**
+	 * Number columns to draw.
+	 * This variable contains the number of column to draw.
+	 */
 	private final int numColsToDraw;
 
-	public TileMap(int tileSize, String path2) {
+	/**
+	 * Tilemap class constructor.
+	 * Instance the class and set the texture with the path.
+	 *
+	 * @param tileSize get tile size.
+	 * @param path path to file's xml to load.
+	 */
+	public TileMap(int tileSize, String path) {
 		this.tileSize = tileSize;
 
 		// Hard code to add and configure game's panels
@@ -115,7 +153,7 @@ public class TileMap {
 		numColsToDraw = Growth.WIDTH / tileSize + 2;
 		tween = 1;
 
-		tileSet = XmlReader.createTileSet(path2);
+		tileSet = XmlReader.createTileSet(path);
 
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
@@ -126,8 +164,10 @@ public class TileMap {
 		yMax = 0;
 	}
 
+	/**
+	 * Display the current map.
+	 */
 	public void display() {
-
 		for (int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
 
 			if (row >= numRows) break;
@@ -145,12 +185,16 @@ public class TileMap {
 		}
 	}
 
+	/*
+	 * Setters
+	 */
 
-	//
-	// Setters
-	//
-
-	public double[] setActualMap(int side) {
+	/**
+	 * Change the map.
+	 *
+	 * @param side where the map will be changed.
+	 */
+	public double[] changeMap(int side) {
 		currentMap = maps.get(currentMap - 1).getNeighbour(side);
 		map = maps.get(currentMap - 1).getMap();
 		numCols = map[0].length;
@@ -172,13 +216,24 @@ public class TileMap {
 		return newPos;
 	}
 
-	public void setTween(double d) {
-		tween = d;
+	/**
+	 * Set the camera tween.
+	 *
+	 * @param tween set the new tween.
+	 */
+	public void setTween(double tween) {
+		this.tween = tween;
 	}
 
-	public void setPosition(double x, double y) {
-		this.posX += (x - this.posX) * tween;
-		this.posY += (y - this.posY) * tween;
+	/**
+	 * Set new origin position of map.
+	 *
+	 * @param posX set the new origin position x.
+	 * @param posY set the new origin position y.
+	 */
+	public void setPosition(double posX, double posY) {
+		this.posX += (posX - this.posX) * tween;
+		this.posY += (posY - this.posY) * tween;
 
 		fixBounds();
 
@@ -186,6 +241,9 @@ public class TileMap {
 		rowOffset = (int) -this.posY / tileSize;
 	}
 
+	/**
+	 * Set the corner of the map.
+	 */
 	private void fixBounds() {
 		if (posX < xMin) posX = xMin;
 		if (posY < yMin) posY = yMin;
@@ -193,45 +251,92 @@ public class TileMap {
 		if (posY > yMax) posY = yMax;
 	}
 
-
 	/*
 	 * Getters
 	 */
 
+	/**
+	 * Return the number of map'row.
+	 *
+	 * @return the number of row
+	 */
 	public int getNumRows() {
 		return numRows;
 	}
 
+	/**
+	 * Return the number of map'column.
+	 *
+	 * @return the number of column
+	 */
 	public int getNumCols() {
 		return numCols;
 	}
 
+	/**
+	 * Return the tile size.
+	 *
+	 * @return the tile size
+	 */
 	public int getTileSize() {
 		return tileSize;
 	}
 
+	/**
+	 * Return the map position x.
+	 *
+	 * @return position x
+	 */
 	public int getPosX() {
 		return (int) posX;
 	}
 
+	/**
+	 * Return the map position y.
+	 *
+	 * @return position y
+	 */
 	public int getPosY() {
 		return (int) posY;
 	}
 
+	/**
+	 * Return the map size x.
+	 *
+	 * @return size x
+	 */
 	public int getSizeX() {
 		return sizeX;
 	}
 
+	/**
+	 * Return the id of the choose map.
+	 *
+	 * @param side to choose the map neighbour.
+	 *
+	 * @return the id neighbour
+	 */
 	public int getNeighbour(int side) {
 		return maps.get(currentMap - 1).getNeighbour(side);
 	}
 
+	/**
+	 * Return type of block.
+	 *
+	 * @param row number of row to choose the tile's number.
+	 * @param col number of col to choose the tile's number.
+	 *
+	 * @return tile's type
+	 */
 	public int getType(int row, int col) {
 		if (map[row][col] == 0) return 0;
 		int rc = map[row][col] - 1;
 		return tileSet[rc].getType();
 	}
 
+	/**
+	 * Unload the tile's texture to free memory.
+	 */
 	public void unload() {
 		for (Tile tile : tileSet) {
 			tile.getTexture().unload();
