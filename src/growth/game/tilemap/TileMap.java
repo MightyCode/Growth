@@ -40,13 +40,38 @@ public class TileMap {
 
 	/**
 	 * Current.
-	 * This variable contains the current map.
+	 * This variable contains the number of the current map.
 	 */
 	private int currentMap;
+	
+	/**
+	 * Map.
+	 * This variable contains the current map.
+	 */
 	private int[][] map;
+	
+	/**
+	 * Arrayliste of map.
+	 * This variable contains the every maps.
+	 */
 	private final ArrayList<Map> maps = new ArrayList<>();
+	
+	/**
+	 * Tile size.
+	 * This variable contains the size of tiles.
+	 */
 	private final int tileSize;
+	
+	/**
+	 * Number of row.
+	 * This variable contains the number of row in the current map.
+	 */
 	private int numRows;
+	
+	/**
+	 * Number of columne.
+	 * This variable contains the number of columne in the current map.
+	 */
 	private int numCols;
 	private int sizeX;
 	private int sizeY;
