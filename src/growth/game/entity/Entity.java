@@ -253,7 +253,7 @@ public abstract class Entity {
 	 * Entity class constructor.
 	 * Instance the class and set the tileMap.
 	 *
-	 * @param tileMap add tileMap to the entity.
+	 * @param tileMap Add tileMap to the entity.
 	 */
 	Entity(TileMap tileMap) {
 		this.tileMap = tileMap;
@@ -263,7 +263,7 @@ public abstract class Entity {
 	/**
 	 * Test if th Entity meet another Entity.
 	 *
-	 * @param entity another entity.
+	 * @param entity Another entity.
 	 */
 	public boolean intersects(Entity entity) {
 		Rectangle r1 = getRectangle();
@@ -348,8 +348,8 @@ public abstract class Entity {
 	/**
 	 * Calculate corners of the Entity.
 	 *
-	 * @param posX position X.
-	 * @param posY position Y.
+	 * @param posX Position X.
+	 * @param posY Position Y.
 	 */
 	private void calculateCorners(double posX, double posY) {
 
@@ -423,8 +423,8 @@ public abstract class Entity {
 	/**
 	 * Set the entity's position.
 	 *
-	 * @param posX new position x.
-	 * @param posY new position y.
+	 * @param posX New position x.
+	 * @param posY New position y.
 	 */
 	public void setPosition(double posX, double posY) {
 		this.posX = posX;
@@ -434,8 +434,8 @@ public abstract class Entity {
 	/**
 	 * Set the entity's speed.
 	 *
-	 * @param speedX new speed x.
-	 * @param speedY new speed y.
+	 * @param speedX New speed x.
+	 * @param speedY New speed y.
 	 */
 	public void setSpeed(double speedX, double speedY) {
 		this.speedX = speedX;
@@ -453,35 +453,35 @@ public abstract class Entity {
 	/**
 	 * Set the entity's variable left.
 	 *
-	 * @param newState new state of left variable.
+	 * @param newState New state of left variable.
 	 */
 	public void setLeft(boolean newState) { left = newState; }
 
 	/**
 	 * Set the entity's variable right.
 	 *
-	 * @param newState new state of right variable.
+	 * @param newState New state of right variable.
 	 */
 	public void setRight(boolean newState) { right = newState; }
 
 	/**
 	 * Set the entity's variable down.
 	 *
-	 * @param newState new state of down variable.
+	 * @param newState New state of down variable.
 	 */
 	public void setDown(boolean newState) { down = newState; }
 
 	/**
 	 * Set the entity's variable jumping.
 	 *
-	 * @param newState new state of jumping variable.
+	 * @param newState New state of jumping variable.
 	 */
 	public void setJumping(boolean newState) { jumping = newState; }
 
 	/**
 	 * Set the entity's variable sprint.
 	 *
-	 * @param newState new state of sprint variable.
+	 * @param newState New state of sprint variable.
 	 */
 	public void setSprint(boolean newState) { sprint = newState; }
 

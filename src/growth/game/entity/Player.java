@@ -30,9 +30,9 @@ public class Player extends Entity {
 	 * Firstly call the mother class constructor.
 	 * Init all of player variable.
 	 *
-	 * @param tileMap add tileMap to the player.
-	 * @param sizeX add sizeX to the player.
-	 * @param sizeY add sizeY to the player.
+	 * @param tileMap Add tileMap to the player.
+	 * @param sizeX Add sizeX to the player.
+	 * @param sizeY Add sizeY to the player.
 	 */
 	public Player(TileMap tileMap, int sizeX, int sizeY) {
 		// Call mother constructor

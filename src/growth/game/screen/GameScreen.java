@@ -74,7 +74,7 @@ public class GameScreen extends Screen {
      * GameScreen class constructor.
      * Instance the class and set all of the GameScreen's variables.
      *
-     * @param screenManager add screenManager change the global screen.
+     * @param screenManager Add screenManager change the global screen.
      */
     GameScreen(ScreenManager screenManager) {
         super(screenManager);

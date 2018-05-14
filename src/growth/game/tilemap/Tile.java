@@ -33,8 +33,8 @@ public class Tile {
      * Tile class constructor.
      * Instance the class, set the texture with the path and init the tile's type.
      *
-     * @param path path to file's image to load.
-     * @param type type of the tile.
+     * @param path Path to file's image to load.
+     * @param type Type of the tile.
      */
     public Tile(String path, int type) {
         this.type = type;

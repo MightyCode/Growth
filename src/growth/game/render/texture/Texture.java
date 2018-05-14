@@ -73,7 +73,7 @@ public class Texture {
      * Texture surcharge class constructor.
      * Instance the class and set the texture with the path.
      *
-     * @param path path to file's image to load.
+     * @param path Path to file's image to load.
      */
     public Texture(String path) {
         load(path);
@@ -103,7 +103,7 @@ public class Texture {
     /**
      * Load a bufferedImage from a file.
      *
-     * @param path path of file to load.
+     * @param path Path of file to load.
      */
     public void load(String path) {
         try {

@@ -51,7 +51,7 @@ public class TileMap {
 	private int[][] map;
 	
 	/**
-	 * Arrayliste of map.
+	 * Array list of map.
 	 * This variable contains the every maps.
 	 */
 	private final ArrayList<Map> maps = new ArrayList<>();
@@ -118,10 +118,10 @@ public class TileMap {
 
 	/**
 	 * Tilemap class constructor.
-	 * Instance the class and set the texture with the path.
+	 * Instance the class and set the tile's textures of tile set with the path.
 	 *
-	 * @param tileSize get tile size.
-	 * @param path path to file's xml to load.
+	 * @param tileSize Get tile size.
+	 * @param path Path to file's xml to load.
 	 */
 	public TileMap(int tileSize, String path) {
 		this.tileSize = tileSize;
@@ -192,7 +192,7 @@ public class TileMap {
 	/**
 	 * Change the map.
 	 *
-	 * @param side where the map will be changed.
+	 * @param side Where the map will be changed.
 	 */
 	public double[] changeMap(int side) {
 		currentMap = maps.get(currentMap - 1).getNeighbour(side);
@@ -219,7 +219,7 @@ public class TileMap {
 	/**
 	 * Set the camera tween.
 	 *
-	 * @param tween set the new tween.
+	 * @param tween Set the new tween.
 	 */
 	public void setTween(double tween) {
 		this.tween = tween;
@@ -228,8 +228,8 @@ public class TileMap {
 	/**
 	 * Set new origin position of map.
 	 *
-	 * @param posX set the new origin position x.
-	 * @param posY set the new origin position y.
+	 * @param posX Set the new origin position x.
+	 * @param posY Set the new origin position y.
 	 */
 	public void setPosition(double posX, double posY) {
 		this.posX += (posX - this.posX) * tween;
@@ -312,7 +312,7 @@ public class TileMap {
 	/**
 	 * Return the id of the choose map.
 	 *
-	 * @param side to choose the map neighbour.
+	 * @param side To choose the map neighbour.
 	 *
 	 * @return the id neighbour
 	 */
@@ -323,8 +323,8 @@ public class TileMap {
 	/**
 	 * Return type of block.
 	 *
-	 * @param row number of row to choose the tile's number.
-	 * @param col number of col to choose the tile's number.
+	 * @param row Number of row to choose the tile's number.
+	 * @param col Number of col to choose the tile's number.
 	 *
 	 * @return tile's type
 	 */

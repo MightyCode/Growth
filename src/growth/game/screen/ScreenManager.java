@@ -32,7 +32,7 @@ public class ScreenManager {
      * ScreenManager class constructor.
      * Instance the class and set the current screen.
      *
-     * @param windowID init the window's variable.
+     * @param windowID Init the window's variable.
      */
     public ScreenManager(long windowID) {
         this.windowID = windowID;
@@ -56,7 +56,7 @@ public class ScreenManager {
     /**
      * Change the current screen.
      *
-     * @param screen set the new current screen.
+     * @param screen Set the new current screen.
      */
     public void setScreen(int screen) {
         currentScreenUnload();

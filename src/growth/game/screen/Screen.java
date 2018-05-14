@@ -19,7 +19,7 @@ abstract class Screen {
      * Screen class constructor.
      * Instance the class and set the screenManager reference.
      *
-     * @param screenManager reference of screenManager.
+     * @param screenManager Reference of screenManager.
      */
     Screen(ScreenManager screenManager) {
         this.screenManager = screenManager;
