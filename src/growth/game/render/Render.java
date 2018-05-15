@@ -68,6 +68,13 @@ public abstract class Render {
 	}
 
 	/**
+	 * Clear the screen with white color.
+	 */
+	public static void clear(){
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	/**
 	 * Set the 3D view.
 	*/
 	public static void glDisable2D() {

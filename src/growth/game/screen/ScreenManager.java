@@ -26,17 +26,13 @@ public class ScreenManager {
      * Window ID.
      * This variable contains the window ID of our game.
      */
-    private final long windowID;
 
     /**
      * ScreenManager class constructor.
      * Instance the class and set the current screen.
-     *
-     * @param windowID Init the window's variable.
      */
-    public ScreenManager(long windowID) {
-        this.windowID = windowID;
-        ActualScreen = (new GameScreen(this));
+    public ScreenManager() {
+        ActualScreen = (new MenuScreen(this));
     }
 
     /**
@@ -68,15 +64,6 @@ public class ScreenManager {
                 ActualScreen = (new GameScreen(this));
                 break;
         }
-    }
-
-    /**
-     * Get the window id.
-     *
-     * @return windowID
-     */
-    long getWindowID() {
-        return windowID;
     }
 
     /**

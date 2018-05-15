@@ -141,19 +141,19 @@ public class GameScreen extends Screen {
      */
     private void updateGameKeys() {
         // Key update
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_W) == 1) player.setJumping(true);
+        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_W) == 1) player.setJumping(true);
         else player.setJumping(false);
 
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_S) == 1) player.setDown(true);
+        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_S) == 1) player.setDown(true);
         else player.setDown(false);
 
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_A) == 1) player.setLeft(true);
+        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_A) == 1) player.setLeft(true);
         else player.setLeft(false);
 
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_D) == 1) player.setRight(true);
+        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_D) == 1) player.setRight(true);
         else player.setRight(false);
 
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_LEFT_SHIFT) == 1) player.setSprint(true);
+        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_LEFT_SHIFT) == 1) player.setSprint(true);
         else player.setSprint(false);
     }
 	
@@ -180,8 +180,7 @@ public class GameScreen extends Screen {
      */
     public void display() {
         // clear the framebuffer
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        Render.clear();
         switch (gameState) {
             case NORMALSCREEN:
                 displayGame();

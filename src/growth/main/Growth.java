@@ -21,9 +21,9 @@ public class Growth {
 
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 720;
+    public static final long WINDOWID = createWindow();
 
     // WindowID
-    private long window;
     private ScreenManager screenManager;
     private static final int TPS = 60;
 
@@ -31,22 +31,9 @@ public class Growth {
         new Growth().run();
     }
 
-    private void run() {
-        System.out.println("Hello LWJGL " + Version.getVersion() + "!");
+    private static long createWindow(){
+        long window;
 
-        init();
-        loop();
-
-        // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
-
-        // Terminate GLFW and free the error callback
-        glfwTerminate();
-        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
-    }
-
-    private void init() {
         //glfwSetKeyCallback(window, keyCallback = new KeyboardHandler());
         // Setup an error callback. The default implementation
         // will print the error message in System.err.
@@ -105,12 +92,29 @@ public class Growth {
 
         glViewport(0, 0, WIDTH, HEIGHT);
 
-        screenManager = new ScreenManager(window);
+
 
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        return window;
     }
+
+    private void run() {
+        System.out.println("Hello LWJGL " + Version.getVersion() + "!");
+        screenManager = new ScreenManager();
+        loop();
+
+        // Free the window callbacks and destroy the window
+        glfwFreeCallbacks(WINDOWID);
+        glfwDestroyWindow(WINDOWID);
+
+        // Terminate GLFW and free the error callback
+        glfwTerminate();
+        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
+    }
+
 
     private void loop() {
         // Set the clear color
@@ -127,7 +131,7 @@ public class Growth {
         wait = 1000000000/TPS;
         start = 0;
 
-        while (!glfwWindowShouldClose(window)) {
+        while (!glfwWindowShouldClose(WINDOWID)) {
             long now = System.nanoTime();
             if(now - start > wait){
                 screenManager.update();
@@ -137,7 +141,7 @@ public class Growth {
 
             screenManager.display();
             fps++;
-            glfwSwapBuffers(window); // swap the color buffers
+            glfwSwapBuffers(WINDOWID); // swap the color buffers
 
             // Poll for window events. The key callback above will only be
             // invoked during this call.
