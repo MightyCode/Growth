@@ -1,4 +1,4 @@
-package growth.game.utils;
+package growth.utils;
 
 /**
  * Math class.

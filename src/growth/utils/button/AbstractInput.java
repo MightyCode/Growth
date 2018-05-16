@@ -1,6 +1,6 @@
-package growth.game.utils.button;
+package growth.utils.button;
 
-import growth.game.screen.Screen;
+import growth.screen.Screen;
 
 /**
  * Basic abstract input class.
@@ -22,7 +22,7 @@ public abstract class AbstractInput {
      */
     protected int posX, posY;
 
-    protected Screen screen;
+    protected final Screen screen;
 
     /**
      * Input abstract class constructor.

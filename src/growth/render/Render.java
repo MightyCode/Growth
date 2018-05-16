@@ -1,7 +1,7 @@
-package growth.game.render;
+package growth.render;
 
-import growth.game.render.shape.ShapeRenderer;
-import growth.game.render.texture.TextureRenderer;
+import growth.render.shape.ShapeRenderer;
+import growth.render.texture.TextureRenderer;
 
 import static org.lwjgl.opengl.GL11.*;
 

@@ -1,6 +1,6 @@
-package growth.game.render.shape;
+package growth.render.shape;
 
-import growth.main.Growth;
+import growth.main.Window;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -24,7 +24,7 @@ public abstract class ShapeRenderer {
      * @param alpha Opacity of the image.
      */
     public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
-        int newPosY = Growth.HEIGHT - posY - sizeY;
+        int newPosY = Window.HEIGHT - posY - sizeY;
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_TEXTURE);
         glColor4f(color, color, color, alpha);
@@ -49,7 +49,7 @@ public abstract class ShapeRenderer {
      * @param alpha Opacity of the image.
      */
     public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
-        int newPosY = Growth.HEIGHT - posY - sizeY;
+        int newPosY = Window.HEIGHT - posY - sizeY;
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_TEXTURE);
         glColor4f(color[0], color[1], color[2], alpha);

@@ -1,9 +1,9 @@
-package growth.game.utils.button;
+package growth.utils.button;
 
-import growth.game.render.Render;
-import growth.game.render.texture.Texture;
-import growth.game.screen.Screen;
-import growth.main.Growth;
+import growth.render.Render;
+import growth.render.texture.Texture;
+import growth.screen.Screen;
+import growth.main.Window;
 import org.lwjgl.BufferUtils;
 import java.nio.DoubleBuffer;
 
@@ -47,7 +47,7 @@ public class ClickButton extends AbstractInput {
      * Texture idle.
      * This variable contains the texture of the idle's button.
      */
-    private Texture texIdle;
+    private final Texture texIdle;
 
     /**
      * Texture over.
@@ -100,11 +100,11 @@ public class ClickButton extends AbstractInput {
         DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
         DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
 
-        glfwGetCursorPos(Growth.WINDOWID, x, y);
+        glfwGetCursorPos(Window.WINDOWID, x, y);
 
         mouseX = x.get(0);
         mouseY = y.get(0);
-        if(mouseOver && glfwGetMouseButton(Growth.WINDOWID, GLFW_MOUSE_BUTTON_LEFT) == 1){
+        if(mouseOver && glfwGetMouseButton(Window.WINDOWID, GLFW_MOUSE_BUTTON_LEFT) == 1){
             action();
         }
     }
@@ -123,7 +123,7 @@ public class ClickButton extends AbstractInput {
     /**
      * Override class for what does the button.
      */
-    public void action(){ }
+    protected void action(){ }
 
     /**
      * Free the memory.

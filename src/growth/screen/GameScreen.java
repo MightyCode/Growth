@@ -1,13 +1,10 @@
-package growth.game.screen;
+package growth.screen;
 
-import growth.game.render.Render;
-import growth.game.tilemap.TileMap;
-import growth.main.Growth;
-import growth.game.entity.Player;
-import growth.game.utils.Math;
-
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
+import growth.render.Render;
+import growth.tilemap.TileMap;
+import growth.entity.Player;
+import growth.utils.Math;
+import growth.main.Window;
 
 /**
  * Game class.
@@ -92,7 +89,7 @@ public class GameScreen extends Screen {
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
         // Set the position of map before beginning of the game
-        tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
+        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
     }
      
     /**
@@ -126,7 +123,7 @@ public class GameScreen extends Screen {
     private void updateGame() {
         // Update player
         player.update();
-        tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
+        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
 
         // Check border player collision to change the map
         if (player.getPosX() - player.getCX() / 2 <= 0) {
@@ -153,7 +150,7 @@ public class GameScreen extends Screen {
             double[] pos;
             pos = tileMap.changeMap(transitionSide);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
+            tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
             gameState = NORMALSCREEN;
@@ -201,11 +198,11 @@ public class GameScreen extends Screen {
      */
     private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
-            Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0,
+            Render.rect(0, 0, Window.WIDTH, Window.HEIGHT, 0,
                     (float) Math.map(transitionCounter,
                             0, transitionTime / 2, 0, 1.5));
         } else {
-            Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+            Render.rect(0, 0, Window.WIDTH, Window.HEIGHT, 0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
         }
     }
 

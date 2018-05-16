@@ -1,10 +1,10 @@
-package growth.game.entity;
+package growth.entity;
 
-import growth.game.render.Animation;
-import growth.game.render.Render;
-import growth.game.screen.GameScreen;
-import growth.game.tilemap.TileMap;
-import growth.main.Growth;
+import growth.render.Animation;
+import growth.render.Render;
+import growth.screen.GameScreen;
+import growth.tilemap.TileMap;
+import growth.main.Window;
 
 import java.util.ArrayList;
 
@@ -113,15 +113,15 @@ public class Player extends Entity {
 	 */
 	private void checkKeys(){
 		// Key update
-		jumping = glfwGetKey(Growth.WINDOWID, GLFW_KEY_W) == 1;
+		jumping = glfwGetKey(Window.WINDOWID, GLFW_KEY_W) == 1;
 
-		down = glfwGetKey(Growth.WINDOWID, GLFW_KEY_S) == 1;
+		down = glfwGetKey(Window.WINDOWID, GLFW_KEY_S) == 1;
 
-		left = glfwGetKey(Growth.WINDOWID, GLFW_KEY_A) == 1;
+		left = glfwGetKey(Window.WINDOWID, GLFW_KEY_A) == 1;
 
-		right = glfwGetKey(Growth.WINDOWID, GLFW_KEY_D) == 1;
+		right = glfwGetKey(Window.WINDOWID, GLFW_KEY_D) == 1;
 
-		sprint = glfwGetKey(Growth.WINDOWID, GLFW_KEY_LEFT_SHIFT) == 1;
+		sprint = glfwGetKey(Window.WINDOWID, GLFW_KEY_LEFT_SHIFT) == 1;
 	}
 
 	/**

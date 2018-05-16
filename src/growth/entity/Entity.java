@@ -1,10 +1,8 @@
-package growth.game.entity;
+package growth.entity;
 
-import growth.game.render.Animation;
-import growth.game.render.texture.Texture;
-import growth.game.tilemap.Tile;
-import growth.game.tilemap.TileMap;
-import growth.main.Growth;
+import growth.render.Animation;
+import growth.tilemap.Tile;
+import growth.tilemap.TileMap;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -490,9 +488,9 @@ public abstract class Entity {
 	 */
 	public boolean notOnScreen() {
 		return posX + xMap + sizeX < 0 ||
-				posX + xMap - sizeX > Growth.WIDTH ||
+				posX + xMap - sizeX > Window.WIDTH ||
 				posY + yMap + sizeY < 0 ||
-				posY + yMap - sizeY > Growth.HEIGHT;
+				posY + yMap - sizeY > Window.HEIGHT;
 	}
 
 	/**

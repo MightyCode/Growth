@@ -1,4 +1,4 @@
-package growth.game.screen;
+package growth.screen;
 
 /**
  * ScreenManager class.
@@ -69,7 +69,7 @@ public class ScreenManager {
     /**
      * Unload the currentScreen.
      */
-    public void currentScreenUnload() {
+    private void currentScreenUnload() {
         ActualScreen.unload();
     }
 

@@ -1,6 +1,6 @@
-package growth.game.render;
+package growth.render;
 
-import growth.game.render.texture.Texture;
+import growth.render.texture.Texture;
 
 /**
  * Animation class.
@@ -46,7 +46,7 @@ public class Animation {
 		textures = new Texture[numbAnimation];
 		for (int i = 0; i < numbAnimation; i++) {
 			textures[i] = new Texture((path + Integer.toString(i) + ".png"));
-			// Exemple: load(\IAmAFile\1.png)
+			// Example: load(\IAmAFile\1.png)
 		}
 		this.delay = delay;
 	}

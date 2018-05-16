@@ -1,4 +1,4 @@
-package growth.game.screen;
+package growth.screen;
 
 /**
  * Screen class.
