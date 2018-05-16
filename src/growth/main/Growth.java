@@ -22,9 +22,9 @@ public class Growth {
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 720;
     public static final long WINDOWID = createWindow();
+    public static final ScreenManager SCREENMANAGER = new ScreenManager();
+    public static final Exit EXIT = new Exit();
 
-    // WindowID
-    private ScreenManager screenManager;
     private static final int TPS = 60;
 
     public static void main(String[] args) {
@@ -92,8 +92,6 @@ public class Growth {
 
         glViewport(0, 0, WIDTH, HEIGHT);
 
-
-
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -102,17 +100,8 @@ public class Growth {
     }
 
     private void run() {
-        System.out.println("Hello LWJGL " + Version.getVersion() + "!");
-        screenManager = new ScreenManager();
         loop();
-
-        // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(WINDOWID);
-        glfwDestroyWindow(WINDOWID);
-
-        // Terminate GLFW and free the error callback
-        glfwTerminate();
-        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
+        EXIT.exit();
     }
 
 
@@ -133,25 +122,24 @@ public class Growth {
 
         while (!glfwWindowShouldClose(WINDOWID)) {
             long now = System.nanoTime();
-            if(now - start > wait){
-                screenManager.update();
+            if (now - start > wait) {
+                SCREENMANAGER.update();
                 start = System.nanoTime();
                 tps++;
             }
 
-            screenManager.display();
+            SCREENMANAGER.display();
             fps++;
             glfwSwapBuffers(WINDOWID); // swap the color buffers
 
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
-            if(seconde + 1000000000 < System.nanoTime()){
+            if (seconde + 1000000000 < System.nanoTime()) {
                 System.out.println("FPS : " + fps + " ,TPS : " + tps);
                 fps = tps = 0;
                 seconde = System.nanoTime();
             }
         }
-        screenManager.unload();
     }
 }

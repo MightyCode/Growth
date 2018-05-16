@@ -4,6 +4,8 @@ import growth.game.render.Render;
 import growth.game.utils.button.ClickButton;
 import growth.main.Growth;
 
+import static org.lwjgl.glfw.GLFW.*;
+
 public class MenuScreen extends Screen {
 
     ClickButton but1, but2, but3;
@@ -17,8 +19,20 @@ public class MenuScreen extends Screen {
                 screen.screenManager.setScreen(ScreenManager.GAMESCREEN);
             }
         };
-        but2 = new ClickButton(Growth.WIDTH/2, (int)(Growth.HEIGHT*0.65),200,100,"Options", this);
-        but3 = new ClickButton(Growth.WIDTH/2, (int)(Growth.HEIGHT*0.85),200,100,"Quit", this);
+        but2 = new ClickButton(Growth.WIDTH/2, (int)(Growth.HEIGHT*0.65),200,100,"Options", this){
+            @Override
+            public void action(){
+                screen.screenManager.setScreen(ScreenManager.GAMESCREEN);
+            }
+        };
+
+        but3 = new ClickButton(Growth.WIDTH/2, (int)(Growth.HEIGHT*0.85),200,100,"Quit", this){
+            @Override
+            public void action(){
+               // glfwDestroyWindow(Growth.WINDOWID);
+                Growth.EXIT.exit();
+            }
+        };
     }
 
     public void update() {

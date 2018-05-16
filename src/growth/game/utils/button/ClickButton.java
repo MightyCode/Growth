@@ -7,7 +7,7 @@ import growth.main.Growth;
 import org.lwjgl.BufferUtils;
 import java.nio.DoubleBuffer;
 
-import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
+import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * ClickButton class.
@@ -50,10 +50,16 @@ public class ClickButton extends AbstractInput {
     private Texture texIdle;
 
     /**
-     * Texture Over.
+     * Texture over.
      * This variable contains the texture of the Over's button.
      */
     private Texture texOver;
+
+    /**
+     * Mouse over.
+     * This variable contains
+     */
+    private boolean mouseOver;
 
     /**
      * Button class constructor.
@@ -90,6 +96,7 @@ public class ClickButton extends AbstractInput {
      * Update the button.
      */
     public void update() {
+        mouseOver = mouseOver();
         DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
         DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
 
@@ -97,8 +104,7 @@ public class ClickButton extends AbstractInput {
 
         mouseX = x.get(0);
         mouseY = y.get(0);
-        System.out.println(mouseX + " ," + mouseY);
-        if(mouseOver()){
+        if(mouseOver && glfwGetMouseButton(Growth.WINDOWID, GLFW_MOUSE_BUTTON_LEFT) == 1){
             action();
         }
     }
@@ -107,7 +113,7 @@ public class ClickButton extends AbstractInput {
      * Display the button.
      */
     public void display() {
-        if (!mouseOver()) {
+        if (!mouseOver) {
             Render.image(posX - (sizeX/2), posY - (sizeY/2), sizeX, sizeY, texIdle.getID(),1);
         } else {
             Render.image(posX - overSizeX/2, posY - overSizeY/2, overSizeX, overSizeY, texOver.getID(),1);

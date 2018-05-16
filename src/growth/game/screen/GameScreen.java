@@ -140,21 +140,7 @@ public class GameScreen extends Screen {
      * Update the key in game.
      */
     private void updateGameKeys() {
-        // Key update
-        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_W) == 1) player.setJumping(true);
-        else player.setJumping(false);
 
-        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_S) == 1) player.setDown(true);
-        else player.setDown(false);
-
-        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_A) == 1) player.setLeft(true);
-        else player.setLeft(false);
-
-        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_D) == 1) player.setRight(true);
-        else player.setRight(false);
-
-        if (glfwGetKey(Growth.WINDOWID, GLFW_KEY_LEFT_SHIFT) == 1) player.setSprint(true);
-        else player.setSprint(false);
     }
 	
     /**
