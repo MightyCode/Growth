@@ -71,7 +71,7 @@ public class ClickButton extends AbstractInput {
      * @param sizeY Size y of the button.
      * @param name Name of the button to find the file and charge her textures.
      */
-    public ClickButton(int posX, int posY, int sizeX, int sizeY, String name, Screen screen) {
+    public ClickButton(double posX, double posY, double sizeX, double sizeY, String name, Screen screen) {
         // Call the mother class
         super(posX, posY, sizeX, sizeY, screen);
 

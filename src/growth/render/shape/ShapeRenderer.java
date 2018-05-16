@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 public abstract class ShapeRenderer {
 
     /**
-     * Display an multicolour rectangle.
+     * Display a black shades rectangle.
      *
      * @param posX Position x of the top-left corner image.
      * @param posY Position y of the top-left corner image.
@@ -39,7 +39,14 @@ public abstract class ShapeRenderer {
     }
 
     /**
-     * Display an black shades rectangle.
+     * Surcharge of previous class, replace int position and size to double position and size.
+     */
+    public static void rect(double posX, double posY, double sizeX, double sizeY, int color, float alpha) {
+        rect((int)posX, (int) posY, (int) sizeX, (int) sizeY, color, alpha);
+    }
+
+    /**
+     * Display an multicolour rectangle.
      *
      * @param posX Position x of the top-left corner image.
      * @param posY Position y of the top-left corner image.
@@ -61,5 +68,12 @@ public abstract class ShapeRenderer {
         glEnd();
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_TEXTURE);
+    }
+
+    /**
+     * Surcharge of previous class, replace int position and size to double position and size.
+     */
+    public static void rect(double posX, double posY, double sizeX, double sizeY, int[] color, float alpha) {
+        rect((int)posX, (int) posY, (int) sizeX, (int) sizeY, color, alpha);
     }
 }

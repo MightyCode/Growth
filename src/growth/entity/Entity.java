@@ -443,7 +443,7 @@ public abstract class Entity {
 	/**
 	 * Set the map's position.
 	 */
-	void setMapPosition() {
+	public void setMapPosition() {
 		xMap = tileMap.getPosX();
 		yMap = tileMap.getPosY();
 	}

@@ -1,10 +1,16 @@
 package growth.screen;
 
 import growth.render.Render;
+import growth.render.texture.Texture;
 import growth.tilemap.TileMap;
 import growth.entity.Player;
 import growth.utils.Math;
 import growth.main.Window;
+import growth.utils.button.ClickButton;
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
+import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 /**
  * Game class.
@@ -68,6 +74,16 @@ public class GameScreen extends Screen {
     private final Player player;
 
     /**
+     * Escape temp.
+     * This variable contains the state of escape's key in the previous frame.
+     */
+    private boolean tempEscape;
+
+    private Texture pause;
+
+    private ClickButton continu, menu;
+
+    /**
      * GameScreen class constructor.
      * Instance the class and set all of the GameScreen's variables.
      *
@@ -83,8 +99,29 @@ public class GameScreen extends Screen {
             // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
         tileMap.setTween(0.9);
+
             // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
+
+            // Init Keys util variables
+        tempEscape = false;
+
+            // Init game textures
+        pause = new Texture("/images/menu/Pause.png");
+
+            // Init buttons
+        continu = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.5,Window.WIDTH*0.1,Window.HEIGHT*0.1,"Continu",this){
+            @Override
+            public void action(){
+                gameState = NORMALSCREEN;
+            }
+        };
+        menu = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.7,Window.WIDTH*0.1,Window.HEIGHT*0.1,"Return",this){
+            @Override
+            public void action(){
+                screen.screenManager.setScreen(ScreenManager.MENUSCREEN);
+            }
+        };
 
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
@@ -105,6 +142,9 @@ public class GameScreen extends Screen {
                 updateTransition();
                 break;
             case ESCAPESCREEN:
+                updateEscapeKeys();
+                continu.update();
+                menu.update();
                 break;
             case INVENTORYSCREEN:
                 break;
@@ -134,13 +174,6 @@ public class GameScreen extends Screen {
     }
 	
     /**
-     * Update the key in game.
-     */
-    private void updateGameKeys() {
-
-    }
-	
-    /**
      * Update the transition between two maps.
      */
     private void updateTransition() {
@@ -150,11 +183,34 @@ public class GameScreen extends Screen {
             double[] pos;
             pos = tileMap.changeMap(transitionSide);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
+            player.setMapPosition();
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
             gameState = NORMALSCREEN;
             transitionCounter = 0;
+        }
+    }
+
+    /**
+     * Update the key in game state.
+     */
+    private void updateGameKeys() {
+        if(glfwGetKey(Window.WINDOWID, GLFW_KEY_ESCAPE) == 1){
+            if(!tempEscape) gameState = ESCAPESCREEN;
+            tempEscape = true;
+        } else{
+            tempEscape = false;
+        }
+    }
+    /**
+     * Update the key in escape state.
+     */
+    private void updateEscapeKeys() {
+        if(glfwGetKey(Window.WINDOWID, GLFW_KEY_ESCAPE) == 1){
+            if(!tempEscape) gameState = NORMALSCREEN;
+            tempEscape = true;
+        } else{
+            tempEscape = false;
         }
     }
 
@@ -174,6 +230,9 @@ public class GameScreen extends Screen {
                 break;
             case ESCAPESCREEN:
                 displayGame();
+                displayEscape();
+                continu.display();
+                menu.display();
                 break;
             case INVENTORYSCREEN:
                 break;
@@ -205,6 +264,20 @@ public class GameScreen extends Screen {
             Render.rect(0, 0, Window.WIDTH, Window.HEIGHT, 0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
         }
     }
+
+    /**
+     * Display the transition between two map
+     */
+    private void displayEscape() {
+        // Black rectangle
+        Render.rect(0, 0, Window.WIDTH, Window.HEIGHT,0, (float)0.6);
+        Render.rect(Window.WIDTH*0.1, Window.HEIGHT*0.15, Window.WIDTH*0.8, Window.HEIGHT*0.75 ,0, (float)0.5);
+
+        // Textures and button
+        Render.image(Window.WIDTH*0.40,Window.HEIGHT*0.05,Window.WIDTH*0.2,Window.HEIGHT*0.09,pause.getID(), 1);
+
+    }
+
 
     /**
      * Set the change when the player touch a screen'edge.

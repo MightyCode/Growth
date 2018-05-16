@@ -34,11 +34,11 @@ public abstract class AbstractInput {
      * @param sizeY Size y of the input.
      *
      */
-    AbstractInput(int posX, int posY, int sizeX, int sizeY, Screen screen){
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.posX = posX;
-        this.posY = posY;
+    AbstractInput(double posX, double posY, double sizeX, double sizeY, Screen screen){
+        this.sizeX = (int)sizeX;
+        this.sizeY = (int)sizeY;
+        this.posX = (int)posX;
+        this.posY = (int)posY;
         this.screen = screen;
     }
 }

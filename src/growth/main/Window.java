@@ -62,10 +62,7 @@ public class Window {
      * @return windowID
      */
     private static long createWindow(){
-        long windowID;
-
-        // Setup an error callback. The default implementation
-        // will print the error message in System.err.
+        // Setup an error callback.
         GLFWErrorCallback.createPrint(System.err).set();
 
         // Initialize GLFW. Most GLFW functions will not work before doing this.
@@ -78,17 +75,9 @@ public class Window {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
 
         // Create the window
-        windowID = glfwCreateWindow(WIDTH, HEIGHT, "Growth", NULL, NULL);
+        long windowID = glfwCreateWindow(WIDTH, HEIGHT, "Growth", NULL, NULL);
         if (windowID == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
-
-		/*
-		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
-		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-			if ( key == GLFW_KEY_ENTER && action == GLFW_RELEASE )
-				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-		});
-		 */
 
         // Get the thread stack and push a new frame
         try (MemoryStack stack = stackPush()) {
@@ -140,8 +129,8 @@ public class Window {
      * Main method of game.
      */
     private void loop() {
-        // Set Render parameters
-        Render.clearColor(225,255);
+        // Set render parameters
+        Render.setClearColor(225,255);
         Render.glEnable2D();
 
         // System of tps clock, tps and fps counters
