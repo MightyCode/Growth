@@ -74,6 +74,10 @@ public abstract class Render {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	public static void clearColor(int color1, int color2, int color3, int alpha){ glClearColor(color1, color2, color3, alpha);}
+
+	public static void clearColor(int color, int alpha){ glClearColor(color, color, color, alpha);}
+
 	/**
 	 * Set the 3D view.
 	*/
