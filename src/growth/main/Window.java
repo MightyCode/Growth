@@ -26,6 +26,9 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  */
 public class Window {
 
+    public Window(){
+        System.out.println("Window loaded");
+    }
 
     /**
      * Window id.

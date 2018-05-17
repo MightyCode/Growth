@@ -195,22 +195,16 @@ public class GameScreen extends Screen {
      * Update the key in game state.
      */
     private void updateGameKeys() {
-        if(glfwGetKey(Window.WINDOWID, GLFW_KEY_ESCAPE) == 1){
-            if(!tempEscape) gameState = ESCAPESCREEN;
-            tempEscape = true;
-        } else{
-            tempEscape = false;
+        if(ScreenManager.KEY.keyPressed(GLFW_KEY_ESCAPE)) {
+            gameState = ESCAPESCREEN;
         }
     }
     /**
      * Update the key in escape state.
      */
     private void updateEscapeKeys() {
-        if(glfwGetKey(Window.WINDOWID, GLFW_KEY_ESCAPE) == 1){
-            if(!tempEscape) gameState = NORMALSCREEN;
-            tempEscape = true;
-        } else{
-            tempEscape = false;
+        if(ScreenManager.KEY.keyPressed(GLFW_KEY_ESCAPE)) {
+            gameState = NORMALSCREEN;
         }
     }
 

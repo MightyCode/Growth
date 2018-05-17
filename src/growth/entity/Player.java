@@ -5,6 +5,7 @@ import growth.render.Render;
 import growth.screen.GameScreen;
 import growth.tilemap.TileMap;
 import growth.main.Window;
+import growth.utils.KeyboardManager;
 
 import java.util.ArrayList;
 
@@ -113,15 +114,16 @@ public class Player extends Entity {
 	 */
 	private void checkKeys(){
 		// Key update
-		jumping = glfwGetKey(Window.WINDOWID, GLFW_KEY_W) == 1;
+		// Key update
+		jumping = KeyboardManager.key(GLFW_KEY_W) || KeyboardManager.key(GLFW_KEY_SPACE);
 
-		down = glfwGetKey(Window.WINDOWID, GLFW_KEY_S) == 1;
+		down = KeyboardManager.key(GLFW_KEY_S);
 
-		left = glfwGetKey(Window.WINDOWID, GLFW_KEY_A) == 1;
+		left = KeyboardManager.key(GLFW_KEY_A);
 
-		right = glfwGetKey(Window.WINDOWID, GLFW_KEY_D) == 1;
+		right = KeyboardManager.key(GLFW_KEY_D);
 
-		sprint = glfwGetKey(Window.WINDOWID, GLFW_KEY_LEFT_SHIFT) == 1;
+		sprint = KeyboardManager.key(GLFW_KEY_LEFT_SHIFT);
 	}
 
 	/**

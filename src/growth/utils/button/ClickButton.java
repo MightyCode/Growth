@@ -3,9 +3,8 @@ package growth.utils.button;
 import growth.render.Render;
 import growth.render.texture.Texture;
 import growth.screen.Screen;
-import growth.main.Window;
-import org.lwjgl.BufferUtils;
-import java.nio.DoubleBuffer;
+import growth.screen.ScreenManager;
+import growth.utils.MouseManager;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -23,13 +22,13 @@ public class ClickButton extends AbstractInput {
      * Mouse position x.
      * This variable contains the detection of mouse's position x.
      */
-    private double mouseX;
+    private float mouseX;
 
     /**
      * Mouse position y.
      * This variable contains the detection of mouse's position y.
      */
-    private double mouseY;
+    private float mouseY;
 
     /**
      * Over size x.
@@ -76,13 +75,14 @@ public class ClickButton extends AbstractInput {
         super(posX, posY, sizeX, sizeY, screen);
 
         // Set the button's variables
-            // Size
+        // Size
         overSizeX = (int)(sizeX*1.1);
         overSizeY = (int)( sizeY*1.1);
-            // Textures
+        // Textures
+
         texIdle = new Texture("/images/menu/" + name + ".png");
         texOver= new Texture("/images/menu/" + name + "-hover.png");
-            // Mouse interaction class
+        // Mouse interaction class
     }
 
     /**
@@ -96,15 +96,10 @@ public class ClickButton extends AbstractInput {
      * Update the button.
      */
     public void update() {
+        mouseX = MouseManager.mouseX();
+        mouseY = MouseManager.mouseY();
         mouseOver = mouseOver();
-        DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
-        DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
-
-        glfwGetCursorPos(Window.WINDOWID, x, y);
-
-        mouseX = x.get(0);
-        mouseY = y.get(0);
-        if(mouseOver && glfwGetMouseButton(Window.WINDOWID, GLFW_MOUSE_BUTTON_LEFT) == 1){
+        if(mouseOver && ScreenManager.MOUSE.mousePressed(GLFW_MOUSE_BUTTON_LEFT)){
             action();
         }
     }

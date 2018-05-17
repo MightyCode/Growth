@@ -1,5 +1,8 @@
 package growth.screen;
 
+import growth.utils.KeyboardManager;
+import growth.utils.MouseManager;
+
 /**
  * ScreenManager class.
  * This class is the screenManager class used to run the game screens.
@@ -27,12 +30,16 @@ public class ScreenManager {
      * This variable contains the window ID of our game.
      */
 
+    public static final KeyboardManager KEY = new KeyboardManager();
+    public static final MouseManager MOUSE = new MouseManager();
+
     /**
      * ScreenManager class constructor.
      * Instance the class and set the current screen.
      */
     public ScreenManager() {
         ActualScreen = (new MenuScreen(this));
+        System.out.println("Screen manager loaded");
     }
 
     /**
