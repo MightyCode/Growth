@@ -1,13 +1,16 @@
-package growth.game.screen;
+package growth.screen;
 
-import growth.game.render.Render;
-import growth.game.tilemap.TileMap;
-import growth.main.Growth;
-import growth.game.entity.Player;
-import growth.game.utils.Math;
+import growth.render.Render;
+import growth.render.texture.Texture;
+import growth.tilemap.TileMap;
+import growth.entity.Player;
+import growth.utils.Math;
+import growth.main.Window;
+import growth.utils.button.ClickButton;
 
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
+import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 /**
  * Game class.
@@ -71,6 +74,16 @@ public class GameScreen extends Screen {
     private final Player player;
 
     /**
+     * Escape temp.
+     * This variable contains the state of escape's key in the previous frame.
+     */
+    private boolean tempEscape;
+
+    private Texture pause;
+
+    private ClickButton continu, menu;
+
+    /**
      * GameScreen class constructor.
      * Instance the class and set all of the GameScreen's variables.
      *
@@ -86,13 +99,34 @@ public class GameScreen extends Screen {
             // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
         tileMap.setTween(0.9);
+
             // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
+
+            // Init Keys util variables
+        tempEscape = false;
+
+            // Init game textures
+        pause = new Texture("/images/menu/Pause.png");
+
+            // Init buttons
+        continu = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.5,Window.WIDTH*0.1,Window.HEIGHT*0.1,"Continu",this){
+            @Override
+            public void action(){
+                gameState = NORMALSCREEN;
+            }
+        };
+        menu = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.7,Window.WIDTH*0.1,Window.HEIGHT*0.1,"Return",this){
+            @Override
+            public void action(){
+                screen.screenManager.setScreen(ScreenManager.MENUSCREEN);
+            }
+        };
 
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
         // Set the position of map before beginning of the game
-        tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
+        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
     }
      
     /**
@@ -108,6 +142,9 @@ public class GameScreen extends Screen {
                 updateTransition();
                 break;
             case ESCAPESCREEN:
+                updateEscapeKeys();
+                continu.update();
+                menu.update();
                 break;
             case INVENTORYSCREEN:
                 break;
@@ -126,7 +163,7 @@ public class GameScreen extends Screen {
     private void updateGame() {
         // Update player
         player.update();
-        tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
+        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
 
         // Check border player collision to change the map
         if (player.getPosX() - player.getCX() / 2 <= 0) {
@@ -134,27 +171,6 @@ public class GameScreen extends Screen {
         } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getSizeX()) {
             changeMap(3);
         }
-    }
-	
-    /**
-     * Update the key in game.
-     */
-    private void updateGameKeys() {
-        // Key update
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_W) == 1) player.setJumping(true);
-        else player.setJumping(false);
-
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_S) == 1) player.setDown(true);
-        else player.setDown(false);
-
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_A) == 1) player.setLeft(true);
-        else player.setLeft(false);
-
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_D) == 1) player.setRight(true);
-        else player.setRight(false);
-
-        if (glfwGetKey(screenManager.getWindowID(), GLFW_KEY_LEFT_SHIFT) == 1) player.setSprint(true);
-        else player.setSprint(false);
     }
 	
     /**
@@ -167,7 +183,7 @@ public class GameScreen extends Screen {
             double[] pos;
             pos = tileMap.changeMap(transitionSide);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            tileMap.setPosition(Growth.WIDTH / 2 - player.getPosX(), Growth.HEIGHT / 2 - player.getPosY());
+            player.setMapPosition();
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
             gameState = NORMALSCREEN;
@@ -176,12 +192,28 @@ public class GameScreen extends Screen {
     }
 
     /**
+     * Update the key in game state.
+     */
+    private void updateGameKeys() {
+        if(ScreenManager.KEY.keyPressed(GLFW_KEY_ESCAPE)) {
+            gameState = ESCAPESCREEN;
+        }
+    }
+    /**
+     * Update the key in escape state.
+     */
+    private void updateEscapeKeys() {
+        if(ScreenManager.KEY.keyPressed(GLFW_KEY_ESCAPE)) {
+            gameState = NORMALSCREEN;
+        }
+    }
+
+    /**
      * Display the screen in terms of the game'state
      */
     public void display() {
         // clear the framebuffer
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        Render.clear();
         switch (gameState) {
             case NORMALSCREEN:
                 displayGame();
@@ -192,6 +224,9 @@ public class GameScreen extends Screen {
                 break;
             case ESCAPESCREEN:
                 displayGame();
+                displayEscape();
+                continu.display();
+                menu.display();
                 break;
             case INVENTORYSCREEN:
                 break;
@@ -216,13 +251,27 @@ public class GameScreen extends Screen {
      */
     private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
-            Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0,
+            Render.rect(0, 0, Window.WIDTH, Window.HEIGHT, 0,
                     (float) Math.map(transitionCounter,
                             0, transitionTime / 2, 0, 1.5));
         } else {
-            Render.rect(0, 0, Growth.WIDTH, Growth.HEIGHT, 0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+            Render.rect(0, 0, Window.WIDTH, Window.HEIGHT, 0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
         }
     }
+
+    /**
+     * Display the transition between two map
+     */
+    private void displayEscape() {
+        // Black rectangle
+        Render.rect(0, 0, Window.WIDTH, Window.HEIGHT,0, (float)0.6);
+        Render.rect(Window.WIDTH*0.1, Window.HEIGHT*0.15, Window.WIDTH*0.8, Window.HEIGHT*0.75 ,0, (float)0.5);
+
+        // Textures and button
+        Render.image(Window.WIDTH*0.40,Window.HEIGHT*0.05,Window.WIDTH*0.2,Window.HEIGHT*0.09,pause.getID(), 1);
+
+    }
+
 
     /**
      * Set the change when the player touch a screen'edge.

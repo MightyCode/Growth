@@ -1,4 +1,4 @@
-package growth.game.screen;
+package growth.screen;
 
 /**
  * Screen class.
@@ -7,7 +7,7 @@ package growth.game.screen;
  * @author MightyCode
  * @version 1.0
  */
-abstract class Screen {
+public abstract class Screen {
 
     /**
      * ScreenManger.

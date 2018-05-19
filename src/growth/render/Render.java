@@ -1,7 +1,7 @@
-package growth.game.render;
+package growth.render;
 
-import growth.game.render.shape.ShapeRenderer;
-import growth.game.render.texture.TextureRenderer;
+import growth.render.shape.ShapeRenderer;
+import growth.render.texture.TextureRenderer;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -17,7 +17,7 @@ public abstract class Render {
 	 * @param textID ID of the image.
 	 * @param alpha Opacity of the image.
 	 */
-	public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float alpha) {
+	public static void image(double posX, double posY, double sizeX, double sizeY, int textID, float alpha) {
 		TextureRenderer.image(posX, posY, sizeX, sizeY, textID, alpha);
 	}
 
@@ -31,7 +31,7 @@ public abstract class Render {
 	 * @param color Black shades colour.
 	 * @param alpha Opacity of the image.
 	*/
-	public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
+	public static void rect(double posX, double posY, double sizeX, double sizeY, int color, float alpha) {
 		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
 	}
 
@@ -45,7 +45,7 @@ public abstract class Render {
 	 * @param color Colour of the rectangle.
 	 * @param alpha Opacity of the image.
 	*/
-	public static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
+	public static void rect(double posX, double posY, double sizeX, double sizeY, int[] color, float alpha) {
 		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
 	}
 
@@ -66,6 +66,23 @@ public abstract class Render {
 		glPushMatrix();
 		glLoadIdentity();
 	}
+
+	/**
+	 * Clear the screen with white color.
+	 */
+	public static void clear(){
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	/**
+	 * Set the clear color.
+	 */
+	public static void setClearColor(int color1, int color2, int color3, int alpha){ glClearColor(color1, color2, color3, alpha);}
+
+	/**
+	 * Surcharge method to set the clear color.
+	 */
+	public static void setClearColor(int color, int alpha){ glClearColor(color, color, color, alpha);}
 
 	/**
 	 * Set the 3D view.

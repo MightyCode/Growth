@@ -1,6 +1,6 @@
-package growth.game.tilemap;
+package growth.tilemap;
 
-import growth.game.utils.XmlReader;
+import growth.utils.XmlReader;
 
 /**
  * Map class.

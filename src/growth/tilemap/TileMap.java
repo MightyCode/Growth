@@ -1,9 +1,8 @@
-package growth.game.tilemap;
+package growth.tilemap;
 
-import growth.main.Growth;
-import growth.game.render.Render;
-import growth.game.utils.XmlReader;
-
+import growth.main.Window;
+import growth.render.Render;
+import growth.utils.XmlReader;
 import java.util.ArrayList;
 
 /**
@@ -149,8 +148,8 @@ public class TileMap {
 		numCols = map[0].length;
 		numRows = map.length;
 
-		numRowsToDraw = Growth.HEIGHT / tileSize + 2;
-		numColsToDraw = Growth.WIDTH / tileSize + 2;
+		numRowsToDraw = Window.HEIGHT / tileSize + 2;
+		numColsToDraw = Window.WIDTH / tileSize + 2;
 		tween = 1;
 
 		tileSet = XmlReader.createTileSet(path);
@@ -158,9 +157,9 @@ public class TileMap {
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
-		xMin = Growth.WIDTH - sizeX;
+		xMin = Window.WIDTH - sizeX;
 		xMax = 0;
-		yMin = Growth.HEIGHT - sizeY;
+		yMin = Window.HEIGHT - sizeY;
 		yMax = 0;
 	}
 
@@ -203,8 +202,8 @@ public class TileMap {
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
-		xMin = Growth.WIDTH - sizeX;
-		yMin = Growth.HEIGHT - sizeY;
+		xMin = Window.WIDTH - sizeX;
+		yMin = Window.HEIGHT - sizeY;
 
 		double[] newPos = new double[2];
 		if (side == 1) {

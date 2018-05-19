@@ -18,7 +18,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-package growth.game.render.texture;
+package growth.render.texture;
 
 import org.lwjgl.BufferUtils;
 
@@ -172,7 +172,7 @@ public class Texture {
     }
 
     /**
-     * Set OpenGL Texure Parameter.
+     * Set OpenGL Texture parameter.
      *
      * @param param Parameter name.
      * @param value Parameter value.
