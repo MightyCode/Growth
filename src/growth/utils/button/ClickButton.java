@@ -70,6 +70,7 @@ public class ClickButton extends AbstractInput {
      * @param sizeX Size x of the button.
      * @param sizeY Size y of the button.
      * @param name Name of the button to find the file and charge her textures.
+     * @param screen The screen which have instance the input.
      */
     public ClickButton(double posX, double posY, double sizeX, double sizeY, String name, Screen screen) {
         // Call the mother class
@@ -95,6 +96,7 @@ public class ClickButton extends AbstractInput {
      * @param sizeX Size x of the button.
      * @param sizeY Size y of the button.
      * @param name Name of the button to find the file and charge her textures.
+     * @param overlay The overlay which have instance the input.
      */
     public ClickButton(double posX, double posY, double sizeX, double sizeY, String name, Overlay overlay) {
         // Call the mother class

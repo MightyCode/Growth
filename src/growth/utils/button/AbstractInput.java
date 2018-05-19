@@ -23,8 +23,16 @@ public abstract class AbstractInput {
      */
     protected int posX, posY;
 
+    /**
+     * Screen.
+     * This variable contains the screen which have instance this input.
+     */
     protected Screen screen;
 
+    /**
+     * Overlay.
+     * This variable contains the overlay which have instance this input.
+     */
     protected Overlay overlay;
 
     /**
@@ -35,7 +43,7 @@ public abstract class AbstractInput {
      * @param posY Position y of the input.
      * @param sizeX Size x of the input.
      * @param sizeY Size y of the input.
-     *
+     * @param screen The screen which have instance the input.
      */
     AbstractInput(double posX, double posY, double sizeX, double sizeY, Screen screen){
         this.sizeX = (int)sizeX;
@@ -53,7 +61,7 @@ public abstract class AbstractInput {
      * @param posY Position y of the input.
      * @param sizeX Size x of the input.
      * @param sizeY Size y of the input.
-     *
+     * @param overlay The overlay which have instance the input.
      */
     AbstractInput(double posX, double posY, double sizeX, double sizeY, Overlay overlay){
         this.sizeX = (int)sizeX;

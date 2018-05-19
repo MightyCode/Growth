@@ -158,12 +158,14 @@ public class GameScreen extends Screen {
      */
     private void updateTransition() {
         transitionCounter++;
+        System.out.println(player.getPosX() + " , " + player.getPosY());
         if (transitionCounter == transitionTime / 2) {
 	    // Set the new position of the player in the new map
             double[] pos;
             pos = tileMap.changeMap(transitionSide);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            player.setMapPosition();
+            tileMap.setPosition(player.getPosX(), player.getPosY());
+            player.update();
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
             state = NORMALSCREEN;
@@ -182,7 +184,6 @@ public class GameScreen extends Screen {
                 displayGame();
                 break;
             case TRANSITIONSCREEN:
-                displayGame();
                 displayTransition();
                 break;
             case ESCAPESCREEN:
@@ -213,6 +214,7 @@ public class GameScreen extends Screen {
      * Display the transition between two map
      */
     private void displayTransition() {
+        displayGame();
         if (transitionCounter <= transitionTime / 2) {
             Render.rect(0, 0, Window.WIDTH, Window.HEIGHT, 0,
                     (float) Math.map(transitionCounter,
@@ -240,13 +242,5 @@ public class GameScreen extends Screen {
     public void unload() {
         tileMap.unload();
         player.unload();
-    }
-
-    public void setScreen(int newScreen){
-        screenManager.setScreen(newScreen);
-    }
-
-    public void setState(int newState){
-        state = newState;
     }
 }

@@ -51,10 +51,16 @@ public abstract class Screen {
     public void unload() {
     }
 
+    /**
+     * Base architecture of setting screen method
+     */
     public void setScreen(int newScreen){
         screenManager.setScreen(newScreen);
     }
 
+    /**
+     * Base architecture of setting state method
+     */
     public void setState(int newState){
         state = newState;
     }
