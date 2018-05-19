@@ -1,4 +1,7 @@
-package growth.game.screen;
+package growth.screen;
+
+import growth.utils.KeyboardManager;
+import growth.utils.MouseManager;
 
 /**
  * ScreenManager class.
@@ -26,17 +29,17 @@ public class ScreenManager {
      * Window ID.
      * This variable contains the window ID of our game.
      */
-    private final long windowID;
+
+    public static final KeyboardManager KEY = new KeyboardManager();
+    public static final MouseManager MOUSE = new MouseManager();
 
     /**
      * ScreenManager class constructor.
      * Instance the class and set the current screen.
-     *
-     * @param windowID Init the window's variable.
      */
-    public ScreenManager(long windowID) {
-        this.windowID = windowID;
-        ActualScreen = (new GameScreen(this));
+    public ScreenManager() {
+        ActualScreen = (new MenuScreen(this));
+        System.out.println("Screen manager loaded");
     }
 
     /**
@@ -71,18 +74,9 @@ public class ScreenManager {
     }
 
     /**
-     * Get the window id.
-     *
-     * @return windowID
-     */
-    long getWindowID() {
-        return windowID;
-    }
-
-    /**
      * Unload the currentScreen.
      */
-    public void currentScreenUnload() {
+    private void currentScreenUnload() {
         ActualScreen.unload();
     }
 

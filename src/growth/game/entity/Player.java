@@ -1,11 +1,15 @@
-package growth.game.entity;
+package growth.entity;
 
-import growth.game.render.Animation;
-import growth.game.render.Render;
-import growth.game.screen.GameScreen;
-import growth.game.tilemap.TileMap;
+import growth.render.Animation;
+import growth.render.Render;
+import growth.screen.GameScreen;
+import growth.tilemap.TileMap;
+import growth.main.Window;
+import growth.utils.KeyboardManager;
 
 import java.util.ArrayList;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * Player class.
@@ -72,6 +76,7 @@ public class Player extends Entity {
 	 */
 	public void update() {
 		// Update position
+		checkKeys();
 		getNextPosition();
 
 		checkTileMapCollision();
@@ -102,6 +107,23 @@ public class Player extends Entity {
 
 		// And update chosen animation
 		animations.get(animationPlayed).update();
+	}
+
+	/**
+	 * Update the keys
+	 */
+	private void checkKeys(){
+		// Key update
+		// Key update
+		jumping = KeyboardManager.key(GLFW_KEY_W) || KeyboardManager.key(GLFW_KEY_SPACE);
+
+		down = KeyboardManager.key(GLFW_KEY_S);
+
+		left = KeyboardManager.key(GLFW_KEY_A);
+
+		right = KeyboardManager.key(GLFW_KEY_D);
+
+		sprint = KeyboardManager.key(GLFW_KEY_LEFT_SHIFT);
 	}
 
 	/**

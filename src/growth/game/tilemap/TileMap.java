@@ -310,6 +310,15 @@ public class TileMap {
 	}
 
 	/**
+	 * Return the map size y.
+	 *
+	 * @return size y
+	 */
+	public int getSizeY() {
+		return sizeY;
+	}
+
+	/**
 	 * Return the id of the choose map.
 	 *
 	 * @param side To choose the map neighbour.
