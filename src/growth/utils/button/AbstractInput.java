@@ -1,6 +1,7 @@
 package growth.utils.button;
 
-import growth.screen.Screen;
+import growth.screen.overlay.Overlay;
+import growth.screen.screens.Screen;
 
 /**
  * Basic abstract input class.
@@ -22,7 +23,9 @@ public abstract class AbstractInput {
      */
     protected int posX, posY;
 
-    protected final Screen screen;
+    protected Screen screen;
+
+    protected Overlay overlay;
 
     /**
      * Input abstract class constructor.
@@ -40,5 +43,23 @@ public abstract class AbstractInput {
         this.posX = (int)posX;
         this.posY = (int)posY;
         this.screen = screen;
+    }
+
+    /**
+     * Input abstract class constructor.
+     * Instance the class and set the basic variables.
+     *
+     * @param posX Position x of the input.
+     * @param posY Position y of the input.
+     * @param sizeX Size x of the input.
+     * @param sizeY Size y of the input.
+     *
+     */
+    AbstractInput(double posX, double posY, double sizeX, double sizeY, Overlay overlay){
+        this.sizeX = (int)sizeX;
+        this.sizeY = (int)sizeY;
+        this.posX = (int)posX;
+        this.posY = (int)posY;
+        this.overlay = overlay;
     }
 }

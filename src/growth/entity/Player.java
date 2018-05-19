@@ -2,9 +2,8 @@ package growth.entity;
 
 import growth.render.Animation;
 import growth.render.Render;
-import growth.screen.GameScreen;
+import growth.screen.screens.GameScreen;
 import growth.tilemap.TileMap;
-import growth.main.Window;
 import growth.utils.KeyboardManager;
 
 import java.util.ArrayList;

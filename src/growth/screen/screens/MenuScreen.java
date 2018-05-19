@@ -1,11 +1,10 @@
 package growth.screen.screens;
 
+import growth.main.Growth;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.utils.button.ClickButton;
 import growth.main.Window;
-
-import static growth.main.Growth.WINDOW;
 
 public class MenuScreen extends Screen {
 
@@ -33,7 +32,7 @@ public class MenuScreen extends Screen {
             @Override
             public void action(){
                // glfwDestroyWindow(Growth.WINDOWID);
-                WINDOW.exit();
+                Growth.WINDOW.exit();
             }
         };
     }

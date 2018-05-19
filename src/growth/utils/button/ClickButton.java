@@ -2,8 +2,9 @@ package growth.utils.button;
 
 import growth.render.Render;
 import growth.render.texture.Texture;
-import growth.screen.Screen;
 import growth.screen.ScreenManager;
+import growth.screen.overlay.Overlay;
+import growth.screen.screens.Screen;
 import growth.utils.MouseManager;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -73,6 +74,31 @@ public class ClickButton extends AbstractInput {
     public ClickButton(double posX, double posY, double sizeX, double sizeY, String name, Screen screen) {
         // Call the mother class
         super(posX, posY, sizeX, sizeY, screen);
+
+        // Set the button's variables
+        // Size
+        overSizeX = (int)(sizeX*1.1);
+        overSizeY = (int)( sizeY*1.1);
+        // Textures
+
+        texIdle = new Texture("/images/menu/" + name + ".png");
+        texOver= new Texture("/images/menu/" + name + "-hover.png");
+        // Mouse interaction class
+    }
+
+    /**
+     * Button class constructor.
+     * Instance the class and set the basic variables.
+     *
+     * @param posX Position x of the button.
+     * @param posY Position y of the button.
+     * @param sizeX Size x of the button.
+     * @param sizeY Size y of the button.
+     * @param name Name of the button to find the file and charge her textures.
+     */
+    public ClickButton(double posX, double posY, double sizeX, double sizeY, String name, Overlay overlay) {
+        // Call the mother class
+        super(posX, posY, sizeX, sizeY, overlay);
 
         // Set the button's variables
         // Size
