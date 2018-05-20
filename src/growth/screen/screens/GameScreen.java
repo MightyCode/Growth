@@ -158,14 +158,12 @@ public class GameScreen extends Screen {
      */
     private void updateTransition() {
         transitionCounter++;
-        System.out.println(player.getPosX() + " , " + player.getPosY());
         if (transitionCounter == transitionTime / 2) {
-	    // Set the new position of the player in the new map
             double[] pos;
             pos = tileMap.changeMap(transitionSide);
+            System.out.println("newPosX :" + pos[0]);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            tileMap.setPosition(player.getPosX(), player.getPosY());
-            player.update();
+            tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
             state = NORMALSCREEN;
