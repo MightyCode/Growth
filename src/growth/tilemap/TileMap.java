@@ -130,21 +130,24 @@ public class TileMap {
 		// Id of translate (1 to left, 2 to top, 3 to right and 4 to bottom)
 		// The second and third parameter is tile position X and tile position Y (double)
 		maps.add(new Map("map1.xml", 0, 0, 2, 0));
-
 		maps.get(0).setTileToCome(1, 0.5, 6);
 
 		maps.add(new Map("map2.xml", 1, 0, 3, 0));
 		maps.get(1).setTileToCome(3, 0.5, 6);
 		maps.get(1).setTileToCome(1, 0.5, 5);
 
-		maps.add(new Map("map3.xml", 2, 0, 0, 0));
-		maps.get(2).setTileToCome(3, 0.5, 14);
+		maps.add(new Map("map3.xml", 2, 0, 4, 0));
+		maps.get(2).setTileToCome(3, 0.5, 18);
+		maps.get(2).setTileToCome(1, 0.5, 12);
 
-		currentMap = 1;
+		maps.add(new Map("map4.xml", 3, 0, 0, 0));
+		maps.get(3).setTileToCome(3, 0.5, 14);
+
+		currentMap = 0;
 
 		// Init variables
 
-		map = maps.get(currentMap - 1).getMap();
+		map = maps.get(currentMap).getMap();
 		numCols = map[0].length;
 		numRows = map.length;
 
@@ -194,8 +197,8 @@ public class TileMap {
 	 * @param side Where the map will be changed.
 	 */
 	public double[] changeMap(int side) {
-		currentMap = maps.get(currentMap - 1).getNeighbour(side);
-		map = maps.get(currentMap - 1).getMap();
+		currentMap = maps.get(currentMap).getNeighbour(side)-1;
+		map = maps.get(currentMap).getMap();
 		numCols = map[0].length;
 		numRows = map.length;
 
@@ -207,11 +210,11 @@ public class TileMap {
 
 		double[] newPos = new double[2];
 		if (side == 1) {
-			newPos[0] = sizeX - (maps.get(currentMap - 1).getTileToComeX(side) * tileSize);
-		} else newPos[0] = (maps.get(currentMap - 1).getTileToComeX(side) * tileSize);
+			newPos[0] = sizeX - (maps.get(currentMap).getTileToComeX(side) * tileSize);
+		} else newPos[0] = (maps.get(currentMap).getTileToComeX(side) * tileSize);
 
-		if (side == 4) newPos[1] = sizeY - (maps.get(currentMap - 1).getTileToComeY(side) * tileSize);
-		else newPos[1] = maps.get(currentMap - 1).getTileToComeY(side) * tileSize;
+		if (side == 4) newPos[1] = sizeY - (maps.get(currentMap).getTileToComeY(side) * tileSize);
+		else newPos[1] = maps.get(currentMap).getTileToComeY(side) * tileSize;
 		return newPos;
 	}
 
@@ -325,7 +328,7 @@ public class TileMap {
 	 * @return the id neighbour
 	 */
 	public int getNeighbour(int side) {
-		return maps.get(currentMap - 1).getNeighbour(side);
+		return maps.get(currentMap).getNeighbour(side);
 	}
 
 	/**
