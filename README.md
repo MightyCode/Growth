@@ -21,4 +21,6 @@ License
 Voir le fichier LICENCE
 
 ### Art
-A définir.
+Flat design pour l'aspect graphique.
+Feed back sonore pour quasiment toutes les actions en jeu.
+Les musiques utilisent des sonoritées naturelles.
