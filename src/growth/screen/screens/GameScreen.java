@@ -97,7 +97,7 @@ public class GameScreen extends Screen {
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
         // Set the position of map before beginning of the game
-        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
+        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),false);
     }
 
     /**
@@ -136,7 +136,7 @@ public class GameScreen extends Screen {
         }
         // Update player
         player.update();
-        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
+        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),true);
 
         // Check border player collision to change the map
         if (player.getPosX() - player.getCX() / 2 <= 0) {
@@ -163,7 +163,7 @@ public class GameScreen extends Screen {
             pos = tileMap.changeMap(transitionSide);
             System.out.println("newPosX :" + pos[0]);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY());
+            tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),false);
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
             state = NORMALSCREEN;

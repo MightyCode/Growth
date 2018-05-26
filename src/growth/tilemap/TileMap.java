@@ -234,10 +234,11 @@ public class TileMap {
 	 *
 	 * @param posX Set the new origin position x.
 	 * @param posY Set the new origin position y.
+	 * @param isTween Apply the tween (true) or no (false).
 	 */
-	public void setPosition(double posX, double posY) {
-		this.posX += (posX - this.posX) * tween;
-		this.posY += (posY - this.posY) * tween;
+	public void setPosition(double posX, double posY, boolean isTween) {
+		this.posX += (isTween)?(posX - this.posX) * tween : (posX - this.posX);
+		this.posY += (isTween)?(posY - this.posY) * tween : (posY - this.posY);
 
 		fixBounds();
 
