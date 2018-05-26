@@ -52,8 +52,8 @@ public abstract class XmlReader {
 			}
 
 			while (!(subRoot1.getNodeName().equals("goto"))) {
-				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
 				i++;
+				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
 			}
 
 			int right = 0, left = 0, up = 0, down= 0;
@@ -62,26 +62,28 @@ public abstract class XmlReader {
 			for(int a = 0; a < 4; a++){
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					subRoot1 = (Element) rootNodes.item(i);
-					if(Integer.parseInt(subRoot1.getAttribute("id")) == a+1){
-						switch (a) {
-							case 0:
-								left = Integer.parseInt(subRoot1.getAttribute("mapId"));
-								break;
-							case 1:
-								up = Integer.parseInt(subRoot1.getAttribute("mapId"));
-							break;
-							case 2:
-								right = Integer.parseInt(subRoot1.getAttribute("mapId"));
-							break;
-							case 3:
-								down =  Integer.parseInt(subRoot1.getAttribute("mapId"));
-							break;
-						}
-					}
+					if((subRoot1.getNodeName().equals("goto"))){
+						int j = Integer.parseInt(subRoot1.getAttribute("id"));
+							switch (j) {
+								case 1:
+									left = Integer.parseInt(subRoot1.getAttribute("mapId"));
+									break;
+								case 2:
+									up = Integer.parseInt(subRoot1.getAttribute("mapId"));
+									break;
+								case 3:
+									right = Integer.parseInt(subRoot1.getAttribute("mapId"));
+									break;
+								case 4:
+									down =  Integer.parseInt(subRoot1.getAttribute("mapId"));
+									break;
 
+						}
+						i++;
+					}
 				} else {
+					a--;
 					i++;
-					subRoot1 = (Element) rootNodes.item(i);
 				}
 			}
 
@@ -129,25 +131,25 @@ public abstract class XmlReader {
 			}
 
 			Map map = new Map(left, up, right, down, mapId);
+			i++;
 
 			for(int a = 0; a < 4; a++){
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					subRoot1 = (Element) rootNodes.item(i);
 					if(subRoot1.getNodeName().equals("begin")){
-						if(Integer.parseInt(subRoot1.getAttribute("id")) == a) {
+						System.out.println(i + " " + (1+a));
 							map.setTileToCome(Integer.parseInt(subRoot1.getAttribute("id")),
 									Float.parseFloat(subRoot1.getAttribute("x")),
 									Float.parseFloat(subRoot1.getAttribute("y")));
 							System.out.println(Integer.parseInt(subRoot1.getAttribute("id")) + " " +
 									Float.parseFloat(subRoot1.getAttribute("x")) + " " +
 									Float.parseFloat(subRoot1.getAttribute("y")));
-							i++;
-						}
+						i++;
 					}
-
 				} else {
 					a--;
 					i++;
+
 				}
 			}
 			System.out.println("Map finished");

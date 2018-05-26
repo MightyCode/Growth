@@ -1,6 +1,6 @@
 <map id = "2" width="30" height="12">
-  <goto id = "3" mapId = "3"/>
   <goto id = "1" mapId = "1"/>
+  <goto id = "3" mapId = "3"/>
   <layers>
    <layer id="3">
      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
