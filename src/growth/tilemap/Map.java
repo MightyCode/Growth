@@ -9,7 +9,7 @@ import growth.utils.XmlReader;
  * @author MightyCode
  * @version 1.0
  */
-class Map {
+public class Map {
 
 	/**
 	 * Map's neighbour id.
@@ -21,7 +21,7 @@ class Map {
 	 * Map's neighbour beginning tile.
 	 * This variable contains the map's neighbour beginning tile.
 	 */
-	private final double[][] tileToCome = new double[4][2];
+	private final float[][] tileToCome = new float[4][2];
 
 	/**
 	 * Map's tile id.
@@ -33,20 +33,19 @@ class Map {
 	 * Map class constructor.
 	 * Instance the class and set the map's neighbour id with the path.
 	 *
-	 * @param path Path to file's xml to load the map.
 	 * @param left Map left id.
 	 * @param up Map top id.
 	 * @param right Map right id.
 	 * @param down Map bottom id.
+	 * @param map Id's of map's tile.
 	 */
-	Map(String path, int left, int up, int right, int down) {
-		map = XmlReader.createMap("/map/" + path);
+	public Map(int left, int up, int right, int down, int[][] map) {
 		idMapNeighbour[0] = left;
 		idMapNeighbour[1] = up;
 		idMapNeighbour[2] = right;
 		idMapNeighbour[3] = down;
+		this.map = map;
 	}
-
 
 	/*
 	 * Setters
@@ -59,7 +58,7 @@ class Map {
 	 * @param beginX The tile x to begin.
 	 * @param beginY The tile y to begin.
 	 */
-	void setTileToCome(int side, double beginX, double beginY) {
+	public void setTileToCome(int side, float beginX, float beginY) {
 		tileToCome[side - 1][0] = beginX;
 		tileToCome[side - 1][1] = beginY;
 	}
@@ -76,7 +75,7 @@ class Map {
 	 *
 	 * @return idMapNeighbour
 	 */
-	int getNeighbour(int side) {
+	public int getNeighbour(int side) {
 		return idMapNeighbour[side - 1];
 	}
 

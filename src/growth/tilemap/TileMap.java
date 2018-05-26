@@ -125,23 +125,9 @@ public class TileMap {
 	public TileMap(int tileSize, String path) {
 		this.tileSize = tileSize;
 
-		// Hard code to add and configure game's panels
-		// Path to map file, and the leftIdPanel, upIdPanel, rightIdPanel and downIdPanel
-		// Id of translate (1 to left, 2 to top, 3 to right and 4 to bottom)
-		// The second and third parameter is tile position X and tile position Y (double)
-		maps.add(new Map("map1.xml", 0, 0, 2, 0));
-		maps.get(0).setTileToCome(1, 0.5, 6);
-
-		maps.add(new Map("map2.xml", 1, 0, 3, 0));
-		maps.get(1).setTileToCome(3, 0.5, 6);
-		maps.get(1).setTileToCome(1, 0.5, 5);
-
-		maps.add(new Map("map3.xml", 2, 0, 4, 0));
-		maps.get(2).setTileToCome(3, 0.5, 18);
-		maps.get(2).setTileToCome(1, 0.5, 12);
-
-		maps.add(new Map("map4.xml", 3, 0, 0, 0));
-		maps.get(3).setTileToCome(3, 0.5, 14);
+		for(int i = 1; i < 5; i++){
+			maps.add(XmlReader.createMapT("map"+i+".xml"));
+		}
 
 		currentMap = 0;
 
