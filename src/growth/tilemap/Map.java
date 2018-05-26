@@ -1,7 +1,5 @@
 package growth.tilemap;
 
-import growth.utils.XmlReader;
-
 /**
  * Map class.
  * This class is use to store a map with the layers and entities.
@@ -23,11 +21,9 @@ public class Map {
 	 */
 	private final float[][] tileToCome = new float[4][2];
 
-	/**
-	 * Map's tile id.
-	 * This variable contains the map's tile id.
-	 */
-	private final int[][] map;
+	private int currentLayer;
+
+	private Layer layer[];
 
 	/**
 	 * Map class constructor.
@@ -37,14 +33,18 @@ public class Map {
 	 * @param up Map top id.
 	 * @param right Map right id.
 	 * @param down Map bottom id.
-	 * @param map Id's of map's tile.
 	 */
-	public Map(int left, int up, int right, int down, int[][] map) {
+	public Map(int left, int up, int right, int down) {
 		idMapNeighbour[0] = left;
 		idMapNeighbour[1] = up;
 		idMapNeighbour[2] = right;
 		idMapNeighbour[3] = down;
-		this.map = map;
+		layer = new Layer[5];
+		currentLayer = 3;
+	}
+
+	public void setMap(int layerID, int[][] map){
+		layer[layerID] = new Layer(map);
 	}
 
 	/*
@@ -62,7 +62,6 @@ public class Map {
 		tileToCome[side - 1][0] = beginX;
 		tileToCome[side - 1][1] = beginY;
 	}
-
 
 	/*
 	 * Getters
@@ -85,7 +84,8 @@ public class Map {
 	 * @return map
 	 */
 	int[][] getMap() {
-		return map;
+		System.out.println(currentLayer);
+		return layer[currentLayer-1].getMap();
 	}
 
 	/**

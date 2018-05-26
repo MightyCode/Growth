@@ -87,62 +87,74 @@ public abstract class XmlReader {
 				}
 			}
 
-			while (!(subRoot1.getNodeName().equals("layers"))) {
+			Map map = new Map(left, up, right, down);
+
+			while (!(subRoot1.getNodeName().equals("layer"))) {
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
 				i++;
 			}
 
-			Element subRoot2;
-			subRoot2 = (Element) subRoot1.getElementsByTagName("layer").item(0);
+			for(int a = 0; a < 6; a++){
+				System.out.println("i ; " + i + " ,a :" + (a+1));
+				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 
-			int[][] mapId = new int[height][width];
+					subRoot1 = (Element) rootNodes.item(i);
+					if((subRoot1.getNodeName().equals("layer"))){
 
-			String sMap = subRoot2.getTextContent();
 
-			// Map converting from String to int[][]
-			int counter1 = 0;
-			int numberOfCharacterRead = 1;
 
-			// For all cols
-			while (counter1 < height) {
-				int x = 1;
-				int counter2 = 0;
+						int[][] mapId = new int[height][width];
 
-				// For all rows
-				while (counter2 < width) {
+						String sMap = subRoot1.getTextContent();
+						System.out.println(sMap);
 
-					while (notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
-						x = 1;
-						numberOfCharacterRead++;
+						// Map converting from String to int[][]
+						int counter1 = 0;
+						int numberOfCharacterRead = 1;
+
+						// For all cols
+						while (counter1 < height) {
+							int x = 1;
+							int counter2 = 0;
+
+							// For all rows
+							while (counter2 < width) {
+
+								while (notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+									x = 1;
+									numberOfCharacterRead++;
+								}
+
+								mapId[counter1][counter2] = mapId[counter1][counter2] * x + Integer.parseInt(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
+								numberOfCharacterRead++;
+								x *= 10;
+
+								if(notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+									x = 1;
+									numberOfCharacterRead++;
+									counter2++;
+								}
+							}
+							counter1++;
+							numberOfCharacterRead++;
+						}
+						map.setMap(Integer.parseInt(subRoot1.getAttribute("id"))-1,mapId);
+						i++;
 					}
-
-					mapId[counter1][counter2] = mapId[counter1][counter2] * x + Integer.parseInt(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
-					numberOfCharacterRead++;
-					x *= 10;
-
-					if(notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
-						x = 1;
-						numberOfCharacterRead++;
-						counter2++;
-					}
+				} else {
+					a--;
+					i++;
 				}
-				counter1++;
-				numberOfCharacterRead++;
 			}
 
-			Map map = new Map(left, up, right, down, mapId);
 			i++;
 
 			for(int a = 0; a < 4; a++){
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					subRoot1 = (Element) rootNodes.item(i);
 					if(subRoot1.getNodeName().equals("begin")){
-						System.out.println(i + " " + (1+a));
 							map.setTileToCome(Integer.parseInt(subRoot1.getAttribute("id")),
 									Float.parseFloat(subRoot1.getAttribute("x")),
-									Float.parseFloat(subRoot1.getAttribute("y")));
-							System.out.println(Integer.parseInt(subRoot1.getAttribute("id")) + " " +
-									Float.parseFloat(subRoot1.getAttribute("x")) + " " +
 									Float.parseFloat(subRoot1.getAttribute("y")));
 						i++;
 					}
