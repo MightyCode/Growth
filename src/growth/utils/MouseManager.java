@@ -87,11 +87,9 @@ public class MouseManager {
      */
     public static float mouseX(){
         DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
-        DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
 
-        glfwGetCursorPos(Window.WINDOWID, x, y);
-        float mouseX = (float)x.get(0);
-        return mouseX;
+        glfwGetCursorPos(Window.WINDOWID, x, null);
+        return (float)x.get(0);
     }
 
     /**
@@ -100,12 +98,9 @@ public class MouseManager {
      * @return mouse position y.
      */
     public static float mouseY(){
-        DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
         DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
 
-        glfwGetCursorPos(Window.WINDOWID, x, y);
-        float mouseY = (float)y.get(0);
-        return mouseY;
+        glfwGetCursorPos(Window.WINDOWID, null, y);
+        return (float)y.get(0);
     }
-
 }

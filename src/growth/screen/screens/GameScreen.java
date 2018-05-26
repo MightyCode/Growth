@@ -1,7 +1,6 @@
 package growth.screen.screens;
 
 import growth.render.Render;
-import growth.render.texture.Texture;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
 import growth.screen.overlay.PauseOverlay;
@@ -9,7 +8,6 @@ import growth.tilemap.TileMap;
 import growth.entity.Player;
 import growth.utils.Math;
 import growth.main.Window;
-import growth.utils.button.ClickButton;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -161,7 +159,6 @@ public class GameScreen extends Screen {
         if (transitionCounter == transitionTime / 2) {
             double[] pos;
             pos = tileMap.changeMap(transitionSide);
-            System.out.println("newPosX :" + pos[0]);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
             tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),false);
             player.setSpeed(0, 0);
