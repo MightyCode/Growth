@@ -20,7 +20,7 @@ import java.sql.SQLOutput;
 public abstract class XmlReader {
 
 	/**
-	 * Charge the map from the Xml's file.
+	 * Create the map from the Xml's file.
 	 *
 	 * @param map_path Path to find the Xml's file
 	 *
@@ -95,18 +95,14 @@ public abstract class XmlReader {
 			}
 
 			for(int a = 0; a < 6; a++){
-				System.out.println("i ; " + i + " ,a :" + (a+1));
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 
 					subRoot1 = (Element) rootNodes.item(i);
 					if((subRoot1.getNodeName().equals("layer"))){
 
-
-
 						int[][] mapId = new int[height][width];
 
 						String sMap = subRoot1.getTextContent();
-						System.out.println(sMap);
 
 						// Map converting from String to int[][]
 						int counter1 = 0;
@@ -138,16 +134,15 @@ public abstract class XmlReader {
 							counter1++;
 							numberOfCharacterRead++;
 						}
-						map.setMap(Integer.parseInt(subRoot1.getAttribute("id"))-1,mapId);
+						map.setLayer(Integer.parseInt(subRoot1.getAttribute("id"))-1,mapId);
 						i++;
 					}
 				} else {
 					a--;
 					i++;
 				}
-			}
 
-			i++;
+			}
 
 			for(int a = 0; a < 4; a++){
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
@@ -164,7 +159,6 @@ public abstract class XmlReader {
 
 				}
 			}
-			System.out.println("Map finished");
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();

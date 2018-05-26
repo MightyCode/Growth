@@ -116,6 +116,13 @@ public class TileMap {
 	private final int numColsToDraw;
 
 	/**
+	 * Current layer.
+	 * This variable contains the layer where the player is.
+	 * This variable is using to do the collision with the good layer.
+	 */
+	private int currentLayer;
+
+	/**
 	 * Tilemap class constructor.
 	 * Instance the class and set the tile's textures of tile set with the path.
 	 *
@@ -133,7 +140,8 @@ public class TileMap {
 
 		// Init variables
 
-		map = maps.get(currentMap).getMap();
+		currentLayer = 3;
+		map = maps.get(currentMap).getMap(currentLayer-1);
 		numCols = map[0].length;
 		numRows = map.length;
 
@@ -155,22 +163,30 @@ public class TileMap {
 	/**
 	 * Display the current map.
 	 */
-	public void display() {
-		for (int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
+	public void display(boolean pos) {
+		int begin = (pos)? 0: currentLayer;
+		int end = (pos)? currentLayer : 6;
 
-			if (row >= numRows) break;
-			for (int col = colOffset; col < colOffset + numColsToDraw; col++) {
+			for(int i  =  begin; i < end ; i++){
+				float alpha = (i == currentLayer-1)? 1: (float)0.9;
+				int[][] map = maps.get(currentMap).getMap(i);
 
-				if (col >= numCols) break;
-				if (map[row][col] == 0) continue;
+				for (int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
 
-				Render.image(
-						(int) posX + col * tileSize,
-						(int) posY + row * tileSize,
-						tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 1
-				);
+					if (row >= numRows) break;
+					for (int col = colOffset; col < colOffset + numColsToDraw; col++) {
+
+						if (col >= numCols) break;
+						if (map[row][col] == 0) continue;
+						Render.image(
+								(int) posX + col * tileSize,
+								(int) posY + row * tileSize,
+								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), alpha
+						);
+						if(i != currentLayer-1) Render.rect((int) posX + col * tileSize, (int) posY + row * tileSize, tileSize, tileSize, 0, 0.2f);
+					}
+				}
 			}
-		}
 	}
 
 	/*
@@ -184,7 +200,7 @@ public class TileMap {
 	 */
 	public double[] changeMap(int side) {
 		currentMap = maps.get(currentMap).getNeighbour(side)-1;
-		map = maps.get(currentMap).getMap();
+		map = maps.get(currentMap).getMap(currentLayer-1);
 		numCols = map[0].length;
 		numRows = map.length;
 

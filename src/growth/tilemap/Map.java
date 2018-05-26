@@ -21,9 +21,23 @@ public class Map {
 	 */
 	private final float[][] tileToCome = new float[4][2];
 
-	private int currentLayer;
-
+	/**
+	 * Layers.
+	 * This variable contains the different layer using in the map.
+	 */
 	private Layer layer[];
+
+	/**
+	 * Maps width.
+	 * This variable contains the width of the map.
+	 */
+	private int width;
+
+	/**
+	 * Maps height.
+	 * This variable contains the height of the map.
+	 */
+	private int height;
 
 	/**
 	 * Map class constructor.
@@ -40,11 +54,15 @@ public class Map {
 		idMapNeighbour[2] = right;
 		idMapNeighbour[3] = down;
 		layer = new Layer[5];
-		currentLayer = 3;
 	}
 
-	public void setMap(int layerID, int[][] map){
+	/**
+	 * Set a layer on the map.
+	 */
+	public void setLayer(int layerID, int[][] map){
 		layer[layerID] = new Layer(map);
+		width = layer[layerID].getWidth();
+		height = layer[layerID].getHeight();
 	}
 
 	/*
@@ -83,9 +101,12 @@ public class Map {
 	 *
 	 * @return map
 	 */
-	int[][] getMap() {
-		System.out.println(currentLayer);
-		return layer[currentLayer-1].getMap();
+	int[][] getMap(int currentLayer) {
+		try{
+			return layer[currentLayer].getMap();
+		} catch(Exception e){
+			return new int[height][width];
+		}
 	}
 
 	/**

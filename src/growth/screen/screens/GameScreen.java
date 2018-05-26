@@ -201,10 +201,12 @@ public class GameScreen extends Screen {
      * Display the map and the player
      */
     private void displayGame() {
-        // Draw map
-        tileMap.display();
+        // Draw map behind the player
+        tileMap.display(true);
         // Draw player
         player.display();
+        // Draw map in front of the play
+        tileMap.display(false);
     }
 
 
