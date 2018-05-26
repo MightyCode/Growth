@@ -1,7 +1,5 @@
 package growth.tilemap;
 
-import growth.utils.XmlReader;
-
 /**
  * Map class.
  * This class is use to store a map with the layers and entities.
@@ -9,7 +7,7 @@ import growth.utils.XmlReader;
  * @author MightyCode
  * @version 1.0
  */
-class Map {
+public class Map {
 
 	/**
 	 * Map's neighbour id.
@@ -21,32 +19,51 @@ class Map {
 	 * Map's neighbour beginning tile.
 	 * This variable contains the map's neighbour beginning tile.
 	 */
-	private final double[][] tileToCome = new double[4][2];
+	private final float[][] tileToCome = new float[4][2];
 
 	/**
-	 * Map's tile id.
-	 * This variable contains the map's tile id.
+	 * Layers.
+	 * This variable contains the different layer using in the map.
 	 */
-	private final int[][] map;
+	private Layer layer[];
+
+	/**
+	 * Maps width.
+	 * This variable contains the width of the map.
+	 */
+	private int width;
+
+	/**
+	 * Maps height.
+	 * This variable contains the height of the map.
+	 */
+	private int height;
 
 	/**
 	 * Map class constructor.
 	 * Instance the class and set the map's neighbour id with the path.
 	 *
-	 * @param path Path to file's xml to load the map.
 	 * @param left Map left id.
 	 * @param up Map top id.
 	 * @param right Map right id.
 	 * @param down Map bottom id.
 	 */
-	Map(String path, int left, int up, int right, int down) {
-		map = XmlReader.createMap("/map/" + path);
+	public Map(int left, int up, int right, int down) {
 		idMapNeighbour[0] = left;
 		idMapNeighbour[1] = up;
 		idMapNeighbour[2] = right;
 		idMapNeighbour[3] = down;
+		layer = new Layer[5];
 	}
 
+	/**
+	 * Set a layer on the map.
+	 */
+	public void setLayer(int layerID, int[][] map){
+		layer[layerID] = new Layer(map);
+		width = layer[layerID].getWidth();
+		height = layer[layerID].getHeight();
+	}
 
 	/*
 	 * Setters
@@ -59,11 +76,10 @@ class Map {
 	 * @param beginX The tile x to begin.
 	 * @param beginY The tile y to begin.
 	 */
-	void setTileToCome(int side, double beginX, double beginY) {
+	public void setTileToCome(int side, float beginX, float beginY) {
 		tileToCome[side - 1][0] = beginX;
 		tileToCome[side - 1][1] = beginY;
 	}
-
 
 	/*
 	 * Getters
@@ -76,7 +92,7 @@ class Map {
 	 *
 	 * @return idMapNeighbour
 	 */
-	int getNeighbour(int side) {
+	public int getNeighbour(int side) {
 		return idMapNeighbour[side - 1];
 	}
 
@@ -85,8 +101,12 @@ class Map {
 	 *
 	 * @return map
 	 */
-	int[][] getMap() {
-		return map;
+	int[][] getMap(int currentLayer) {
+		try{
+			return layer[currentLayer].getMap();
+		} catch(Exception e){
+			return new int[height][width];
+		}
 	}
 
 	/**

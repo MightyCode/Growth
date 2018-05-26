@@ -1,5 +1,6 @@
 package growth.utils;
 
+import growth.tilemap.Map;
 import growth.tilemap.Tile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -7,6 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.sql.SQLOutput;
 
 /**
  * XmlReader class.
@@ -18,85 +20,152 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public abstract class XmlReader {
 
 	/**
-	 * Charge the map from the Xml's file.
+	 * Create the map from the Xml's file.
 	 *
 	 * @param map_path Path to find the Xml's file
 	 *
 	 * @return map
 	*/
-	public static int[][] createMap(String map_path) {
+	public static Map createMapT(String map_path) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream(map_path));
+			Document document = builder.parse(XmlReader.class.getResourceAsStream("/map/" + map_path));
 			Element root = document.getDocumentElement();
 
+			int width = Integer.parseInt(root.getAttribute("width"));
+			int height = Integer.parseInt(root.getAttribute("height"));
+
+
 			// Get all child nodes of the root
-            NodeList rootNode = root.getChildNodes();
+			NodeList rootNodes = root.getChildNodes();
 
 			int i = 0;
-			Element layer;
+			Element subRoot1;
 
-			if (rootNode.item(i).getNodeType() == Node.ELEMENT_NODE) layer = (Element) rootNode.item(i);
+
+			if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
 			else {
 				i++;
-				layer = (Element) rootNode.item(i);
+				subRoot1 = (Element) rootNodes.item(i);
 			}
 
-			while (!(layer.getNodeName().equals("layer"))) {
-				if (rootNode.item(i).getNodeType() == Node.ELEMENT_NODE) layer = (Element) rootNode.item(i);
+			while (!(subRoot1.getNodeName().equals("goto"))) {
+				i++;
+				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
+			}
+
+			int right = 0, left = 0, up = 0, down= 0;
+
+			// Set the neighbour'ID of our map
+			for(int a = 0; a < 4; a++){
+				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					subRoot1 = (Element) rootNodes.item(i);
+					if((subRoot1.getNodeName().equals("goto"))){
+						int j = Integer.parseInt(subRoot1.getAttribute("id"));
+							switch (j) {
+								case 1:
+									left = Integer.parseInt(subRoot1.getAttribute("mapId"));
+									break;
+								case 2:
+									up = Integer.parseInt(subRoot1.getAttribute("mapId"));
+									break;
+								case 3:
+									right = Integer.parseInt(subRoot1.getAttribute("mapId"));
+									break;
+								case 4:
+									down =  Integer.parseInt(subRoot1.getAttribute("mapId"));
+									break;
+
+						}
+						i++;
+					}
+				} else {
+					a--;
+					i++;
+				}
+			}
+
+			Map map = new Map(left, up, right, down);
+
+			while (!(subRoot1.getNodeName().equals("layer"))) {
+				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
 				i++;
 			}
 
-			Element data;
-			data = (Element) layer.getElementsByTagName("data").item(0);
+			for(int a = 0; a < 6; a++){
+				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 
-			int width = Integer.parseInt(layer.getAttribute("width"));
-			int height = Integer.parseInt(layer.getAttribute("height"));
+					subRoot1 = (Element) rootNodes.item(i);
+					if((subRoot1.getNodeName().equals("layer"))){
 
-			int[][] map = new int[height][width];
+						int[][] mapId = new int[height][width];
 
-			String sMap = data.getTextContent();
+						String sMap = subRoot1.getTextContent();
 
-			// Map converting from String to int[][]
-			int counter1 = 0;
-			int numberOfCharacterRead = 1;
+						// Map converting from String to int[][]
+						int counter1 = 0;
+						int numberOfCharacterRead = 1;
 
-			// For all cols
-			while (counter1 < height) {
-				int x = 1;
-				int counter2 = 0;
+						// For all cols
+						while (counter1 < height) {
+							int x = 1;
+							int counter2 = 0;
 
-                // For all rows
-				while (counter2 < width) {
+							// For all rows
+							while (counter2 < width) {
 
-					while (notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
-						System.out.println(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
-						x = 1;
-						numberOfCharacterRead++;
+								while (notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+									x = 1;
+									numberOfCharacterRead++;
+								}
+
+								mapId[counter1][counter2] = mapId[counter1][counter2] * x + Integer.parseInt(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
+								numberOfCharacterRead++;
+								x *= 10;
+
+								if(notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+									x = 1;
+									numberOfCharacterRead++;
+									counter2++;
+								}
+							}
+							counter1++;
+							numberOfCharacterRead++;
+						}
+						map.setLayer(Integer.parseInt(subRoot1.getAttribute("id"))-1,mapId);
+						i++;
 					}
-
-					map[counter1][counter2] = map[counter1][counter2] * x + Integer.parseInt(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
-					numberOfCharacterRead++;
-					x *= 10;
-
-					if(notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
-						x = 1;
-						numberOfCharacterRead++;
-						counter2++;
-					}
+				} else {
+					a--;
+					i++;
 				}
-				counter1++;
-				numberOfCharacterRead++;
+
 			}
 
+			for(int a = 0; a < 4; a++){
+				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					subRoot1 = (Element) rootNodes.item(i);
+					if(subRoot1.getNodeName().equals("begin")){
+							map.setTileToCome(Integer.parseInt(subRoot1.getAttribute("id")),
+									Float.parseFloat(subRoot1.getAttribute("x")),
+									Float.parseFloat(subRoot1.getAttribute("y")));
+						i++;
+					}
+				} else {
+					a--;
+					i++;
+
+				}
+			}
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
-            return null;
+			return null;
 		}
 	}
+
 
 	/**
 	 * Test if a string is a number
