@@ -10,6 +10,7 @@ import growth.utils.Math;
 import growth.main.Window;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * Game class.
@@ -128,6 +129,14 @@ public class GameScreen extends Screen {
      * Update the player and the map.
      */
     private void updateGame() {
+
+        if(ScreenManager.KEY.keyPressed(GLFW_KEY_G)) {
+            tileMap.upLayer();
+        }
+
+        if(ScreenManager.KEY.keyPressed(GLFW_KEY_H)) {
+            tileMap.downLayer();
+        }
 
         if(ScreenManager.KEY.keyPressed(GLFW_KEY_ESCAPE)) {
             state = ESCAPESCREEN;

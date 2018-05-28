@@ -165,6 +165,41 @@ public abstract class XmlReader {
 		}
 	}
 
+	/**
+	 * Load the map number from the xml map option file and return it.
+	 */
+	public static int options_nbMap(){
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(XmlReader.class.getResourceAsStream("/map/mapOptions.xml"));
+			Element root = document.getDocumentElement();
+
+			// Get all child nodes of the root
+			NodeList rootNodes = root.getChildNodes();
+
+			int i = 0;
+			Element subRoot1;
+
+
+			if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
+			else {
+				i++;
+				subRoot1 = (Element) rootNodes.item(i);
+			}
+
+			while (!(subRoot1.getNodeName().equals("number"))) {
+				i++;
+				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
+			}
+
+			return Integer.parseInt(subRoot1.getAttribute("id"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 
 	/**
 	 * Test if a string is a number

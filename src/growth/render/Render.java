@@ -18,7 +18,21 @@ public abstract class Render {
 	 * @param alpha Opacity of the image.
 	 */
 	public static void image(double posX, double posY, double sizeX, double sizeY, int textID, float alpha) {
-		TextureRenderer.image(posX, posY, sizeX, sizeY, textID, alpha);
+		TextureRenderer.image(posX, posY, sizeX, sizeY, textID,1.f,alpha);
+	}
+
+	/**
+	 * Display an image.
+	 *
+	 * @param posX Position x of the top-left corner image.
+	 * @param posY Position y of the top-left corner image.
+	 * @param sizeX Image's width.
+	 * @param sizeY Image's height.
+	 * @param textID ID of the image.
+	 * @param alpha Opacity of the image.
+	 */
+	public static void image(double posX, double posY, double sizeX, double sizeY, int textID, float color, float alpha) {
+		TextureRenderer.image(posX, posY, sizeX, sizeY, textID, color ,alpha);
 	}
 
 	/**

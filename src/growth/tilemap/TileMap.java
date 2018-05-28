@@ -123,6 +123,12 @@ public class TileMap {
 	private int currentLayer;
 
 	/**
+	 * Number of map.
+	 * This variable contains the number of variable charged on a xml file.
+	 */
+	private int nbMap;
+
+	/**
 	 * Tilemap class constructor.
 	 * Instance the class and set the tile's textures of tile set with the path.
 	 *
@@ -130,18 +136,21 @@ public class TileMap {
 	 * @param path Path to file's xml to load.
 	 */
 	public TileMap(int tileSize, String path) {
+
+
+		// Init variables
 		this.tileSize = tileSize;
 
-		for(int i = 1; i < 5; i++){
+		nbMap = XmlReader.options_nbMap();
+
+		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMapT("map"+i+".xml"));
 		}
 
 		currentMap = 0;
 
-		// Init variables
-
 		currentLayer = 3;
-		map = maps.get(currentMap).getMap(currentLayer-1);
+		chargeMap();
 		numCols = map[0].length;
 		numRows = map.length;
 
@@ -178,12 +187,20 @@ public class TileMap {
 
 						if (col >= numCols) break;
 						if (map[row][col] == 0) continue;
-						Render.image(
-								(int) posX + col * tileSize,
-								(int) posY + row * tileSize,
-								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), alpha
-						);
-						if(i != currentLayer-1) Render.rect((int) posX + col * tileSize, (int) posY + row * tileSize, tileSize, tileSize, 0, 0.2f);
+
+						if(i != currentLayer-1) {
+							Render.image(
+									(int) posX + col * tileSize,
+									(int) posY + row * tileSize,
+									tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 0.85f ,alpha
+							);
+						} else {
+							Render.image(
+									(int) posX + col * tileSize,
+									(int) posY + row * tileSize,
+									tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 1.0f,alpha
+							);
+						}
 					}
 				}
 			}
@@ -200,7 +217,7 @@ public class TileMap {
 	 */
 	public double[] changeMap(int side) {
 		currentMap = maps.get(currentMap).getNeighbour(side)-1;
-		map = maps.get(currentMap).getMap(currentLayer-1);
+		chargeMap();
 		numCols = map[0].length;
 		numRows = map.length;
 
@@ -355,6 +372,29 @@ public class TileMap {
 		for (Tile tile : tileSet) {
 			tile.getTexture().unload();
 		}
+	}
+
+	/**
+	 * Change the layer to a higher layer.
+	 */
+	public void upLayer(){
+		currentLayer++;
+		chargeMap();
+	}
+
+	/**
+	 * Change the layer to a lower layer.
+	 */
+	public void downLayer(){
+		currentLayer--;
+		chargeMap();
+	}
+
+	/**
+	 * Charge the current layer for collision and another features.
+	 */
+	private void chargeMap(){
+		map = maps.get(currentMap).getMap(currentLayer-1);
 	}
 }
 
