@@ -151,8 +151,8 @@ public class Texture {
 
             setParam(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
             setParam(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-            setParam(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            setParam(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            setParam(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            setParam(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
             upload(buffer);
         } catch (Exception e) {

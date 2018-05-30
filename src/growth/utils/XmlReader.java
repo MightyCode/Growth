@@ -24,8 +24,8 @@ public abstract class XmlReader {
 	 * @param map_path Path to find the Xml's file
 	 *
 	 * @return map
-	*/
-	public static Map createMapT(String map_path) {
+	 */
+	public static Map createMap(String map_path) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
 		try {
@@ -62,20 +62,20 @@ public abstract class XmlReader {
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					subRoot1 = (Element) rootNodes.item(i);
 					if((subRoot1.getNodeName().equals("goto"))){
-						int j = Integer.parseInt(subRoot1.getAttribute("id"));
-							switch (j) {
-								case 1:
-									left = Integer.parseInt(subRoot1.getAttribute("mapId"));
-									break;
-								case 2:
-									up = Integer.parseInt(subRoot1.getAttribute("mapId"));
-									break;
-								case 3:
-									right = Integer.parseInt(subRoot1.getAttribute("mapId"));
-									break;
-								case 4:
-									down =  Integer.parseInt(subRoot1.getAttribute("mapId"));
-									break;
+						int j = Integer.parseInt(subRoot1.getAttribute("goto"));
+						switch (j) {
+							case 1:
+								left = Integer.parseInt(subRoot1.getAttribute("mapId"));
+								break;
+							case 2:
+								up = Integer.parseInt(subRoot1.getAttribute("mapId"));
+								break;
+							case 3:
+								right = Integer.parseInt(subRoot1.getAttribute("mapId"));
+								break;
+							case 4:
+								down =  Integer.parseInt(subRoot1.getAttribute("mapId"));
+								break;
 
 						}
 						i++;
@@ -133,7 +133,7 @@ public abstract class XmlReader {
 							counter1++;
 							numberOfCharacterRead++;
 						}
-						map.setLayer(Integer.parseInt(subRoot1.getAttribute("id"))-1,mapId);
+						map.setLayer(Integer.parseInt(subRoot1.getAttribute("position"))-1,mapId);
 						i++;
 					}
 				} else {
@@ -147,9 +147,9 @@ public abstract class XmlReader {
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					subRoot1 = (Element) rootNodes.item(i);
 					if(subRoot1.getNodeName().equals("begin")){
-							map.setTileToCome(Integer.parseInt(subRoot1.getAttribute("id")),
-									Float.parseFloat(subRoot1.getAttribute("x")),
-									Float.parseFloat(subRoot1.getAttribute("y")));
+						map.setTileToCome(Integer.parseInt(subRoot1.getAttribute("begin")),
+								Float.parseFloat(subRoot1.getAttribute("x")),
+								Float.parseFloat(subRoot1.getAttribute("y")));
 						i++;
 					}
 				} else {
@@ -158,6 +158,7 @@ public abstract class XmlReader {
 
 				}
 			}
+
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -194,7 +195,7 @@ public abstract class XmlReader {
 				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
 			}
 
-			return Integer.parseInt(subRoot1.getAttribute("id"));
+			return Integer.parseInt(subRoot1.getAttribute("number"))+1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -232,12 +233,12 @@ public abstract class XmlReader {
 			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSet_path));
 			Element root = document.getDocumentElement();
 
-            // Get all child nodes of the root
-            NodeList rootNode = root.getChildNodes();
+			// Get all child nodes of the root
+			NodeList rootNode = root.getChildNodes();
 
 			int nbNodes = root.getElementsByTagName("texture").getLength();
 
-            Tile[] tileSet = new Tile[nbNodes];
+			Tile[] tileSet = new Tile[nbNodes];
 
 			Element layer;
 			int a = 0;
@@ -253,10 +254,10 @@ public abstract class XmlReader {
 				tileSet[a] = new Tile("/images/tiles/" + (layer.getAttribute("name")), Integer.parseInt(layer.getAttribute("type")));
 				a++;
 			}
-            return tileSet;
+			return tileSet;
 		} catch (Exception e) {
 			e.printStackTrace();
-            return null;
+			return null;
 		}
 	}
 }

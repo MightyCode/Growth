@@ -65,9 +65,9 @@ public class Player extends Entity {
 			// Load animation and animationFrame
 		animations = new ArrayList<>();
 		animations.add(new Animation("/images/character/idle/", 1, 100));
-		animations.add(new Animation("/images/character/walk/", 6, 5));
-		animations.add(new Animation("/images/character/idle/", 1, 10));
-		animations.add(new Animation("/images/character/idle/", 1, 10));
+		animations.add(new Animation("/images/character/walk/", 10, 4));
+		animations.add(new Animation("/images/character/jump/", 1, 100));
+		animations.add(new Animation("/images/character/fall/", 1, 100));
 	}
 
 	/**
