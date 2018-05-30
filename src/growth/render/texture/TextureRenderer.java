@@ -26,7 +26,7 @@ public abstract class TextureRenderer {
      * @param alpha Opacity of the image.
      * @param color The color of the image.
      */
-    public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float color, float alpha){
+    private static void image(int posX, int posY, int sizeX, int sizeY, int textID, float color, float alpha){
         // Position y taking as a reference the top of the window
         int newPosY = (Window.HEIGHT - posY - sizeY);
 

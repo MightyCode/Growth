@@ -23,7 +23,7 @@ public abstract class ShapeRenderer {
      * @param color Colour of the rectangle.
      * @param alpha Opacity of the image.
      */
-    public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
+    private static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
         int newPosY = Window.HEIGHT - posY - sizeY;
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_TEXTURE);

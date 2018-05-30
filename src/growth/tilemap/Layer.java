@@ -7,7 +7,7 @@ package growth.tilemap;
  * @author MightyCode
  * @version 1.0
  */
-public class Layer {
+class Layer {
 
     /**
      * Map.

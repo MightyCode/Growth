@@ -82,4 +82,10 @@ public class PauseOverlay extends Overlay{
         resume.display();
         menu.display();
     }
+
+    public void unload(){
+        resume.unload();
+        menu.unload();
+        pause.unload();
+    }
 }

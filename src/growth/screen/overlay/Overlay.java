@@ -49,4 +49,9 @@ public abstract class Overlay {
     public void setState(int newsState){
         screen.setState(newsState);
     }
+
+    /**
+     * Free memory.
+     */
+    public void unload(){ }
 }

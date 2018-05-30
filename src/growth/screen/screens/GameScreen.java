@@ -8,8 +8,6 @@ import growth.tilemap.TileMap;
 import growth.entity.Player;
 import growth.utils.Math;
 import growth.main.Window;
-
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 import static org.lwjgl.glfw.GLFW.*;
 
 /**
@@ -246,6 +244,8 @@ public class GameScreen extends Screen {
      * Unload the texture to free memory.
      */
     public void unload() {
+        pause.unload();
+        death.unload();
         tileMap.unload();
         player.unload();
     }

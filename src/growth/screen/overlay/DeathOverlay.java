@@ -76,4 +76,10 @@ public class DeathOverlay extends Overlay{
         restart.display();
         menu.display();
     }
+
+    public void unload(){
+        restart.unload();
+        menu.unload();
+        lose.unload();
+    }
 }

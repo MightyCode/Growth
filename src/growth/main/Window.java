@@ -22,6 +22,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * @author MightyCode
  * @version of game : 2.2
  */
+@SuppressWarnings("InfiniteLoopStatement")
 public class Window {
 
     public Window(){
