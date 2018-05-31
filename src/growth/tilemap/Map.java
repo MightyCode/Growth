@@ -20,12 +20,16 @@ public class Map {
 	private final int[] idMapNeighbour = new int[4];
 
 	/**
-	 * Map's neighbour beginning tile.
-	 * This variable contains the map's neighbour beginning tile.
+	 * Map's beginning tile.
+	 * This variable contains the different spawns points in the map.
 	 */
-	private float[][] spawnTile;
+	private float[][] spawn;
 
-	private final ArrayList[] outPoint = new ArrayList[4];
+	/**
+	 * Map's exit interval.
+	 * This variable contains the different exit interval for each side of map.
+	 */
+	private final ArrayList[] exit = new ArrayList[4];
 
 	/**
 	 * Layers.
@@ -55,16 +59,7 @@ public class Map {
 	public Map(int mapID, int numberSpawns) {
 		this.mapID = mapID;
 		layer = new Layer[5];
-		spawnTile= new float[numberSpawns][4];
-	}
-
-	/**
-	 * Set a layer on the map.
-	 */
-	public void setLayer(int layerID, int[][] map){
-		layer[layerID] = new Layer(map);
-		width = layer[layerID].getWidth();
-		height = layer[layerID].getHeight();
+		spawn = new float[numberSpawns][4];
 	}
 
 	/*
@@ -79,8 +74,32 @@ public class Map {
 	 * @param beginY The tile y to begin.
 	 */
 	public void setSpawnTile(int number, float beginX, float beginY) {
-		spawnTile[number - 1][0] = beginX;
-		spawnTile[number - 1][1] = beginY;
+		spawn[number][0] = beginX;
+		spawn[number][1] = beginY;
+	}
+
+
+	/**
+	 * Set a layer on the map.
+	 */
+	public void setLayer(int layerID, int[][] map){
+		layer[layerID] = new Layer(map);
+		width = layer[layerID].getWidth();
+		height = layer[layerID].getHeight();
+	}
+
+	public void setExit(int side, int mapID, float beg, float end){
+		float[] exitInterval = new float[3];
+		exitInterval[0] = mapID;
+		exitInterval[1] = beg;
+		exitInterval[2] = end;
+		try{
+			if(exit[side-1].isEmpty()){}
+		} catch(Exception e){
+			exit[side-1] = new ArrayList();
+		}
+		exit[side-1].add(exitInterval);
+
 	}
 
 	/*
@@ -117,7 +136,7 @@ public class Map {
 	 * @return begin tile x
 	 */
 	double getTileToComeX(int side) {
-		return spawnTile[side - 1][0];
+		return spawn[side - 1][0];
 	}
 
 	/**
@@ -126,6 +145,6 @@ public class Map {
 	 * @return begin tile y
 	 */
 	double getTileToComeY(int side) {
-		return spawnTile[side - 1][1];
+		return spawn[side - 1][1];
 	}
 }

@@ -36,24 +36,41 @@ public abstract class XmlReader {
 			int width = Integer.parseInt(root.getAttribute("width"));
 			int height = Integer.parseInt(root.getAttribute("height"));
 
-			// Get all child nodes of the root
-			NodeList rootNodes = root.getChildNodes();
-
-			int i = 0;
 			Element subRoot;
 
 			// Set the spawn point of map
 			NodeList ins = root.getElementsByTagName("in");
 			final int insNumber = ins.getLength();
-
+			System.out.println(insNumber);
 			// Instance the map
-			Map map = new Map(Integer.parseInt(root.getAttribute("id")), insNumber);
+
+			int newInsNumber = 0;
+			for(int a = 0; a < insNumber; a++){
+				subRoot = (Element) ins.item(a);
+				if(Integer.parseInt(subRoot.getAttribute("name"))> newInsNumber)
+					newInsNumber = Integer.parseInt(subRoot.getAttribute("name"));
+			}
+
+
+			Map map = new Map(Integer.parseInt(root.getAttribute("id")), newInsNumber);
 
 			for(int a = 0; a < insNumber; a++){
 				subRoot = (Element) ins.item(a);
-				map.setSpawnTile(Integer.parseInt(subRoot.getAttribute("name")),
+				map.setSpawnTile(Integer.parseInt(subRoot.getAttribute("name"))-1,
 						Float.parseFloat(subRoot.getAttribute("x")),
 						Float.parseFloat(subRoot.getAttribute("y")));
+			}
+
+			// Set the exit point of map
+			NodeList outs = root.getElementsByTagName("out");
+			final int outNumber = ins.getLength();
+
+			for(int a = 0; a < outNumber; a++){
+				subRoot = (Element) outs.item(a);
+				map.setExit(Integer.parseInt(subRoot.getAttribute("to")),
+						Integer.parseInt(subRoot.getAttribute("mapId")),
+						Float.parseFloat(subRoot.getAttribute("beg")),
+						Float.parseFloat(subRoot.getAttribute("end")));
 			}
 
 
