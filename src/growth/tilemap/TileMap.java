@@ -136,8 +136,6 @@ public class TileMap {
 	 * @param path Path to file's xml to load.
 	 */
 	public TileMap(int tileSize, String path) {
-
-
 		// Init variables
 		this.tileSize = tileSize;
 

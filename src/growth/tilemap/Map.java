@@ -1,5 +1,7 @@
 package growth.tilemap;
 
+import java.util.ArrayList;
+
 /**
  * Map class.
  * This class is use to store a map with the layers and entities.
@@ -8,6 +10,8 @@ package growth.tilemap;
  * @version 1.0
  */
 public class Map {
+
+	private final int mapID;
 
 	/**
 	 * Map's neighbour id.
@@ -19,7 +23,9 @@ public class Map {
 	 * Map's neighbour beginning tile.
 	 * This variable contains the map's neighbour beginning tile.
 	 */
-	private final float[][] tileToCome = new float[4][2];
+	private float[][] spawnTile;
+
+	private final ArrayList[] outPoint = new ArrayList[4];
 
 	/**
 	 * Layers.
@@ -41,19 +47,15 @@ public class Map {
 
 	/**
 	 * Map class constructor.
-	 * Instance the class and set the map's neighbour id with the path.
+	 * Instance the class and set the map id.
 	 *
-	 * @param left Map left id.
-	 * @param up Map top id.
-	 * @param right Map right id.
-	 * @param down Map bottom id.
+	 * @param mapID Map id.
 	 */
-	public Map(int left, int up, int right, int down) {
-		idMapNeighbour[0] = left;
-		idMapNeighbour[1] = up;
-		idMapNeighbour[2] = right;
-		idMapNeighbour[3] = down;
+
+	public Map(int mapID, int numberSpawns) {
+		this.mapID = mapID;
 		layer = new Layer[5];
+		spawnTile= new float[numberSpawns][4];
 	}
 
 	/**
@@ -72,13 +74,13 @@ public class Map {
 	/**
 	 * Set the beginning of map in relation to the arrival side.
 	 *
-	 * @param side The side of beginning.
+	 * @param number The spawn point number.
 	 * @param beginX The tile x to begin.
 	 * @param beginY The tile y to begin.
 	 */
-	public void setTileToCome(int side, float beginX, float beginY) {
-		tileToCome[side - 1][0] = beginX;
-		tileToCome[side - 1][1] = beginY;
+	public void setSpawnTile(int number, float beginX, float beginY) {
+		spawnTile[number - 1][0] = beginX;
+		spawnTile[number - 1][1] = beginY;
 	}
 
 	/*
@@ -115,7 +117,7 @@ public class Map {
 	 * @return begin tile x
 	 */
 	double getTileToComeX(int side) {
-		return tileToCome[side - 1][0];
+		return spawnTile[side - 1][0];
 	}
 
 	/**
@@ -124,6 +126,6 @@ public class Map {
 	 * @return begin tile y
 	 */
 	double getTileToComeY(int side) {
-		return tileToCome[side - 1][1];
+		return spawnTile[side - 1][1];
 	}
 }

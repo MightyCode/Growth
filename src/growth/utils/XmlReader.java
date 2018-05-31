@@ -36,128 +36,73 @@ public abstract class XmlReader {
 			int width = Integer.parseInt(root.getAttribute("width"));
 			int height = Integer.parseInt(root.getAttribute("height"));
 
-
 			// Get all child nodes of the root
 			NodeList rootNodes = root.getChildNodes();
 
 			int i = 0;
-			Element subRoot1;
+			Element subRoot;
 
+			// Set the spawn point of map
+			NodeList ins = root.getElementsByTagName("in");
+			final int insNumber = ins.getLength();
 
-			if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
-			else {
-				i++;
-				subRoot1 = (Element) rootNodes.item(i);
+			// Instance the map
+			Map map = new Map(Integer.parseInt(root.getAttribute("id")), insNumber);
+
+			for(int a = 0; a < insNumber; a++){
+				subRoot = (Element) ins.item(a);
+				map.setSpawnTile(Integer.parseInt(subRoot.getAttribute("name")),
+						Float.parseFloat(subRoot.getAttribute("x")),
+						Float.parseFloat(subRoot.getAttribute("y")));
 			}
 
-			while (!(subRoot1.getNodeName().equals("goto"))) {
-				i++;
-				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
-			}
 
-			int right = 0, left = 0, up = 0, down= 0;
+			// Loading the layers
+			NodeList layers = root.getElementsByTagName("layer");
+			final int nubLayer = layers.getLength();
 
-			// Set the neighbour'ID of our map
-			for(int a = 0; a < 4; a++){
-				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-					subRoot1 = (Element) rootNodes.item(i);
-					if((subRoot1.getNodeName().equals("goto"))){
-						int j = Integer.parseInt(subRoot1.getAttribute("goto"));
-						switch (j) {
-							case 1:
-								left = Integer.parseInt(subRoot1.getAttribute("mapId"));
-								break;
-							case 2:
-								up = Integer.parseInt(subRoot1.getAttribute("mapId"));
-								break;
-							case 3:
-								right = Integer.parseInt(subRoot1.getAttribute("mapId"));
-								break;
-							case 4:
-								down =  Integer.parseInt(subRoot1.getAttribute("mapId"));
-								break;
+			for(int a = 0; a < nubLayer; a++){
+				subRoot = (Element) layers.item(a);
 
-						}
-						i++;
-					}
-				} else {
-					a--;
-					i++;
-				}
-			}
+				int[][] mapId = new int[height][width];
 
-			Map map = new Map(left, up, right, down);
+				String sMap = subRoot.getTextContent();
 
-			while (!(subRoot1.getNodeName().equals("layer"))) {
-				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
-				i++;
-			}
+				// Map converting from String to int[][]
+				int counter1 = 0;
+				int numberOfCharacterRead = 1;
 
-			for(int a = 0; a < 6; a++){
-				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				// For all cols
+				while (counter1 < height) {
+					int x = 1;
+					int counter2 = 0;
 
-					subRoot1 = (Element) rootNodes.item(i);
-					if((subRoot1.getNodeName().equals("layer"))){
+					// For all rows
+					while (counter2 < width) {
 
-						int[][] mapId = new int[height][width];
-
-						String sMap = subRoot1.getTextContent();
-
-						// Map converting from String to int[][]
-						int counter1 = 0;
-						int numberOfCharacterRead = 1;
-
-						// For all cols
-						while (counter1 < height) {
-							int x = 1;
-							int counter2 = 0;
-
-							// For all rows
-							while (counter2 < width) {
-
-								while (notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
-									x = 1;
-									numberOfCharacterRead++;
-								}
-
-								mapId[counter1][counter2] = mapId[counter1][counter2] * x + Integer.parseInt(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
-								numberOfCharacterRead++;
-								x *= 10;
-
-								if(notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
-									x = 1;
-									numberOfCharacterRead++;
-									counter2++;
-								}
-							}
-							counter1++;
+						while (notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+							x = 1;
 							numberOfCharacterRead++;
 						}
-						map.setLayer(Integer.parseInt(subRoot1.getAttribute("position"))-1,mapId);
-						i++;
+
+						mapId[counter1][counter2] = mapId[counter1][counter2] * x + Integer.parseInt(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
+						numberOfCharacterRead++;
+						x *= 10;
+
+						if(notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+							x = 1;
+							numberOfCharacterRead++;
+							counter2++;
+						}
 					}
-				} else {
-					a--;
-					i++;
+
+					counter1++;
+					numberOfCharacterRead++;
 				}
 
+				map.setLayer(Integer.parseInt(subRoot.getAttribute("position"))-1,mapId);
 			}
 
-			for(int a = 0; a < 4; a++){
-				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-					subRoot1 = (Element) rootNodes.item(i);
-					if(subRoot1.getNodeName().equals("begin")){
-						map.setTileToCome(Integer.parseInt(subRoot1.getAttribute("begin")),
-								Float.parseFloat(subRoot1.getAttribute("x")),
-								Float.parseFloat(subRoot1.getAttribute("y")));
-						i++;
-					}
-				} else {
-					a--;
-					i++;
-
-				}
-			}
 
 			return map;
 		} catch (Exception e) {
