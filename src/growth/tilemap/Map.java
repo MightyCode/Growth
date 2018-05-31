@@ -14,12 +14,6 @@ public class Map {
 	private final int mapID;
 
 	/**
-	 * Map's neighbour id.
-	 * This variable contains the map's neighbour id.
-	 */
-	private final int[] idMapNeighbour = new int[4];
-
-	/**
 	 * Map's beginning tile.
 	 * This variable contains the different spawns points in the map.
 	 */
@@ -78,7 +72,6 @@ public class Map {
 		spawn[number][1] = beginY;
 	}
 
-
 	/**
 	 * Set a layer on the map.
 	 */
@@ -105,17 +98,6 @@ public class Map {
 	/*
 	 * Getters
 	 */
-
-	/**
-	 * Get the map's neighbour id.
-	 *
-	 * @param side The side of map's neighbour.
-	 *
-	 * @return idMapNeighbour
-	 */
-	public int getNeighbour(int side) {
-		return idMapNeighbour[side - 1];
-	}
 
 	/**
 	 * Get the map's tile id.
