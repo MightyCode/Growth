@@ -94,11 +94,11 @@ public class Map {
 		exitInterval[1] = beg;
 		exitInterval[2] = end;
 		try{
-			if(exit[side-1].isEmpty()){}
+			if(exit[side].isEmpty()){}
 		} catch(Exception e){
-			exit[side-1] = new ArrayList();
+			exit[side] = new ArrayList();
 		}
-		exit[side-1].add(exitInterval);
+		exit[side].add(exitInterval);
 
 	}
 

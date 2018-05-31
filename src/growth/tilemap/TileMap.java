@@ -141,9 +141,13 @@ public class TileMap {
 
 		nbMap = XmlReader.options_nbMap();
 
+		System.out.println("\n -------------------------- \n");
+
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));
 		}
+
+		System.out.println("\n -------------------------- \n");
 
 		currentMap = 0;
 

@@ -76,6 +76,7 @@ public class GameScreen extends Screen {
      */
     public GameScreen(ScreenManager screenManager) {
         super(screenManager);
+        System.out.println("\n-------------------------- \n");
 
         /* Init gameScreen's variables */
             // Init screen vars
@@ -244,6 +245,7 @@ public class GameScreen extends Screen {
      * Unload the texture to free memory.
      */
     public void unload() {
+        System.out.println("\n-------------------------- \n");
         pause.unload();
         death.unload();
         tileMap.unload();

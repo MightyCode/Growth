@@ -41,8 +41,7 @@ public abstract class XmlReader {
 			// Set the spawn point of map
 			NodeList ins = root.getElementsByTagName("in");
 			final int insNumber = ins.getLength();
-			System.out.println(insNumber);
-			// Instance the map
+
 
 			int newInsNumber = 0;
 			for(int a = 0; a < insNumber; a++){
@@ -51,7 +50,7 @@ public abstract class XmlReader {
 					newInsNumber = Integer.parseInt(subRoot.getAttribute("name"));
 			}
 
-
+			// Instance the map
 			Map map = new Map(Integer.parseInt(root.getAttribute("id")), newInsNumber);
 
 			for(int a = 0; a < insNumber; a++){
@@ -67,7 +66,7 @@ public abstract class XmlReader {
 
 			for(int a = 0; a < outNumber; a++){
 				subRoot = (Element) outs.item(a);
-				map.setExit(Integer.parseInt(subRoot.getAttribute("to")),
+				map.setExit(Integer.parseInt(subRoot.getAttribute("to"))-1,
 						Integer.parseInt(subRoot.getAttribute("mapId")),
 						Float.parseFloat(subRoot.getAttribute("beg")),
 						Float.parseFloat(subRoot.getAttribute("end")));
@@ -120,7 +119,7 @@ public abstract class XmlReader {
 				map.setLayer(Integer.parseInt(subRoot.getAttribute("position"))-1,mapId);
 			}
 
-
+			System.out.println("Map " + Integer.parseInt(root.getAttribute("id")) + " loaded.");
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();

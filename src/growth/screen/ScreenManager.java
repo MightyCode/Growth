@@ -42,7 +42,6 @@ public class ScreenManager {
      */
     public ScreenManager() {
         ActualScreen = (new MenuScreen(this));
-        System.out.println("Screen manager loaded");
     }
 
     /**

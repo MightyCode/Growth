@@ -14,6 +14,7 @@ public class MenuScreen extends Screen {
 
     public MenuScreen(ScreenManager screenManager) {
         super(screenManager);
+        System.out.println("\n-------------------------- \n");
 
         but1 = new ClickButton(Window.WIDTH/2, (int)(Window.HEIGHT*0.45),200,100,"Play", this){
             @Override
@@ -35,6 +36,7 @@ public class MenuScreen extends Screen {
                 Growth.WINDOW.exit();
             }
         };
+
     }
 
     public void update() {
@@ -51,6 +53,7 @@ public class MenuScreen extends Screen {
     }
 
     public void unload(){
+        System.out.println("\n-------------------------- \n");
         but1.unload();
         but2.unload();
         but3.unload();
