@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Créateur de map</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <script>
+	function loadMap() {
+		mapnumber = document.querySelector("#mapselector").value;
+		if (window.XMLHttpRequest) {
+			xhttp = new XMLHttpRequest();
+		} else {    // IE 5/6
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xhttp.open("GET", "../resources/map/map" + mapnumber + ".xml", true);
+		xhttp.send(null);
+		xhttp.onreadystatechange = function(){
+		if (xhttp.status == "200")
+			map = xhttp.responseXML;
+			setMap(map);
+		}
+	}
+	
+	
+	function setMap(map) {
+		var mapcontainer = document.getElementById("map");
+		layernumber = document.querySelector("#layerselector").value;
+		maptag = map.querySelector("map");
+		width = maptag.getAttribute("width");
+		height = maptag.getAttribute("height");
+		layer = map.querySelector("layer[position=\"" + layernumber + "\"]");
+		document.querySelector("#error").innerHTML = "";
+		if (layer == null) {
+			mapcontainer.innerHTML = "";
+			document.querySelector("#error").innerHTML = "Ce layer n'existe pas !";
+		}
+		tiles = layer.textContent.replace(/ /g,'').replace(/\n/g,'').split(",");
+		tilewidth = "32";
+		/*tilewidth = window.innerWidth / width - 1;*/
+		/*if (window.innerHeight < height * tilewidth) {
+			tilewidth = window.innerHeight / height - 1;
+		}*/
+		mapcontainer.innerHTML = "";
+		for (var i=1; i<=height; i++) {
+			// Dessine une ligne
+			var line = document.createElement("tr");
+			line.id = "lign-" + i;
+			mapcontainer.appendChild(line);
+			
+			for(var a=1; a <= width; a++){
+				index = (i-1)*width + a - 1;
+				// Dessine une case
+				var tile = document.createElement("td");
+				tile.id = "tile-" + i + "-" + a;
+				//tile.innerHTML = tiles[index];
+				tile.classList.add("tile-" + tiles[index]);
+				tile.style.width = tilewidth + "px";
+				tile.style.height = tilewidth + "px";
+				tile.style.backgroundSize = tilewidth + "px " + tilewidth + "px";
+				tile.addEventListener("drop", function(){drop(event);});
+				tile.addEventListener("dragover", function(){allowDrop(event);});
+				line.appendChild(tile);
+			}
+		}
+		persoX = Math.floor(map.querySelector("point[name=\"spawn\"]").getAttribute("x"));
+		persoY = Math.floor(map.querySelector("point[name=\"spawn\"]").getAttribute("y"));
+		perso = document.querySelector("#perso");
+		perso.style.width = tilewidth + "px";
+		document.querySelector("#tile-" + (persoY) + "-" + (persoX) ).appendChild(perso);
+	}
+	  
+	  
+    /*var minWidth = 20;
+	var minHeight = 12;*/
+	
+	
+  </script>
+  
+  <script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("Text", ev.target.id);
+}
+
+function drop(ev) {
+    var data = ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(data));
+    ev.preventDefault();
+}
+</script>
+  <style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+  
+	#map {
+		border-collapse: collapse;
+	}
+	
+	#map td {
+		display: inline-block;
+		text-align: center;
+		border: 1px solid black;
+	}
+	
+	.tile-0 {
+		background-color: lightblue;
+	}
+	
+	.tile-1 {
+		background: url(../resources/images/tiles/dirt.png);
+		background-size: 64px 64px;
+	}
+	
+	.tile-2 {
+		background: url(../resources/images/tiles/grass.png);
+		background-size: 64px 64px;
+	}
+	
+	.tile-3 {
+		background: url(../resources/images/tiles/grassLeft.png);
+		background-size: 64px 64px;
+	}
+	
+	.tile-4 {
+		background: url(../resources/images/tiles/grassRight.png);
+		background-size: 64px 64px;
+	}
+	
+	.tile-5 {
+		background: url(../resources/images/tiles/dirtLeft.png);
+		background-size: 64px 64px;
+	}
+	
+	.tile-6 {
+		background: url(../resources/images/tiles/dirtRight.png);
+		background-size: 64px 64px;
+	}
+	
+	.tile-7 {
+		background: url(../resources/images/tiles/grassBorderLeft.png);
+		background-size: 64px 64px;
+	}
+	
+	.tile-8 {
+		background: url(../resources/images/tiles/grassBorderRight.png);
+		background-size: 64px 64px;
+	}
+  </style>
+</head>
+<body onLoad="loadMap()">
+	<h1><img src="../resources/images/character/idle/0.png" id="perso" draggable="true" ondragstart="drag(event)"/> Séléctionnez une map à afficher : 
+	<select id="mapselector" onChange="loadMap()">
+		<option value="New">mapNew.xml</option>
+		<option value="1">map1.xml</option>
+		<option value="2">map2.xml</option>
+		<option value="3">map3.xml</option>
+		<option value="4">map4.xml</option>
+	</select>
+	<select id="layerselector" onChange="loadMap()">
+		<option value="1">Layer 1</option>
+		<option value="2">Layer 2</option>
+		<option value="3">Layer 3</option>
+		<option value="4">Layer 4</option>
+		<option value="5">Layer 5</option>
+	</select>
+	<span id="error" style="color: red;"></span></h1>
+	<table id="map">
+	
+	</table>
+</body>
+</html>
