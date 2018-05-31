@@ -251,7 +251,7 @@ public abstract class XmlReader {
 					layer = (Element) rootNode.item(i);
 				}
 
-				tileSet[a] = new Tile("/images/tiles/" + (layer.getAttribute("name")), Integer.parseInt(layer.getAttribute("type")));
+				tileSet[Integer.parseInt(layer.getAttribute("id"))-1] = new Tile("/images/tiles/" + (layer.getAttribute("location")), Integer.parseInt(layer.getAttribute("type")));
 				a++;
 			}
 			return tileSet;

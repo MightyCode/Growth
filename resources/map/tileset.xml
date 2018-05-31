@@ -1,10 +1,10 @@
 <tileset>
-    <texture name="dirt.png" type="1"/>
-    <texture name="grass.png" type="1"/>
-    <texture name="grassLeft.png" type="1"/>
-    <texture name="grassRight.png" type="1"/>
-    <texture name="dirtLeft.png" type="1"/>
-    <texture name="dirtRight.png" type="1"/>
-    <texture name="grassBorderLeft.png" type="1"/>
-    <texture name="grassBorderRight.png" type="1"/>
+    <texture id="1" name="dirt" location="dirt.png" type="1"/>
+    <texture id="2" name="grass" location="grass.png" type="1"/>
+    <texture id="3" name="grassLeft" location="grassLeft.png" type="1"/>
+    <texture id="4" name="grassRight" location="grassRight.png" type="1"/>
+    <texture id="5" name="dirtLeft" location="dirtLeft.png" type="1"/>
+    <texture id="6" name="dirtRight" location="dirtRight.png" type="1"/>
+    <texture id="7" name="grassBorderLeft" location="grassBorderLeft.png" type="1"/>
+    <texture id="8" name="grassBorderRight" location="grassBorderRight.png" type="1"/>
 </tileset>
