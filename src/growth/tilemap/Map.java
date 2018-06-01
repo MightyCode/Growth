@@ -1,7 +1,5 @@
 package growth.tilemap;
 
-import java.util.ArrayList;
-
 /**
  * Map class.
  * This class is use to store a map with the layers and entities.
@@ -11,6 +9,10 @@ import java.util.ArrayList;
  */
 public class Map {
 
+	/**
+	 * Map id.
+	 * This variable contains the Id of the map.
+	 */
 	private final int mapID;
 
 	/**
@@ -49,7 +51,6 @@ public class Map {
 	 *
 	 * @param mapID Map id.
 	 */
-
 	public Map(int mapID, int numberSpawns) {
 		this.mapID = mapID;
 		layer = new Layer[5];
@@ -58,7 +59,7 @@ public class Map {
 	}
 
 	/*
-	 * Setters
+	 * Setters methods
 	 */
 
 	/**
@@ -75,6 +76,10 @@ public class Map {
 
 	/**
 	 * Set a layer on the map.
+	 *
+	 * @param layerID The number of the layer to initialize.
+	 * @param map The map associate to the map.
+	 *
 	 */
 	public void setLayer(int layerID, int[][] map){
 		layer[layerID] = new Layer(map);
@@ -82,6 +87,15 @@ public class Map {
 		height = layer[layerID].getHeight();
 	}
 
+	/**
+	 * Set a exit interval for one side
+	 *
+	 * @param side The side where the exit is.
+	 * @param pointName The name/ID of the exit interval.
+	 * @param mapID Where the exit go.
+	 * @param beg The first number of the exit interval.
+	 * @param end The last number of the exit interval.
+	 */
 	public void setExit(int side, int pointName, int mapID, float beg, float end){
 				float[][] old = exit[side];
 				exit[side] = new float[exit[side].length+1][4];
@@ -100,13 +114,13 @@ public class Map {
 	}
 
 	/*
-	 * Getters
+	 * Getters methods
 	 */
 
 	/**
 	 * Get the map's tile id.
 	 *
-	 * @return map
+	 * @return Map's tile id for the the current layer.
 	 */
 	int[][] getMap(int currentLayer) {
 		try{
@@ -119,7 +133,7 @@ public class Map {
 	/**
 	 * Get the tile to come in x with the map's side neighbour.
 	 *
-	 * @return begin tile x
+	 * @return Begin tile x.
 	 */
 	double getTileToComeX(int point) {
 		System.out.println(point + " " + spawn[point][0]);
@@ -129,18 +143,18 @@ public class Map {
 	/**
 	 * Get the tile to come in y with the map's side neighbour.
 	 *
-	 * @return begin tile y
+	 * @return Begin tile y.
 	 */
 	double getTileToComeY(int point) {
 		return spawn[point][1];
 	}
 
-	float[][] fonction1(int side){
+	/**
+	 * Get the data for each exit point for one side.
+	 *
+	 * @return The data of a sidee.
+	 */
+	float[][] getExitPoints(int side){
 		return exit[side];
-	}
-
-	int getMapId(int side, int point){
-		System.out.println(exit[side].length + " " + point);
-		return (int)exit[side][point][0];
 	}
 }

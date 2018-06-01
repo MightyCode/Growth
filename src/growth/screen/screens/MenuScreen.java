@@ -16,23 +16,23 @@ public class MenuScreen extends Screen {
         super(screenManager);
         System.out.println("\n-------------------------- \n");
 
-        but1 = new ClickButton(Window.WIDTH/2, (int)(Window.HEIGHT*0.45),200,100,"Play", this){
+        but1 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.45), 200, 100, "Play", this) {
             @Override
-            public void action(){
+            public void action() {
                 screen.screenManager.setScreen(ScreenManager.GAMESCREEN);
             }
         };
-        but2 = new ClickButton(Window.WIDTH/2, (int)(Window.HEIGHT*0.65),200,100,"Options", this){
+        but2 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.65), 200, 100, "Options", this) {
             @Override
-            public void action(){
+            public void action() {
                 screen.screenManager.setScreen(ScreenManager.GAMESCREEN);
             }
         };
 
-        but3 = new ClickButton(Window.WIDTH/2, (int)(Window.HEIGHT*0.85),200,100,"Quit", this){
+        but3 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.85), 200, 100, "Quit", this) {
             @Override
-            public void action(){
-               // glfwDestroyWindow(Growth.WINDOWID);
+            public void action() {
+                // glfwDestroyWindow(Growth.WINDOWID);
                 Growth.WINDOW.exit();
             }
         };
@@ -52,7 +52,7 @@ public class MenuScreen extends Screen {
         but3.display();
     }
 
-    public void unload(){
+    public void unload() {
         System.out.println("\n-------------------------- \n");
         but1.unload();
         but2.unload();

@@ -82,8 +82,8 @@ public class Player extends Entity {
 		setPosition(xTemp, yTemp);
 
 		// Direction
-		if (left) facing = false;
-		if (right) facing = true;
+		if (speedX<0) facing = false;
+		else if (speedX > 0) facing = true;
 
 		// Set the good animation
 		if (speedY > 0) {
@@ -202,20 +202,3 @@ public class Player extends Entity {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

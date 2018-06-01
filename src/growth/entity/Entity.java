@@ -449,41 +449,6 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Set the entity's variable left.
-	 *
-	 * @param newState New state of left variable.
-	 */
-	public void setLeft(boolean newState) { left = newState; }
-
-	/**
-	 * Set the entity's variable right.
-	 *
-	 * @param newState New state of right variable.
-	 */
-	public void setRight(boolean newState) { right = newState; }
-
-	/**
-	 * Set the entity's variable down.
-	 *
-	 * @param newState New state of down variable.
-	 */
-	public void setDown(boolean newState) { down = newState; }
-
-	/**
-	 * Set the entity's variable jumping.
-	 *
-	 * @param newState New state of jumping variable.
-	 */
-	public void setJumping(boolean newState) { jumping = newState; }
-
-	/**
-	 * Set the entity's variable sprint.
-	 *
-	 * @param newState New state of sprint variable.
-	 */
-	public void setSprint(boolean newState) { sprint = newState; }
-
-	/**
 	 * Test if the entity isn't on screen.
 	 */
 	public boolean notOnScreen() {
