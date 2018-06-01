@@ -1,12 +1,12 @@
 <map id = "2" width="30" height="12">
 	<ins>
-		<in name="1" x="0.5" y="5"/>
-		<in name="3" x="29.5" y="6"/>
+		<in name="1" x="0.5" y="6"/>
+		<in name="3" x="29.5" y="5"/>
 	</ins>
 
 	<outs>
-		<out to="1" mapId="1" beg="0" end="12"/>
-		<out to="3" mapId="3" beg="0" end="12"/>
+		<out side="1" to="3" mapId="1" beg="0" end="12"/>
+		<out side="3" to="1" mapId="3" beg="0" end="12"/>
 	</outs>
 
 	<layers>

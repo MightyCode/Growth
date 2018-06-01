@@ -217,8 +217,9 @@ public class TileMap {
 	 *
 	 * @param side Where the map will be changed.
 	 */
-	public double[] changeMap(int side) {
-		currentMap = maps.get(currentMap).getNeighbour(side)-1;
+	public double[] changeMap(int side, int point) {
+		float[][] data = maps.get(currentMap).fonction1(side);
+		currentMap = (int)data[point][0]-1;
 		chargeMap();
 		numCols = map[0].length;
 		numRows = map.length;
@@ -230,13 +231,52 @@ public class TileMap {
 		yMin = Window.HEIGHT - sizeY;
 
 		double[] newPos = new double[2];
-		if (side == 1) {
-			newPos[0] = sizeX - (maps.get(currentMap).getTileToComeX(side) * tileSize);
-		} else newPos[0] = (maps.get(currentMap).getTileToComeX(side) * tileSize);
+		newPos[0] = (maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
 
-		if (side == 4) newPos[1] = sizeY - (maps.get(currentMap).getTileToComeY(side) * tileSize);
-		else newPos[1] = maps.get(currentMap).getTileToComeY(side) * tileSize;
+		newPos[1] = maps.get(currentMap).getTileToComeY((int)data[point][1]) * tileSize;
 		return newPos;
+	}
+
+	/**
+	 * Check if there are a next map for the player's position.
+	 *
+	 * @param side The side to change the map.
+	 * @param x The player position x.
+	 * @param y The player position y.
+	 *
+	 * @return The new map id and the spawn point.
+	 */
+	public int[] isMap(int side, int x, int y) {
+		float posX = x / tileSize;
+		float posY = y / tileSize;
+
+		boolean isANeighbour = true;
+		int counter = 0;
+		float[][] neighbour = maps.get(currentMap).fonction1(side);
+		int[] table = new int[2];
+
+		while(isANeighbour){
+			if(side == 0 || side == 2){
+				if(neighbour[counter][2] < posY && posY < neighbour[counter][3]){
+
+					table[0] = (int)neighbour[counter][0];
+					table[1] = counter;
+					return table;
+				}
+			} else if (side == 1|| side == 3){
+				if(neighbour[counter][2] < posX && posX < neighbour[counter][3]){
+					table[0] = (int)neighbour[counter][0];
+					table[1] = counter;
+					return table;
+				}
+			}
+
+			counter++;
+			if(counter == neighbour.length){
+				return table;
+			}
+		}
+		return table;
 	}
 
 	/**
@@ -340,17 +380,6 @@ public class TileMap {
 	 */
 	public int getSizeY() {
 		return sizeY;
-	}
-
-	/**
-	 * Return the id of the choose map.
-	 *
-	 * @param side To choose the map neighbour.
-	 *
-	 * @return the id neighbour
-	 */
-	public int getNeighbour(int side) {
-		return maps.get(currentMap).getNeighbour(side);
 	}
 
 	/**

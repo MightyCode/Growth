@@ -54,6 +54,12 @@ public class GameScreen extends Screen {
     private int transitionSide;
 
     /**
+     * Transition point.
+     * This variable contains where the player go in the next map after the transition.
+     */
+    private int transitionPoint;
+
+    /**
      * TileMap.
      * This variable contains the tileMap to interact with it.
      */
@@ -144,9 +150,14 @@ public class GameScreen extends Screen {
         player.update();
         tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),true);
 
-        if(player.notOnScreen()){
-            changeMap();
-        }
+            // Check border player collision to change the map
+            if (player.getPosX() - player.getCX() / 2 <= 0) {
+                changeMap(0);
+            } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getSizeX()) {
+                changeMap(2);
+            } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
+                changeMap(3);
+            }
     }
 
     /**
@@ -155,8 +166,7 @@ public class GameScreen extends Screen {
     private void updateTransition() {
         transitionCounter++;
         if (transitionCounter == transitionTime / 2) {
-            double[] pos;
-            pos = tileMap.changeMap(transitionSide);
+            double[] pos = tileMap.changeMap(transitionSide,transitionPoint);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
             tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),false);
             player.setSpeed(0, 0);
@@ -223,31 +233,15 @@ public class GameScreen extends Screen {
      * Set the change when the player touch a screen'edge.
      *
      */
-    private void changeMap() {
-        int side = 0;
-
-        // Check border player collision to change the map
-        if (player.getPosX() - player.getCX() / 2 <= 0) {
-            side = 1;
-        } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getSizeX()) {
-            side = 3;
-        } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
-            if(tileMap.getNeighbour(4) != 0){
-                side = 4;
-            } else{
-                player.setPosition(-100,-100);
-                state = DEATHSCREEN;
-            }
-        }
-
-
-
-        if (tileMap.getNeighbour(side) != 0) {
-
-            if(changeMap(player.getPosX(),player.getPosY())){
-                transitionSide = side;
-                state = TRANSITIONSCREEN;
-            }
+    private void changeMap(int side) {
+        int[] data = tileMap.isMap(side, player.getPosX(), player.getPosY());
+        if(data[0] != 0){
+            transitionSide = side;
+            transitionPoint = data[1];
+            state = TRANSITIONSCREEN;
+        } else if (side == 3){
+            player.setPosition(-100,-100);
+            state = DEATHSCREEN;
         }
     }
 

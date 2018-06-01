@@ -23,7 +23,7 @@ public class Map {
 	 * Map's exit interval.
 	 * This variable contains the different exit interval for each side of map.
 	 */
-	private final ArrayList[] exit = new ArrayList[4];
+	private float[][][] exit;
 
 	/**
 	 * Layers.
@@ -53,7 +53,8 @@ public class Map {
 	public Map(int mapID, int numberSpawns) {
 		this.mapID = mapID;
 		layer = new Layer[5];
-		spawn = new float[numberSpawns][4];
+		spawn = new float[numberSpawns][3];
+		exit = new float[4][1][4];
 	}
 
 	/*
@@ -81,18 +82,21 @@ public class Map {
 		height = layer[layerID].getHeight();
 	}
 
-	public void setExit(int side, int mapID, float beg, float end){
-		float[] exitInterval = new float[3];
-		exitInterval[0] = mapID;
-		exitInterval[1] = beg;
-		exitInterval[2] = end;
-		try{
-			if(exit[side].isEmpty()){}
-		} catch(Exception e){
-			exit[side] = new ArrayList();
-		}
-		exit[side].add(exitInterval);
+	public void setExit(int side, int pointName, int mapID, float beg, float end){
+				float[][] old = exit[side];
+				exit[side] = new float[exit[side].length+1][4];
+				for(int i = 0; i < old.length; i++){
+					exit[side][i][0] = old[i][0];
+					exit[side][i][1] = old[i][1];
+					exit[side][i][2] = old[i][2];
+					exit[side][i][3] = old[i][3];
+				}
+		System.out.println("Side -> " + side + " Point -> " + pointName + " MapID -> " + mapID + " beg -> " +beg + " end -> " + end);
 
+		exit[side][exit[side].length-1][0] = mapID;
+		exit[side][exit[side].length-1][1] = pointName;
+		exit[side][exit[side].length-1][2] = beg;
+		exit[side][exit[side].length-1][3] = end;
 	}
 
 	/*
@@ -117,8 +121,9 @@ public class Map {
 	 *
 	 * @return begin tile x
 	 */
-	double getTileToComeX(int side) {
-		return spawn[side - 1][0];
+	double getTileToComeX(int point) {
+		System.out.println(point + " " + spawn[point][0]);
+		return spawn[point][0];
 	}
 
 	/**
@@ -126,7 +131,16 @@ public class Map {
 	 *
 	 * @return begin tile y
 	 */
-	double getTileToComeY(int side) {
-		return spawn[side - 1][1];
+	double getTileToComeY(int point) {
+		return spawn[point][1];
+	}
+
+	float[][] fonction1(int side){
+		return exit[side];
+	}
+
+	int getMapId(int side, int point){
+		System.out.println(exit[side].length + " " + point);
+		return (int)exit[side][point][0];
 	}
 }

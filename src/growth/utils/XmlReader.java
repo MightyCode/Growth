@@ -62,11 +62,11 @@ public abstract class XmlReader {
 
 			// Set the exit point of map
 			NodeList outs = root.getElementsByTagName("out");
-			final int outNumber = ins.getLength();
-
+			final int outNumber = outs.getLength();
 			for(int a = 0; a < outNumber; a++){
 				subRoot = (Element) outs.item(a);
-				map.setExit(Integer.parseInt(subRoot.getAttribute("to"))-1,
+				map.setExit(Integer.parseInt(subRoot.getAttribute("side"))-1,
+						Integer.parseInt(subRoot.getAttribute("to"))-1,
 						Integer.parseInt(subRoot.getAttribute("mapId")),
 						Float.parseFloat(subRoot.getAttribute("beg")),
 						Float.parseFloat(subRoot.getAttribute("end")));
