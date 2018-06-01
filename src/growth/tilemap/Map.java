@@ -1,5 +1,7 @@
 package growth.tilemap;
 
+import java.util.ArrayList;
+
 /**
  * Map class.
  * This class is use to store a map with the layers and entities.
@@ -9,17 +11,19 @@ package growth.tilemap;
  */
 public class Map {
 
-	/**
-	 * Map's neighbour id.
-	 * This variable contains the map's neighbour id.
-	 */
-	private final int[] idMapNeighbour = new int[4];
+	private final int mapID;
 
 	/**
-	 * Map's neighbour beginning tile.
-	 * This variable contains the map's neighbour beginning tile.
+	 * Map's beginning tile.
+	 * This variable contains the different spawns points in the map.
 	 */
-	private final float[][] tileToCome = new float[4][2];
+	private float[][] spawn;
+
+	/**
+	 * Map's exit interval.
+	 * This variable contains the different exit interval for each side of map.
+	 */
+	private float[][][] exit;
 
 	/**
 	 * Layers.
@@ -41,19 +45,32 @@ public class Map {
 
 	/**
 	 * Map class constructor.
-	 * Instance the class and set the map's neighbour id with the path.
+	 * Instance the class and set the map id.
 	 *
-	 * @param left Map left id.
-	 * @param up Map top id.
-	 * @param right Map right id.
-	 * @param down Map bottom id.
+	 * @param mapID Map id.
 	 */
-	public Map(int left, int up, int right, int down) {
-		idMapNeighbour[0] = left;
-		idMapNeighbour[1] = up;
-		idMapNeighbour[2] = right;
-		idMapNeighbour[3] = down;
+
+	public Map(int mapID, int numberSpawns) {
+		this.mapID = mapID;
 		layer = new Layer[5];
+		spawn = new float[numberSpawns][3];
+		exit = new float[4][1][4];
+	}
+
+	/*
+	 * Setters
+	 */
+
+	/**
+	 * Set the beginning of map in relation to the arrival side.
+	 *
+	 * @param number The spawn point number.
+	 * @param beginX The tile x to begin.
+	 * @param beginY The tile y to begin.
+	 */
+	public void setSpawnTile(int number, float beginX, float beginY) {
+		spawn[number][0] = beginX;
+		spawn[number][1] = beginY;
 	}
 
 	/**
@@ -65,36 +82,26 @@ public class Map {
 		height = layer[layerID].getHeight();
 	}
 
-	/*
-	 * Setters
-	 */
+	public void setExit(int side, int pointName, int mapID, float beg, float end){
+				float[][] old = exit[side];
+				exit[side] = new float[exit[side].length+1][4];
+				for(int i = 0; i < old.length; i++){
+					exit[side][i][0] = old[i][0];
+					exit[side][i][1] = old[i][1];
+					exit[side][i][2] = old[i][2];
+					exit[side][i][3] = old[i][3];
+				}
+		System.out.println("Side -> " + side + " Point -> " + pointName + " MapID -> " + mapID + " beg -> " +beg + " end -> " + end);
 
-	/**
-	 * Set the beginning of map in relation to the arrival side.
-	 *
-	 * @param side The side of beginning.
-	 * @param beginX The tile x to begin.
-	 * @param beginY The tile y to begin.
-	 */
-	public void setTileToCome(int side, float beginX, float beginY) {
-		tileToCome[side - 1][0] = beginX;
-		tileToCome[side - 1][1] = beginY;
+		exit[side][exit[side].length-1][0] = mapID;
+		exit[side][exit[side].length-1][1] = pointName;
+		exit[side][exit[side].length-1][2] = beg;
+		exit[side][exit[side].length-1][3] = end;
 	}
 
 	/*
 	 * Getters
 	 */
-
-	/**
-	 * Get the map's neighbour id.
-	 *
-	 * @param side The side of map's neighbour.
-	 *
-	 * @return idMapNeighbour
-	 */
-	public int getNeighbour(int side) {
-		return idMapNeighbour[side - 1];
-	}
 
 	/**
 	 * Get the map's tile id.
@@ -114,8 +121,9 @@ public class Map {
 	 *
 	 * @return begin tile x
 	 */
-	double getTileToComeX(int side) {
-		return tileToCome[side - 1][0];
+	double getTileToComeX(int point) {
+		System.out.println(point + " " + spawn[point][0]);
+		return spawn[point][0];
 	}
 
 	/**
@@ -123,7 +131,16 @@ public class Map {
 	 *
 	 * @return begin tile y
 	 */
-	double getTileToComeY(int side) {
-		return tileToCome[side - 1][1];
+	double getTileToComeY(int point) {
+		return spawn[point][1];
+	}
+
+	float[][] fonction1(int side){
+		return exit[side];
+	}
+
+	int getMapId(int side, int point){
+		System.out.println(exit[side].length + " " + point);
+		return (int)exit[side][point][0];
 	}
 }

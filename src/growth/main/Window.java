@@ -6,6 +6,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryStack;
 
+import java.awt.*;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
@@ -25,9 +26,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 @SuppressWarnings("InfiniteLoopStatement")
 public class Window {
 
-    public Window(){
-        System.out.println("Window loaded");
-    }
+    public Window(){}
 
     /**
      * Window id.
@@ -160,7 +159,7 @@ public class Window {
             glfwSwapBuffers(WINDOWID);
 
             if (second + 1000000000 < System.nanoTime()) {
-                System.out.println("FPS : " + fps + " ,TPS : " + tps);
+                System.out.println("\n-_-_-_-_-_-_-_-_-_-_-_-_-\n \033[92m FPS : " + fps + "   TPS : " + tps + "\033[0m");
                 fps = tps = 0;
                 second = System.nanoTime();
             }
@@ -184,6 +183,11 @@ public class Window {
         // Terminate GLFW and free the error callback
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
+        System.out.println("\n-------------------------- \n");
+        System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m,\033[93m Bouin Alexandre" +
+                "\033[0m and\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
+        System.out.println("\n-------------------------- \n");
+
         System.exit(0);
     }
 }
