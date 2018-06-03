@@ -15,7 +15,8 @@ public class Player_Deplacement extends Module{
         super(player);
         this.player = player;
         this.walkSpeed = walkSpeed;
-        this.maxSpeed= maxSpeed;
+        this.maxSpeed = maxSpeed;
+        this.stopSpeed = stopSpeed;
     }
 
     public void update(){

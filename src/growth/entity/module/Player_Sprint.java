@@ -23,13 +23,13 @@ public class Player_Sprint extends Module{
 
         float speedX = player.getSpeedX();
 
-       if (sprint && (deplacement.getLeft() || deplacement.getRight())) {
+        if (sprint && (deplacement.getLeft() || deplacement.getRight())) {
             if (speedX > 0 && deplacement.getRight()) {
                 speedX = deplacement.getMaxSpeed() * runSpeed;
             } else if (speedX < 0 && deplacement.getLeft()) {
                 speedX = -deplacement.getMaxSpeed() * runSpeed;
             }
-       }
+        }
 
         player.setSpeedX(speedX);
     }
