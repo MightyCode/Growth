@@ -18,13 +18,13 @@ public class TileMap {
 	 * Map position x.
 	 * This variable contains the position y of the beginning of the rendering of the map.
 	 */
-	private double posX;
+	private float posX;
 
 	/**
 	 * Map position y.
 	 * This variable contains the position y of the beginning of the rendering of the map.
 	 */
-	private double posY;
+	private float posY;
 
 	/**
 	 * Minimal position x of camera.
@@ -55,7 +55,7 @@ public class TileMap {
 	 * This variable contains the smooth movement of camera
 	 * 1 -> rigid and immediate set new camera position.
 	 */
-	private double tween;
+	private float tween;
 
 	/**
 	 * Current.
@@ -279,7 +279,7 @@ public class TileMap {
 	 *
 	 * @return The next player position on the new map.
 	 */
-	public double[] changeMap(int side, int point) {
+	public float[] changeMap(int side, int point) {
 		float[][] data = maps.get(currentMap).getExitPoints(side);
 		currentMap = (int)data[point][0]-1;
 		chargeMap();
@@ -292,10 +292,10 @@ public class TileMap {
 		xMin = Window.WIDTH - sizeX;
 		yMin = Window.HEIGHT - sizeY;
 
-		double[] newPos = new double[2];
-		newPos[0] = (maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
+		float[] newPos = new float[2];
+		newPos[0] = (float)(maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
 
-		newPos[1] = maps.get(currentMap).getTileToComeY((int)data[point][1]) * tileSize;
+		newPos[1] = (float)maps.get(currentMap).getTileToComeY((int)data[point][1]) * tileSize;
 		return newPos;
 	}
 
@@ -304,7 +304,7 @@ public class TileMap {
 	 *
 	 * @param tween Set the new tween.
 	 */
-	public void setTween(double tween) {
+	public void setTween(float tween) {
 		this.tween = tween;
 	}
 

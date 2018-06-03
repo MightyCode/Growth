@@ -93,7 +93,7 @@ public class GameScreen extends Screen {
 
             // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
-        tileMap.setTween(0.9);
+        tileMap.setTween(0.9f);
 
             // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
@@ -166,7 +166,7 @@ public class GameScreen extends Screen {
     private void updateTransition() {
         transitionCounter++;
         if (transitionCounter == transitionTime / 2) {
-            double[] pos = tileMap.changeMap(transitionSide,transitionPoint);
+            float[] pos = tileMap.changeMap(transitionSide,transitionPoint);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
             tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),false);
             player.setSpeed(0, 0);

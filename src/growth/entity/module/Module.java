@@ -1,8 +1,13 @@
 package growth.entity.module;
 
-public abstract class Module {
-    public Module(){
+import growth.entity.Entity;
 
+public abstract class Module {
+
+    protected Entity entity;
+
+    public Module(Entity entity){
+        this.entity = entity;
     }
 
     public void update(){

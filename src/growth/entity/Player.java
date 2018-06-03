@@ -1,15 +1,15 @@
 package growth.entity;
 
+import growth.entity.module.*;
+import growth.entity.module.Player_Deplacement;
+import growth.entity.module.Player_Sprint;
 import growth.render.Animation;
 import growth.render.Render;
-import growth.screen.ScreenManager;
 import growth.screen.screens.GameScreen;
 import growth.tilemap.TileMap;
-import growth.utils.KeyboardManager;
 
 import java.util.ArrayList;
 
-import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * Player class.
@@ -18,7 +18,7 @@ import static org.lwjgl.glfw.GLFW.*;
  * @author MightyCode
  * @version 1.0
  */
-public class Player extends Entity {
+public class Player extends MovingEntity{
 
 	/**
 	 * Player's states.
@@ -50,14 +50,14 @@ public class Player extends Entity {
 		cY = sizeY;
 
 			// Movement
-		walkSpeed = 2.25;
-		runSpeed = 1.5;
-		maxSpeed = 5.5;
-		stopSpeed = 0.5;
-		fallSpeed = 0.4;
+		walkSpeed = 2.25f;
+		runSpeed = 1.5f;
+		maxSpeed = 5.5f;
+		stopSpeed = 0.5f;
+		fallSpeed = 0.4f;
 		maxFallSpeed = GameScreen.TILESIZE - 2;
-		jumpStart = -15.2;
-		stopJumpSpeed = 0.3;
+		jumpStart = -15.2f;
+		stopJumpSpeed = 0.3f;
 
 			// Sprite and Animation
 		facing = true;
@@ -69,21 +69,29 @@ public class Player extends Entity {
 		animations.add(new Animation("/images/character/walk/", 10, 4));
 		animations.add(new Animation("/images/character/jump/", 1, 100));
 		animations.add(new Animation("/images/character/fall/", 1, 100));
+
+			// Add the modules of action to the player
+		modules = new ArrayList<>();
+		modules.add(new Player_Deplacement(this,walkSpeed, maxSpeed, stopSpeed));
+		modules.add(new Player_Sprint(this,(Player_Deplacement) modules.get(0), runSpeed));
 	}
 
 	/**
 	 * Update the player's position, states and this current animation.
 	 */
 	public void update() {
+		for(Module module : modules){
+			module.update();
+		}
+
 		// Update position
-		checkKeys();
 		getNextPosition();
 
 		checkTileMapCollision();
 		setPosition(xTemp, yTemp);
 
 		// Direction
-		if (speedX<0) facing = false;
+		if (speedX < 0) facing = false;
 		else if (speedX > 0) facing = true;
 
 		// Set the good animation
@@ -110,50 +118,9 @@ public class Player extends Entity {
 	}
 
 	/**
-	 * Update the keys
-	 */
-	private void checkKeys(){
-		// Key update
-		// Key update
-		jumping = ScreenManager.KEY.key(2);
-
-		down = ScreenManager.KEY.key(4);
-
-		left = ScreenManager.KEY.key(1);
-
-		right = ScreenManager.KEY.key(3);
-
-		sprint = ScreenManager.KEY.key(5);
-	}
-
-	/**
 	 * Get the next position of player taking into account the player's orders.
 	 */
 	private void getNextPosition() {
-		// Movement
-		if (right) {
-			speedX += walkSpeed;
-			if (speedX > maxSpeed) {
-				speedX = maxSpeed;
-			}
-		} else if (left) {
-			speedX -= walkSpeed;
-			if (speedX < -maxSpeed) {
-				speedX = -maxSpeed;
-			}
-		} else {
-			if (speedX > 0) {
-				speedX -= stopSpeed;
-				if (speedX < 0) {
-					speedX = 0;
-				}
-			} else if (speedX < 0) {
-				speedX += stopSpeed;
-				if (speedX > 0) {
-					speedX = 0;
-				}
-			}
-		}
 
 		// If Jumping
 		if (jumping && !falling) {
@@ -169,14 +136,6 @@ public class Player extends Entity {
 			else if (speedY < 0 && !jumping) speedY += stopJumpSpeed;
 
 			if (speedY > maxFallSpeed) speedY = maxFallSpeed;
-		}
-
-		if (sprint && (left || right)) {
-			if (speedX > 0 && right) {
-				speedX = maxSpeed * runSpeed;
-			} else if (speedX < 0 && left) {
-				speedX = -maxSpeed * runSpeed;
-			}
 		}
 	}
 
