@@ -26,9 +26,28 @@ public class TileMap {
 	 */
 	private double posY;
 
+	/**
+	 * Minimal position x of camera.
+	 * This variable contains the minimal position x of the camera use to stop the scrolling.
+	 */
 	private int xMin;
+	/**
+	 * Minimal position y of camera.
+	 * This variable contains the minimal position y of the camera use to stop the scrolling.
+	 */
+
 	private int yMin;
+
+	/**
+	 * Maximal position x of camera.
+	 * This variable contains the maximal position x of the camera use to stop the scrolling.
+	 */
 	private final int xMax;
+
+	/**
+	 * Maximal position y of camera.
+	 * This variable contains the maximal position y of the camera use to stop the scrolling.
+	 */
 	private final int yMax;
 
 	/**
@@ -179,34 +198,38 @@ public class TileMap {
 		int begin = (pos)? 0: currentLayer;
 		int end = (pos)? currentLayer : 6;
 
-			for(int i  =  begin; i < end ; i++){
-				float alpha = (i == currentLayer-1)? 1: (float)0.9;
-				int[][] map = maps.get(currentMap).getMap(i);
+		int maxRow = (rowOffset + numRowsToDraw > numRows)? numRows : rowOffset + numRowsToDraw;
+		int maxCol = (colOffset + numColsToDraw > numCols)? numCols : colOffset + numColsToDraw;
 
-				for (int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
+		// For each layer
+		for(int i  =  begin; i < end ; i++){
+			float alpha = (i == currentLayer-1)? 1: (float)0.9;
+			int[][] map = maps.get(currentMap).getMap(i);
 
-					if (row >= numRows) break;
-					for (int col = colOffset; col < colOffset + numColsToDraw; col++) {
+			// For each row
+			for (int row = rowOffset; row < maxRow; row++) {
 
-						if (col >= numCols) break;
-						if (map[row][col] == 0) continue;
+				//For each col
+				for (int col = colOffset; col < maxCol; col++) {
 
-						if(i != currentLayer-1) {
-							Render.image(
-									(int) posX + col * tileSize,
-									(int) posY + row * tileSize,
-									tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 0.85f ,alpha
-							);
-						} else {
-							Render.image(
-									(int) posX + col * tileSize,
-									(int) posY + row * tileSize,
-									tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 1.0f,alpha
-							);
-						}
+					if (map[row][col] == 0) continue;
+
+					if(i != currentLayer-1) {
+						Render.image(
+								(int) posX + col * tileSize,
+								(int) posY + row * tileSize,
+								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 0.80f ,alpha
+						);
+					} else {
+						Render.image(
+								(int) posX + col * tileSize,
+								(int) posY + row * tileSize,
+								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 1.0f,alpha
+						);
 					}
 				}
 			}
+		}
 	}
 
 	/**
