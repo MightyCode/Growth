@@ -3,15 +3,41 @@ package growth.entity.module;
 import growth.entity.Player;
 import growth.screen.ScreenManager;
 
-public class Player_Saut extends Module{
+/**
+ * Player jump module class.
+ * This class is the module use by the player to jump.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
+public class Player_Jump extends Module{
+
+    /**
+     * Player.
+     * This variable contains the reference to the player who use this module.
+     */
     private Player player;
-    private boolean falling;
+
+    /**
+     * Jump start force.
+     * This variable contains the strength of the player's jump.
+     */
     private float jumpStart;
+
+    /**
+     * Fall speed force.
+     * This variable contains the gravity.
+     */
     private float fallSpeed;
+
+    /**
+     * Stop jump speed.
+     * This variable contains the speed to stop the player after jumping.
+     */
     private float stopJumpSpeed;
     private float maxFallSpeed;
 
-    public Player_Saut(Player player, float jumpStart, float fallSpeed, float stopJumpSpeed, float maxFallSpeed){
+    public Player_Jump(Player player, float jumpStart, float fallSpeed, float stopJumpSpeed, float maxFallSpeed){
         super(player);
         this.player = player;
         this.jumpStart = jumpStart;
@@ -22,8 +48,8 @@ public class Player_Saut extends Module{
 
     public void update(){
         // Keys update
-        player.setJumping(ScreenManager.KEY.key(2));
         boolean jumping = ScreenManager.KEY.key(2);
+        player.setJumping(jumping);
         boolean falling = player.getFalling();
 
         float speedY = player.getSpeedY();
@@ -38,7 +64,7 @@ public class Player_Saut extends Module{
         if (falling) {
             speedY += fallSpeed;
 
-            if (speedY > 0) player.setJumping(jumping = false);
+            if (speedY > 0) player.setJumping(false);
             else if (speedY < 0 && !jumping) speedY += stopJumpSpeed;
 
             if (speedY > maxFallSpeed) speedY = maxFallSpeed;

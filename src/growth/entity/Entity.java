@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Basic entity class.
- * This class is the mother class of all entity in game, included player, enemies or moving platform.
+ * This class is the mother class of all entity in game, including player, enemies or moving platform.
  */
 public abstract class Entity {
 

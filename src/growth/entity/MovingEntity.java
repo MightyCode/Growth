@@ -3,6 +3,13 @@ package growth.entity;
 import growth.tilemap.Tile;
 import growth.tilemap.TileMap;
 
+/**
+ * Moving entity class.
+ * This class is the mother class of all entity who move.
+ *
+ *  @author MightyCode
+ *  @version 1.0
+ */
 public class MovingEntity extends Entity {
     /**
      * Entity speed X.
@@ -100,54 +107,6 @@ public class MovingEntity extends Entity {
      * This variable contains the falling's state.
      */
     protected boolean falling;
-
-    /**
-     * Walk speed.
-     * This variable contains the speed of walking in pixel per frame.
-     */
-    protected float walkSpeed;
-
-    /**
-     * Run speed.
-     * This variable contains the multiplier applied to the walking speed.
-     */
-    protected float runSpeed;
-
-    /**
-     * Run speed.
-     * This variable contains the max speed in pixel per frame.
-     */
-    protected float maxSpeed;
-
-    /**
-     * Stop speed.
-     * This variable contains the speed removed at each frame at walking speed when the entity isn't walking.
-     */
-    protected float stopSpeed;
-
-    /**
-     * Fall speed.
-     * This variable contains the based fall speed in pixel per frame.
-     */
-    protected float fallSpeed;
-
-    /**
-     * Max falling speed.
-     * This variable contains the fall speed limit.
-     */
-    protected float maxFallSpeed;
-
-    /**
-     * Jump start.
-     * This variable contains the jump force added to speed y.
-     */
-    protected float jumpStart;
-
-    /**
-     * Stop jump start.
-     * This variable contains jump speed limit.
-     */
-    protected float stopJumpSpeed;
 
     /**
      * Moving Entity constructor.

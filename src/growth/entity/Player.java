@@ -46,24 +46,24 @@ public class Player extends MovingEntity{
 			// Size, and boxSize
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
-		cX = (int) (sizeX * 0.7);
+		cX = (int) (sizeX * 0.65);
 		cY = sizeY;
 
 			// Movement
-		walkSpeed = 2.25f;
-		runSpeed = 1.5f;
-		maxSpeed = 5.5f;
-		stopSpeed = 0.5f;
-		fallSpeed = 0.4f;
-		maxFallSpeed = GameScreen.TILESIZE - 2;
-		jumpStart = -15.2f;
-		stopJumpSpeed = 0.3f;
+		float walkSpeed = 2.5f;
+		float runSpeed = 1.45f;
+		float maxSpeed = 5.5f;
+		float stopSpeed = 0.3f;
+		float fallSpeed = 0.4f;
+		float maxFallSpeed = GameScreen.TILESIZE - 2;
+		float jumpStart = -13.5f;
+		float stopJumpSpeed = 0.2f;
 
 
 		// Add the modules of action to the player
 		modules = new ArrayList<>();
 		modules.add(new Player_Deplacement(this,walkSpeed, maxSpeed, stopSpeed));
-		modules.add(new Player_Saut(this, jumpStart, fallSpeed, stopJumpSpeed, maxFallSpeed));
+		modules.add(new Player_Jump(this, jumpStart, fallSpeed, stopJumpSpeed, maxFallSpeed));
 		modules.add(new Player_Sprint(this,(Player_Deplacement) modules.get(0), runSpeed));
 
 			// Sprite and Animation

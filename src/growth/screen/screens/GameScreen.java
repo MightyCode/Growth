@@ -93,7 +93,7 @@ public class GameScreen extends Screen {
 
             // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
-        tileMap.setTween(0.9f);
+        tileMap.setTween(1f, 0.4f);
 
             // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
@@ -148,16 +148,19 @@ public class GameScreen extends Screen {
         }
         // Update player
         player.update();
-        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),true);
 
-            // Check border player collision to change the map
-            if (player.getPosX() - player.getCX() / 2 <= 0) {
-                changeMap(0);
-            } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getSizeX()) {
-                changeMap(2);
-            } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
-                changeMap(3);
-            }
+        tileMap.setPosition((Window.WIDTH / 2) - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),true);
+
+
+
+        // Check border player collision to change the map
+        if (player.getPosX() - player.getCX() / 2 <= 0) {
+            changeMap(0);
+        } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getSizeX()) {
+            changeMap(2);
+        } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
+            changeMap(3);
+        }
     }
 
     /**

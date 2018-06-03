@@ -136,7 +136,6 @@ public class Map {
 	 * @return Begin tile x.
 	 */
 	double getTileToComeX(int point) {
-		System.out.println(point + " " + spawn[point][0]);
 		return spawn[point][0];
 	}
 
