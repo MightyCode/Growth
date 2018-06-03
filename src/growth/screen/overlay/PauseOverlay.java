@@ -63,7 +63,7 @@ public class PauseOverlay extends Overlay{
     public void update(){
         resume.update();
         menu.update();
-        if(ScreenManager.KEY.keyPressed(GLFW_KEY_ESCAPE)) {
+        if(ScreenManager.KEY.keyPressed(0)) {
             screen.setState(GameScreen.NORMALSCREEN);
         }
     }

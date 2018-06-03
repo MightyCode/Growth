@@ -6,6 +6,8 @@ import growth.screen.screens.Screen;
 import growth.utils.KeyboardManager;
 import growth.utils.MouseManager;
 
+import static org.lwjgl.glfw.GLFW.*;
+
 /**
  * ScreenManager class.
  * This class is the screenManager class used to run the game screens.
@@ -36,12 +38,24 @@ public class ScreenManager {
     public static final KeyboardManager KEY = new KeyboardManager();
     public static final MouseManager MOUSE = new MouseManager();
 
+
     /**
      * ScreenManager class constructor.
      * Instance the class and set the current screen.
      */
     public ScreenManager() {
         ActualScreen = (new MenuScreen(this));
+        // Set the key
+        KEY.setKey(0, GLFW_KEY_ESCAPE);
+        KEY.setKey(1, GLFW_KEY_A);
+        KEY.setKey(2, GLFW_KEY_W);
+        KEY.setKey(3, GLFW_KEY_D);
+        KEY.setKey(4, GLFW_KEY_S);
+        KEY.setKey(5, GLFW_KEY_LEFT_SHIFT);
+        KEY.setKey(6, GLFW_KEY_F);
+        KEY.setKey(7, GLFW_KEY_Q);
+        KEY.setKey(8, GLFW_KEY_KP_ADD);
+        KEY.setKey(9, GLFW_KEY_KP_SUBTRACT);
     }
 
     /**

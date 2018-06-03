@@ -93,7 +93,7 @@ public class GameScreen extends Screen {
 
             // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
-        tileMap.setTween(0.9);
+        tileMap.setTween(1f, 0.4f);
 
             // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
@@ -135,29 +135,32 @@ public class GameScreen extends Screen {
      */
     private void updateGame() {
 
-        if(ScreenManager.KEY.keyPressed(GLFW_KEY_G)) {
+        if(ScreenManager.KEY.keyPressed(8)) {
             tileMap.upLayer();
         }
 
-        if(ScreenManager.KEY.keyPressed(GLFW_KEY_H)) {
+        if(ScreenManager.KEY.keyPressed(9)) {
             tileMap.downLayer();
         }
 
-        if(ScreenManager.KEY.keyPressed(GLFW_KEY_ESCAPE)) {
+        if(ScreenManager.KEY.keyPressed(0)) {
             state = ESCAPESCREEN;
         }
         // Update player
         player.update();
-        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),true);
 
-            // Check border player collision to change the map
-            if (player.getPosX() - player.getCX() / 2 <= 0) {
-                changeMap(0);
-            } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getSizeX()) {
-                changeMap(2);
-            } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
-                changeMap(3);
-            }
+        tileMap.setPosition((Window.WIDTH / 2) - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),true);
+
+
+
+        // Check border player collision to change the map
+        if (player.getPosX() - player.getCX() / 2 <= 0) {
+            changeMap(0);
+        } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getSizeX()) {
+            changeMap(2);
+        } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
+            changeMap(3);
+        }
     }
 
     /**
@@ -166,7 +169,7 @@ public class GameScreen extends Screen {
     private void updateTransition() {
         transitionCounter++;
         if (transitionCounter == transitionTime / 2) {
-            double[] pos = tileMap.changeMap(transitionSide,transitionPoint);
+            float[] pos = tileMap.changeMap(transitionSide,transitionPoint);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
             tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),false);
             player.setSpeed(0, 0);

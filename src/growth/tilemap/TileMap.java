@@ -1,5 +1,6 @@
 package growth.tilemap;
 
+import growth.main.Growth;
 import growth.main.Window;
 import growth.render.Render;
 import growth.utils.XmlReader;
@@ -18,13 +19,13 @@ public class TileMap {
 	 * Map position x.
 	 * This variable contains the position y of the beginning of the rendering of the map.
 	 */
-	private double posX;
+	private float posX;
 
 	/**
 	 * Map position y.
 	 * This variable contains the position y of the beginning of the rendering of the map.
 	 */
-	private double posY;
+	private float posY;
 
 	/**
 	 * Minimal position x of camera.
@@ -55,7 +56,14 @@ public class TileMap {
 	 * This variable contains the smooth movement of camera
 	 * 1 -> rigid and immediate set new camera position.
 	 */
-	private double tween;
+	private float tweenX;
+
+	/**
+	 * Tween.
+	 * This variable contains the smooth movement of camera
+	 * 1 -> rigid and immediate set new camera position.
+	 */
+	private float tweenY;
 
 	/**
 	 * Current.
@@ -178,7 +186,7 @@ public class TileMap {
 
 		numRowsToDraw = Window.HEIGHT / tileSize + 2;
 		numColsToDraw = Window.WIDTH / tileSize + 2;
-		tween = 1;
+		tweenX = 1;
 
 		tileSet = XmlReader.createTileSet(path);
 
@@ -279,7 +287,7 @@ public class TileMap {
 	 *
 	 * @return The next player position on the new map.
 	 */
-	public double[] changeMap(int side, int point) {
+	public float[] changeMap(int side, int point) {
 		float[][] data = maps.get(currentMap).getExitPoints(side);
 		currentMap = (int)data[point][0]-1;
 		chargeMap();
@@ -292,20 +300,22 @@ public class TileMap {
 		xMin = Window.WIDTH - sizeX;
 		yMin = Window.HEIGHT - sizeY;
 
-		double[] newPos = new double[2];
-		newPos[0] = (maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
+		float[] newPos = new float[2];
+		newPos[0] = (float)(maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
 
-		newPos[1] = maps.get(currentMap).getTileToComeY((int)data[point][1]) * tileSize;
+		newPos[1] = (float)maps.get(currentMap).getTileToComeY((int)data[point][1]) * tileSize;
 		return newPos;
 	}
 
 	/**
 	 * Set the camera tween.
 	 *
-	 * @param tween Set the new tween.
+	 * @param tweenX Set the new tween in width.
+	 * @param tweenY Set the new tween in height.
 	 */
-	public void setTween(double tween) {
-		this.tween = tween;
+	public void setTween(float tweenX, float tweenY) {
+		this.tweenX = tweenX;
+		this.tweenY = tweenY;
 	}
 
 	/**
@@ -316,8 +326,11 @@ public class TileMap {
 	 * @param isTween Apply the tween (true) or no (false).
 	 */
 	public void setPosition(double posX, double posY, boolean isTween) {
-		this.posX += (isTween)?(posX - this.posX) * tween : (posX - this.posX);
-		this.posY += (isTween)?(posY - this.posY) * tween : (posY - this.posY);
+		float newTweenX = (isTween)? tweenX : 1;
+		float newTweenY = (isTween)? tweenY : 1;
+
+		this.posX += (posX - this.posX ) * newTweenX;
+		this.posY += (posY - this.posY) * newTweenY;
 
 		fixBounds();
 
@@ -329,10 +342,15 @@ public class TileMap {
 	 * Set the corner of the map.
 	 */
 	private void fixBounds() {
-		if (posX < xMin) posX = xMin;
+		if (posX < xMin){
+			posX = xMin;
+		}
 		if (posY < yMin) posY = yMin;
-		if (posX > xMax) posX = xMax;
+		if (posX > xMax){
+			posX = xMax;
+		}
 		if (posY > yMax) posY = yMax;
+
 	}
 
 	/*

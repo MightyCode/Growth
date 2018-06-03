@@ -1,5 +1,6 @@
 package growth.entity;
 
+import growth.entity.module.Module;
 import growth.render.Animation;
 import growth.tilemap.Tile;
 import growth.tilemap.TileMap;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Basic entity class.
- * This class is the mother class of all entity in game, included player, enemies or moving platform.
+ * This class is the mother class of all entity in game, including player, enemies or moving platform.
  */
 public abstract class Entity {
 
@@ -17,235 +18,87 @@ public abstract class Entity {
 	 * TileMap.
 	 * This variable contains the tileMap to interact with it.
 	 */
-	private final TileMap tileMap;
+	protected final TileMap tileMap;
 
 	/**
 	 * TileSize.
 	 * This variable contains the tileSize to interact with it.
 	 */
-	private final int tileSize;
+	protected final int tileSize;
 
 	/**
 	 * Map position x.
 	 * This variable contains the position x of the beginning of the rendering of the map.
 	 */
-	double xMap;
+	protected float xMap;
 
 	/**
 	 * Map position y.
 	 * This variable contains the position y of the beginning of the rendering of the map.
 	 */
-	double yMap;
+	protected float yMap;
 
 	/**
 	 * Entity position x.
 	 * This variable contains the position x of the entity.
 	 */
-	double posX;
+	protected float posX;
 
 	/**
 	 * Entity position Y.
 	 * This variable contains the position y of the entity.
 	 */
-	double posY;
-
-	/**
-	 * Entity speed X.
-	 * This variable contains the speed X of the entity.
-	 */
-	double speedX;
-
-	/**
-	 * Entity speed Y.
-	 * This variable contains the speed Y of the entity.
-	 */
-	double speedY;
+	protected float posY;
 
 	/**
 	 * Entity size X.
 	 * This variable contains the width of the entity.
 	 */
-	int sizeX;
+	protected int sizeX;
 
 	/**
 	 * Entity size Y.
 	 * This variable contains the height of the entity.
 	 */
-	int sizeY;
+	protected int sizeY;
 
 	/**
 	 * Entity collision box size X.
 	 * This variable contains the width of the collision's box entity.
 	 */
-	int cX;
+	protected int cX;
 
 	/**
 	 * Entity collision box size Y.
 	 * This variable contains the height of the collision's box entity.
 	 */
-	int cY;
-
-	/**
-	 * Current row position.
-	 * This variable contains the row position.
-	 */
-	private int currRow;
-
-	/**
-	 * Current column position.
-	 * This variable contains the column position.
-	 */
-	private int currCol;
-
-	/**
-	 * Destination position of x.
-	 * This variable contains the next position x of the entity.
-	 */
-	private double xDest;
-
-	/**
-	 * Destination position of y.
-	 * This variable contains the next position y of the entity.
-	 */
-	private double yDest;
+	protected int cY;
 
 	/**
 	 * Temporary position x.
 	 * This variable contains the temporary position in x.
 	 */
-	double xTemp;
+	protected float xTemp;
 
 	/**
 	 * Temporary position y.
 	 * This variable contains the temporary position in y.
 	 */
-	double yTemp;
-
-	/**
-	 * Top-left status collision.
-	 * This variable contains the status of the top left tile.
-	 */
-	private boolean topLeft;
-
-	/**
-	 * Top-right status collision.
-	 * This variable contains the status of the top right tile.
-	 */
-	private boolean topRight;
-
-	/**
-	 * Bottom-left status collision.
-	 * This variable contains the status of the bottom left tile.
-	 */
-	private boolean bottomLeft;
-
-	/**
-	 * Bottom-left status collision.
-	 * This variable contains the status of the bottom right tile.
-	 */
-	private boolean bottomRight;
+	protected float yTemp;
 
 	/**
 	 * Animations table.
 	 * This ArrayList contains all of the animations use by the entity.
 	 */
-	ArrayList<Animation> animations;
+	protected ArrayList<Animation> animations;
 
 	/**
 	 * Animations played.
 	 * This variable contains the number of the animation played.
 	 */
-	int animationPlayed;
+	protected int animationPlayed;
 
-	/**
-	 * Facing (true -> right // false -> left)
-	 * This variable contains the direction towards where the entity is "looking".
-	 */
-	boolean facing;
-
-	/**
-	 * Is left.
-	 * This variable contains if the entity goes to the left.
-	 */
-	boolean left;
-
-	/**
-	 * Is right.
-	 * This variable contains if the entity goes to the right.
-	 */
-	boolean right;
-
-	/**
-	 * Is down.
-	 * This variable contains if the entity goes to the down.
-	 */
-	boolean down;
-
-	/**
-	 * Is jumping.
-	 * This variable contains the jumping's state.
-	 */
-	boolean jumping;
-
-	/**
-	 * Is falling.
-	 * This variable contains the falling's state.
-	 */
-	boolean falling;
-
-	/**
-	 * Is sprint.
-	 * This variable contains the sprint's state.
-	 */
-	boolean sprint;
-
-	/**
-	 * Walk speed.
-	 * This variable contains the speed of walking in pixel per frame.
-	 */
-	double walkSpeed;
-
-	/**
-	 * Run speed.
-	 * This variable contains the multiplier applied to the walking speed.
-	 */
-	double runSpeed;
-
-	/**
-	 * Run speed.
-	 * This variable contains the max speed in pixel per frame.
-	 */
-	double maxSpeed;
-
-	/**
-	 * Stop speed.
-	 * This variable contains the speed removed at each frame at walking speed when the entity isn't walking.
-	 */
-	double stopSpeed;
-
-	/**
-	 * Fall speed.
-	 * This variable contains the based fall speed in pixel per frame.
-	 */
-	double fallSpeed;
-
-	/**
-	 * Max falling speed.
-	 * This variable contains the fall speed limit.
-	 */
-	double maxFallSpeed;
-
-	/**
-	 * Jump start.
-	 * This variable contains the jump force added to speed y.
-	 */
-	double jumpStart;
-
-	/**
-	 * Stop jump start.
-	 * This variable contains jump speed limit.
-	 */
-	double stopJumpSpeed;
+	protected ArrayList<Module> modules;
 
 	/**
 	 * Entity class constructor.
@@ -268,109 +121,6 @@ public abstract class Entity {
 		Rectangle r2 = entity.getRectangle();
 		// Call the function intersects of Rectangle
 		return r1.intersects(r2);
-	}
-
-	/**
-	 * Check the collision between the Entity and tileMap.
-	 */
-	void checkTileMapCollision() {
-
-		// Get position of player in the grid
-		currCol = (int) posX / tileSize;
-		currRow = (int) posY / tileSize;
-
-		// Next position
-		xDest = posX + speedX;
-		yDest = posY + speedY;
-
-		// Old position
-		xTemp = posX;
-		yTemp = posY;
-
-
-		calculateCorners(posX, yDest);
-		if (speedY < 0) {
-			if (topLeft || topRight) {
-				speedY = 0;
-				yTemp = currRow * tileSize + cY / 2;
-			} else {
-				yTemp += speedY;
-			}
-
-			if (yDest - cY / 2 < 0) {
-				yTemp = cY / 2;
-				speedY = 0;
-			}
-		} else if (speedY > 0) {
-			if (bottomLeft || bottomRight) {
-				speedY = 0;
-				falling = false;
-				yTemp = (currRow + 1) * tileSize - cY / 2;
-			} else {
-				yTemp += speedY;
-			}
-		}
-
-		// Calculate translation of X movement
-		calculateCorners(xDest, posY);
-		if (speedX < 0) {
-			if (topLeft || bottomLeft) {
-				speedX = 0;
-				xTemp = currCol * tileSize + cX / 2;
-			} else {
-				xTemp += speedX;
-			}
-
-			if (xDest - cX / 2 < 0) {
-				xTemp = cX / 2;
-				speedX = 0;
-			}
-
-		} else if (speedX > 0) {
-			if (topRight || bottomRight) {
-				speedX = 0;
-				xTemp = (currCol + 1) * tileSize - cX / 2;
-			} else {
-				xTemp += speedX;
-			}
-		}
-
-		if (!falling) {
-			calculateCorners(posX, yDest + 1);
-			if (!bottomLeft && !bottomRight) {
-				falling = true;
-			}
-		}
-	}
-
-	/**
-	 * Calculate corners of the Entity.
-	 *
-	 * @param posX Position X.
-	 * @param posY Position Y.
-	 */
-	private void calculateCorners(double posX, double posY) {
-
-		int leftTile = (int) (posX - cX / 2) / tileSize;
-		int rightTile = (int) (posX + cX / 2 - 1) / tileSize;
-		int topTile = (int) (posY - cY / 2) / tileSize;
-		int bottomTile = (int) (posY + cY / 2 - 1) / tileSize;
-
-		if (bottomTile >= tileMap.getNumRows() ||
-                rightTile >= tileMap.getNumCols()) {
-			topLeft = topRight = bottomLeft = bottomRight = true;
-			return;
-		}
-
-		int tl = tileMap.getType(topTile, leftTile);
-		int tr = tileMap.getType(topTile, rightTile);
-		int bl = tileMap.getType(bottomTile, leftTile);
-		int br = tileMap.getType(bottomTile, rightTile);
-
-		topLeft = tl == Tile.BLOCKED;
-		topRight = tr == Tile.BLOCKED;
-		bottomLeft = bl == Tile.BLOCKED;
-		bottomRight = br == Tile.BLOCKED;
 	}
 
 	/*
@@ -424,20 +174,9 @@ public abstract class Entity {
 	 * @param posX New position x.
 	 * @param posY New position y.
 	 */
-	public void setPosition(double posX, double posY) {
+	public void setPosition(float posX, float posY) {
 		this.posX = posX;
 		this.posY = posY;
-	}
-
-	/**
-	 * Set the entity's speed.
-	 *
-	 * @param speedX New speed x.
-	 * @param speedY New speed y.
-	 */
-	public void setSpeed(double speedX, double speedY) {
-		this.speedX = speedX;
-		this.speedY = speedY;
 	}
 
 	/**
