@@ -21,7 +21,6 @@ public class Player_Deplacement extends Module{
 
     public void update(){
         // Keys update
-        player.setJumping(ScreenManager.KEY.key(2));
         player.setLeft(ScreenManager.KEY.key(1));
         left = ScreenManager.KEY.key(1);
         player.setRight(ScreenManager.KEY.key(3));

@@ -284,8 +284,10 @@ public class MovingEntity extends Entity {
         this.right = right;
     }
     public void setSpeedX(float speedX){this.speedX = speedX;}
+    public void setSpeedY(float speedY){this.speedY = speedY;}
+    public void setFalling(boolean falling){this.falling = falling;}
 
-    public boolean getJumping(){return jumping;}
     public float getSpeedX(){return speedX;}
     public float getSpeedY(){return speedY;}
+    public boolean getFalling(){return falling;}
 }

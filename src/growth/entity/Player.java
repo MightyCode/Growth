@@ -59,6 +59,13 @@ public class Player extends MovingEntity{
 		jumpStart = -15.2f;
 		stopJumpSpeed = 0.3f;
 
+
+		// Add the modules of action to the player
+		modules = new ArrayList<>();
+		modules.add(new Player_Deplacement(this,walkSpeed, maxSpeed, stopSpeed));
+		modules.add(new Player_Saut(this, jumpStart, fallSpeed, stopJumpSpeed, maxFallSpeed));
+		modules.add(new Player_Sprint(this,(Player_Deplacement) modules.get(0), runSpeed));
+
 			// Sprite and Animation
 		facing = true;
 		animationPlayed = 0;
@@ -69,11 +76,6 @@ public class Player extends MovingEntity{
 		animations.add(new Animation("/images/character/walk/", 10, 4));
 		animations.add(new Animation("/images/character/jump/", 1, 100));
 		animations.add(new Animation("/images/character/fall/", 1, 100));
-
-			// Add the modules of action to the player
-		modules = new ArrayList<>();
-		modules.add(new Player_Deplacement(this,walkSpeed, maxSpeed, stopSpeed));
-		modules.add(new Player_Sprint(this,(Player_Deplacement) modules.get(0), runSpeed));
 	}
 
 	/**
@@ -83,9 +85,6 @@ public class Player extends MovingEntity{
 		for(Module module : modules){
 			module.update();
 		}
-
-		// Update position
-		getNextPosition();
 
 		checkTileMapCollision();
 		setPosition(xTemp, yTemp);
@@ -115,28 +114,6 @@ public class Player extends MovingEntity{
 
 		// And update chosen animation
 		animations.get(animationPlayed).update();
-	}
-
-	/**
-	 * Get the next position of player taking into account the player's orders.
-	 */
-	private void getNextPosition() {
-
-		// If Jumping
-		if (jumping && !falling) {
-			speedY = jumpStart;
-			falling = true;
-		}
-
-		// If Falling
-		if (falling) {
-			speedY += fallSpeed;
-
-			if (speedY > 0) jumping = false;
-			else if (speedY < 0 && !jumping) speedY += stopJumpSpeed;
-
-			if (speedY > maxFallSpeed) speedY = maxFallSpeed;
-		}
 	}
 
 	/**
