@@ -2,6 +2,7 @@ package growth.entity;
 
 import growth.render.Animation;
 import growth.render.Render;
+import growth.screen.ScreenManager;
 import growth.screen.screens.GameScreen;
 import growth.tilemap.TileMap;
 import growth.utils.KeyboardManager;
@@ -114,15 +115,15 @@ public class Player extends Entity {
 	private void checkKeys(){
 		// Key update
 		// Key update
-		jumping = KeyboardManager.key(GLFW_KEY_W) || KeyboardManager.key(GLFW_KEY_SPACE);
+		jumping = ScreenManager.KEY.key(2);
 
-		down = KeyboardManager.key(GLFW_KEY_S);
+		down = ScreenManager.KEY.key(4);
 
-		left = KeyboardManager.key(GLFW_KEY_A);
+		left = ScreenManager.KEY.key(1);
 
-		right = KeyboardManager.key(GLFW_KEY_D);
+		right = ScreenManager.KEY.key(3);
 
-		sprint = KeyboardManager.key(GLFW_KEY_LEFT_SHIFT);
+		sprint = ScreenManager.KEY.key(5);
 	}
 
 	/**

@@ -135,15 +135,15 @@ public class GameScreen extends Screen {
      */
     private void updateGame() {
 
-        if(ScreenManager.KEY.keyPressed(GLFW_KEY_G)) {
+        if(ScreenManager.KEY.keyPressed(8)) {
             tileMap.upLayer();
         }
 
-        if(ScreenManager.KEY.keyPressed(GLFW_KEY_H)) {
+        if(ScreenManager.KEY.keyPressed(9)) {
             tileMap.downLayer();
         }
 
-        if(ScreenManager.KEY.keyPressed(GLFW_KEY_ESCAPE)) {
+        if(ScreenManager.KEY.keyPressed(0)) {
             state = ESCAPESCREEN;
         }
         // Update player
