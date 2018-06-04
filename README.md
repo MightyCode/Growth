@@ -3,7 +3,7 @@ Growth
 Un petit jeu de plateforme.
 
 Présentation
------------------
+------------
 Growth est un jeu de plateforme qui embarque des fonctionnalités innovantes et propose aux joueurs des quêtes pour gagner des améliorations.
 
 Ressources
