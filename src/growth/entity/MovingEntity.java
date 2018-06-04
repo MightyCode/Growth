@@ -116,6 +116,8 @@ public class MovingEntity extends Entity {
      */
     MovingEntity(TileMap tileMap) {
         super(tileMap);
+        speedX = 0;
+        speedY = 0;
     }
 
     /**

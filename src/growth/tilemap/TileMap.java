@@ -1,10 +1,13 @@
 package growth.tilemap;
 
-import growth.main.Growth;
-import growth.main.Window;
+import growth.entity.Entity;
+import growth.entity.MovingEntity;
+import growth.main.*;
 import growth.render.Render;
 import growth.utils.XmlReader;
 import java.util.ArrayList;
+
+import static growth.main.Window.HEIGHT;
 
 /**
  * TileMap class.
@@ -160,6 +163,8 @@ public class TileMap {
 
 	private final int maxGap = Window.WIDTH/10;
 
+	private MovingEntity entity;
+
 
 	/**
 	 * Tilemap class constructor.
@@ -189,9 +194,8 @@ public class TileMap {
 		numCols = map[0].length;
 		numRows = map.length;
 
-		numRowsToDraw = Window.HEIGHT / tileSize + 2;
+		numRowsToDraw = HEIGHT / tileSize + 2;
 		numColsToDraw = Window.WIDTH / tileSize + 2;
-		tweenX = 1;
 
 		tileSet = XmlReader.createTileSet(path);
 
@@ -200,7 +204,7 @@ public class TileMap {
 
 		xMin = Window.WIDTH - sizeX;
 		xMax = 0;
-		yMin = Window.HEIGHT - sizeY;
+		yMin = HEIGHT - sizeY;
 		yMax = 0;
 
 		addCamera = 0;
@@ -305,7 +309,7 @@ public class TileMap {
 		sizeY = numRows * tileSize;
 
 		xMin = Window.WIDTH - sizeX;
-		yMin = Window.HEIGHT - sizeY;
+		yMin = HEIGHT - sizeY;
 
 		float[] newPos = new float[2];
 		newPos[0] = (float)(maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
@@ -325,34 +329,32 @@ public class TileMap {
 		this.tweenY = tweenY;
 	}
 
+
 	/**
 	 * Set new origin position of map.
 	 *
-	 * @param posX Set the new origin position x.
-	 * @param posY Set the new origin position y.
 	 * @param isTween Apply the tween (true) or no (false).
 	 */
-	public void setPosition(double posX, double posY, boolean isTween , float x) {
-		float newTweenX;
+	public void setPosition(boolean isTween){
+		float posX = Window.WIDTH / 2 - entity.getPosX();
+		float posY = Window.HEIGHT / 2 - entity.getPosY();
+		float speedX = entity.getSpeedX();
 
-		if(x > 0) {
-			newTweenX = 0.3f;
+		if(speedX > 0) {
 			addCamera -=5;
 			if(-maxGap > addCamera) addCamera = -maxGap;
-		} else if(x < 0){
-			newTweenX = 0.3f;
+		} else if(speedX < 0){
 			addCamera +=5;
 			if(addCamera > maxGap) addCamera = maxGap;
 		} else{
-			newTweenX = 0.3f;
-			addCamera/=1.03;
+			addCamera/=1.04;
 		}
 
 		if (!isTween){
-			newTweenX = 1;
 			addCamera = 0;
 		}
 
+		float newTweenX = (isTween)? tweenX : 1;
 		float newTweenY = (isTween)? tweenY : 1;
 
 		this.posX += (posX - this.posX + addCamera) * newTweenX;
@@ -363,6 +365,7 @@ public class TileMap {
 		colOffset = (int) -this.posX / tileSize;
 		rowOffset = (int) -this.posY / tileSize;
 	}
+
 
 	/**
 	 * Set the corner of the map.
@@ -490,5 +493,9 @@ public class TileMap {
 	 */
 	private void chargeMap(){
 		map = maps.get(currentMap).getMap(currentLayer-1);
+	}
+
+	public void setEntityToCamera(MovingEntity entity){
+		this.entity = entity;
 	}
 }

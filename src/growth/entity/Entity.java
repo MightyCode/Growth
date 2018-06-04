@@ -109,6 +109,12 @@ public abstract class Entity {
 	Entity(TileMap tileMap) {
 		this.tileMap = tileMap;
 		this.tileSize = tileMap.getTileSize();
+		posX = 0;
+		posY = 0;
+		sizeX = 0;
+		sizeY = 0;
+		cX = 0;
+		cY = 0;
 	}
 
 	/**
