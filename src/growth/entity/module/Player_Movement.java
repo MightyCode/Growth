@@ -72,13 +72,13 @@ public class Player_Movement extends Module{
         float speedX = player.getSpeedX();
 
         if (right && !left) {
-            player.setRight(right);
+            player.setRight(true);
             speedX += walkSpeed;
             if (speedX > maxSpeed) {
                 speedX = maxSpeed;
             }
         } else if (left && !right) {
-            player.setLeft(left);
+            player.setLeft(true);
             speedX -= walkSpeed;
             if (speedX < -maxSpeed) {
                 speedX = -maxSpeed;
@@ -116,10 +116,4 @@ public class Player_Movement extends Module{
      */
     boolean getLeft(){return left;}
 
-    /**
-     * Get the max speed state.
-     *
-     * @return Max walk speed.
-     */
-    float getMaxSpeed(){return maxSpeed;}
 }

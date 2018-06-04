@@ -350,10 +350,10 @@ public class TileMap {
 		float speedX = entity.getSpeedX();
 
 		if(speedX > 0) {
-			addCamera -=5;
+			addCamera -=4;
 			if(-maxOffset > addCamera) addCamera = -maxOffset;
 		} else if(speedX < 0){
-			addCamera +=5;
+			addCamera +=4;
 			if(addCamera > maxOffset) addCamera = maxOffset;
 		} else{
 			addCamera/=1.04;

@@ -56,9 +56,9 @@ public class Player_Sprint extends Module{
 
         if (ScreenManager.KEY.key(5) ) {
             if (speedX > 0 && movement.getRight() && !movement.getLeft()) {
-                speedX = movement.getMaxSpeed() * runSpeed;
+                speedX *= runSpeed;
             } else if (speedX < 0 && movement.getLeft() && !movement.getRight()) {
-                speedX = -movement.getMaxSpeed() * runSpeed;
+                speedX *= runSpeed;
             }
         }
 
