@@ -71,14 +71,23 @@ public class GameScreen extends Screen {
      */
     private final Player player;
 
+    /**
+     * Pause Overlay.
+     * This variable contains the pause overlay.
+     */
     private PauseOverlay pause;
+
+    /**
+     * Death Overlay.
+     * This variable contains the overlay of death that appears when the character dies.
+     */
     private DeathOverlay death;
 
     /**
      * GameScreen class constructor.
      * Instance the class and set all of the GameScreen's variables.
      *
-     * @param screenManager Add screenManager change the global screen.
+     * @param screenManager Add screenManager to change the global screen.
      */
     public GameScreen(ScreenManager screenManager) {
         super(screenManager);

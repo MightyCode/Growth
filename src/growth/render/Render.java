@@ -17,7 +17,7 @@ public abstract class Render {
 	 * @param textID ID of the image.
 	 * @param alpha Opacity of the image.
 	 */
-	public static void image(double posX, double posY, double sizeX, double sizeY, int textID, float alpha) {
+	public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float alpha) {
 		TextureRenderer.image(posX, posY, sizeX, sizeY, textID,1.f,alpha);
 	}
 
@@ -31,7 +31,7 @@ public abstract class Render {
 	 * @param textID ID of the image.
 	 * @param alpha Opacity of the image.
 	 */
-	public static void image(double posX, double posY, double sizeX, double sizeY, int textID, float color, float alpha) {
+	public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha) {
 		TextureRenderer.image(posX, posY, sizeX, sizeY, textID, color ,alpha);
 	}
 
@@ -45,7 +45,7 @@ public abstract class Render {
 	 * @param color Black shades colour.
 	 * @param alpha Opacity of the image.
 	*/
-	public static void rect(double posX, double posY, double sizeX, double sizeY, int color, float alpha) {
+	public static void rect(float posX, float posY, float sizeX, float sizeY, int color, float alpha) {
 		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
 	}
 
@@ -59,7 +59,7 @@ public abstract class Render {
 	 * @param color Colour of the rectangle.
 	 * @param alpha Opacity of the image.
 	*/
-	public static void rect(double posX, double posY, double sizeX, double sizeY, int[] color, float alpha) {
+	public static void rect(float posX, float posY, float sizeX, float sizeY, int[] color, float alpha) {
 		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
 	}
 

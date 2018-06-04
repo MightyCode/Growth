@@ -68,10 +68,10 @@ public class DeathOverlay extends Overlay{
     public void display(){
         // Black rectangle
         Render.rect(0, 0, Window.WIDTH, Window.HEIGHT,0, (float)0.6);
-        Render.rect(Window.WIDTH*0.1, Window.HEIGHT*0.15, Window.WIDTH*0.8, Window.HEIGHT*0.751 ,0, (float)0.5);
+        Render.rect(Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.751f ,0, 0.5f);
 
         // Textures and button
-        Render.image(Window.WIDTH*0.40,Window.HEIGHT*0.05,Window.WIDTH*0.2,Window.HEIGHT*0.09, lose.getID(), 1);
+        Render.image(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, lose.getID(), 1f);
 
         restart.display();
         menu.display();
