@@ -93,15 +93,19 @@ public class GameScreen extends Screen {
 
             // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
-        tileMap.setTween(1f, 0.4f);
+        tileMap.setTween(0.3f, 0.4f);
 
             // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
 
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
+
+        // Add player for the camera
+        tileMap.setEntityToCamera(player);
+
         // Set the position of map before beginning of the game
-        tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),false);
+        tileMap.setPosition(false);
     }
 
     /**
@@ -149,8 +153,7 @@ public class GameScreen extends Screen {
         // Update player
         player.update();
 
-        tileMap.setPosition((Window.WIDTH / 2) - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),true);
-
+        tileMap.setPosition(true);
 
 
         // Check border player collision to change the map
@@ -171,7 +174,7 @@ public class GameScreen extends Screen {
         if (transitionCounter == transitionTime / 2) {
             float[] pos = tileMap.changeMap(transitionSide,transitionPoint);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            tileMap.setPosition(Window.WIDTH / 2 - player.getPosX(), Window.HEIGHT / 2 - player.getPosY(),false);
+            tileMap.setPosition(false);
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
             state = NORMALSCREEN;

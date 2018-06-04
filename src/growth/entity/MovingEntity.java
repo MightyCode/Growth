@@ -116,6 +116,8 @@ public class MovingEntity extends Entity {
      */
     MovingEntity(TileMap tileMap) {
         super(tileMap);
+        speedX = 0;
+        speedY = 0;
     }
 
     /**
@@ -233,6 +235,11 @@ public class MovingEntity extends Entity {
         this.speedY = speedY;
     }
 
+    /**
+     * Set the jump state.
+     *
+     * @param jumping New jump state.
+     */
     public void setJumping(boolean jumping) {
         this.jumping = jumping;
     }

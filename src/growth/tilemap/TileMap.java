@@ -1,17 +1,19 @@
 package growth.tilemap;
 
-import growth.main.Growth;
-import growth.main.Window;
+import growth.entity.MovingEntity;
+import growth.main.*;
 import growth.render.Render;
 import growth.utils.XmlReader;
 import java.util.ArrayList;
+
+import static growth.main.Window.HEIGHT;
 
 /**
  * TileMap class.
  * This class is use to store the game structure.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
 public class TileMap {
 
@@ -157,6 +159,23 @@ public class TileMap {
 	private int nbMap;
 
 	/**
+	 * Add pixels to camera position.
+	 * This variable contains the number of pixels add or remove of the position of camera.
+	 */
+	private int addCamera;
+
+	/**
+	 * Max offset between the entity and the middle of screen.
+	 */
+	private final int maxOffset = Window.WIDTH/10;
+
+	/**
+	 * The entity that will follow the camera.
+	 */
+	private MovingEntity entity;
+
+
+	/**
 	 * Tilemap class constructor.
 	 * Instance the class and set the tile's textures of tile set with the path.
 	 *
@@ -184,9 +203,8 @@ public class TileMap {
 		numCols = map[0].length;
 		numRows = map.length;
 
-		numRowsToDraw = Window.HEIGHT / tileSize + 2;
+		numRowsToDraw = HEIGHT / tileSize + 2;
 		numColsToDraw = Window.WIDTH / tileSize + 2;
-		tweenX = 1;
 
 		tileSet = XmlReader.createTileSet(path);
 
@@ -195,8 +213,10 @@ public class TileMap {
 
 		xMin = Window.WIDTH - sizeX;
 		xMax = 0;
-		yMin = Window.HEIGHT - sizeY;
+		yMin = HEIGHT - sizeY;
 		yMax = 0;
+
+		addCamera = 0;
 	}
 
 	/**
@@ -298,7 +318,7 @@ public class TileMap {
 		sizeY = numRows * tileSize;
 
 		xMin = Window.WIDTH - sizeX;
-		yMin = Window.HEIGHT - sizeY;
+		yMin = HEIGHT - sizeY;
 
 		float[] newPos = new float[2];
 		newPos[0] = (float)(maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
@@ -318,18 +338,35 @@ public class TileMap {
 		this.tweenY = tweenY;
 	}
 
+
 	/**
 	 * Set new origin position of map.
 	 *
-	 * @param posX Set the new origin position x.
-	 * @param posY Set the new origin position y.
 	 * @param isTween Apply the tween (true) or no (false).
 	 */
-	public void setPosition(double posX, double posY, boolean isTween) {
+	public void setPosition(boolean isTween){
+		float posX = Window.WIDTH / 2 - entity.getPosX();
+		float posY = Window.HEIGHT / 2 - entity.getPosY();
+		float speedX = entity.getSpeedX();
+
+		if(speedX > 0) {
+			addCamera -=5;
+			if(-maxOffset > addCamera) addCamera = -maxOffset;
+		} else if(speedX < 0){
+			addCamera +=5;
+			if(addCamera > maxOffset) addCamera = maxOffset;
+		} else{
+			addCamera/=1.04;
+		}
+
+		if (!isTween){
+			addCamera = 0;
+		}
+
 		float newTweenX = (isTween)? tweenX : 1;
 		float newTweenY = (isTween)? tweenY : 1;
 
-		this.posX += (posX - this.posX ) * newTweenX;
+		this.posX += (posX - this.posX + addCamera) * newTweenX;
 		this.posY += (posY - this.posY) * newTweenY;
 
 		fixBounds();
@@ -337,6 +374,7 @@ public class TileMap {
 		colOffset = (int) -this.posX / tileSize;
 		rowOffset = (int) -this.posY / tileSize;
 	}
+
 
 	/**
 	 * Set the corner of the map.
@@ -464,5 +502,14 @@ public class TileMap {
 	 */
 	private void chargeMap(){
 		map = maps.get(currentMap).getMap(currentLayer-1);
+	}
+
+	/**
+	 * Change the entity that will follow the camera.
+	 *
+	 * @param entity The entity that will follow the camera.
+	 */
+	public void setEntityToCamera(MovingEntity entity){
+		this.entity = entity;
 	}
 }
