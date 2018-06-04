@@ -1,6 +1,5 @@
 package growth.tilemap;
 
-import growth.entity.Entity;
 import growth.entity.MovingEntity;
 import growth.main.*;
 import growth.render.Render;
@@ -14,7 +13,7 @@ import static growth.main.Window.HEIGHT;
  * This class is use to store the game structure.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
 public class TileMap {
 
@@ -159,10 +158,20 @@ public class TileMap {
 	 */
 	private int nbMap;
 
+	/**
+	 * Add pixels to camera position.
+	 * This variable contains the number of pixels add or remove of the position of camera.
+	 */
 	private int addCamera;
 
-	private final int maxGap = Window.WIDTH/10;
+	/**
+	 * Max offset between the entity and the middle of screen.
+	 */
+	private final int maxOffset = Window.WIDTH/10;
 
+	/**
+	 * The entity that will follow the camera.
+	 */
 	private MovingEntity entity;
 
 
@@ -342,10 +351,10 @@ public class TileMap {
 
 		if(speedX > 0) {
 			addCamera -=5;
-			if(-maxGap > addCamera) addCamera = -maxGap;
+			if(-maxOffset > addCamera) addCamera = -maxOffset;
 		} else if(speedX < 0){
 			addCamera +=5;
-			if(addCamera > maxGap) addCamera = maxGap;
+			if(addCamera > maxOffset) addCamera = maxOffset;
 		} else{
 			addCamera/=1.04;
 		}
@@ -495,6 +504,11 @@ public class TileMap {
 		map = maps.get(currentMap).getMap(currentLayer-1);
 	}
 
+	/**
+	 * Change the entity that will follow the camera.
+	 *
+	 * @param entity The entity that will follow the camera.
+	 */
 	public void setEntityToCamera(MovingEntity entity){
 		this.entity = entity;
 	}
