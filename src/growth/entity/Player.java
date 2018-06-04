@@ -1,7 +1,7 @@
 package growth.entity;
 
 import growth.entity.module.*;
-import growth.entity.module.Player_Deplacement;
+import growth.entity.module.Player_Movement;
 import growth.entity.module.Player_Sprint;
 import growth.render.Animation;
 import growth.render.Render;
@@ -62,9 +62,9 @@ public class Player extends MovingEntity{
 
 		// Add the modules of action to the player
 		modules = new ArrayList<>();
-		modules.add(new Player_Deplacement(this,walkSpeed, maxSpeed, stopSpeed));
+		modules.add(new Player_Movement(this,walkSpeed, maxSpeed, stopSpeed));
 		modules.add(new Player_Jump(this, jumpStart, fallSpeed, stopJumpSpeed, maxFallSpeed));
-		modules.add(new Player_Sprint(this,(Player_Deplacement) modules.get(0), runSpeed));
+		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
 
 			// Sprite and Animation
 		facing = true;

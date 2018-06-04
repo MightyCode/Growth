@@ -35,10 +35,27 @@ public class Player_Jump extends Module{
      * This variable contains the speed to stop the player after jumping.
      */
     private float stopJumpSpeed;
+
+    /**
+     * Max fall speed.
+     * This variable contains the max falling speed.
+     */
     private float maxFallSpeed;
 
+    /**
+     * Jump module class constructor.
+     * Instance the class and set the reference to the entity.
+     *
+     * @param player Player using the module.
+     * @param jumpStart The strength of the player's jump.
+     * @param fallSpeed The gravity.
+     * @param stopJumpSpeed The value using by this module.
+     * @param maxFallSpeed The max falling speed.
+     */
     public Player_Jump(Player player, float jumpStart, float fallSpeed, float stopJumpSpeed, float maxFallSpeed){
         super(player);
+
+        // Init variables
         this.player = player;
         this.jumpStart = jumpStart;
         this.fallSpeed = fallSpeed;
@@ -46,6 +63,9 @@ public class Player_Jump extends Module{
         this. maxFallSpeed = maxFallSpeed;
     }
 
+    /**
+     * Update the module and the player jump.
+     */
     public void update(){
         // Keys update
         boolean jumping = ScreenManager.KEY.key(2);

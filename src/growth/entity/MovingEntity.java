@@ -243,17 +243,64 @@ public class MovingEntity extends Entity {
     public void setJumping(boolean jumping) {
         this.jumping = jumping;
     }
+
+    /**
+     * Set the fall state.
+     *
+     * @param falling New falling state.
+     */
+    public void setFalling(boolean falling){this.falling = falling;}
+
+    /**
+     * Set the left state.
+     *
+     * @param left New left state.
+     */
     public void setLeft(boolean left){
         this.left = left;
     }
+
+    /**
+     * Set the right state.
+     *
+     * @param right New right state.
+     */
     public void setRight(boolean right){
         this.right = right;
     }
-    public void setSpeedX(float speedX){this.speedX = speedX;}
-    public void setSpeedY(float speedY){this.speedY = speedY;}
-    public void setFalling(boolean falling){this.falling = falling;}
 
+    /**
+     * Set the entity's speed x.
+     *
+     * @param speedX New speed x.
+     */
+    public void setSpeedX(float speedX){this.speedX = speedX;}
+
+    /**
+     * Set the entity's speed y.
+     *
+     * @param speedY New speed y.
+     */
+    public void setSpeedY(float speedY){this.speedY = speedY;}
+
+    /**
+     * Get the entity's speed x.
+     *
+     * @return The speed x.
+     */
     public float getSpeedX(){return speedX;}
+
+    /**
+     * Get the entity's speed y.
+     *
+     * @return The speed y.
+     */
     public float getSpeedY(){return speedY;}
+
+    /**
+     * Get the falling state.
+     *
+     * @return The falling state.
+     */
     public boolean getFalling(){return falling;}
 }
