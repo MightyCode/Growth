@@ -156,6 +156,11 @@ public class TileMap {
 	 */
 	private int nbMap;
 
+	private int addCamera;
+
+	private final int maxGap = Window.WIDTH/10;
+
+
 	/**
 	 * Tilemap class constructor.
 	 * Instance the class and set the tile's textures of tile set with the path.
@@ -197,6 +202,8 @@ public class TileMap {
 		xMax = 0;
 		yMin = Window.HEIGHT - sizeY;
 		yMax = 0;
+
+		addCamera = 0;
 	}
 
 	/**
@@ -325,11 +332,30 @@ public class TileMap {
 	 * @param posY Set the new origin position y.
 	 * @param isTween Apply the tween (true) or no (false).
 	 */
-	public void setPosition(double posX, double posY, boolean isTween) {
-		float newTweenX = (isTween)? tweenX : 1;
+	public void setPosition(double posX, double posY, boolean isTween , float x) {
+		float newTweenX;
+
+		if(x > 0) {
+			newTweenX = 0.3f;
+			addCamera -=5;
+			if(-maxGap > addCamera) addCamera = -maxGap;
+		} else if(x < 0){
+			newTweenX = 0.3f;
+			addCamera +=5;
+			if(addCamera > maxGap) addCamera = maxGap;
+		} else{
+			newTweenX = 0.3f;
+			addCamera/=1.03;
+		}
+
+		if (!isTween){
+			newTweenX = 1;
+			addCamera = 0;
+		}
+
 		float newTweenY = (isTween)? tweenY : 1;
 
-		this.posX += (posX - this.posX ) * newTweenX;
+		this.posX += (posX - this.posX + addCamera) * newTweenX;
 		this.posY += (posY - this.posY) * newTweenY;
 
 		fixBounds();
