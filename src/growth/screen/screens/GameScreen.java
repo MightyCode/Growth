@@ -8,6 +8,8 @@ import growth.tilemap.TileMap;
 import growth.entity.Player;
 import growth.utils.Math;
 import growth.main.Window;
+import org.lwjgl.opengl.GL11;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 /**
@@ -102,7 +104,7 @@ public class GameScreen extends Screen {
 
             // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
-        tileMap.setTween(0.3f, 0.4f);
+        ScreenManager.CAMERA.setTween(0.3f, 0.4f);
 
             // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
@@ -111,10 +113,10 @@ public class GameScreen extends Screen {
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
 
         // Add player for the camera
-        tileMap.setEntityToCamera(player);
+        ScreenManager.CAMERA.setEntityToCamera(player);
 
         // Set the position of map before beginning of the game
-        tileMap.setPosition(false);
+        ScreenManager.CAMERA.setPosition(false);
     }
 
     /**
@@ -162,7 +164,7 @@ public class GameScreen extends Screen {
         // Update player
         player.update();
 
-        tileMap.setPosition(true);
+        ScreenManager.CAMERA.setPosition(true);
 
 
         // Check border player collision to change the map
@@ -183,7 +185,7 @@ public class GameScreen extends Screen {
         if (transitionCounter == transitionTime / 2) {
             float[] pos = tileMap.changeMap(transitionSide,transitionPoint);
             player.setPosition(pos[0], pos[1] - player.getCY() / 2);
-            tileMap.setPosition(false);
+            ScreenManager.CAMERA.setPosition(false);
             player.setSpeed(0, 0);
         } else if (transitionCounter > transitionTime) {
             state = NORMALSCREEN;

@@ -1,12 +1,10 @@
 package growth.tilemap;
 
-import growth.entity.MovingEntity;
 import growth.main.*;
 import growth.render.Render;
+import growth.screen.ScreenManager;
 import growth.utils.XmlReader;
 import java.util.ArrayList;
-
-import static growth.main.Window.HEIGHT;
 
 /**
  * TileMap class.
@@ -16,56 +14,6 @@ import static growth.main.Window.HEIGHT;
  * @version 1.1
  */
 public class TileMap {
-
-	/**
-	 * Map position x.
-	 * This variable contains the position y of the beginning of the rendering of the map.
-	 */
-	private float posX;
-
-	/**
-	 * Map position y.
-	 * This variable contains the position y of the beginning of the rendering of the map.
-	 */
-	private float posY;
-
-	/**
-	 * Minimal position x of camera.
-	 * This variable contains the minimal position x of the camera use to stop the scrolling.
-	 */
-	private int xMin;
-	/**
-	 * Minimal position y of camera.
-	 * This variable contains the minimal position y of the camera use to stop the scrolling.
-	 */
-
-	private int yMin;
-
-	/**
-	 * Maximal position x of camera.
-	 * This variable contains the maximal position x of the camera use to stop the scrolling.
-	 */
-	private final int xMax;
-
-	/**
-	 * Maximal position y of camera.
-	 * This variable contains the maximal position y of the camera use to stop the scrolling.
-	 */
-	private final int yMax;
-
-	/**
-	 * Tween.
-	 * This variable contains the smooth movement of camera
-	 * 1 -> rigid and immediate set new camera position.
-	 */
-	private float tweenX;
-
-	/**
-	 * Tween.
-	 * This variable contains the smooth movement of camera
-	 * 1 -> rigid and immediate set new camera position.
-	 */
-	private float tweenY;
 
 	/**
 	 * Current.
@@ -159,23 +107,6 @@ public class TileMap {
 	private int nbMap;
 
 	/**
-	 * Add pixels to camera position.
-	 * This variable contains the number of pixels add or remove of the position of camera.
-	 */
-	private int addCamera;
-
-	/**
-	 * Max offset between the entity and the middle of screen.
-	 */
-	private final int maxOffset = Window.WIDTH/10;
-
-	/**
-	 * The entity that will follow the camera.
-	 */
-	private MovingEntity entity;
-
-
-	/**
 	 * Tilemap class constructor.
 	 * Instance the class and set the tile's textures of tile set with the path.
 	 *
@@ -203,7 +134,7 @@ public class TileMap {
 		numCols = map[0].length;
 		numRows = map.length;
 
-		numRowsToDraw = HEIGHT / tileSize + 2;
+		numRowsToDraw = Window.HEIGHT / tileSize + 2;
 		numColsToDraw = Window.WIDTH / tileSize + 2;
 
 		tileSet = XmlReader.createTileSet(path);
@@ -211,12 +142,8 @@ public class TileMap {
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
-		xMin = Window.WIDTH - sizeX;
-		xMax = 0;
-		yMin = HEIGHT - sizeY;
-		yMax = 0;
-
-		addCamera = 0;
+		ScreenManager.CAMERA.setBoundMax(Window.WIDTH/2 - sizeX, Window.HEIGHT/2 - sizeY);
+		ScreenManager.CAMERA.setBoundMin(Window.WIDTH/2, Window.HEIGHT/2);
 	}
 
 	/**
@@ -244,14 +171,14 @@ public class TileMap {
 
 					if(i != currentLayer-1) {
 						Render.image(
-								(int) posX + col * tileSize,
-								(int) posY + row * tileSize,
+								col * tileSize,
+								+ row * tileSize,
 								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 0.80f ,alpha
 						);
 					} else {
 						Render.image(
-								(int) posX + col * tileSize,
-								(int) posY + row * tileSize,
+								col * tileSize,
+								row * tileSize,
 								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 1.0f,alpha
 						);
 					}
@@ -317,78 +244,14 @@ public class TileMap {
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
-		xMin = Window.WIDTH - sizeX;
-		yMin = HEIGHT - sizeY;
+		ScreenManager.CAMERA.setBoundMax(Window.WIDTH/2 - sizeX, Window.HEIGHT/2 - sizeY);
+		ScreenManager.CAMERA.setBoundMin(0, 0);
 
 		float[] newPos = new float[2];
 		newPos[0] = (float)(maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
 
 		newPos[1] = (float)maps.get(currentMap).getTileToComeY((int)data[point][1]) * tileSize;
 		return newPos;
-	}
-
-	/**
-	 * Set the camera tween.
-	 *
-	 * @param tweenX Set the new tween in width.
-	 * @param tweenY Set the new tween in height.
-	 */
-	public void setTween(float tweenX, float tweenY) {
-		this.tweenX = tweenX;
-		this.tweenY = tweenY;
-	}
-
-
-	/**
-	 * Set new origin position of map.
-	 *
-	 * @param isTween Apply the tween (true) or no (false).
-	 */
-	public void setPosition(boolean isTween){
-		float posX = Window.WIDTH / 2 - entity.getPosX();
-		float posY = Window.HEIGHT / 2 - entity.getPosY();
-		float speedX = entity.getSpeedX();
-
-		if(speedX > 0) {
-			addCamera -=4;
-			if(-maxOffset > addCamera) addCamera = -maxOffset;
-		} else if(speedX < 0){
-			addCamera +=4;
-			if(addCamera > maxOffset) addCamera = maxOffset;
-		} else{
-			addCamera/=1.04;
-		}
-
-		if (!isTween){
-			addCamera = 0;
-		}
-
-		float newTweenX = (isTween)? tweenX : 1;
-		float newTweenY = (isTween)? tweenY : 1;
-
-		this.posX += (posX - this.posX + addCamera) * newTweenX;
-		this.posY += (posY - this.posY) * newTweenY;
-
-		fixBounds();
-
-		colOffset = (int) -this.posX / tileSize;
-		rowOffset = (int) -this.posY / tileSize;
-	}
-
-
-	/**
-	 * Set the corner of the map.
-	 */
-	private void fixBounds() {
-		if (posX < xMin){
-			posX = xMin;
-		}
-		if (posY < yMin) posY = yMin;
-		if (posX > xMax){
-			posX = xMax;
-		}
-		if (posY > yMax) posY = yMax;
-
 	}
 
 	/*
@@ -428,7 +291,7 @@ public class TileMap {
 	 * @return position x
 	 */
 	public int getPosX() {
-		return (int) posX;
+		return (int) 0;
 	}
 
 	/**
@@ -437,7 +300,7 @@ public class TileMap {
 	 * @return position y
 	 */
 	public int getPosY() {
-		return (int) posY;
+		return (int) 0;
 	}
 
 	/**
@@ -504,12 +367,4 @@ public class TileMap {
 		map = maps.get(currentMap).getMap(currentLayer-1);
 	}
 
-	/**
-	 * Change the entity that will follow the camera.
-	 *
-	 * @param entity The entity that will follow the camera.
-	 */
-	public void setEntityToCamera(MovingEntity entity){
-		this.entity = entity;
-	}
 }
