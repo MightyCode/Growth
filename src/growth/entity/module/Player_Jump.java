@@ -16,31 +16,31 @@ public class Player_Jump extends Module{
      * Player.
      * This variable contains the reference to the player who use this module.
      */
-    private Player player;
+    private final Player player;
 
     /**
      * Jump start force.
      * This variable contains the strength of the player's jump.
      */
-    private float jumpStart;
+    private final float jumpStart;
 
     /**
      * Fall speed force.
      * This variable contains the gravity.
      */
-    private float fallSpeed;
+    private final float fallSpeed;
 
     /**
      * Stop jump speed.
      * This variable contains the speed to stop the player after jumping.
      */
-    private float stopJumpSpeed;
+    private final float stopJumpSpeed;
 
     /**
      * Max fall speed.
      * This variable contains the max falling speed.
      */
-    private float maxFallSpeed;
+    private final float maxFallSpeed;
 
     /**
      * Jump module class constructor.

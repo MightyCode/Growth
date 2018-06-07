@@ -13,7 +13,7 @@ class Layer {
      * Map.
      * This variable contains the map.
      */
-    private int[][] tileID;
+    private final int[][] tileID;
 
     /**
      * Layer class constructor.

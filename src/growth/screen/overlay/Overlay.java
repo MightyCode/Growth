@@ -16,7 +16,7 @@ public abstract class Overlay {
      * Screen.
      * This variable contains the screen which have instance this overlay.
      */
-    Screen screen;
+    final Screen screen;
 
     /**
      * Overlay abstract class constructor.
@@ -39,14 +39,14 @@ public abstract class Overlay {
     /**
      * Set the screen.
      */
-    public void setScreen(int newScreen){
+    void setScreen(int newScreen){
         Window.SCREENMANAGER.setScreen(newScreen);
     }
 
     /**
      * Set the state of the screen which have instance the overlay.
      */
-    public void setState(int newsState){
+    void setState(int newsState){
         screen.setState(newsState);
     }
 

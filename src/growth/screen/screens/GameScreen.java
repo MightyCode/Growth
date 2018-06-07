@@ -7,10 +7,6 @@ import growth.screen.overlay.PauseOverlay;
 import growth.tilemap.TileMap;
 import growth.entity.Player;
 import growth.utils.Math;
-import growth.main.Window;
-import org.lwjgl.opengl.GL11;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * Game class.
@@ -32,10 +28,10 @@ public class GameScreen extends Screen {
      * These static final variable counting the different state of game.
      */
     public static final int NORMALSCREEN = 0;
-    public static final int TRANSITIONSCREEN = 1;
-    public static final int ESCAPESCREEN = 2;
-    public static final int INVENTORYSCREEN = 3;
-    public static final int DEATHSCREEN = 4;
+    private static final int TRANSITIONSCREEN = 1;
+    private static final int ESCAPESCREEN = 2;
+    private static final int INVENTORYSCREEN = 3;
+    private static final int DEATHSCREEN = 4;
 
     /**
      * Time to transition.
@@ -77,13 +73,13 @@ public class GameScreen extends Screen {
      * Pause Overlay.
      * This variable contains the pause overlay.
      */
-    private PauseOverlay pause;
+    private final PauseOverlay pause;
 
     /**
      * Death Overlay.
      * This variable contains the overlay of death that appears when the character dies.
      */
-    private DeathOverlay death;
+    private final DeathOverlay death;
 
     /**
      * GameScreen class constructor.
@@ -238,11 +234,11 @@ public class GameScreen extends Screen {
     private void displayTransition() {
         displayGame();
         if (transitionCounter <= transitionTime / 2) {
-            Render.rect(0, 0, Window.WIDTH, Window.HEIGHT, 0,
+            ScreenManager.CAMERA.transition( 0,
                     (float) Math.map(transitionCounter,
                             0, transitionTime / 2, 0, 1.5));
         } else {
-            Render.rect(0, 0, Window.WIDTH, Window.HEIGHT, 0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+            ScreenManager.CAMERA.transition(0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
         }
     }
 

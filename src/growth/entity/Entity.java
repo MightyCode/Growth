@@ -2,7 +2,6 @@ package growth.entity;
 
 import growth.entity.module.Module;
 import growth.render.Animation;
-import growth.tilemap.Tile;
 import growth.tilemap.TileMap;
 
 import java.awt.*;
@@ -18,87 +17,87 @@ public abstract class Entity {
 	 * TileMap.
 	 * This variable contains the tileMap to interact with it.
 	 */
-	protected final TileMap tileMap;
+	final TileMap tileMap;
 
 	/**
 	 * TileSize.
 	 * This variable contains the tileSize to interact with it.
 	 */
-	protected final int tileSize;
+	final int tileSize;
 
 	/**
 	 * Map position x.
 	 * This variable contains the position x of the beginning of the rendering of the map.
 	 */
-	protected float xMap;
+	float xMap;
 
 	/**
 	 * Map position y.
 	 * This variable contains the position y of the beginning of the rendering of the map.
 	 */
-	protected float yMap;
+	float yMap;
 
 	/**
 	 * Entity position x.
 	 * This variable contains the position x of the entity.
 	 */
-	protected float posX;
+	float posX;
 
 	/**
 	 * Entity position Y.
 	 * This variable contains the position y of the entity.
 	 */
-	protected float posY;
+	float posY;
 
 	/**
 	 * Entity size X.
 	 * This variable contains the width of the entity.
 	 */
-	protected int sizeX;
+	int sizeX;
 
 	/**
 	 * Entity size Y.
 	 * This variable contains the height of the entity.
 	 */
-	protected int sizeY;
+	int sizeY;
 
 	/**
 	 * Entity collision box size X.
 	 * This variable contains the width of the collision's box entity.
 	 */
-	protected int cX;
+	int cX;
 
 	/**
 	 * Entity collision box size Y.
 	 * This variable contains the height of the collision's box entity.
 	 */
-	protected int cY;
+	int cY;
 
 	/**
 	 * Temporary position x.
 	 * This variable contains the temporary position in x.
 	 */
-	protected float xTemp;
+	float xTemp;
 
 	/**
 	 * Temporary position y.
 	 * This variable contains the temporary position in y.
 	 */
-	protected float yTemp;
+	float yTemp;
 
 	/**
 	 * Animations table.
 	 * This ArrayList contains all of the animations use by the entity.
 	 */
-	protected ArrayList<Animation> animations;
+	ArrayList<Animation> animations;
 
 	/**
 	 * Animations played.
 	 * This variable contains the number of the animation played.
 	 */
-	protected int animationPlayed;
+	int animationPlayed;
 
-	protected ArrayList<Module> modules;
+	ArrayList<Module> modules;
 
 	/**
 	 * Entity class constructor.
@@ -188,7 +187,7 @@ public abstract class Entity {
 	/**
 	 * Set the map's position.
 	 */
-	public void setMapPosition() {
+	void setMapPosition() {
 		xMap = tileMap.getPosX();
 		yMap = tileMap.getPosY();
 	}

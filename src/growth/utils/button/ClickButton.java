@@ -35,13 +35,13 @@ public class ClickButton extends AbstractInput {
      * Over size x.
      * This variable contains button's size x after mouse'hovering.
      */
-    private int overSizeX;
+    private final int overSizeX;
 
     /**
      * Over size y
      * This variable contains button's size y after mouse'hovering.
      */
-    private int overSizeY;
+    private final int overSizeY;
 
     /**
      * Texture idle.
@@ -53,7 +53,7 @@ public class ClickButton extends AbstractInput {
      * Texture over.
      * This variable contains the texture of the Over's button.
      */
-    private Texture texOver;
+    private final Texture texOver;
 
     /**
      * Mouse over.
@@ -140,6 +140,17 @@ public class ClickButton extends AbstractInput {
             Render.image(posX - (sizeX/2), posY - (sizeY/2), sizeX, sizeY, texIdle.getID(),1);
         } else {
             Render.image(posX - overSizeX/2, posY - overSizeY/2, overSizeX, overSizeY, texOver.getID(),1);
+        }
+    }
+
+    /**
+     * Display the button.
+     */
+    public void displayC() {
+        if (!mouseOver) {
+            Render.imageC(posX - (sizeX/2), posY - (sizeY/2), sizeX, sizeY, texIdle.getID(), 1, 1f);
+        } else {
+            Render.imageC(posX - overSizeX/2, posY - overSizeY/2, overSizeX, overSizeY, texOver.getID(),1, 1f);
         }
     }
 

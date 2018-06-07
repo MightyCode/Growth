@@ -16,7 +16,7 @@ public class Player_Movement extends Module{
      * Player.
      * This variable contains the reference to the player who use this module.
      */
-    private Player player;
+    private final Player player;
 
     /**
      * Right and left.
@@ -28,19 +28,19 @@ public class Player_Movement extends Module{
      * Walk speed.
      * This variable contains the speed of walking added to the speed of the player when it moves.
      */
-    private float walkSpeed;
+    private final float walkSpeed;
 
     /**
      * Max speed.
      * This variable contains the maw walk speed of the player.
      */
-    private float maxSpeed;
+    private final float maxSpeed;
 
     /**
      * Stop speed.
      * This variable contains the speed remove from the player speed x after it moves.
      */
-    private float stopSpeed;
+    private final float stopSpeed;
 
     /**
      * Movement module class constructor.

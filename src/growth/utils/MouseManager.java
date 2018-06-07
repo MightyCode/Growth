@@ -26,13 +26,13 @@ public class MouseManager {
      * Buttons state.
      * This class contains the state of every keys.
      */
-    private boolean[] state = new boolean[INPUTS];
+    private final boolean[] state = new boolean[INPUTS];
 
     /**
      * Temp buttons state.
      * This class contains the state of every keys in the previous frame.
      */
-    private boolean[] tempState = new boolean[INPUTS];
+    private final boolean[] tempState = new boolean[INPUTS];
 
     /**
      * Mouse manager class.

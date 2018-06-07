@@ -18,7 +18,7 @@ public abstract class Render {
 	 * @param alpha Opacity of the image.
 	 */
 	public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float alpha) {
-		TextureRenderer.image(posX, posY, sizeX, sizeY, textID,1.f,alpha);
+		TextureRenderer.image((int)posX, (int)posY, (int)sizeX, (int)sizeY, textID,1.f,alpha);
 	}
 
 	/**
@@ -32,7 +32,11 @@ public abstract class Render {
 	 * @param alpha Opacity of the image.
 	 */
 	public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha) {
-		TextureRenderer.image(posX, posY, sizeX, sizeY, textID, color ,alpha);
+		TextureRenderer.image((int)posX, (int)posY, (int)sizeX, (int)sizeY, textID, color ,alpha);
+	}
+
+	public static void imageC(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha) {
+		TextureRenderer.imageC((int)posX,(int) posY, (int)sizeX, (int)sizeY, textID, color ,alpha);
 	}
 
 	/**
@@ -46,7 +50,7 @@ public abstract class Render {
 	 * @param alpha Opacity of the image.
 	*/
 	public static void rect(float posX, float posY, float sizeX, float sizeY, int color, float alpha) {
-		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
+		ShapeRenderer.rect((int)posX, (int)posY, (int)sizeX, (int)sizeY, color, alpha);
 	}
 
 	/**
@@ -59,8 +63,8 @@ public abstract class Render {
 	 * @param color Colour of the rectangle.
 	 * @param alpha Opacity of the image.
 	*/
-	public static void rect(float posX, float posY, float sizeX, float sizeY, int[] color, float alpha) {
-		ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,alpha);
+	public static void rectC(float posX, float posY, float sizeX, float sizeY, int color, float alpha) {
+		ShapeRenderer.rectC((int) posX, (int)posY, (int)sizeX, (int)sizeY, color, alpha);
 	}
 
 	/**

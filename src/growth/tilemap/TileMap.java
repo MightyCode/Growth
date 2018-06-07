@@ -104,7 +104,7 @@ public class TileMap {
 	 * Number of map.
 	 * This variable contains the number of variable charged on a xml file.
 	 */
-	private int nbMap;
+	private final int nbMap;
 
 	/**
 	 * Tilemap class constructor.
@@ -294,7 +294,7 @@ public class TileMap {
 	 * @return position x
 	 */
 	public int getPosX() {
-		return (int) 0;
+		return 0;
 	}
 
 	/**
@@ -303,7 +303,7 @@ public class TileMap {
 	 * @return position y
 	 */
 	public int getPosY() {
-		return (int) 0;
+		return 0;
 	}
 
 	/**

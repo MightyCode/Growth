@@ -5,6 +5,13 @@ import growth.main.Window;
 
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
+/**
+ * Screen class.
+ * This class is the basic architecture of all screens.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
 public class Camera {
 
     /**
@@ -159,6 +166,9 @@ public class Camera {
         this.entity = entity;
     }
 
+    public void transition(int color, float alpha){
+        Render.rect(-posX, -posY, Window.WIDTH, Window.HEIGHT, color, alpha);
+    }
 
     public void setBoundMax(int xMax, int yMax){
         this.xMax = xMax;
@@ -176,7 +186,7 @@ public class Camera {
      * @return position x
      */
     public int getPosX() {
-        return (int) posX;
+        return posX;
     }
 
     /**
@@ -185,6 +195,6 @@ public class Camera {
      * @return position y
      */
     public int getPosY() {
-        return (int) posY;
+        return posY;
     }
 }

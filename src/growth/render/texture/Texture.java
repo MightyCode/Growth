@@ -92,7 +92,7 @@ public class Texture {
     /**
      * Bind the loaded texture.
      */
-    public void bind() {
+    private void bind() {
         if (isTextureLoaded()) {
             glBindTexture(GL_TEXTURE_2D, id);
         } else {
@@ -121,7 +121,7 @@ public class Texture {
      *
      * @param image BufferedImage to load.
      */
-    public void createImage(BufferedImage image) {
+    private void createImage(BufferedImage image) {
         id = glGenTextures();
         loaded = true;
 
@@ -200,7 +200,7 @@ public class Texture {
      *
      * @return loaded
      */
-    public boolean isTextureLoaded() {
+    private boolean isTextureLoaded() {
         return loaded;
     }
 
