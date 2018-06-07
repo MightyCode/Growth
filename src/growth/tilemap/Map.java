@@ -19,19 +19,19 @@ public class Map {
 	 * Map's beginning tile.
 	 * This variable contains the different spawns points in the map.
 	 */
-	private float[][] spawn;
+	private final float[][] spawn;
 
 	/**
 	 * Map's exit interval.
 	 * This variable contains the different exit interval for each side of map.
 	 */
-	private float[][][] exit;
+	private final float[][][] exit;
 
 	/**
 	 * Layers.
 	 * This variable contains the different layer using in the map.
 	 */
-	private Layer layer[];
+	private final Layer[] layer;
 
 	/**
 	 * Maps width.

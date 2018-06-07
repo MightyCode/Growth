@@ -19,19 +19,19 @@ public class Player_Sprint extends Module{
      * Player.
      * This variable contains the reference to the player who use this module.
      */
-    private Player player;
+    private final Player player;
 
     /**
      * Movement module.
      * This variable contains the reference to the movement module using by the player.
      */
-    private Player_Movement movement;
+    private final Player_Movement movement;
 
     /**
      * Run speed coefficient.
      * This variable contains the multiplicative coefficient of the player speed x.
      */
-    private float runSpeed;
+    private final float runSpeed;
 
     /**
      * Jump module class constructor.

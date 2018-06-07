@@ -1,5 +1,6 @@
 package growth.screen;
 
+import growth.render.Camera;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.MenuScreen;
 import growth.screen.screens.Screen;
@@ -37,6 +38,7 @@ public class ScreenManager {
 
     public static final KeyboardManager KEY = new KeyboardManager();
     public static final MouseManager MOUSE = new MouseManager();
+    public static final Camera CAMERA = new Camera(0,0);
 
 
     /**

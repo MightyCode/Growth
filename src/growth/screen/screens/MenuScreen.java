@@ -20,13 +20,13 @@ public class MenuScreen extends Screen {
      * Button 1.
      * This variable contains the button to play game.
      */
-    private ClickButton but1;
+    private final ClickButton but1;
 
     /**
      * Button 2.
      * This variable contains the button to go to options screen.
      */
-    private ClickButton but2;
+    private final ClickButton but2;
 
     /**
      * Button 3.
@@ -38,7 +38,7 @@ public class MenuScreen extends Screen {
      * Title.
      * This variable contains the texture of title of the game.
      */
-    private Texture title;
+    private final Texture title;
 
     /**
      * MenuScreen class constructor.

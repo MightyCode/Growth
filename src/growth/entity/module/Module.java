@@ -15,7 +15,7 @@ public abstract class Module {
      * Entity.
      * This variable contains the reference to the entity who use this module.
      */
-    protected Entity entity;
+    private final Entity entity;
 
     /**
      * Mother module class constructor.

@@ -28,19 +28,19 @@ public class KeyboardManager {
      * This variable contains all of the keys use in the game.
      * This system is use to do a changeable keys system.
      */
-    private int[] keys;
+    private final int[] keys;
 
     /**
      * Keys state.
      * This class contains the state of every keys.
      */
-    private boolean[] state = new boolean[INPUTS];
+    private final boolean[] state = new boolean[INPUTS];
 
     /**
      * Temp keys state.
      * This class contains the state of every keys in the previous frame.
      */
-    private boolean[] tempState = new boolean[INPUTS];
+    private final boolean[] tempState = new boolean[INPUTS];
 
     /**
      * Keyboard manager class.

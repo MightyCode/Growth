@@ -76,19 +76,19 @@ public class MovingEntity extends Entity {
      * Facing (true -> right // false -> left)
      * This variable contains the direction towards where the entity is "looking".
      */
-    protected boolean facing;
+    boolean facing;
 
     /**
      * Is left.
      * This variable contains if the entity goes to the left.
      */
-    protected boolean left;
+    boolean left;
 
     /**
      * Is right.
      * This variable contains if the entity goes to the right.
      */
-    protected boolean right;
+    boolean right;
 
     /**
      * Is down.
@@ -100,13 +100,13 @@ public class MovingEntity extends Entity {
      * Is jumping.
      * This variable contains the jumping's state.
      */
-    protected boolean jumping;
+    private boolean jumping;
 
     /**
      * Is falling.
      * This variable contains the falling's state.
      */
-    protected boolean falling;
+    private boolean falling;
 
     /**
      * Moving Entity constructor.

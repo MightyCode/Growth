@@ -8,8 +8,6 @@ import growth.screen.screens.Screen;
 import growth.screen.ScreenManager;
 import growth.utils.button.ClickButton;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
-
 /**
  * Pause Overlay class.
  * This class is the pause overlay class use in the game.
@@ -23,13 +21,14 @@ public class PauseOverlay extends Overlay{
      * Pause title texture.
      * This variable contains the texture's "title"  of the overlay.
      */
-    private Texture pause;
+    private final Texture pause;
 
     /**
      * Click buttons.
      * These variables contain buttons to make the overlay work.
      */
-    private ClickButton resume, menu;
+    private final ClickButton resume;
+    private final ClickButton menu;
 
     /**
      * Pause overlay class constructor.
@@ -73,14 +72,14 @@ public class PauseOverlay extends Overlay{
      */
     public void display(){
         // Black rectangle
-        Render.rect(0, 0, Window.WIDTH, Window.HEIGHT,0, (float)0.6);
-        Render.rect(Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.75f ,0, 0.5f);
+        Render.rectC(0, 0, Window.WIDTH, Window.HEIGHT,0, (float)0.6);
+        Render.rectC(Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.75f ,0, 0.5f);
 
         // Textures and button
-        Render.image(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, pause.getID(), 1);
+        Render.imageC(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, pause.getID(), 1,1f);
 
-        resume.display();
-        menu.display();
+        resume.displayC();
+        menu.displayC();
     }
 
     public void unload(){
