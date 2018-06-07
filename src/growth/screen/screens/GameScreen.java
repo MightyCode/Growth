@@ -196,7 +196,7 @@ public class GameScreen extends Screen {
      */
     public void display() {
         // clear the framebuffer
-        Render.clear();
+        Render.clear(173,216,230);
         switch (state) {
             case NORMALSCREEN:
                 displayGame();
