@@ -111,7 +111,6 @@ public class Camera {
 
         this.posX += (int)((posX - this.posX + addCamera) * newTweenX);
         this.posY += (int)((posY - this.posY) * newTweenY);
-        System.out.println("ah !");
         fixBounds();
     }
 
@@ -128,12 +127,12 @@ public class Camera {
         }
 
         if(posY > yMin){
-            glTranslatef(0,0,0);
-         //   posY = yMin;
+            glTranslatef(0,yMin + posY,0);
+            posY = yMin;
         }
 
         if (posY < yMax){
-            glTranslatef(0, yMax - posY ,0);
+            glTranslatef(0, -yMax + posY ,0);
             posY = yMax;
         }
 
