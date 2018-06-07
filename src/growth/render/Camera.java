@@ -1,5 +1,6 @@
 package growth.render;
 
+import growth.entity.Entity;
 import growth.entity.MovingEntity;
 import growth.main.Window;
 
@@ -196,5 +197,15 @@ public class Camera {
      */
     public int getPosY() {
         return posY;
+    }
+
+    public void setPosX(int posX){
+        glTranslatef(posX - this.posX , 0,0);
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY){
+        glTranslatef(0, posY - this.posY ,0);
+        this.posY = posY;
     }
 }

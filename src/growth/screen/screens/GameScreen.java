@@ -1,5 +1,6 @@
 package growth.screen.screens;
 
+import growth.main.Window;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
@@ -111,6 +112,7 @@ public class GameScreen extends Screen {
 
         // Add player for the camera
         ScreenManager.CAMERA.setEntityToCamera(player);
+
 
         // Set the position of map before beginning of the game
         ScreenManager.CAMERA.setPosition(false);
@@ -235,9 +237,7 @@ public class GameScreen extends Screen {
     private void displayTransition() {
         displayGame();
         if (transitionCounter <= transitionTime / 2) {
-            ScreenManager.CAMERA.transition( 0,
-                    (float) Math.map(transitionCounter,
-                            0, transitionTime / 2, 0, 1.5));
+            ScreenManager.CAMERA.transition( 0, (float) Math.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));
         } else {
             ScreenManager.CAMERA.transition(0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
         }

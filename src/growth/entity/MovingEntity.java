@@ -114,7 +114,7 @@ public class MovingEntity extends Entity {
      *
      * @param tileMap Add tileMap to the entity.
      */
-    MovingEntity(TileMap tileMap) {
+    public MovingEntity(TileMap tileMap) {
         super(tileMap);
         speedX = 0;
         speedY = 0;

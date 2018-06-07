@@ -48,6 +48,7 @@ public class MenuScreen extends Screen {
      */
     public MenuScreen(ScreenManager screenManager) {
         super(screenManager);
+        Render.setClearColor(1f,1f);
         System.out.println("\n-------------------------- \n");
 
         title = new Texture("/images/menu/Title.png");
@@ -89,11 +90,11 @@ public class MenuScreen extends Screen {
     public void display() {
         Render.clear();
 
-        Render.image( Window.WIDTH*0.35f, Window.HEIGHT *0.0f , Window.WIDTH*0.30f,Window.HEIGHT*0.30f, title.getID(),1);
+        Render.imageC( Window.WIDTH*0.35f, Window.HEIGHT *0.0f , Window.WIDTH*0.30f,Window.HEIGHT*0.30f, title.getID(),1, 1f);
 
-        but1.display();
-        but2.display();
-        but3.display();
+        but1.displayC();
+        but2.displayC();
+        but3.displayC();
 
 
     }

@@ -176,7 +176,7 @@ public class TileMap {
 						Render.image(
 								col * tileSize,
 								+ row * tileSize,
-								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 0.80f ,alpha
+								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 0.90f ,alpha
 						);
 					} else {
 						Render.image(
