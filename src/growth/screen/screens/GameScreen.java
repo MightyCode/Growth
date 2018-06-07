@@ -91,6 +91,7 @@ public class GameScreen extends Screen {
      */
     public GameScreen(ScreenManager screenManager) {
         super(screenManager);
+        Render.setClearColor(0.67f, 0.85f, 0.90f, 1f);
         System.out.println("\n-------------------------- \n");
 
         /* Init gameScreen's variables */
@@ -196,7 +197,7 @@ public class GameScreen extends Screen {
      */
     public void display() {
         // clear the framebuffer
-        Render.clear(173,216,230);
+        Render.clear();
         switch (state) {
             case NORMALSCREEN:
                 displayGame();

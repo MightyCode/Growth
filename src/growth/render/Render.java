@@ -91,23 +91,26 @@ public abstract class Render {
 	/**
 	 * Set the clear color.
 	 */
-	public static void setClearColor(int color1, int color2, int color3, int alpha){ glClearColor(color1, color2, color3, alpha);}
+	public static void setClearColor(float color1, float color2, float color3, float alpha){
+		glClearColor(color1, color2, color3, alpha);
+	}
 
 	/**
 	 * Surcharge method to set color without alpha.
 	 */
-	public static void setClearColor(int color1, int color2, int color3){ glClearColor(color1, color2, color3, 1);}
+	public static void setClearColor(float color1, float color2, float color3){
+		glClearColor(color1, color2, color3, 1f);}
 
 	
 	/**
 	 * Surcharge method to set the clear color.
 	 */
-	public static void setClearColor(int color, int alpha){ glClearColor(color, color, color, alpha);}
+	public static void setClearColor(float color, float alpha){ glClearColor(color, color, color, alpha);}
 	
 	/**
 	 * Surcharge method to set the clear color without alpha.
 	 */
-	public static void setClearColor(int color){ glClearColor(color, color, color, 1);}
+	public static void setClearColor(float color){ glClearColor(color, color, color, 1f);}
 
 	/**
 	 * Set the 3D view.
