@@ -97,9 +97,7 @@ public class Camera {
             addCamera +=4;
             if(addCamera > maxOffset) addCamera = maxOffset;
         } else{
-           addCamera/= 1.5;
-           if(addCamera == 1 || addCamera == -1){addCamera = 0;}
-
+           addCamera/= 1.06;
         }
 
         if (!isTween){
@@ -111,9 +109,9 @@ public class Camera {
 
         glTranslatef((int)((posX - this.posX + addCamera) * newTweenX),(int)((this.posY - posY) * newTweenY),0);
 
-        this.posX += (posX - this.posX + addCamera) * newTweenX;
-        this.posY += (posY - this.posY) * newTweenY;
-
+        this.posX += (int)((posX - this.posX + addCamera) * newTweenX);
+        this.posY += (int)((posY - this.posY) * newTweenY);
+        System.out.println("ah !");
         fixBounds();
     }
 
@@ -121,23 +119,24 @@ public class Camera {
      * Set the corner of the map.
      */
     private void fixBounds() {
-
-        if (posX < xMax){
-            glTranslatef(xMax - posX ,0,0);
-            posX = xMax;
-        } else if (posX> xMin){
-            glTranslatef(xMin - posX ,0,0);
+        if(posX > xMin){
+            glTranslatef(xMin - posX,0,0);
             posX = xMin;
+        } else if (posX < xMax){
+            glTranslatef(xMax - posX,0,0);
+            posX = xMax;
         }
 
+        if(posY > yMin){
+            glTranslatef(0,0,0);
+         //   posY = yMin;
+        }
 
         if (posY < yMax){
-            glTranslatef(yMax - posY ,0,0);
+            glTranslatef(0, yMax - posY ,0);
             posY = yMax;
-        } else if (posY > yMin) {
-            glTranslatef(yMin - posY ,0,0);
-            posY = yMin;
         }
+
 
     }
 

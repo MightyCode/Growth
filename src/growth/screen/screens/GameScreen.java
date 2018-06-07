@@ -104,7 +104,7 @@ public class GameScreen extends Screen {
 
             // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
-        ScreenManager.CAMERA.setTween(0.3f, 0.4f);
+        ScreenManager.CAMERA.setTween(0.3f, 1f);
 
             // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);

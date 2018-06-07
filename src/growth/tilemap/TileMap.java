@@ -142,14 +142,18 @@ public class TileMap {
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
-		ScreenManager.CAMERA.setBoundMax(Window.WIDTH/2 - sizeX, Window.HEIGHT/2 - sizeY);
-		ScreenManager.CAMERA.setBoundMin(Window.WIDTH/2, Window.HEIGHT/2);
+		ScreenManager.CAMERA.setBoundMax(Window.WIDTH - sizeX, Window.HEIGHT  - sizeY);
+		ScreenManager.CAMERA.setBoundMin(0, 0);
 	}
 
 	/**
 	 * Display the current map.
 	 */
 	public void display(boolean pos) {
+		System.out.println("lol");
+		colOffset = -ScreenManager.CAMERA.getPosX() / tileSize;
+		rowOffset = -ScreenManager.CAMERA.getPosY() / tileSize;
+
 		int begin = (pos)? 0: currentLayer;
 		int end = (pos)? currentLayer : 6;
 
@@ -244,7 +248,7 @@ public class TileMap {
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
-		ScreenManager.CAMERA.setBoundMax(Window.WIDTH/2 - sizeX, Window.HEIGHT/2 - sizeY);
+		ScreenManager.CAMERA.setBoundMax(Window.WIDTH - sizeX, Window.HEIGHT  - sizeY);
 		ScreenManager.CAMERA.setBoundMin(0, 0);
 
 		float[] newPos = new float[2];
