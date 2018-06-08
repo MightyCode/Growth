@@ -72,7 +72,6 @@ public class MenuScreen extends Screen {
                 Growth.WINDOW.exit();
             }
         };
-
     }
 
     /**
@@ -89,14 +88,11 @@ public class MenuScreen extends Screen {
      */
     public void display() {
         Render.clear();
-
         Render.imageC( Window.WIDTH*0.35f, Window.HEIGHT *0.0f , Window.WIDTH*0.30f,Window.HEIGHT*0.30f, title.getID(),1, 1f);
 
         but1.displayC();
         but2.displayC();
         but3.displayC();
-
-
     }
 
     /**

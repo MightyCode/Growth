@@ -1,6 +1,5 @@
 package growth.screen.screens;
 
-import growth.main.Window;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;

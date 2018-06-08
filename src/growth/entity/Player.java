@@ -9,7 +9,6 @@ import growth.tilemap.TileMap;
 
 import java.util.ArrayList;
 
-
 /**
  * Player class.
  * This class is the class of player controlled by the played.
@@ -125,5 +124,4 @@ public class Player extends MovingEntity{
 					animations.get(animationPlayed).getCurrentID(), 1);
 		}
 	}
-
 }

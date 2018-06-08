@@ -85,6 +85,10 @@ public abstract class Entity {
 	 */
 	float yTemp;
 
+	/**
+	 * Current priority.
+	 * This variable contains the priority of the current animation played.
+	 */
 	protected int priority;
 
 	/**
@@ -93,7 +97,10 @@ public abstract class Entity {
 	 */
 	ArrayList<Animation> animations;
 
-
+	/**
+	 * Speed play of the animation.
+	 * This variable contains the speed play of the current animation.
+	 */
 	protected int speed;
 
 	/**
@@ -102,6 +109,10 @@ public abstract class Entity {
 	 */
 	int animationPlayed;
 
+	/**
+	 * Modules.
+	 * This list contains the module using by the entity.
+	 */
 	ArrayList<Module> modules;
 
 	/**
@@ -210,6 +221,27 @@ public abstract class Entity {
 	}
 
 	/**
+	 * Set the new animation if the priority of the new animation is
+	 * better than the priority of the current animation.
+	 *
+	 * @param animationID The ID of the maybe new animation.
+	 * @param priorityValue The value.
+	 */
+	public void setAnimations(int animationID, int priorityValue){
+		if(priorityValue > priority){
+			animationPlayed = animationID;
+		}
+	}
+
+	/**
+	 * Set the read speed of the animation.
+	 *
+	 * @param speed The new speed of the current animation played.
+	 */
+	public void setAnimationSpeed(int speed){ this.speed = speed;}
+
+
+	/**
 	 * Delete the entity's textures contain in array list animations.
 	 */
 	public void unload() {
@@ -217,14 +249,4 @@ public abstract class Entity {
 			animation.unload();
 		}
 	}
-
-	public void setAnimations(int animationID, int priorityValue){
-		if(priorityValue > priority){
-			animationPlayed = animationID;
-		}
-	}
-
-	public void setAnimationSpeed(int speed){ this.speed = speed;}
-
-
 }

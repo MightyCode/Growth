@@ -1,6 +1,5 @@
 package growth.render;
 
-import growth.entity.Entity;
 import growth.entity.MovingEntity;
 import growth.main.Window;
 
@@ -146,6 +145,16 @@ public class Camera {
     }
 
     /**
+     * The effect of the transition.
+     *
+     * @param color The color of the transition.
+     * @param alpha The alpha of the transition.
+     */
+    public void transition(int color, float alpha){
+        Render.rect(-posX, -posY, Window.WIDTH, Window.HEIGHT, color, alpha);
+    }
+
+    /**
      * Set the camera tween.
      *
      * @param tweenX Set the new tween in width.
@@ -165,18 +174,46 @@ public class Camera {
         this.entity = entity;
     }
 
-    public void transition(int color, float alpha){
-        Render.rect(-posX, -posY, Window.WIDTH, Window.HEIGHT, color, alpha);
-    }
-
+    /**
+     * Set the maximum corner.
+     *
+     * @param xMax The position x of the maximum.
+     * @param yMax The position y of the maximum.
+     */
     public void setBoundMax(int xMax, int yMax){
         this.xMax = xMax;
         this.yMax = yMax;
     }
 
+    /**
+     * Set the minimum corner.
+     *
+     * @param xMin The position x of the minimum.
+     * @param yMin The position y of the minimum.
+     */
     public void setBoundMin(int xMin, int yMin){
         this.xMin = xMin;
         this.yMin = yMin;
+    }
+
+    /**
+     * Set the map position x.
+     *
+     * @param posX New position x of the camera.
+     */
+    public void setPosX(int posX){
+        glTranslatef(posX - this.posX , 0,0);
+        this.posX = posX;
+    }
+
+    /**
+     * Set the map position y.
+     *
+     * @param posY New position y of the camera.
+     */
+    public void setPosY(int posY){
+        glTranslatef(0, posY - this.posY ,0);
+        this.posY = posY;
     }
 
     /**
@@ -191,19 +228,9 @@ public class Camera {
     /**
      * Return the map position y.
      *
-     * @return position y
+     * @return Position y.
      */
     public int getPosY() {
         return posY;
-    }
-
-    public void setPosX(int posX){
-        glTranslatef(posX - this.posX , 0,0);
-        this.posX = posX;
-    }
-
-    public void setPosY(int posY){
-        glTranslatef(0, posY - this.posY ,0);
-        this.posY = posY;
     }
 }

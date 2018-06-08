@@ -53,6 +53,8 @@ public class Animation {
 
 	/**
 	 * Update the animation's state.
+	 *
+	 * @param speed Speed application to the animation.
 	 */
 	public void update(float speed) {
 		count+= speed;

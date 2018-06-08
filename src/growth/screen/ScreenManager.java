@@ -40,7 +40,6 @@ public class ScreenManager {
     public static final MouseManager MOUSE = new MouseManager();
     public static final Camera CAMERA = new Camera(0,0);
 
-
     /**
      * ScreenManager class constructor.
      * Instance the class and set the current screen.
