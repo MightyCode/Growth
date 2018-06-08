@@ -99,13 +99,11 @@ public class Camera {
         float speedX = entity.getSpeedX();
 
         if(speedX > 0) {
-            addCamera -=4;
+            addCamera -=5;
             if(-maxOffset > addCamera) addCamera = -maxOffset;
         } else if(speedX < 0){
-            addCamera +=4;
+            addCamera +=5;
             if(addCamera > maxOffset) addCamera = maxOffset;
-        } else{
-           addCamera/= 1.06;
         }
 
         if (!isTween){

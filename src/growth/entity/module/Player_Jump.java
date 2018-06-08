@@ -75,19 +75,29 @@ public class Player_Jump extends Module{
         float speedY = player.getSpeedY();
 
         // If Jumping
-        if (jumping && !falling) {
-            speedY = jumpStart;
-            player.setFalling(falling = true);
+        if (jumping){
+            player.setAnimations(Player.JUMPING, Player.JUMPING_P);
+            if( !falling) {
+                speedY = jumpStart;
+                player.setFalling(falling = true);
+            }
         }
 
         // If Falling
         if (falling) {
             speedY += fallSpeed;
 
-            if (speedY > 0) player.setJumping(false);
-            else if (speedY < 0 && !jumping) speedY += stopJumpSpeed;
+            if (speedY > 0){
+                player.setJumping(false);
+                player.setAnimations(Player.FALLING, Player.FALLING_P);
+            }
+
+            else if (speedY < 0 && !jumping){
+                speedY += stopJumpSpeed;
+            }
 
             if (speedY > maxFallSpeed) speedY = maxFallSpeed;
+
         }
 
         player.setSpeedY(speedY);

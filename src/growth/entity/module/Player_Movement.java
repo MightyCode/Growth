@@ -77,12 +77,14 @@ public class Player_Movement extends Module{
             if (speedX > maxSpeed) {
                 speedX = maxSpeed;
             }
+            player.setAnimations(Player.WALKING, Player.WALKING_P);
         } else if (left && !right) {
             player.setLeft(true);
             speedX -= walkSpeed;
             if (speedX < -maxSpeed) {
                 speedX = -maxSpeed;
             }
+            player.setAnimations(Player.WALKING, Player.WALKING_P);
         } else {
             player.setLeft(false);
             player.setRight(false);

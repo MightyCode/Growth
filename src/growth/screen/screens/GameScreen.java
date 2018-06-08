@@ -94,17 +94,17 @@ public class GameScreen extends Screen {
         System.out.println("\n-------------------------- \n");
 
         /* Init gameScreen's variables */
-            // Init screen vars
+        // Init screen vars
         state = NORMALSCREEN;
-            // Init screen's overlay
+        // Init screen's overlay
         pause = new PauseOverlay(this);
         death = new DeathOverlay(this);
 
-            // Init tileMap
+        // Init tileMap
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
         ScreenManager.CAMERA.setTween(0.3f, 1f);
 
-            // Init player
+        // Init player
         player = new Player(tileMap, TILESIZE, TILESIZE);
 
         // Player begin in the ground on Panel 1

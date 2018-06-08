@@ -1,6 +1,7 @@
 package growth.entity;
 
 import growth.entity.module.*;
+import growth.entity.module.Module;
 import growth.render.Animation;
 import growth.render.Render;
 import growth.screen.screens.GameScreen;
@@ -22,10 +23,15 @@ public class Player extends MovingEntity{
 	 * Player's states.
 	 * These static final variable counting the different state of player.
 	 */
-    private static final int IDLE = 0;
-    private static final int WALKING = 1;
-    private static final int JUMPING = 2;
-    private static final int FALLING = 3;
+	public static final int IDLE = 0;
+	public static final int IDLE_P = 0;
+	public static final int WALKING = 1;
+	public static final int WALKING_P = 1;
+	public static final int JUMPING = 2;
+	public static final int JUMPING_P = 4;
+	public static final int FALLING = 3;
+	public static final int FALLING_P = 3;
+
 
 	/**
 	 * Player class constructor.
@@ -41,13 +47,13 @@ public class Player extends MovingEntity{
 		super(tileMap);
 
 		/* Init player's variables */
-			// Size, and boxSize
+		// Size, and boxSize
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		cX = (int) (sizeX * 0.65);
 		cY = sizeY;
 
-			// Movement
+		// Movement
 		float walkSpeed = 2.5f;
 		float runSpeed = 1.45f;
 		float maxSpeed = 5.5f;
@@ -64,11 +70,11 @@ public class Player extends MovingEntity{
 		modules.add(new Player_Jump(this, jumpStart, fallSpeed, stopJumpSpeed, maxFallSpeed));
 		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
 
-			// Sprite and Animation
+		// Sprite and Animation
 		facing = true;
 		animationPlayed = 0;
 
-			// Load animation and animationFrame
+		// Load animation and animationFrame
 		animations = new ArrayList<>();
 		animations.add(new Animation("/images/character/idle/", 1, 100));
 		animations.add(new Animation("/images/character/walk/", 10, 4));
@@ -80,6 +86,8 @@ public class Player extends MovingEntity{
 	 * Update the player's position, states and this current animation.
 	 */
 	public void update() {
+		animationPlayed = IDLE;
+		priority = IDLE_P;
 		for(Module module : modules){
 			module.update();
 		}
@@ -91,27 +99,8 @@ public class Player extends MovingEntity{
 		if (speedX < 0) facing = false;
 		else if (speedX > 0) facing = true;
 
-		// Set the good animation
-		if (speedY > 0) {
-			if (animationPlayed != FALLING) {
-				animationPlayed = FALLING;
-			}
-		} else if (speedY < 0) {
-			if (animationPlayed != JUMPING) {
-				animationPlayed = JUMPING;
-			}
-		} else if (left || right) {
-			if (animationPlayed != WALKING) {
-				animationPlayed = WALKING;
-			}
-		} else {
-			if (animationPlayed != IDLE) {
-				animationPlayed = IDLE;
-			}
-		}
-
 		// And update chosen animation
-		animations.get(animationPlayed).update();
+		animations.get(animationPlayed).update(speed);
 	}
 
 	/**
@@ -136,4 +125,5 @@ public class Player extends MovingEntity{
 					animations.get(animationPlayed).getCurrentID(), 1);
 		}
 	}
+
 }

@@ -17,13 +17,13 @@ public abstract class Entity {
 	 * TileMap.
 	 * This variable contains the tileMap to interact with it.
 	 */
-	final TileMap tileMap;
+	TileMap tileMap;
 
 	/**
 	 * TileSize.
 	 * This variable contains the tileSize to interact with it.
 	 */
-	final int tileSize;
+	int tileSize;
 
 	/**
 	 * Map position x.
@@ -85,11 +85,16 @@ public abstract class Entity {
 	 */
 	float yTemp;
 
+	protected int priority;
+
 	/**
 	 * Animations table.
 	 * This ArrayList contains all of the animations use by the entity.
 	 */
 	ArrayList<Animation> animations;
+
+
+	protected int speed;
 
 	/**
 	 * Animations played.
@@ -108,6 +113,8 @@ public abstract class Entity {
 	Entity(TileMap tileMap) {
 		this.tileMap = tileMap;
 		this.tileSize = tileMap.getTileSize();
+		priority = 0;
+		speed = 1;
 		posX = 0;
 		posY = 0;
 		sizeX = 0;
@@ -210,4 +217,14 @@ public abstract class Entity {
 			animation.unload();
 		}
 	}
+
+	public void setAnimations(int animationID, int priorityValue){
+		if(priorityValue > priority){
+			animationPlayed = animationID;
+		}
+	}
+
+	public void setAnimationSpeed(int speed){ this.speed = speed;}
+
+
 }

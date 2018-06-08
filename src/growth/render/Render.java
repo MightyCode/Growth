@@ -48,7 +48,7 @@ public abstract class Render {
 	 * @param sizeY Image's height.
 	 * @param color Black shades colour.
 	 * @param alpha Opacity of the image.
-	*/
+	 */
 	public static void rect(float posX, float posY, float sizeX, float sizeY, int color, float alpha) {
 		ShapeRenderer.rect((int)posX, (int)posY, (int)sizeX, (int)sizeY, color, alpha);
 	}
@@ -62,14 +62,14 @@ public abstract class Render {
 	 * @param sizeY Image's height.
 	 * @param color Colour of the rectangle.
 	 * @param alpha Opacity of the image.
-	*/
+	 */
 	public static void rectC(float posX, float posY, float sizeX, float sizeY, int color, float alpha) {
 		ShapeRenderer.rectC((int) posX, (int)posY, (int)sizeX, (int)sizeY, color, alpha);
 	}
 
 	/**
 	 * Set the 2D view.
-	*/
+	 */
 	public static void glEnable2D() {
 		int[] vPort = new int[4];
 
@@ -105,12 +105,12 @@ public abstract class Render {
 	public static void setClearColor(float color1, float color2, float color3){
 		glClearColor(color1, color2, color3, 1f);}
 
-	
+
 	/**
 	 * Surcharge method to set the clear color.
 	 */
 	public static void setClearColor(float color, float alpha){ glClearColor(color, color, color, alpha);}
-	
+
 	/**
 	 * Surcharge method to set the clear color without alpha.
 	 */
@@ -118,7 +118,7 @@ public abstract class Render {
 
 	/**
 	 * Set the 3D view.
-	*/
+	 */
 	public static void glDisable2D() {
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();

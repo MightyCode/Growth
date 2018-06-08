@@ -27,7 +27,7 @@ public class Animation {
 	 * Counter.
 	 * This variable is a counter to update animation and the texture's delay.
 	 */
-	private int count;
+	private float count;
 
 	/**
 	 * Textures.
@@ -54,8 +54,8 @@ public class Animation {
 	/**
 	 * Update the animation's state.
 	 */
-	public void update() {
-		count++;
+	public void update(float speed) {
+		count+= speed;
 		if (count > delay) {
 			count = 0;
 			current++;
@@ -65,14 +65,14 @@ public class Animation {
 		}
 	}
 
-    /**
-     * Delete the texture.
-     */
+	/**
+	 * Delete the texture.
+	 */
 	public void unload(){
-	    for(Texture tex : textures){
-	        tex.unload();
-        }
-    }
+		for(Texture tex : textures){
+			tex.unload();
+		}
+	}
 
 	/**
 	 * Get the id of the current texture.

@@ -303,4 +303,6 @@ public class MovingEntity extends Entity {
      * @return The falling state.
      */
     public boolean getFalling(){return falling;}
+
+    public void setFacing(boolean facing){ this.facing = facing;}
 }
