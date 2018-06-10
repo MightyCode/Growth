@@ -1,10 +1,14 @@
 package growth.tilemap;
 
-import growth.main.*;
+import growth.main.Window;
 import growth.render.Render;
+import growth.render.texture.Texture;
 import growth.screen.ScreenManager;
 import growth.utils.XmlReader;
 import java.util.ArrayList;
+import java.util.Objects;
+
+import static growth.utils.XmlReader.getTileSetSize;
 
 /**
  * TileMap class.
@@ -69,6 +73,12 @@ public class TileMap {
 	 */
 	private final Tile[] tileSet;
 
+	private final Texture tileSetT;
+
+	private final int tileSet_tileSize;
+	private final int tileSet_tisetSizeX;
+	private final int tileSet_tisetSizeY;
+
 	/**
 	 * Row off set.
 	 * This variable contains the number of row where the player is.
@@ -117,31 +127,33 @@ public class TileMap {
 		// Init variables
 		this.tileSize = tileSize;
 
+		// Init tileSet
+		tileSetT = new Texture("/images/tiles/TileSet.png");
+		tileSet = XmlReader.createTileSet(path);
+		tileSet_tileSize = XmlReader.getTileSize(path);
+		tileSet_tisetSizeX = Objects.requireNonNull(getTileSetSize(path))[0];
+		tileSet_tisetSizeY = Objects.requireNonNull(getTileSetSize(path))[1];
+
+		// Init map
 		nbMap = XmlReader.options_nbMap();
-
 		System.out.println("\n -------------------------- \n");
-
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));
 		}
-
 		System.out.println("\n -------------------------- \n");
-
 		currentMap = 0;
-
 		currentLayer = 3;
 		chargeMap();
+
+		// Init current map variables
 		numCols = map[0].length;
 		numRows = map.length;
-
 		numRowsToDraw = Window.HEIGHT / tileSize + 2;
 		numColsToDraw = Window.WIDTH / tileSize + 2;
-
-		tileSet = XmlReader.createTileSet(path);
-
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
+		// Init camera
 		ScreenManager.CAMERA.setBoundMax(Window.WIDTH - sizeX, Window.HEIGHT  - sizeY);
 		ScreenManager.CAMERA.setBoundMin(0, 0);
 	}
@@ -176,13 +188,25 @@ public class TileMap {
 						Render.image(
 								col * tileSize,
 								+ row * tileSize,
-								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 0.90f ,alpha
+								tileSize, tileSize,
+								(float)(tileSet_tisetSizeX / tileSet[map[row][col]].getTexX()),
+								(float)(tileSet_tisetSizeY / tileSet[map[row][col]].getTexY()),
+								(float)(tileSet_tisetSizeX  / (tileSet[map[row][col]].getTexX()+tileSet_tileSize)),
+								(float)(tileSet_tisetSizeY  / (tileSet[map[row][col]].getTexX()+tileSet_tileSize)),
+
+								tileSetT.getID(), 0.90f , alpha
 						);
 					} else {
 						Render.image(
 								col * tileSize,
-								row * tileSize,
-								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 1.0f,alpha
+								+ row * tileSize,
+								tileSize, tileSize,
+								(float)(tileSet_tisetSizeX / tileSet[map[row][col]].getTexX()),
+								(float)(tileSet_tisetSizeY / tileSet[map[row][col]].getTexY()),
+								(float)(tileSet_tisetSizeX  / (tileSet[map[row][col]].getTexX()+tileSet_tileSize)),
+								(float)(tileSet_tisetSizeY  / (tileSet[map[row][col]].getTexX()+tileSet_tileSize)),
+
+								tileSetT.getID(), 1.0f , alpha
 						);
 					}
 				}
@@ -342,9 +366,7 @@ public class TileMap {
 	 * Unload the tile's texture to free memory.
 	 */
 	public void unload() {
-		for (Tile tile : tileSet) {
-			tile.getTexture().unload();
-		}
+		tileSetT.unload();
 	}
 
 	/**

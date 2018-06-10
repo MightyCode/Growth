@@ -29,17 +29,25 @@ public class Tile {
      */
     private final int type;
 
+    private final int texX;
+
+    private final int texY;
+
+    private final String name;
     /**
      * Tile class constructor.
      * Instance the class, set the texture with the path and init the tile's type.
      *
-     * @param path Path to file's image to load.
+     * @param name Name of the texture.
      * @param type Type of the tile.
      */
-    public Tile(String path, int type) {
+    public Tile(String name, int type, int texX, int texY, int size) {
         this.type = type;
         texture = new Texture();
-        texture.load(path);
+        this.name = name;
+
+        this.texX = texX * size;
+        this.texY = texY * size;
     }
 
     /**
@@ -67,5 +75,13 @@ public class Tile {
      */
     int getType() {
         return type;
+    }
+
+    int getTexX() {
+        return texX;
+    }
+
+    int getTexY() {
+        return texY;
     }
 }

@@ -65,4 +65,37 @@ public abstract class TextureRenderer {
         image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, textID, color, alpha);
     }
 
+    /**
+     * Display an image.
+     *
+     * @param posX Position x of the top-left corner image.
+     * @param posY Position y of the top-left corner image.
+     * @param sizeX Image's width.
+     * @param sizeY Image's height.
+     * @param textID ID of the image.
+     * @param alpha Opacity of the image.
+     * @param color The color of the image.
+     */
+    public static void image(int posX, int posY, int sizeX, int sizeY, float fromX, float fromY, float toX, float toY, int textID, float color, float alpha){
+        // Position y taking as a reference the top of the window
+        int newPosY = (Window.HEIGHT - posY - sizeY);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textID);
+        glColor4f(color, color, color, alpha);
+
+        glBegin(GL_QUADS);
+        glTexCoord2f(fromX, toY);
+        glVertex2f(posX, newPosY);
+
+        glTexCoord2f(fromX, fromY);
+        glVertex2f(posX, newPosY + sizeY);
+
+        glTexCoord2f(toX, fromY);
+        glVertex2f(posX + sizeX, newPosY + sizeY);
+
+        glTexCoord2f(toX, toY);
+        glVertex2f(posX + sizeX, newPosY);
+        glEnd();
+    }
 }

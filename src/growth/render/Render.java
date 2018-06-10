@@ -35,6 +35,10 @@ public abstract class Render {
 		TextureRenderer.image((int)posX, (int)posY, (int)sizeX, (int)sizeY, textID, color ,alpha);
 	}
 
+	public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, int textID, float color, float alpha) {
+		TextureRenderer.image((int)posX, (int)posY, (int)sizeX, (int)sizeY, fromX, fromY, toX, toY, textID, color ,alpha);
+	}
+
 	public static void imageC(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha) {
 		TextureRenderer.imageC((int)posX,(int) posY, (int)sizeX, (int)sizeY, textID, color ,alpha);
 	}
