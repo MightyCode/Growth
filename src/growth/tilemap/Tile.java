@@ -29,9 +29,13 @@ public class Tile {
      */
     private final int type;
 
-    private final int texX;
+    private final float texX;
 
-    private final int texY;
+    private final float texY;
+
+    private final float texToX;
+
+    private final float texToY;
 
     private final String name;
     /**
@@ -41,13 +45,16 @@ public class Tile {
      * @param name Name of the texture.
      * @param type Type of the tile.
      */
-    public Tile(String name, int type, int texX, int texY, int size) {
+    public Tile(String name, int type, int texX, int texY, int size, int tileSet_width, int tileSet_height) {
         this.type = type;
         texture = new Texture();
         this.name = name;
 
-        this.texX = texX * size;
-        this.texY = texY * size;
+        this.texX = (float) texX * size / tileSet_width;
+        this.texY = (float) texY * size / tileSet_height;
+
+        texToX = this.texX + ((float)size/tileSet_width);
+        texToY = this.texY + ((float)size/tileSet_height);
     }
 
     /**
@@ -60,15 +67,6 @@ public class Tile {
     }
 
     /**
-     * Return the tile's texture ID.
-     *
-     * @return texture ID
-     */
-    int getTextureID() {
-        return texture.getID();
-    }
-
-    /**
      * Return the tile's type.
      *
      * @return type
@@ -77,11 +75,19 @@ public class Tile {
         return type;
     }
 
-    int getTexX() {
+    float getTexX() {
         return texX;
     }
 
-    int getTexY() {
+    float getTexY() {
         return texY;
+    }
+
+    float getTexToX() {
+        return texToX;
+    }
+
+    float getTexToY() {
+        return texToY;
     }
 }

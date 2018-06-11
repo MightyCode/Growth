@@ -3,6 +3,7 @@ package growth.screen.screens;
 import growth.main.Growth;
 import growth.render.Render;
 import growth.render.texture.Texture;
+import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.utils.button.ClickButton;
 import growth.main.Window;
@@ -88,7 +89,7 @@ public class MenuScreen extends Screen {
      */
     public void display() {
         Render.clear();
-        Render.imageC( Window.WIDTH*0.35f, Window.HEIGHT *0.0f , Window.WIDTH*0.30f,Window.HEIGHT*0.30f, title.getID(),1, 1f);
+        TextureRenderer.imageC( Window.WIDTH*0.35f, Window.HEIGHT *0.0f , Window.WIDTH*0.30f,Window.HEIGHT*0.30f, title.getID(),1, 1f);
 
         but1.displayC();
         but2.displayC();

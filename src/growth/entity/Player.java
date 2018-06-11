@@ -4,6 +4,7 @@ import growth.entity.module.*;
 import growth.entity.module.Module;
 import growth.render.Animation;
 import growth.render.Render;
+import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.tilemap.TileMap;
 
@@ -111,17 +112,17 @@ public class Player extends MovingEntity{
 		setMapPosition();
 		// Draw animation left to right if the player go the the right and invert if the player go to the invert direction
 		if (facing) {
-			Render.image(
-					(int) (posX + xMap - sizeX / 2),
-					(int) (posY + yMap - sizeY / 2),
-					sizeX, sizeY,
-					animations.get(animationPlayed).getCurrentID(), 1);
+			TextureRenderer.image(
+					(posX + xMap - sizeX / 2),
+					(posY + yMap - sizeY / 2),
+					sizeX*1.0f, sizeY*1f,
+					animations.get(animationPlayed).getCurrentID(),0 ,1f);
 		} else {
-			Render.image(
-					(int) (posX + xMap - sizeX / 2 + sizeX),
-					(int) (posY + yMap - sizeY / 2),
+			TextureRenderer.image(
+					(posX + xMap - sizeX / 2 + sizeX),
+					(posY + yMap - sizeY / 2),
 					-sizeX, sizeY,
-					animations.get(animationPlayed).getCurrentID(), 1);
+					animations.get(animationPlayed).getCurrentID(),0 ,1f);
 		}
 	}
 }

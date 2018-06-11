@@ -97,14 +97,14 @@ public class Map {
 	 * @param end The last number of the exit interval.
 	 */
 	public void setExit(int side, int pointName, int mapID, float beg, float end){
-				float[][] old = exit[side];
-				exit[side] = new float[exit[side].length+1][4];
-				for(int i = 0; i < old.length; i++){
-					exit[side][i][0] = old[i][0];
-					exit[side][i][1] = old[i][1];
-					exit[side][i][2] = old[i][2];
-					exit[side][i][3] = old[i][3];
-				}
+		float[][] old = exit[side];
+		exit[side] = new float[exit[side].length+1][4];
+		for(int i = 0; i < old.length; i++){
+			exit[side][i][0] = old[i][0];
+			exit[side][i][1] = old[i][1];
+			exit[side][i][2] = old[i][2];
+			exit[side][i][3] = old[i][3];
+		}
 		System.out.println("Side -> " + side + " Point -> " + pointName + " MapID -> " + mapID + " beg -> " +beg + " end -> " + end);
 
 		exit[side][exit[side].length-1][0] = mapID;
@@ -156,4 +156,8 @@ public class Map {
 	float[][] getExitPoints(int side){
 		return exit[side];
 	}
+
+	float getColor(int numLayer){return layer[numLayer].getColor();}
+
+	void setColor(int numLayer, float color){layer[numLayer].setColor(color);}
 }

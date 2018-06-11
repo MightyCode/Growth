@@ -27,9 +27,9 @@ public abstract class TextureRenderer {
      * @param alpha Opacity of the image.
      * @param color The color of the image.
      */
-    public static void image(int posX, int posY, int sizeX, int sizeY, int textID, float color, float alpha){
+    public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha){
         // Position y taking as a reference the top of the window
-        int newPosY = (Window.HEIGHT - posY - sizeY);
+        float newPosY = (Window.HEIGHT - posY - sizeY);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textID);
@@ -61,7 +61,7 @@ public abstract class TextureRenderer {
      * @param alpha Opacity of the image.
      * @param color The color of the image.
      */
-    public static void imageC(int posX, int posY, int sizeX, int sizeY, int textID, float color, float alpha){
+    public static void imageC(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha){
         image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, textID, color, alpha);
     }
 
@@ -76,9 +76,9 @@ public abstract class TextureRenderer {
      * @param alpha Opacity of the image.
      * @param color The color of the image.
      */
-    public static void image(int posX, int posY, int sizeX, int sizeY, float fromX, float fromY, float toX, float toY, int textID, float color, float alpha){
+    public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, int textID, float color, float alpha){
         // Position y taking as a reference the top of the window
-        int newPosY = (Window.HEIGHT - posY - sizeY);
+        float newPosY = (Window.HEIGHT - posY - sizeY );
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textID);

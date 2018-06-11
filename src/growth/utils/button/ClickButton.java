@@ -2,6 +2,7 @@ package growth.utils.button;
 
 import growth.render.Render;
 import growth.render.texture.Texture;
+import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.Overlay;
 import growth.screen.screens.Screen;
@@ -137,9 +138,9 @@ public class ClickButton extends AbstractInput {
      */
     public void display() {
         if (!mouseOver) {
-            Render.image(posX - (sizeX/2), posY - (sizeY/2), sizeX, sizeY, texIdle.getID(),1);
+            TextureRenderer.image(posX - (sizeX/2), posY - (sizeY/2), sizeX, sizeY, texIdle.getID(), 0,1f);
         } else {
-            Render.image(posX - overSizeX/2, posY - overSizeY/2, overSizeX, overSizeY, texOver.getID(),1);
+            TextureRenderer.image(posX - overSizeX/2, posY - overSizeY/2, overSizeX, overSizeY, texOver.getID(), 0,1f);
         }
     }
 
@@ -148,9 +149,9 @@ public class ClickButton extends AbstractInput {
      */
     public void displayC() {
         if (!mouseOver) {
-            Render.imageC(posX - (sizeX/2), posY - (sizeY/2), sizeX, sizeY, texIdle.getID(), 1, 1f);
+            TextureRenderer.imageC(posX - (sizeX/2), posY - (sizeY/2), sizeX, sizeY, texIdle.getID(), 1, 1f);
         } else {
-            Render.imageC(posX - overSizeX/2, posY - overSizeY/2, overSizeX, overSizeY, texOver.getID(),1, 1f);
+            TextureRenderer.imageC(posX - overSizeX/2, posY - overSizeY/2, overSizeX, overSizeY, texOver.getID(),1, 1f);
         }
     }
 

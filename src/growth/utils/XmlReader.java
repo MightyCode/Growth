@@ -212,13 +212,15 @@ public abstract class XmlReader {
 					layer = (Element) rootNode.item(i);
 				}
 
-				tileSet[Integer.parseInt(layer.getAttribute("id"))-1] =
+				tileSet[Integer.parseInt(layer.getAttribute("id"))] =
 						new Tile(layer.getAttribute("name"),
-						Integer.parseInt(layer.getAttribute("type")),
-						Integer.parseInt(layer.getAttribute("x")),
-						Integer.parseInt(layer.getAttribute("y")),
-						Integer.parseInt(root.getAttribute("size"))
-								);
+								Integer.parseInt(layer.getAttribute("type")),
+								Integer.parseInt(layer.getAttribute("x")),
+								Integer.parseInt(layer.getAttribute("y")),
+								Integer.parseInt(root.getAttribute("size")),
+								Integer.parseInt(root.getAttribute("width")),
+								Integer.parseInt(root.getAttribute("height"))
+						);
 				a++;
 			}
 			return tileSet;

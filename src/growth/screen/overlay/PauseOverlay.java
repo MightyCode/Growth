@@ -2,7 +2,9 @@ package growth.screen.overlay;
 
 import growth.main.Window;
 import growth.render.Render;
+import growth.render.shape.ShapeRenderer;
 import growth.render.texture.Texture;
+import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
 import growth.screen.ScreenManager;
@@ -38,7 +40,7 @@ public class PauseOverlay extends Overlay{
         super(screen);
         // Init variable
 
-            // Title
+        // Title
         pause = new Texture("/images/menu/Pause.png");
 
         // Buttons
@@ -72,11 +74,11 @@ public class PauseOverlay extends Overlay{
      */
     public void display(){
         // Black rectangle
-        Render.rectC(0, 0, Window.WIDTH, Window.HEIGHT,0, (float)0.6);
-        Render.rectC(Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.75f ,0, 0.5f);
+        ShapeRenderer.rectC(0, 0, Window.WIDTH, Window.HEIGHT,0, (float)0.6);
+        ShapeRenderer.rectC(Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.75f ,0, 0.5f);
 
         // Textures and button
-        Render.imageC(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, pause.getID(), 1,1f);
+        TextureRenderer.imageC(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, pause.getID(), 1,1f);
 
         resume.displayC();
         menu.displayC();
