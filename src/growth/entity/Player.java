@@ -116,13 +116,13 @@ public class Player extends MovingEntity{
 					(posX + xMap - sizeX / 2),
 					(posY + yMap - sizeY / 2),
 					sizeX*1.0f, sizeY*1f,
-					animations.get(animationPlayed).getCurrentID(),0 ,1f);
+					animations.get(animationPlayed).getCurrentID(),1f ,1f);
 		} else {
 			TextureRenderer.image(
 					(posX + xMap - sizeX / 2 + sizeX),
 					(posY + yMap - sizeY / 2),
 					-sizeX, sizeY,
-					animations.get(animationPlayed).getCurrentID(),0 ,1f);
+					animations.get(animationPlayed).getCurrentID(),1f ,1f);
 		}
 	}
 }
