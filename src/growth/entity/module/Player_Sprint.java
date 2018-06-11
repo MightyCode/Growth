@@ -60,7 +60,7 @@ public class Player_Sprint extends Module{
             } else if (speedX < 0 && movement.getLeft() && !movement.getRight()) {
                 speedX *= runSpeed;
             }
-            player.setAnimationSpeed(2);
+            player.setAnimationSpeed(1.5f);
         } else {
             player.setAnimationSpeed(1);
         }
