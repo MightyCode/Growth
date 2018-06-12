@@ -169,8 +169,8 @@ public class MovingEntity extends Entity {
         yTemp = posY;
 
 
-        calculateCorners(posX, yDest);
-        if (speedY < 0) {
+        calculateCorners(xTemp, yDest);
+        if (speedY <= 0) {
             if (topLeft || topRight) {
                 speedY = 0;
                 yTemp = currRow * tileSize + cY / 2;
@@ -182,7 +182,7 @@ public class MovingEntity extends Entity {
                 yTemp = cY / 2;
                 speedY = 0;
             }
-        } else if (speedY > 0) {
+        } else {
             if (bottomLeft || bottomRight) {
                 speedY = 0;
                 falling = false;
@@ -198,6 +198,7 @@ public class MovingEntity extends Entity {
             if (topLeft || bottomLeft) {
                 speedX = 0;
                 xTemp = currCol * tileSize + cX / 2;
+                speedY*=0.96;
             } else {
                 xTemp += speedX;
             }
@@ -211,6 +212,7 @@ public class MovingEntity extends Entity {
             if (topRight || bottomRight) {
                 speedX = 0;
                 xTemp = (currCol + 1) * tileSize - cX / 2;
+                speedY*=0.96;
             } else {
                 xTemp += speedX;
             }

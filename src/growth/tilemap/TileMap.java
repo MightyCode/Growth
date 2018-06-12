@@ -1,10 +1,15 @@
 package growth.tilemap;
 
-import growth.main.*;
+import growth.main.Window;
 import growth.render.Render;
+import growth.render.texture.Texture;
+import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.utils.XmlReader;
 import java.util.ArrayList;
+import java.util.Objects;
+
+import static growth.utils.XmlReader.getTileSetSize;
 
 /**
  * TileMap class.
@@ -20,31 +25,31 @@ public class TileMap {
 	 * This variable contains the number of the current map.
 	 */
 	private int currentMap;
-	
+
 	/**
 	 * Map.
 	 * This variable contains the current map.
 	 */
 	private int[][] map;
-	
+
 	/**
 	 * Array list of map.
 	 * This variable contains the every maps.
 	 */
 	private final ArrayList<Map> maps = new ArrayList<>();
-	
+
 	/**
 	 * Tile size.
 	 * This variable contains the size of tiles.
 	 */
 	private final int tileSize;
-	
+
 	/**
 	 * Number of row.
 	 * This variable contains the number of row in the current map.
 	 */
 	private int numRows;
-	
+
 	/**
 	 * Number of column.
 	 * This variable contains the number of column in the current map.
@@ -68,6 +73,8 @@ public class TileMap {
 	 * This variable contains tile set.
 	 */
 	private final Tile[] tileSet;
+
+	private final Texture tileSetT;
 
 	/**
 	 * Row off set.
@@ -117,31 +124,37 @@ public class TileMap {
 		// Init variables
 		this.tileSize = tileSize;
 
+		// Init tileSet
+		tileSetT = new Texture("/images/tiles/TileSet.png");
+		tileSet = XmlReader.createTileSet(path);
+
+		// Init map
 		nbMap = XmlReader.options_nbMap();
-
 		System.out.println("\n -------------------------- \n");
-
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));
 		}
-
 		System.out.println("\n -------------------------- \n");
-
 		currentMap = 0;
 
+		// Set layer
+		for(int i = 0; i < 5 ; i++){
+			maps.get(currentMap).setColor(i, 0.9f);
+		}
+
 		currentLayer = 3;
+		maps.get(currentMap).setColor(currentLayer, 1f);
 		chargeMap();
+
+		// Init current map variables
 		numCols = map[0].length;
 		numRows = map.length;
-
 		numRowsToDraw = Window.HEIGHT / tileSize + 2;
 		numColsToDraw = Window.WIDTH / tileSize + 2;
-
-		tileSet = XmlReader.createTileSet(path);
-
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
+		// Init camera
 		ScreenManager.CAMERA.setBoundMax(Window.WIDTH - sizeX, Window.HEIGHT  - sizeY);
 		ScreenManager.CAMERA.setBoundMin(0, 0);
 	}
@@ -161,8 +174,9 @@ public class TileMap {
 
 		// For each layer
 		for(int i  =  begin; i < end ; i++){
-			float alpha = (i == currentLayer-1)? 1: (float)0.9;
+
 			int[][] map = maps.get(currentMap).getMap(i);
+			float color = 1f;//maps.get(currentMap).getColor(i);
 
 			// For each row
 			for (int row = rowOffset; row < maxRow; row++) {
@@ -170,21 +184,18 @@ public class TileMap {
 				//For each col
 				for (int col = colOffset; col < maxCol; col++) {
 
-					if (map[row][col] == 0) continue;
+					if(map[row][col]==0)continue;
 
-					if(i != currentLayer-1) {
-						Render.image(
-								col * tileSize,
-								+ row * tileSize,
-								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 0.90f ,alpha
-						);
-					} else {
-						Render.image(
-								col * tileSize,
-								row * tileSize,
-								tileSize, tileSize, tileSet[map[row][col] - 1].getTextureID(), 1.0f,alpha
-						);
-					}
+					TextureRenderer.image(
+							col * tileSize,
+							+ row * tileSize,
+							tileSize, tileSize,
+							tileSet[map[row][col]].getTexX(),
+							tileSet[map[row][col]].getTexY(),
+							tileSet[map[row][col]].getTexToX(),
+							tileSet[map[row][col]].getTexToY(),
+							tileSetT.getID(), color , 1f
+					);
 				}
 			}
 		}
@@ -333,8 +344,7 @@ public class TileMap {
 	 * @return tile's type
 	 */
 	public int getType(int row, int col) {
-		if (map[row][col] == 0) return 0;
-		int rc = map[row][col] - 1;
+		int rc = map[row][col];
 		return tileSet[rc].getType();
 	}
 
@@ -342,16 +352,16 @@ public class TileMap {
 	 * Unload the tile's texture to free memory.
 	 */
 	public void unload() {
-		for (Tile tile : tileSet) {
-			tile.getTexture().unload();
-		}
+		tileSetT.unload();
 	}
 
 	/**
 	 * Change the layer to a higher layer.
 	 */
 	public void upLayer(){
+		maps.get(currentMap).setColor(currentLayer, 0.9f);
 		currentLayer++;
+		maps.get(currentMap).setColor(currentLayer, 1f);
 		chargeMap();
 	}
 
@@ -359,7 +369,9 @@ public class TileMap {
 	 * Change the layer to a lower layer.
 	 */
 	public void downLayer(){
+		maps.get(currentMap).setColor(currentLayer, 0.9f);
 		currentLayer--;
+		maps.get(currentMap).setColor(currentLayer, 1f);
 		chargeMap();
 	}
 

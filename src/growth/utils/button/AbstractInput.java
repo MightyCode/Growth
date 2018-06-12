@@ -15,15 +15,15 @@ public abstract class AbstractInput {
      * Input size x and y.
      * This variable contains the input size x and y use to rendering the input.
      */
-    final int sizeX;
-    final int sizeY;
+    final float sizeX;
+    final float sizeY;
 
     /**
      * Input position x and y.
      * This variable contains the input position x and y use to rendering the input.
      */
-    final int posX;
-    final int posY;
+    final float posX;
+    final float posY;
 
     /**
      * Screen.

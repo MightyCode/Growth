@@ -212,10 +212,53 @@ public abstract class XmlReader {
 					layer = (Element) rootNode.item(i);
 				}
 
-				tileSet[Integer.parseInt(layer.getAttribute("id"))-1] = new Tile("/images/tiles/" + (layer.getAttribute("location")), Integer.parseInt(layer.getAttribute("type")));
+				tileSet[Integer.parseInt(layer.getAttribute("id"))] =
+						new Tile(layer.getAttribute("name"),
+								Integer.parseInt(layer.getAttribute("type")),
+								Integer.parseInt(layer.getAttribute("x")),
+								Integer.parseInt(layer.getAttribute("y")),
+								Integer.parseInt(root.getAttribute("size")),
+								Integer.parseInt(root.getAttribute("width")),
+								Integer.parseInt(root.getAttribute("height"))
+						);
 				a++;
 			}
 			return tileSet;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static int getTileSize(String tileSet_path){
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSet_path));
+			Element root = document.getDocumentElement();
+
+			return Integer.parseInt(root.getAttribute("size"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public static int[] getTileSetSize(String tileSet_path){
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSet_path));
+			Element root = document.getDocumentElement();
+
+			int[] data = new int[2];
+
+			data[0] = Integer.parseInt(root.getAttribute("width"));
+			data[1] = Integer.parseInt(root.getAttribute("height"));
+
+			return data;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

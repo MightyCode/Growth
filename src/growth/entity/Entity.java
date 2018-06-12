@@ -101,7 +101,7 @@ public abstract class Entity {
 	 * Speed play of the animation.
 	 * This variable contains the speed play of the current animation.
 	 */
-	protected int speed;
+	protected float speed;
 
 	/**
 	 * Animations played.
@@ -238,7 +238,7 @@ public abstract class Entity {
 	 *
 	 * @param speed The new speed of the current animation played.
 	 */
-	public void setAnimationSpeed(int speed){ this.speed = speed;}
+	public void setAnimationSpeed(float speed){ this.speed = speed;}
 
 
 	/**

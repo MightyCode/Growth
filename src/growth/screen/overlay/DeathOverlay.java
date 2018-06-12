@@ -2,7 +2,9 @@ package growth.screen.overlay;
 
 import growth.main.Window;
 import growth.render.Render;
+import growth.render.shape.ShapeRenderer;
 import growth.render.texture.Texture;
+import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.screen.screens.Screen;
 import growth.utils.button.ClickButton;
@@ -37,10 +39,10 @@ public class DeathOverlay extends Overlay{
         super(screen);
 
         // Init variable
-            // Title
+        // Title
         lose = new Texture("/images/menu/Lose.png");
 
-            // Buttons
+        // Buttons
         restart = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.45,Window.WIDTH*0.12,Window.HEIGHT*0.11,"Restart",this){
             @Override
             public void action(){
@@ -68,11 +70,11 @@ public class DeathOverlay extends Overlay{
      */
     public void display(){
         // Black rectangle
-        Render.rectC(0, 0, Window.WIDTH, Window.HEIGHT,0, 0.6f);
-        Render.rectC( Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.751f ,0, 0.5f);
+        ShapeRenderer.rectC(0, 0, Window.WIDTH, Window.HEIGHT,0, 0.6f);
+        ShapeRenderer.rectC( Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.751f ,0, 0.5f);
 
         // Textures and button
-        Render.imageC(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, lose.getID(), 1, 1f);
+        TextureRenderer.imageC(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, lose.getID(), 1, 1f);
 
         restart.displayC();
         menu.displayC();
