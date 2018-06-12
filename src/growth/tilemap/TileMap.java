@@ -138,11 +138,11 @@ public class TileMap {
 		currentMap = 0;
 
 		// Set layer
-		for(int i = 0; i < 5 ; i++){
+		for(int i = 0; i < 3; i++){
 			maps.get(currentMap).setColor(i, 0.9f);
 		}
 
-		currentLayer = 3;
+		currentLayer = 2;
 		maps.get(currentMap).setColor(currentLayer, 1f);
 		chargeMap();
 

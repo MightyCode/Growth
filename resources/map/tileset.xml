@@ -26,4 +26,6 @@
     <texture id="24" name="grass-Right" type="1" x="7" y="1"/>
     <texture id="25" name="grass-CornerLeft" type="0" x="8" y="1"/>
     <texture id="26" name="grass-CornerRight" type="0" x="9" y="1"/>
+    <texture id="26" name="grass-CornerRight" type="0" x="9" y="1"/>
+    <texture id="27" name="fence" type="0" x="10" y="1"/>
 </tileset>

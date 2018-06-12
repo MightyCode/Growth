@@ -1,5 +1,6 @@
 package growth.entity;
 
+import growth.render.shape.ShapeRenderer;
 import growth.tilemap.Tile;
 import growth.tilemap.TileMap;
 
@@ -108,6 +109,12 @@ public class MovingEntity extends Entity {
      */
     private boolean falling;
 
+    protected int leftTile;
+    protected int rightTile;
+    protected int topTile;
+    protected int bottomTile;
+
+
     /**
      * Moving Entity constructor.
      * Instance the class and set the tileMap.
@@ -128,10 +135,10 @@ public class MovingEntity extends Entity {
      */
     private void calculateCorners(float posX, float posY) {
 
-        int leftTile = (int) (posX - cX / 2) / tileSize;
-        int rightTile = (int) (posX + cX / 2 - 1) / tileSize;
-        int topTile = (int) (posY - cY / 2) / tileSize;
-        int bottomTile = (int) (posY + cY / 2 - 1) / tileSize;
+        leftTile = (int) (posX - cX / 2) / tileSize;
+        rightTile = (int) (posX + cX / 2 - 1) / tileSize;
+        topTile = (int) (posY - cY / 2) / tileSize;
+        bottomTile = (int) (posY + cY / 2 - 1) / tileSize;
 
         if (bottomTile >= tileMap.getNumRows() ||
                 rightTile >= tileMap.getNumCols()) {

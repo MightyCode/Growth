@@ -53,7 +53,7 @@ public class Map {
 	 */
 	public Map(int mapID, int numberSpawns) {
 		this.mapID = mapID;
-		layer = new Layer[5];
+		layer = new Layer[3];
 		spawn = new float[numberSpawns][3];
 		exit = new float[4][1][4];
 	}
