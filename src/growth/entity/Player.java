@@ -4,6 +4,7 @@ import growth.entity.module.*;
 import growth.entity.module.Module;
 import growth.render.Animation;
 import growth.render.Render;
+import growth.render.shape.ShapeRenderer;
 import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.tilemap.TileMap;
@@ -124,5 +125,11 @@ public class Player extends MovingEntity{
 					-sizeX, sizeY,
 					animations.get(animationPlayed).getCurrentID(),1f ,1f);
 		}
+
+		ShapeRenderer.rect(leftTile*tileSize, posY,tileSize,tileSize,0,0.5f);
+		ShapeRenderer.rect(rightTile*tileSize, posY,tileSize,tileSize,180,0.5f);ShapeRenderer.rect(leftTile*tileSize, posY,tileSize,tileSize,0,0.5f);
+		ShapeRenderer.rect(posX, bottomTile*tileSize,tileSize,tileSize,100,0.5f);
+		ShapeRenderer.rect(posX, topTile*tileSize,tileSize,tileSize,255,0.5f);
+
 	}
 }
