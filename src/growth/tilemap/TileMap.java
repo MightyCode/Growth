@@ -142,7 +142,7 @@ public class TileMap {
 			maps.get(currentMap).setColor(i, 0.9f);
 		}
 
-		currentLayer = 2;
+		currentLayer = 1;
 		maps.get(currentMap).setColor(currentLayer, 1f);
 		chargeMap();
 
@@ -359,27 +359,33 @@ public class TileMap {
 	 * Change the layer to a higher layer.
 	 */
 	public void upLayer(){
-		maps.get(currentMap).setColor(currentLayer, 0.9f);
-		currentLayer++;
-		maps.get(currentMap).setColor(currentLayer, 1f);
-		chargeMap();
+	    if(currentLayer < 2) {
+            maps.get(currentMap).setColor(currentLayer, 0.9f);
+            currentLayer++;
+            System.out.println("Change the current layer to " + currentLayer);
+            maps.get(currentMap).setColor(currentLayer, 1f);
+            chargeMap();
+        }
 	}
 
 	/**
 	 * Change the layer to a lower layer.
 	 */
 	public void downLayer(){
-		maps.get(currentMap).setColor(currentLayer, 0.9f);
-		currentLayer--;
-		maps.get(currentMap).setColor(currentLayer, 1f);
-		chargeMap();
+	    if(currentLayer > 0) {
+            maps.get(currentMap).setColor(currentLayer, 0.9f);
+            currentLayer--;
+            System.out.println("Change the current layer to " + currentLayer);
+            maps.get(currentMap).setColor(currentLayer, 1f);
+            chargeMap();
+        }
 	}
 
 	/**
 	 * Charge the current layer for collision and another features.
 	 */
 	private void chargeMap(){
-		map = maps.get(currentMap).getMap(currentLayer-1);
+		map = maps.get(currentMap).getMap(currentLayer);
 	}
 
 }
