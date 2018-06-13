@@ -7,25 +7,24 @@
     <texture id="5" name="dirt-BorderDown" type="0" x="4" y="0"/>
     <texture id="6" name="dirt-BorderLeftDown" type="0" x="5" y="0"/>
     <texture id="7" name="dirt-BorderLeftUp" type="0" x="6" y="0"/>
-    <texture id="8" name="dirt-BorderRightUp" type="0" x="7" y="0"/>
-    <texture id="9" name="dirt-BorderRightDown" type="0" x="8" y="0"/>
+    <texture id="8" name="dirt-BorderRightDown" type="0" x="7" y="0"/>
+    <texture id="9" name="dirt-BorderRightUp" type="0" x="8" y="0"/>
     <texture id="10" name="dirt-Left" type="0" x="9" y="0"/>
     <texture id="11" name="dirt-Right" type="0" x="10" y="0"/>
     <texture id="12" name="grass" type="1" x="11" y="0"/>
-    <texture id="13" name="grass-" type="1" x="12" y="0"/>
-    <texture id="14" name="grass-BorderLeft" type="1" x="13" y="0"/>
-    <texture id="15" name="grass-BorderUp" type="1" x="14" y="0"/>
-    <texture id="16" name="grass-BorderRight" type="1" x="15" y="0"/>
-    <texture id="17" name="grass-BorderDown" type="1" x="0" y="1"/>
-    <texture id="18" name="grass-BorderLeftDown" type="1" x="1" y="1"/>
-    <texture id="19" name="grass-BorderLeftUp" type="1" x="2" y="1"/>
-    <texture id="20" name="grass-BorderRightUp" type="1" x="3" y="1"/>
-    <texture id="21" name="grass-BorderRightDown" type="1" x="4" y="1"/>
-    <texture id="22" name="grass-LeftUp" type="1" x="5" y="1"/>
-    <texture id="23" name="grass-RightUp" type="1" x="6" y="1"/>
+    <texture id="13" name="grass-BorderLeft" type="1" x="12" y="0"/>
+    <texture id="14" name="grass-BorderUp" type="1" x="13" y="0"/>
+    <texture id="15" name="grass-BorderRight" type="1" x="14" y="0"/>
+    <texture id="16" name="grass-BorderDown" type="1" x="15" y="0"/>
+    <texture id="17" name="grass-BorderLeftDown" type="1" x="0" y="1"/>
+    <texture id="18" name="grass-BorderLeftUp" type="1" x="1" y="1"/>
+    <texture id="19" name="grass-BorderRightUp" type="1" x="2" y="1"/>
+    <texture id="20" name="grass-BorderRightDown" type="1" x="3" y="1"/>
+    <texture id="21" name="grass-LeftUp" type="1" x="4" y="1"/>
+    <texture id="22" name="grass-RightUp" type="1" x="5" y="1"/>
+    <texture id="23" name="grass-Left" type="1" x="6" y="1"/>
     <texture id="24" name="grass-Right" type="1" x="7" y="1"/>
     <texture id="25" name="grass-CornerLeft" type="0" x="8" y="1"/>
-    <texture id="26" name="grass-CornerRight" type="0" x="9" y="1"/>
     <texture id="26" name="grass-CornerRight" type="0" x="9" y="1"/>
     <texture id="27" name="fence" type="0" x="10" y="1"/>
 </tileset>

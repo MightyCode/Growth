@@ -137,11 +137,10 @@ public class MovingEntity extends Entity {
 
         leftTile = (int) (posX - cX / 2) / tileSize;
         rightTile = (int) (posX + cX / 2 - 1) / tileSize;
-        topTile = (int) (posY - cY / 2) / tileSize;
+        topTile = (int) ((posY - cY / 2) / tileSize);
         bottomTile = (int) (posY + cY / 2 - 1) / tileSize;
 
-        if (bottomTile >= tileMap.getNumRows() ||
-                rightTile >= tileMap.getNumCols()) {
+        if (bottomTile >= tileMap.getNumRows() || rightTile >= tileMap.getNumCols()) {
             topLeft = topRight = bottomLeft = bottomRight = true;
             return;
         }
@@ -151,10 +150,10 @@ public class MovingEntity extends Entity {
         int bl = tileMap.getType(bottomTile, leftTile);
         int br = tileMap.getType(bottomTile, rightTile);
 
-        topLeft = tl == Tile.BLOCKED;
-        topRight = tr == Tile.BLOCKED;
-        bottomLeft = bl == Tile.BLOCKED;
-        bottomRight = br == Tile.BLOCKED;
+        topLeft = (tl == Tile.BLOCKED);
+        topRight = (tr == Tile.BLOCKED);
+        bottomLeft = (bl == Tile.BLOCKED);
+        bottomRight = (br == Tile.BLOCKED);
     }
 
 

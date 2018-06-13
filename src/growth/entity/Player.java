@@ -126,10 +126,11 @@ public class Player extends MovingEntity{
 					animations.get(animationPlayed).getCurrentID(),1f ,1f);
 		}
 
-		ShapeRenderer.rect(leftTile*tileSize, posY,tileSize,tileSize,0,0.5f);
-		ShapeRenderer.rect(rightTile*tileSize, posY,tileSize,tileSize,180,0.5f);ShapeRenderer.rect(leftTile*tileSize, posY,tileSize,tileSize,0,0.5f);
-		ShapeRenderer.rect(posX, bottomTile*tileSize,tileSize,tileSize,100,0.5f);
-		ShapeRenderer.rect(posX, topTile*tileSize,tileSize,tileSize,255,0.5f);
+		/*ShapeRenderer.rect(leftTile*tileSize, posY -sizeY/2, tileSize, tileSize,0,0.5f);
+		ShapeRenderer.rect(posX -sizeX/2, topTile*tileSize, tileSize, tileSize,100,0.5f);
+		ShapeRenderer.rect(rightTile*tileSize, posY -sizeY/2, tileSize, tileSize,180,0.5f);
+		ShapeRenderer.rect(leftTile*tileSize, bottomTile*tileSize, tileSize, tileSize,255,0.5f);
+		ShapeRenderer.rect(rightTile*tileSize, bottomTile*tileSize, tileSize, tileSize,255,0.5f);*/
 
 	}
 }

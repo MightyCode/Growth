@@ -125,7 +125,7 @@ public class TileMap {
 		this.tileSize = tileSize;
 
 		// Init tileSet
-		tileSetT = new Texture("/images/tiles/TileSet.png");
+		tileSetT = new Texture("/images/tiles/Tileset.png");
 		tileSet = XmlReader.createTileSet(path);
 
 		// Init map
