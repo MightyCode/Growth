@@ -1,6 +1,7 @@
-package growth.entity.module;
+package growth.entity.module.player;
 
 import growth.entity.Player;
+import growth.entity.module.Module;
 import growth.screen.ScreenManager;
 
 /**
@@ -10,7 +11,7 @@ import growth.screen.ScreenManager;
  * @author MightyCode
  * @version 1.0
  */
-public class Player_Movement extends Module{
+public class Player_Movement extends Module {
 
     /**
      * Player.

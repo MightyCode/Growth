@@ -1,13 +1,21 @@
-package growth.entity.module;
+package growth.entity.module.entity;
 
 import growth.entity.MovingEntity;
 import growth.entity.Player;
+import growth.entity.module.Module;
 
-public class Entity_Fall extends Module{
+/**
+ * Entity fall module class.
+ * This class is the module use by the Entity to fall.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
+public class Entity_Fall extends Module {
 
     /**
-     * Player.
-     * This variable contains the reference to the player who use this module.
+     * Entity.
+     * This variable contains the reference to the moving entity who use this module.
      */
     private final MovingEntity entity;
 
@@ -24,7 +32,7 @@ public class Entity_Fall extends Module{
     private final float maxFallSpeed;
 
     /**
-     * Jump module class constructor.
+     * Fall module class constructor.
      * Instance the class and set the reference to the entity.
      *
      * @param movingEntity Entity using the module.
@@ -41,7 +49,7 @@ public class Entity_Fall extends Module{
     }
 
     /**
-     * Update the module and the player jump.
+     * Update the module and the player's fall.
      */
     public void update(){
         boolean falling = entity.getFalling();

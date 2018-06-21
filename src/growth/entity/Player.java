@@ -1,7 +1,10 @@
 package growth.entity;
 
-import growth.entity.module.*;
 import growth.entity.module.Module;
+import growth.entity.module.entity.Entity_Fall;
+import growth.entity.module.player.Player_Jump;
+import growth.entity.module.player.Player_Movement;
+import growth.entity.module.player.Player_Sprint;
 import growth.render.Animation;
 import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
