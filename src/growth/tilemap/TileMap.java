@@ -166,8 +166,8 @@ public class TileMap {
 		colOffset = -ScreenManager.CAMERA.getPosX() / tileSize;
 		rowOffset = -ScreenManager.CAMERA.getPosY() / tileSize;
 
-		int begin = (pos)? 0: currentLayer;
-		int end = (pos)? currentLayer : 6;
+		int begin = (pos)? 0: currentLayer+1;
+		int end = (pos)? currentLayer+1 : 4;
 
 		int maxRow = (rowOffset + numRowsToDraw > numRows)? numRows : rowOffset + numRowsToDraw;
 		int maxCol = (colOffset + numColsToDraw > numCols)? numCols : colOffset + numColsToDraw;

@@ -1,10 +1,11 @@
 package growth.entity;
 
-import growth.entity.module.*;
 import growth.entity.module.Module;
+import growth.entity.module.entity.Entity_Fall;
+import growth.entity.module.player.Player_Jump;
+import growth.entity.module.player.Player_Movement;
+import growth.entity.module.player.Player_Sprint;
 import growth.render.Animation;
-import growth.render.Render;
-import growth.render.shape.ShapeRenderer;
 import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.tilemap.TileMap;
@@ -25,14 +26,18 @@ public class Player extends MovingEntity{
 	 * These static final variable counting the different state of player.
 	 */
 	public static final int IDLE = 0;
-	public static final int IDLE_P = 0;
 	public static final int WALKING = 1;
-	public static final int WALKING_P = 1;
 	public static final int JUMPING = 2;
-	public static final int JUMPING_P = 4;
 	public static final int FALLING = 3;
-	public static final int FALLING_P = 3;
 
+	/**
+	 * Player's animations priority.
+	 * These static final variable counting the different state of player.
+	 */
+	public static final int IDLE_P = 0;
+	public static final int WALKING_P = 1;
+	public static final int FALLING_P = 3;
+	public static final int JUMPING_P = 4;
 
 	/**
 	 * Player class constructor.
@@ -56,19 +61,20 @@ public class Player extends MovingEntity{
 
 		// Movement
 		float walkSpeed = 2.5f;
-		float runSpeed = 1.45f;
 		float maxSpeed = 5.5f;
 		float stopSpeed = 0.3f;
 		float fallSpeed = 0.4f;
 		float maxFallSpeed = GameScreen.TILESIZE - 2;
 		float jumpStart = -13.5f;
 		float stopJumpSpeed = 0.2f;
+		float runSpeed = 1.45f;
 
 
 		// Add the modules of action to the player
 		modules = new ArrayList<>();
 		modules.add(new Player_Movement(this,walkSpeed, maxSpeed, stopSpeed));
-		modules.add(new Player_Jump(this, jumpStart, fallSpeed, stopJumpSpeed, maxFallSpeed));
+		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
+		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
 		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
 
 		// Sprite and Animation

@@ -15,7 +15,7 @@ public abstract class Module {
      * Entity.
      * This variable contains the reference to the entity who use this module.
      */
-    private final Entity entity;
+    protected final Entity entity;
 
     /**
      * Mother module class constructor.
@@ -23,7 +23,7 @@ public abstract class Module {
      *
      * @param entity Entity using the module.
      */
-    Module(Entity entity){
+    protected Module(Entity entity){
         this.entity = entity;
     }
 

@@ -1,6 +1,7 @@
-package growth.entity.module;
+package growth.entity.module.player;
 
 import growth.entity.Player;
+import growth.entity.module.Module;
 import growth.screen.ScreenManager;
 
 /**
@@ -10,7 +11,7 @@ import growth.screen.ScreenManager;
  * @author MightyCode
  * @version 1.0
  */
-public class Player_Jump extends Module{
+public class Player_Jump extends Module {
 
     /**
      * Player.
@@ -25,22 +26,10 @@ public class Player_Jump extends Module{
     private final float jumpStart;
 
     /**
-     * Fall speed force.
-     * This variable contains the gravity.
-     */
-    private final float fallSpeed;
-
-    /**
      * Stop jump speed.
      * This variable contains the speed to stop the player after jumping.
      */
     private final float stopJumpSpeed;
-
-    /**
-     * Max fall speed.
-     * This variable contains the max falling speed.
-     */
-    private final float maxFallSpeed;
 
     /**
      * Jump module class constructor.
@@ -48,23 +37,19 @@ public class Player_Jump extends Module{
      *
      * @param player Player using the module.
      * @param jumpStart The strength of the player's jump.
-     * @param fallSpeed The gravity.
      * @param stopJumpSpeed The value using by this module.
-     * @param maxFallSpeed The max falling speed.
      */
-    public Player_Jump(Player player, float jumpStart, float fallSpeed, float stopJumpSpeed, float maxFallSpeed){
+    public Player_Jump(Player player, float jumpStart, float stopJumpSpeed){
         super(player);
 
         // Init variables
         this.player = player;
         this.jumpStart = jumpStart;
-        this.fallSpeed = fallSpeed;
         this.stopJumpSpeed = stopJumpSpeed;
-        this. maxFallSpeed = maxFallSpeed;
     }
 
     /**
-     * Update the module and the player jump.
+     * Update the module and the player's jump.
      */
     public void update(){
         // Keys update
@@ -82,12 +67,7 @@ public class Player_Jump extends Module{
             }
         } else{
         // If Falling
-            speedY += fallSpeed;
-            if (speedY >= 0){
-                if (speedY > maxFallSpeed) speedY = maxFallSpeed;
-                player.setJumping(false);
-                player.setAnimations(Player.FALLING, Player.FALLING_P);
-            } else {
+            if (speedY <= 0) {
                 if(!jumping) speedY += stopJumpSpeed;
                 player.setAnimations(Player.JUMPING, Player.JUMPING_P);
             }
