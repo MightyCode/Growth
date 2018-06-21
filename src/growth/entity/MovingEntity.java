@@ -1,6 +1,5 @@
 package growth.entity;
 
-import growth.render.shape.ShapeRenderer;
 import growth.tilemap.Tile;
 import growth.tilemap.TileMap;
 
