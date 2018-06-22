@@ -61,8 +61,8 @@ public class Player extends MovingEntity{
 
 		// Movement
 		float walkSpeed = 2.5f;
-		float maxSpeed = 5.5f;
-		float stopSpeed = 0.3f;
+		float maxSpeed = 6f;
+		float stopSpeed = 0.5f;
 		float fallSpeed = 0.4f;
 		float maxFallSpeed = GameScreen.TILESIZE - 2;
 		float jumpStart = -13.5f;

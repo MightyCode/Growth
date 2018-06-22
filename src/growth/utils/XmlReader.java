@@ -199,10 +199,26 @@ public abstract class XmlReader {
 
 			int nbNodes = root.getElementsByTagName("texture").getLength();
 
-			Tile[] tileSet = new Tile[nbNodes];
+			int tableLength = 0;
 
-			Element layer;
 			int a = 0;
+			Element layer;
+
+			for (int i = 1; a < nbNodes; i++) {
+				if (rootNode.item(i).getNodeType() == Node.ELEMENT_NODE)
+					layer = (Element) rootNode.item(i);
+				else {
+					i++;
+					layer = (Element) rootNode.item(i);
+				}
+
+				if(Integer.parseInt(layer.getAttribute("id"))>= tableLength) tableLength = Integer.parseInt(layer.getAttribute("id"))+1;
+				a++;
+			}
+
+			Tile[] tileSet = new Tile[tableLength];
+
+			a = 0;
 
 			for (int i = 1; a < nbNodes; i++) {
 				if (rootNode.item(i).getNodeType() == Node.ELEMENT_NODE)

@@ -185,7 +185,6 @@ public class TileMap {
 				for (int col = colOffset; col < maxCol; col++) {
 
 					if(map[row][col]==0)continue;
-
 					TextureRenderer.image(
 							col * tileSize,
 							+ row * tileSize,
