@@ -63,7 +63,7 @@ public class MenuScreen extends Screen {
         but2 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.65), 200, 100, "Options", this) {
             @Override
             public void action() {
-                screen.screenManager.setScreen(ScreenManager.GAMESCREEN);
+                screen.screenManager.setScreen(ScreenManager.OPTIONSCREEN);
             }
         };
 
@@ -90,7 +90,6 @@ public class MenuScreen extends Screen {
     public void display() {
         Render.clear();
         TextureRenderer.imageC( Window.WIDTH*0.35f, Window.HEIGHT *0.0f , Window.WIDTH*0.30f,Window.HEIGHT*0.30f, title.getID(),1, 1f);
-
         but1.displayC();
         but2.displayC();
         but3.displayC();
@@ -99,8 +98,9 @@ public class MenuScreen extends Screen {
     /**
      * Unload the textures in menu to free memory.
      */
-    public void unload() {
+    public void unload(){
         System.out.println("\n-------------------------- \n");
+        title.unload();
         but1.unload();
         but2.unload();
         but3.unload();
