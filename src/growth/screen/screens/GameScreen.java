@@ -1,10 +1,11 @@
 package growth.screen.screens;
 
+import growth.game.Hud;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
 import growth.screen.overlay.PauseOverlay;
-import growth.tilemap.TileMap;
+import growth.game.tilemap.TileMap;
 import growth.entity.Player;
 import growth.utils.Math;
 
@@ -16,6 +17,8 @@ import growth.utils.Math;
  * @version 1.0
  */
 public class GameScreen extends Screen {
+
+    public static final Hud HUD = new Hud();
 
     /**
      * Tile size.
@@ -104,7 +107,7 @@ public class GameScreen extends Screen {
         ScreenManager.CAMERA.setTween(0.3f, 1f);
 
         // Init player
-        player = new Player(tileMap, TILESIZE, TILESIZE);
+        player = new Player(this, tileMap, TILESIZE, TILESIZE);
 
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
@@ -164,7 +167,6 @@ public class GameScreen extends Screen {
 
         ScreenManager.CAMERA.setPosition(true);
 
-
         // Check border player collision to change the map
         if (player.getPosX() - player.getCX() / 2 <= 0) {
             changeMap(0);
@@ -173,6 +175,8 @@ public class GameScreen extends Screen {
         } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
             changeMap(3);
         }
+
+        HUD.update();
     }
 
     /**
@@ -227,6 +231,7 @@ public class GameScreen extends Screen {
         player.display();
         // Draw map in front of the play
         tileMap.display(false);
+        HUD.display();
     }
 
 
@@ -258,11 +263,20 @@ public class GameScreen extends Screen {
         }
     }
 
+    void chargeGame(){
+
+    }
+
+    void saveGame(){
+
+    }
+
     /**
      * Unload the texture to free memory.
      */
     public void unload() {
-        System.out.println("\n-------------------------- \n");
+        System.out.println("\n--------------------------- \n");
+        HUD.unload();
         pause.unload();
         death.unload();
         tileMap.unload();

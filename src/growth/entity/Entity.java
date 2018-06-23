@@ -2,7 +2,8 @@ package growth.entity;
 
 import growth.entity.module.Module;
 import growth.render.Animation;
-import growth.tilemap.TileMap;
+import growth.screen.ScreenManager;
+import growth.screen.screens.GameScreen;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,29 +14,13 @@ import java.util.ArrayList;
  */
 public abstract class Entity {
 
-	/**
-	 * TileMap.
-	 * This variable contains the tileMap to interact with it.
-	 */
-	TileMap tileMap;
+	GameScreen gameScreen;
 
 	/**
 	 * TileSize.
 	 * This variable contains the tileSize to interact with it.
 	 */
 	int tileSize;
-
-	/**
-	 * Map position x.
-	 * This variable contains the position x of the beginning of the rendering of the map.
-	 */
-	float xMap;
-
-	/**
-	 * Map position y.
-	 * This variable contains the position y of the beginning of the rendering of the map.
-	 */
-	float yMap;
 
 	/**
 	 * Entity position x.
@@ -119,11 +104,11 @@ public abstract class Entity {
 	 * Entity class constructor.
 	 * Instance the class and set the tileMap.
 	 *
-	 * @param tileMap Add tileMap to the entity.
+	 * @param gameScreen Add tileMap to the entity.
 	 */
-	Entity(TileMap tileMap) {
-		this.tileMap = tileMap;
-		this.tileSize = tileMap.getTileSize();
+	Entity(GameScreen gameScreen, int tileSize) {
+		this.gameScreen = gameScreen;
+		this.tileSize = tileSize;
 		priority = 0;
 		speed = 1;
 		posX = 0;
@@ -203,21 +188,13 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Set the map's position.
-	 */
-	void setMapPosition() {
-		xMap = tileMap.getPosX();
-		yMap = tileMap.getPosY();
-	}
-
-	/**
 	 * Test if the entity isn't on screen.
 	 */
 	public boolean notOnScreen() {
-		return posX + xMap + sizeX < 0 ||
-				posX + xMap - sizeX > Window.WIDTH ||
-				posY + yMap + sizeY < 0 ||
-				posY + yMap - sizeY > Window.HEIGHT;
+		return posX + ScreenManager.CAMERA.getPosX() + sizeX < 0 ||
+				posX + ScreenManager.CAMERA.getPosX() - sizeX > Window.WIDTH ||
+				posY + ScreenManager.CAMERA.getPosY() + sizeY < 0 ||
+				posY + ScreenManager.CAMERA.getPosY() - sizeY > Window.HEIGHT;
 	}
 
 	/**

@@ -183,7 +183,7 @@ public class Window {
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
         System.out.println("\n-------------------------- \n");
-        System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m,\033[93m Bouin Alexandre" +
+        System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Bouin Alexandre" +
                 "\033[0m and\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
         System.out.println("\n-------------------------- \n");
 

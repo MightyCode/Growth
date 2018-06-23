@@ -1,15 +1,11 @@
-package growth.tilemap;
+package growth.game.tilemap;
 
 import growth.main.Window;
-import growth.render.Render;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.utils.XmlReader;
 import java.util.ArrayList;
-import java.util.Objects;
-
-import static growth.utils.XmlReader.getTileSetSize;
 
 /**
  * TileMap class.
@@ -125,7 +121,7 @@ public class TileMap {
 		this.tileSize = tileSize;
 
 		// Init tileSet
-		tileSetT = new Texture("/images/tiles/Tileset.png");
+		tileSetT = new Texture("/images/game/tiles/Tileset.png");
 		tileSet = XmlReader.createTileSet(path);
 
 		// Init map

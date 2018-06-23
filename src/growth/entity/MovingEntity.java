@@ -1,7 +1,8 @@
 package growth.entity;
 
-import growth.tilemap.Tile;
-import growth.tilemap.TileMap;
+import growth.screen.screens.GameScreen;
+import growth.game.tilemap.Tile;
+import growth.game.tilemap.TileMap;
 
 /**
  * Moving entity class.
@@ -11,6 +12,13 @@ import growth.tilemap.TileMap;
  *  @version 1.0
  */
 public class MovingEntity extends Entity {
+
+    /**
+     * tileMap
+     * This variable contains the reference to the
+     */
+    TileMap tileMap;
+
     /**
      * Entity speed X.
      * This variable contains the speed X of the entity.
@@ -108,11 +116,12 @@ public class MovingEntity extends Entity {
      */
     private boolean falling;
 
-    protected int leftTile;
-    protected int rightTile;
-    protected int topTile;
-    protected int bottomTile;
+    private int leftTile;
+    private int rightTile;
+    private int topTile;
+    private int bottomTile;
 
+    private float healthPoint = 1;
 
     /**
      * Moving Entity constructor.
@@ -120,10 +129,11 @@ public class MovingEntity extends Entity {
      *
      * @param tileMap Add tileMap to the entity.
      */
-    public MovingEntity(TileMap tileMap) {
-        super(tileMap);
+    MovingEntity(GameScreen gameScreen, int tileSize, TileMap tileMap) {
+        super(gameScreen, tileSize);
         speedX = 0;
         speedY = 0;
+        this.tileMap = tileMap;
     }
 
     /**

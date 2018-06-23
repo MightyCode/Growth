@@ -8,7 +8,7 @@ import growth.entity.module.player.Player_Sprint;
 import growth.render.Animation;
 import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
-import growth.tilemap.TileMap;
+import growth.game.tilemap.TileMap;
 
 import java.util.ArrayList;
 
@@ -48,9 +48,9 @@ public class Player extends MovingEntity{
 	 * @param sizeX Add sizeX to the player.
 	 * @param sizeY Add sizeY to the player.
 	 */
-	public Player(TileMap tileMap, int sizeX, int sizeY) {
+	public Player(GameScreen gameScreen, TileMap tileMap, int sizeX, int sizeY) {
 		// Call mother constructor
-		super(tileMap);
+		super(gameScreen, tileMap.getTileSize() ,tileMap);
 
 		/* Init player's variables */
 		// Size, and boxSize
@@ -83,10 +83,10 @@ public class Player extends MovingEntity{
 
 		// Load animation and animationFrame
 		animations = new ArrayList<>();
-		animations.add(new Animation("/images/character/idle/", 1, 100));
-		animations.add(new Animation("/images/character/walk/", 10, 4));
-		animations.add(new Animation("/images/character/jump/", 1, 100));
-		animations.add(new Animation("/images/character/fall/", 1, 100));
+		animations.add(new Animation("/images/game/entity/character/idle/", 1, 100));
+		animations.add(new Animation("/images/game/entity/character/walk/", 10, 4));
+		animations.add(new Animation("/images/game/entity/character/jump/", 1, 100));
+		animations.add(new Animation("/images/game/entity/character/fall/", 1, 100));
 	}
 
 	/**
@@ -116,18 +116,17 @@ public class Player extends MovingEntity{
 	public void display() {
 
 		// Set the map position
-		setMapPosition();
 		// Draw animation left to right if the player go the the right and invert if the player go to the invert direction
 		if (facing) {
 			TextureRenderer.image(
-					(posX + xMap - sizeX / 2),
-					(posY + yMap - sizeY / 2),
+					(posX - sizeX / 2),
+					(posY - sizeY / 2),
 					sizeX*1.0f, sizeY*1f,
 					animations.get(animationPlayed).getCurrentID(),1f ,1f);
 		} else {
 			TextureRenderer.image(
-					(posX + xMap - sizeX / 2 + sizeX),
-					(posY + yMap - sizeY / 2),
+					(posX - sizeX / 2 + sizeX),
+					(posY - sizeY / 2),
 					-sizeX, sizeY,
 					animations.get(animationPlayed).getCurrentID(),1f ,1f);
 		}
