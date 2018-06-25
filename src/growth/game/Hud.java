@@ -102,6 +102,7 @@ public class Hud {
         this.maxHealth = newMaxHealth;
         heartID = new int[(int)Math.ceil((double)newMaxHealth/2)];
         heartPos = new float[(int)Math.ceil((double)newMaxHealth/2)][2];
+        if(currentHealth > maxHealth)currentHealth = maxHealth;
         setHearth(currentHealth);
     }
 

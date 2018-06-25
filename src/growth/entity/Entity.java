@@ -226,4 +226,6 @@ public abstract class Entity {
 			animation.unload();
 		}
 	}
+
+	public void load(){}
 }

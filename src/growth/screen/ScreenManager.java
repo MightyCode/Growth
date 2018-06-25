@@ -108,5 +108,6 @@ public class ScreenManager {
     public void unload() {
         ActualScreen.unload();
         ActualScreen = null;
+        GameScreen.HUD.unload();
     }
 }

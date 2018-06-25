@@ -203,9 +203,11 @@ public class GameScreen extends Screen {
         switch (state) {
             case NORMALSCREEN:
                 displayGame();
+                HUD.display();
                 break;
             case TRANSITIONSCREEN:
                 displayTransition();
+                HUD.display();
                 break;
             case ESCAPESCREEN:
                 displayGame();
@@ -230,7 +232,6 @@ public class GameScreen extends Screen {
         player.display();
         // Draw map in front of the play
         tileMap.display(false);
-        HUD.display();
     }
 
 
@@ -275,7 +276,6 @@ public class GameScreen extends Screen {
      */
     public void unload() {
         System.out.println("\n--------------------------- \n");
-        HUD.unload();
         pause.unload();
         death.unload();
         tileMap.unload();

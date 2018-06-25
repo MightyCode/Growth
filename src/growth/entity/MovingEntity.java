@@ -122,6 +122,7 @@ public class MovingEntity extends Entity {
     private int bottomTile;
 
     private float healthPoint = 1;
+    private float maxHealthPoint = 1;
 
     /**
      * Moving Entity constructor.
@@ -320,4 +321,21 @@ public class MovingEntity extends Entity {
      * @return The falling state.
      */
     public boolean getFalling(){return falling;}
+
+    public void died(){
+        unload();
+    }
+
+    public void setHealthPoint(int newValue){
+        healthPoint = newValue;
+    }
+
+    public void setMaxHealthPoint(int newValue){
+        maxHealthPoint = newValue;
+    }
+
+    public void takeDamage(int damage){
+        healthPoint-=damage;
+        if(healthPoint<0){died();}
+    }
 }

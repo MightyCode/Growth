@@ -59,34 +59,7 @@ public class Player extends MovingEntity{
 		cX = (int) (sizeX * 0.65);
 		cY = sizeY;
 
-		// Movement
-		float walkSpeed = 2.5f;
-		float maxSpeed = 6f;
-		float stopSpeed = 0.5f;
-		float fallSpeed = 0.4f;
-		float maxFallSpeed = GameScreen.TILESIZE - 2;
-		float jumpStart = -13.5f;
-		float stopJumpSpeed = 0.2f;
-		float runSpeed = 1.45f;
-
-
-		// Add the modules of action to the player
-		modules = new ArrayList<>();
-		modules.add(new Player_Movement(this,walkSpeed, maxSpeed, stopSpeed));
-		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
-		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
-		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
-
-		// Sprite and Animation
-		facing = true;
-		animationPlayed = 0;
-
-		// Load animation and animationFrame
-		animations = new ArrayList<>();
-		animations.add(new Animation("/images/game/entity/character/idle/", 1, 100));
-		animations.add(new Animation("/images/game/entity/character/walk/", 10, 4));
-		animations.add(new Animation("/images/game/entity/character/jump/", 1, 100));
-		animations.add(new Animation("/images/game/entity/character/fall/", 1, 100));
+		load();
 	}
 
 	/**
@@ -136,6 +109,49 @@ public class Player extends MovingEntity{
 		ShapeRenderer.rect(rightTile*tileSize, posY -sizeY/2, tileSize, tileSize,180,0.5f);
 		ShapeRenderer.rect(leftTile*tileSize, bottomTile*tileSize, tileSize, tileSize,255,0.5f);
 		ShapeRenderer.rect(rightTile*tileSize, bottomTile*tileSize, tileSize, tileSize,255,0.5f);*/
+	}
 
+	public void load(){
+		// Movement
+		float walkSpeed = 2.5f;
+		float maxSpeed = 6f;
+		float stopSpeed = 0.5f;
+		float fallSpeed = 0.4f;
+		float maxFallSpeed = GameScreen.TILESIZE - 2;
+		float jumpStart = -13.5f;
+		float stopJumpSpeed = 0.2f;
+		float runSpeed = 1.45f;
+
+		setMaxHealthPoint(2);
+		setHealthPoint(2);
+
+
+		// Add the modules of action to the player
+		modules = new ArrayList<>();
+		modules.add(new Player_Movement(this,walkSpeed, maxSpeed, stopSpeed));
+		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
+		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
+		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
+
+		// Sprite and Animation
+		facing = true;
+		animationPlayed = 0;
+
+		// Load animation and animationFrame
+		animations = new ArrayList<>();
+		animations.add(new Animation("/images/game/entity/character/idle/", 1, 100));
+		animations.add(new Animation("/images/game/entity/character/walk/", 10, 4));
+		animations.add(new Animation("/images/game/entity/character/jump/", 1, 100));
+		animations.add(new Animation("/images/game/entity/character/fall/", 1, 100));
+	}
+
+	public void setHealthPoint(int newValue){
+		super.setHealthPoint(newValue);
+		GameScreen.HUD.setHearth(newValue);
+	}
+
+	public void setMaxHealthPoint(int newValue){
+		super.setMaxHealthPoint(newValue);
+		GameScreen.HUD.setMaxHealth(newValue);
 	}
 }
