@@ -13,6 +13,7 @@ public class Hud {
     private Texture t_heart, t_halfHeart, t_deadHeart;
     private int[]heartID;
     private float[][]heartPos;
+    private float[][]heartSize;
     private float heartSizeX, heartSizeY;
     private float spaceBetweenTwoHeart;
     private int numHeart;
@@ -51,9 +52,8 @@ public class Hud {
     }
 
     public void display(){
-
         for(int i = 0; i < numHeart; i++) {
-            TextureRenderer.imageC(heartPos[i][0], heartPos[i][1], heartSizeX, heartSizeY, heartID[i], 1f);
+            TextureRenderer.imageC(heartPos[i][0], heartPos[i][1], heartSize[i][0], heartSize[i][1], heartID[i], 1f);
         }
 
         TextureRenderer.imageC(acornPosX,  acornPosY, acornSizeX, acornSizeY, acorn.getID(), 1f);
@@ -68,16 +68,28 @@ public class Hud {
         int i = 0;
         while(i < newNumber/2){
             heartID[i] = t_heart.getID();
+            heartSize[i][0] = heartSizeX;
+            heartSize[i][1] = heartSizeY;
+            if(((double)newNumber)/2 == newNumber/2){
+                if(i+1 == newNumber/2){
+                    heartSize[i][0] = heartSizeX * 1.15f;
+                    heartSize[i][1] = heartSizeY * 1.15f;
+                }
+            }
             i++;
         }
 
         if(((double)newNumber)/2 != newNumber/2) {
             heartID[i] = t_halfHeart.getID();
+            heartSize[i][0] = heartSizeX * 1.15f;
+            heartSize[i][1] = heartSizeY * 1.15f;
             i++;
         }
 
         while(i < maxHealth/2){
             heartID[i] = t_deadHeart.getID();
+            heartSize[i][0] = heartSizeX * 0.9f;
+            heartSize[i][1] = heartSizeY * 0.9f;
             i++;
         }
 
@@ -85,13 +97,16 @@ public class Hud {
         numHeart = i;
 
         float center = Window.WIDTH/2;
+        // If the number of heart is pair
         if(((double)i)/2 == i/2){
            for(int a = 0; a < numHeart; a++) {
+               // Set position of each heart
                heartPos[a][0] = center + (a-(numHeart/2)) * spaceBetweenTwoHeart;
                heartPos[a][1] = Window.HEIGHT*0.01f;
            }
         } else {
             for(int a = 0; a < numHeart; a++) {
+                // Set position of each heart
                 heartPos[a][0] = center - (heartSizeX/2) + (a-(numHeart/2)) * spaceBetweenTwoHeart;
                 heartPos[a][1] = Window.HEIGHT*0.01f;
             }
@@ -102,6 +117,7 @@ public class Hud {
         this.maxHealth = newMaxHealth;
         heartID = new int[(int)Math.ceil((double)newMaxHealth/2)];
         heartPos = new float[(int)Math.ceil((double)newMaxHealth/2)][2];
+        heartSize = new float[(int)Math.ceil((double)newMaxHealth/2)][2];
         if(currentHealth > maxHealth)currentHealth = maxHealth;
         setHearth(currentHealth);
     }
