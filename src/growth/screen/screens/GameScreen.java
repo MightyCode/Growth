@@ -1,10 +1,11 @@
 package growth.screen.screens;
 
+import growth.game.Hud;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
 import growth.screen.overlay.PauseOverlay;
-import growth.tilemap.TileMap;
+import growth.game.tilemap.TileMap;
 import growth.entity.Player;
 import growth.utils.Math;
 
@@ -17,6 +18,8 @@ import growth.utils.Math;
  */
 public class GameScreen extends Screen {
 
+    public static final Hud HUD = new Hud();
+
     /**
      * Tile size.
      * This variable contains the definitive tile size.
@@ -28,10 +31,10 @@ public class GameScreen extends Screen {
      * These static final variable counting the different state of game.
      */
     public static final int NORMALSCREEN = 0;
-    private static final int TRANSITIONSCREEN = 1;
-    private static final int ESCAPESCREEN = 2;
-    private static final int INVENTORYSCREEN = 3;
-    private static final int DEATHSCREEN = 4;
+    public static final int TRANSITIONSCREEN = 1;
+    public static final int ESCAPESCREEN = 2;
+    public static final int INVENTORYSCREEN = 3;
+    public static final int DEATHSCREEN = 4;
 
     /**
      * Time to transition.
@@ -104,14 +107,13 @@ public class GameScreen extends Screen {
         ScreenManager.CAMERA.setTween(0.3f, 1f);
 
         // Init player
-        player = new Player(tileMap, TILESIZE, TILESIZE);
+        player = new Player(this, tileMap, TILESIZE, TILESIZE);
 
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
 
         // Add player for the camera
         ScreenManager.CAMERA.setEntityToCamera(player);
-
 
         // Set the position of map before beginning of the game
         ScreenManager.CAMERA.setPosition(false);
@@ -147,15 +149,6 @@ public class GameScreen extends Screen {
      * Update the player and the map.
      */
     private void updateGame() {
-
-        if(ScreenManager.KEY.keyPressed(8)) {
-            tileMap.upLayer();
-        }
-
-        if(ScreenManager.KEY.keyPressed(9)) {
-            tileMap.downLayer();
-        }
-
         if(ScreenManager.KEY.keyPressed(0)) {
             state = ESCAPESCREEN;
         }
@@ -163,7 +156,6 @@ public class GameScreen extends Screen {
         player.update();
 
         ScreenManager.CAMERA.setPosition(true);
-
 
         // Check border player collision to change the map
         if (player.getPosX() - player.getCX() / 2 <= 0) {
@@ -173,6 +165,8 @@ public class GameScreen extends Screen {
         } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
             changeMap(3);
         }
+
+        HUD.update();
     }
 
     /**
@@ -200,9 +194,11 @@ public class GameScreen extends Screen {
         switch (state) {
             case NORMALSCREEN:
                 displayGame();
+                HUD.display();
                 break;
             case TRANSITIONSCREEN:
                 displayTransition();
+                HUD.display();
                 break;
             case ESCAPESCREEN:
                 displayGame();
@@ -258,11 +254,19 @@ public class GameScreen extends Screen {
         }
     }
 
+    void chargeGame(){
+
+    }
+
+    void saveGame(){
+
+    }
+
     /**
      * Unload the texture to free memory.
      */
     public void unload() {
-        System.out.println("\n-------------------------- \n");
+        System.out.println("\n--------------------------- \n");
         pause.unload();
         death.unload();
         tileMap.unload();

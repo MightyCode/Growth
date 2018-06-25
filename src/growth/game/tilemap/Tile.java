@@ -1,4 +1,4 @@
-package growth.tilemap;
+package growth.game.tilemap;
 
 import growth.render.texture.Texture;
 

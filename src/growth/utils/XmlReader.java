@@ -1,7 +1,7 @@
 package growth.utils;
 
-import growth.tilemap.Map;
-import growth.tilemap.Tile;
+import growth.game.tilemap.Map;
+import growth.game.tilemap.Tile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

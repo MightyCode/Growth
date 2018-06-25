@@ -22,7 +22,7 @@ public class KeyboardManager {
      * Number of key use.
      * This variable contains the number of key use on the game.
      */
-    private static final int KEYUSE = 10;
+    private static final int KEYUSE = 14;
     /**
      * Table of key input.
      * This variable contains all of the keys use in the game.

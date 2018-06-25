@@ -8,6 +8,8 @@ package growth.main;
  */
 public class Growth {
 
+    public static final Boolean ADMIN = true;
+
     /**
      * Window.
      * This global variable contains all of the main game structure.
