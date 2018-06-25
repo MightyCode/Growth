@@ -2,9 +2,8 @@ package growth.entity;
 
 import growth.entity.module.Module;
 import growth.entity.module.entity.Entity_Fall;
-import growth.entity.module.player.Player_Jump;
-import growth.entity.module.player.Player_Movement;
-import growth.entity.module.player.Player_Sprint;
+import growth.entity.module.player.*;
+import growth.main.Growth;
 import growth.render.Animation;
 import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
@@ -132,6 +131,10 @@ public class Player extends MovingEntity{
 		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
 		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
 		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
+		if(Growth.ADMIN){
+			modules.add(new Admin_Layer(this));
+			modules.add(new Admin_PlayerHealth(this));
+		}
 
 		// Sprite and Animation
 		facing = true;
@@ -147,11 +150,15 @@ public class Player extends MovingEntity{
 
 	public void setHealthPoint(int newValue){
 		super.setHealthPoint(newValue);
-		GameScreen.HUD.setHearth(newValue);
+		GameScreen.HUD.setHearth(healthPoint);
 	}
 
 	public void setMaxHealthPoint(int newValue){
 		super.setMaxHealthPoint(newValue);
-		GameScreen.HUD.setMaxHealth(newValue);
+		GameScreen.HUD.setMaxHealth(maxHealthPoint);
+	}
+
+	public void died(){
+		gameScreen.setState(GameScreen.DEATHSCREEN);
 	}
 }

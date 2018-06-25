@@ -31,10 +31,10 @@ public class GameScreen extends Screen {
      * These static final variable counting the different state of game.
      */
     public static final int NORMALSCREEN = 0;
-    private static final int TRANSITIONSCREEN = 1;
-    private static final int ESCAPESCREEN = 2;
-    private static final int INVENTORYSCREEN = 3;
-    private static final int DEATHSCREEN = 4;
+    public static final int TRANSITIONSCREEN = 1;
+    public static final int ESCAPESCREEN = 2;
+    public static final int INVENTORYSCREEN = 3;
+    public static final int DEATHSCREEN = 4;
 
     /**
      * Time to transition.
@@ -149,15 +149,6 @@ public class GameScreen extends Screen {
      * Update the player and the map.
      */
     private void updateGame() {
-
-        if(ScreenManager.KEY.keyPressed(8)) {
-            tileMap.upLayer();
-        }
-
-        if(ScreenManager.KEY.keyPressed(9)) {
-            tileMap.downLayer();
-        }
-
         if(ScreenManager.KEY.keyPressed(0)) {
             state = ESCAPESCREEN;
         }

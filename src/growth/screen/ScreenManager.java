@@ -59,6 +59,10 @@ public class ScreenManager {
         KEY.setKey(7, GLFW_KEY_Q);
         KEY.setKey(8, GLFW_KEY_KP_ADD);
         KEY.setKey(9, GLFW_KEY_KP_SUBTRACT);
+        KEY.setKey(10, GLFW_KEY_F1);
+        KEY.setKey(11, GLFW_KEY_F2);
+        KEY.setKey(12, GLFW_KEY_F3);
+        KEY.setKey(13, GLFW_KEY_F4);
     }
 
     /**

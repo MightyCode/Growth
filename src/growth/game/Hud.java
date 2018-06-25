@@ -1,7 +1,6 @@
 package growth.game;
 
 import growth.main.Window;
-import growth.render.shape.ShapeRenderer;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 
@@ -62,6 +61,7 @@ public class Hud {
 
     public void setHearth(int newNumber){
         // Set the new current Health Point
+        if(newNumber > maxHealth || newNumber < 0) return;
         currentHealth = newNumber;
 
         // Set the id of the hearth for each receptacle

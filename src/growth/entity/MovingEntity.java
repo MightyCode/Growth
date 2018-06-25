@@ -17,7 +17,7 @@ public class MovingEntity extends Entity {
      * tileMap
      * This variable contains the reference to the
      */
-    TileMap tileMap;
+    public TileMap tileMap;
 
     /**
      * Entity speed X.
@@ -121,8 +121,8 @@ public class MovingEntity extends Entity {
     private int topTile;
     private int bottomTile;
 
-    private float healthPoint = 1;
-    private float maxHealthPoint = 1;
+    protected int healthPoint = 1;
+    protected int maxHealthPoint = 1;
 
     /**
      * Moving Entity constructor.
@@ -322,12 +322,18 @@ public class MovingEntity extends Entity {
      */
     public boolean getFalling(){return falling;}
 
+
+    // Methods about the health
+
     public void died(){
         unload();
     }
 
     public void setHealthPoint(int newValue){
-        healthPoint = newValue;
+        if(maxHealthPoint >= newValue && newValue >= 0){
+            healthPoint = newValue;
+            if(healthPoint<=0){died();}
+        }
     }
 
     public void setMaxHealthPoint(int newValue){
@@ -336,6 +342,10 @@ public class MovingEntity extends Entity {
 
     public void takeDamage(int damage){
         healthPoint-=damage;
-        if(healthPoint<0){died();}
+        if(healthPoint<=0){died();}
     }
+
+    public int getHealthPoint(){ return healthPoint;}
+
+    public int getMaxHealthPoint(){ return maxHealthPoint;}
 }
