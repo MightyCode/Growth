@@ -51,6 +51,20 @@ public abstract class TextureRenderer {
     }
 
     /**
+     * Display an image without the color.
+     *
+     * @param posX Position x of the top-left corner image.
+     * @param posY Position y of the top-left corner image.
+     * @param sizeX Image's width.
+     * @param sizeY Image's height.
+     * @param textID ID of the image.
+     * @param alpha Opacity of the image.
+     */
+    public static void image(float posX, float posY, float sizeX, float sizeY, float textID, float alpha){
+        image(posX, posY, sizeX, sizeY, (int)textID, 1f, alpha);
+    }
+
+    /**
      * Display an image.
      *
      * @param posX Position x of the top-left corner image.
@@ -63,6 +77,20 @@ public abstract class TextureRenderer {
      */
     public static void imageC(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha){
         image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, textID, color, alpha);
+    }
+
+    /**
+     * Display an image.
+     *
+     * @param posX Position x of the top-left corner image.
+     * @param posY Position y of the top-left corner image.
+     * @param sizeX Image's width.
+     * @param sizeY Image's height.
+     * @param textID ID of the image.
+     * @param alpha Opacity of the image.
+     */
+    public static void imageC(float posX, float posY, float sizeX, float sizeY, int textID, float alpha){
+        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, textID, 1f, alpha);
     }
 
     /**

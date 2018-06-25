@@ -115,7 +115,6 @@ public class GameScreen extends Screen {
         // Add player for the camera
         ScreenManager.CAMERA.setEntityToCamera(player);
 
-
         // Set the position of map before beginning of the game
         ScreenManager.CAMERA.setPosition(false);
     }
