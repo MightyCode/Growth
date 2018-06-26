@@ -25,6 +25,10 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 @SuppressWarnings("InfiniteLoopStatement")
 public class Window {
 
+    /**
+     * Window class constructor.
+     * Do nothing for the moment
+     */
     public Window(){}
 
     /**
