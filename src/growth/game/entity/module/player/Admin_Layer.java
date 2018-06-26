@@ -36,11 +36,11 @@ public class Admin_Layer extends Module{
      */
     public void update(){
         if(ScreenManager.KEY.keyPressed(8)) {
-           player.tileMap.upLayer();
+           player.upLayer();
         }
 
         if(ScreenManager.KEY.keyPressed(9)) {
-            player.tileMap.downLayer();
+            player.downLayer();
         }
     }
 }

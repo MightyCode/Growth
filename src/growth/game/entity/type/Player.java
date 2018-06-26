@@ -123,4 +123,12 @@ public class Player extends MovingEntity{
 		gameScreen.setState(GameScreen.DEATHSCREEN);
 		super.died();
 	}
+
+	public void upLayer() {
+		tileMap.upLayer();
+	}
+
+	public void downLayer() {
+		tileMap.downLayer();
+	}
 }

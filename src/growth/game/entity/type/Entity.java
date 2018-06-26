@@ -5,8 +5,11 @@ import growth.screen.screens.GameScreen;
 import java.awt.*;
 
 /**
- * Basic entity class.
+ * Entity class.
  * This class is the mother class of all entity in game, including player, enemies or moving platform.
+ *
+ * @author MightyCode
+ * @version 1.1
  */
 public class Entity {
 
@@ -35,11 +38,15 @@ public class Entity {
 	protected int sizeY;
 
 	/**
-	 * Identifier of the entities.
+	 * Identifier of the entity.
 	 * This variable contains the identifier of the entity. Using by the entity Manager of the game.
 	 */
 	protected int id;
 
+	/**
+	 * Player's type.
+	 * This variable contains the type of the entity (null or player for example).
+	 */
 	protected int type;
 
 	/**
@@ -48,34 +55,70 @@ public class Entity {
 	 */
 	protected GameScreen gameScreen;
 
+	/**
+	 * Entity class constructor.
+	 * Instance the class.
+	 */
 	public Entity(){ }
 
-	public Entity(int id, int type){this.id = id; this.type = type;}
-
+	/**
+	 * Entity class surcharge constructor.
+	 * Instance the class and set the entity'stype.
+	 */
 	public Entity(int type){this.type = type; }
 
+
+	/**
+	 * Entity class surcharge constructor.
+	 * Instance the class and set the entity's id and the entity'stype.
+	 */
+	public Entity(int id, int type){this.id = id; this.type = type;}
+
+	/**
+	 * Display the entity.
+	 */
 	public void display(){}
 
+	/**
+	 * Update the entity.
+	 */
 	public void update(){}
 
+	/**
+	 * Unload the entity.
+	 */
 	public void unload(){ GameScreen.ENTITY_MANAGER.removeEntity(id); }
 
 	/**
 	 * Test if the entity isn't on screen.
 	 */
-	public boolean notOnScreen() {
-		return posX + ScreenManager.CAMERA.getPosX() + sizeX < 0 ||
-				posX + ScreenManager.CAMERA.getPosX() - sizeX > Window.WIDTH ||
-				posY + ScreenManager.CAMERA.getPosY() + sizeY < 0 ||
-				posY + ScreenManager.CAMERA.getPosY() - sizeY > Window.HEIGHT;
+	public boolean isOnScreen() {
+		return posX + ScreenManager.CAMERA.getPosX() + sizeX/2 < 0 ||
+				posX + ScreenManager.CAMERA.getPosX() - sizeX/2 > Window.WIDTH ||
+				posY + ScreenManager.CAMERA.getPosY() + sizeY/2 < 0 ||
+				posY + ScreenManager.CAMERA.getPosY() - sizeY/2 > Window.HEIGHT;
 	}
 
+	/**
+	 * Get the type of the entity.
+	 *
+	 * @return Type.
+	 */
 	public int getType(){
 		return type;
 	}
 
-
+	/**
+	 * Set the if of the entity.
+	 *
+	 * @param id Id of the entity.
+	 */
 	public void setId(int id){this.id = id;}
 
+	/**
+	 * Set the type of the entity.
+	 *
+	 * @param type New type for the entity.
+	 */
 	public void setType(int type) {this.type = type;}
 }

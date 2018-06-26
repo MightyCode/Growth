@@ -61,7 +61,6 @@ public class Entity_Fall extends Module {
             speedY += fallSpeed;
             if (speedY >= 0){
                 if (speedY > maxFallSpeed) speedY = maxFallSpeed;
-                entity.setJumping(false);
                 entity.setAnimations(Player.FALLING, Player.FALLING_P);
             }
         }

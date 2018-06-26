@@ -19,19 +19,19 @@ public class MovingEntity extends BasicEntity {
      * tileMap
      * This variable contains the reference to the
      */
-    public final TileMap tileMap;
+    protected final TileMap tileMap;
 
     /**
      * Entity speed X.
      * This variable contains the speed X of the entity.
      */
-    float speedX;
+    protected float speedX;
 
     /**
      * Entity speed Y.
      * This variable contains the speed Y of the entity.
      */
-    float speedY;
+    protected float speedY;
 
     /**
      * Temporary position x.
@@ -97,31 +97,25 @@ public class MovingEntity extends BasicEntity {
      * Facing (true -> right // false -> left)
      * This variable contains the direction towards where the entity is "looking".
      */
-    boolean facing;
+    protected boolean facing;
 
     /**
      * Is left.
      * This variable contains if the entity goes to the left.
      */
-    boolean left;
+    protected boolean left;
 
     /**
      * Is right.
      * This variable contains if the entity goes to the right.
      */
-    boolean right;
+    protected boolean right;
 
     /**
      * Is down.
      * This variable contains if the entity goes to the down.
      */
     protected boolean down;
-
-    /**
-     * Is jumping.
-     * This variable contains the jumping's state.
-     */
-    private boolean jumping;
 
     /**
      * Is falling.
@@ -320,15 +314,6 @@ public class MovingEntity extends BasicEntity {
     }
 
     /**
-     * Set the jump state.
-     *
-     * @param jumping New jump state.
-     */
-    public void setJumping(boolean jumping) {
-        this.jumping = jumping;
-    }
-
-    /**
      * Set the fall state.
      *
      * @param falling New falling state.
@@ -372,6 +357,7 @@ public class MovingEntity extends BasicEntity {
      * @param newValue New maximum health value.
      */
     public void setMaxHealthPoint(int newValue){
+        if(newValue > 0)
         maxHealthPoint = newValue;
     }
 
