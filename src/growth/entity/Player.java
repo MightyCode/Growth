@@ -46,10 +46,11 @@ public class Player extends MovingEntity{
 	 * @param tileMap Add tileMap to the player.
 	 * @param sizeX Add sizeX to the player.
 	 * @param sizeY Add sizeY to the player.
+	 * @param id The id of the entity.
 	 */
-	public Player(GameScreen gameScreen, TileMap tileMap, int sizeX, int sizeY) {
+	public Player(GameScreen gameScreen, TileMap tileMap, int sizeX, int sizeY, int id) {
 		// Call mother constructor
-		super(gameScreen, tileMap.getTileSize() ,tileMap);
+		super(gameScreen, tileMap.getTileSize() ,tileMap, id);
 
 		/* Init player's variables */
 		// Size, and boxSize
@@ -57,7 +58,7 @@ public class Player extends MovingEntity{
 		this.sizeY = sizeY;
 		cX = (int) (sizeX * 0.65);
 		cY = sizeY;
-
+		// Load the player
 		load();
 	}
 
@@ -110,6 +111,9 @@ public class Player extends MovingEntity{
 		ShapeRenderer.rect(rightTile*tileSize, bottomTile*tileSize, tileSize, tileSize,255,0.5f);*/
 	}
 
+	/**
+	 * Load the player
+	 */
 	public void load(){
 		// Movement
 		float walkSpeed = 2.5f;
@@ -148,16 +152,27 @@ public class Player extends MovingEntity{
 		animations.add(new Animation("/images/game/entity/character/fall/", 1, 100));
 	}
 
+	/**
+	 * Change the current health value.
+	 * @param newValue New current health value.
+	 */
 	public void setHealthPoint(int newValue){
 		super.setHealthPoint(newValue);
 		GameScreen.HUD.setHearth(healthPoint);
 	}
 
+	/**
+	 * Change the max value of health.
+	 * @param newValue New maximum health value.
+	 */
 	public void setMaxHealthPoint(int newValue){
 		super.setMaxHealthPoint(newValue);
 		GameScreen.HUD.setMaxHealth(maxHealthPoint);
 	}
 
+	/**
+	 * When the player die
+	 */
 	public void died(){
 		gameScreen.setState(GameScreen.DEATHSCREEN);
 	}

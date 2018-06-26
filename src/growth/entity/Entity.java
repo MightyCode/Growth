@@ -14,6 +14,16 @@ import java.util.ArrayList;
  */
 public abstract class Entity {
 
+	/**
+	 * Identifier of the entities.
+	 * This variable contains the identifier of the entity. Using by the entity Manager of the game.
+	 */
+	private int id;
+
+	/**
+	 * Game screen.
+	 * This variable contains the reference to the game screen to interact with it.
+	 */
 	GameScreen gameScreen;
 
 	/**
@@ -105,10 +115,20 @@ public abstract class Entity {
 	 * Instance the class and set the tileMap.
 	 *
 	 * @param gameScreen Add tileMap to the entity.
+	 * @param tileSize The size of the tile.
+	 * @param id The id of the entity.
 	 */
-	Entity(GameScreen gameScreen, int tileSize) {
+	Entity(GameScreen gameScreen, int tileSize, int id) {
 		this.gameScreen = gameScreen;
 		this.tileSize = tileSize;
+		this.id = id;
+		load();
+	}
+
+	/**
+	 * Loading the param of the entity
+	 */
+	public void load(){
 		priority = 0;
 		speed = 1;
 		posX = 0;
@@ -217,7 +237,6 @@ public abstract class Entity {
 	 */
 	public void setAnimationSpeed(float speed){ this.speed = speed;}
 
-
 	/**
 	 * Delete the entity's textures contain in array list animations.
 	 */
@@ -226,6 +245,4 @@ public abstract class Entity {
 			animation.unload();
 		}
 	}
-
-	public void load(){}
 }

@@ -55,7 +55,6 @@ public class MovingEntity extends Entity {
      */
     private float yDest;
 
-
     /**
      * Top-left status collision.
      * This variable contains the status of the top left tile.
@@ -121,20 +120,38 @@ public class MovingEntity extends Entity {
     private int topTile;
     private int bottomTile;
 
+    /**
+     * Health point.
+     * This variable contains the health point of the entity.
+     */
     protected int healthPoint = 1;
+
+    /**
+     * Max health point.
+     * This variable contains the maximum health point of the entity.
+     */
     protected int maxHealthPoint = 1;
 
     /**
      * Moving Entity constructor.
      * Instance the class and set the tileMap.
      *
+     * @param gameScreen The reference to the game screen.
+     * @param tileSize The size of the tile.
      * @param tileMap Add tileMap to the entity.
+     * @param id The id of the entity.
      */
-    MovingEntity(GameScreen gameScreen, int tileSize, TileMap tileMap) {
-        super(gameScreen, tileSize);
+    MovingEntity(GameScreen gameScreen, int tileSize, TileMap tileMap, int id) {
+        super(gameScreen, tileSize, id);
         speedX = 0;
         speedY = 0;
         this.tileMap = tileMap;
+    }
+
+
+    // When the entity died
+    public void died(){
+        unload();
     }
 
     /**
@@ -144,7 +161,6 @@ public class MovingEntity extends Entity {
      * @param posY Position Y.
      */
     private void calculateCorners(float posX, float posY) {
-
         leftTile = (int) (posX - cX / 2) / tileSize;
         rightTile = (int) (posX + cX / 2 - 1) / tileSize;
         topTile = (int) ((posY - cY / 2) / tileSize);
@@ -242,6 +258,10 @@ public class MovingEntity extends Entity {
         }
     }
 
+    /*
+    * Setters methods
+     */
+
     /**
      * Set the entity's speed.
      *
@@ -302,6 +322,38 @@ public class MovingEntity extends Entity {
     public void setSpeedY(float speedY){this.speedY = speedY;}
 
     /**
+     * Change the max value of health.
+     * @param newValue New maximum health value.
+     */
+    public void setMaxHealthPoint(int newValue){
+        maxHealthPoint = newValue;
+    }
+
+    /**
+     * To take damage
+     * @param damage The number of the damage
+     */
+    public void takeDamage(int damage){
+        healthPoint-=damage;
+        if(healthPoint<=0){died();}
+    }
+
+    /**
+     * Change the current health value.
+     * @param newValue New current health value.
+     */
+    public void setHealthPoint(int newValue){
+        if(maxHealthPoint >= newValue && newValue >= 0){
+            healthPoint = newValue;
+            if(healthPoint<=0){died();}
+        }
+    }
+
+    /*
+    * Getters methods
+     */
+
+    /**
      * Get the entity's speed x.
      *
      * @return The speed x.
@@ -322,30 +374,15 @@ public class MovingEntity extends Entity {
      */
     public boolean getFalling(){return falling;}
 
-
-    // Methods about the health
-
-    public void died(){
-        unload();
-    }
-
-    public void setHealthPoint(int newValue){
-        if(maxHealthPoint >= newValue && newValue >= 0){
-            healthPoint = newValue;
-            if(healthPoint<=0){died();}
-        }
-    }
-
-    public void setMaxHealthPoint(int newValue){
-        maxHealthPoint = newValue;
-    }
-
-    public void takeDamage(int damage){
-        healthPoint-=damage;
-        if(healthPoint<=0){died();}
-    }
-
+    /**
+     * Get the current health point of the entity.
+     * @return The value.
+     */
     public int getHealthPoint(){ return healthPoint;}
 
+    /**
+     * Get the maximum health point of the entity.
+     * @return The value.
+     */
     public int getMaxHealthPoint(){ return maxHealthPoint;}
 }

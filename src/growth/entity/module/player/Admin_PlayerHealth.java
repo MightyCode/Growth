@@ -4,6 +4,13 @@ import growth.entity.Player;
 import growth.entity.module.Module;
 import growth.screen.ScreenManager;
 
+/**
+ * Administrator player health module class.
+ * This class is the module use by a administrator-player to change it health and it max health.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
 public class Admin_PlayerHealth extends Module {
     /**
      * Player.
@@ -11,6 +18,12 @@ public class Admin_PlayerHealth extends Module {
      */
     private final Player player;
 
+    /**
+     * Administrator player health module class constructor.
+     * Instance the class and set the reference to the entity.
+     *
+     * @param player Player using the module.
+     */
     public Admin_PlayerHealth(Player player){
         super(player);
 
@@ -19,7 +32,7 @@ public class Admin_PlayerHealth extends Module {
     }
 
     /**
-     * Update the module and the player's jump.
+     * Update the module.
      */
     public void update(){
         if(ScreenManager.KEY.keyPressed(10)) {

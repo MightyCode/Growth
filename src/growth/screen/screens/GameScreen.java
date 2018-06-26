@@ -107,7 +107,7 @@ public class GameScreen extends Screen {
         ScreenManager.CAMERA.setTween(0.3f, 1f);
 
         // Init player
-        player = new Player(this, tileMap, TILESIZE, TILESIZE);
+        player = new Player(this, tileMap, TILESIZE, TILESIZE,1);
 
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
