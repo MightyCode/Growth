@@ -1,5 +1,7 @@
-package growth.entity;
+package growth.game.entity.type;
 
+import growth.game.entity.module.Module;
+import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.game.tilemap.Tile;
 import growth.game.tilemap.TileMap;
@@ -11,13 +13,13 @@ import growth.game.tilemap.TileMap;
  *  @author MightyCode
  *  @version 1.0
  */
-public class MovingEntity extends Entity {
+public class MovingEntity extends BasicEntity {
 
     /**
      * tileMap
      * This variable contains the reference to the
      */
-    public TileMap tileMap;
+    public final TileMap tileMap;
 
     /**
      * Entity speed X.
@@ -30,6 +32,18 @@ public class MovingEntity extends Entity {
      * This variable contains the speed Y of the entity.
      */
     float speedY;
+
+    /**
+     * Temporary position x.
+     * This variable contains the temporary position in x.
+     */
+    protected float xTemp;
+
+    /**
+     * Temporary position y.
+     * This variable contains the temporary position in y.
+     */
+    protected float yTemp;
 
     /**
      * Current row position.
@@ -139,15 +153,47 @@ public class MovingEntity extends Entity {
      * @param gameScreen The reference to the game screen.
      * @param tileSize The size of the tile.
      * @param tileMap Add tileMap to the entity.
-     * @param id The id of the entity.
      */
-    MovingEntity(GameScreen gameScreen, int tileSize, TileMap tileMap, int id) {
-        super(gameScreen, tileSize, id);
+    MovingEntity(GameScreen gameScreen, int tileSize, TileMap tileMap) {
+        super(gameScreen, tileSize);
         speedX = 0;
         speedY = 0;
         this.tileMap = tileMap;
     }
 
+    public void update(){
+        animationPlayed = IDLE;
+        priority = IDLE_P;
+        for(Module module : modules){
+            module.update();
+        }
+
+        checkTileMapCollision();
+        setPosition(xTemp, yTemp);
+
+        // Direction
+        if (speedX < 0) facing = false;
+        else if (speedX > 0) facing = true;
+
+        // And update chosen animation
+        animations.get(animationPlayed).update(speed);
+    }
+
+    public void display(){
+        if (facing) {
+            TextureRenderer.image(
+                    (posX - sizeX / 2),
+                    (posY - sizeY / 2),
+                    sizeX*1f, sizeY*1f,
+                    animations.get(animationPlayed).getCurrentID(),1f ,1f);
+        } else {
+            TextureRenderer.image(
+                    (posX - sizeX / 2 + sizeX),
+                    (posY - sizeY / 2),
+                    -sizeX, sizeY,
+                    animations.get(animationPlayed).getCurrentID(),1f ,1f);
+        }
+    }
 
     // When the entity died
     public void died(){
@@ -186,7 +232,7 @@ public class MovingEntity extends Entity {
     /**
      * Check the collision between the Entity and tileMap.
      */
-    void checkTileMapCollision() {
+    private void checkTileMapCollision() {
 
         // Get position of player in the grid
         currCol = (int) posX / tileSize;

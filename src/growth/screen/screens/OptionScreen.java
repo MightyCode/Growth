@@ -10,7 +10,7 @@ public class OptionScreen extends Screen{
 
     private int state;
 
-    private Texture option;
+    private final Texture option;
 
     /**
      * MenuScreen class constructor.

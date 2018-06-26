@@ -28,7 +28,9 @@ public class Hud {
      * Heart's textures.
      * These variables contain the texture for the 3 types of heart.
      */
-    private Texture t_heart, t_halfHeart, t_deadHeart;
+    private final Texture t_heart;
+    private final Texture t_halfHeart;
+    private final Texture t_deadHeart;
 
     /**
      * Heart id.
@@ -58,13 +60,14 @@ public class Hud {
      * Heart size
      * These variables contain the base size of heart.
      */
-    private float heartSizeX, heartSizeY;
+    private final float heartSizeX;
+    private final float heartSizeY;
 
     /**
      * Space between two heart.
      * This variable contains the number of pixel between two heart.
      */
-    private float spaceBetweenTwoHeart;
+    private final float spaceBetweenTwoHeart;
 
     /**
      * Number of heart..
@@ -82,19 +85,21 @@ public class Hud {
      * Texture of the acorn counter.
      * This variable contains the texture use to display the acorn's counter.
      */
-    private Texture acorn;
+    private final Texture acorn;
 
     /**
      * Texture of the acorn position.
      * These variables contain the position x and y of the acorn texture.
      */
-    private float acornPosX, acornPosY;
+    private final float acornPosX;
+    private final float acornPosY;
 
     /**
      * Texture of the acorn size.
      * These variables contain the size x and y of the acorn texture.
      */
-    private float acornSizeX, acornSizeY;
+    private final float acornSizeX;
+    private final float acornSizeY;
 
     /**
      * Hud class constructor.
@@ -156,7 +161,7 @@ public class Hud {
 
     /**
      * Change display when the life of the player change.
-     * 
+     *
      * @param newHealth The new health point of the player.
      */
     public void setHearth(int newHealth){
@@ -220,12 +225,14 @@ public class Hud {
      * @param newMaxHealth The new maximum health point of the player.
      */
     public void setMaxHealth(int newMaxHealth){
-        this.maxHealth = newMaxHealth;
-        heartType = new int[(int)Math.ceil((double)newMaxHealth/2)];
-        heartPos = new float[(int)Math.ceil((double)newMaxHealth/2)][2];
-        heartSize = new float[(int)Math.ceil((double)newMaxHealth/2)][2];
-        if(currentHealth > maxHealth)currentHealth = maxHealth;
-        setHearth(currentHealth);
+        if(newMaxHealth > 0) {
+            this.maxHealth = newMaxHealth;
+            heartType = new int[(int) Math.ceil((double) newMaxHealth / 2)];
+            heartPos = new float[(int) Math.ceil((double) newMaxHealth / 2)][2];
+            heartSize = new float[(int) Math.ceil((double) newMaxHealth / 2)][2];
+            if (currentHealth > maxHealth) currentHealth = maxHealth;
+            setHearth(currentHealth);
+        }
     }
 
     /**

@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author MightyCode
  * @version 1.1
  */
+@SuppressWarnings("SameReturnValue")
 public class TileMap {
 
 	/**
@@ -292,24 +293,6 @@ public class TileMap {
 	 */
 	public int getTileSize() {
 		return tileSize;
-	}
-
-	/**
-	 * Return the map position x.
-	 *
-	 * @return position x
-	 */
-	public int getPosX() {
-		return 0;
-	}
-
-	/**
-	 * Return the map position y.
-	 *
-	 * @return position y
-	 */
-	public int getPosY() {
-		return 0;
 	}
 
 	/**

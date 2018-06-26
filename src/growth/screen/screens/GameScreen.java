@@ -1,12 +1,13 @@
 package growth.screen.screens;
 
 import growth.game.Hud;
+import growth.game.entity.EntityManager;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
 import growth.screen.overlay.PauseOverlay;
 import growth.game.tilemap.TileMap;
-import growth.entity.Player;
+import growth.game.entity.type.Player;
 import growth.utils.Math;
 
 /**
@@ -19,6 +20,8 @@ import growth.utils.Math;
 public class GameScreen extends Screen {
 
     public static final Hud HUD = new Hud();
+
+    public static final EntityManager ENTITY_MANAGER = new EntityManager();
 
     /**
      * Tile size.
@@ -107,7 +110,7 @@ public class GameScreen extends Screen {
         ScreenManager.CAMERA.setTween(0.3f, 1f);
 
         // Init player
-        player = new Player(this, tileMap, TILESIZE, TILESIZE,1);
+        ENTITY_MANAGER.addEntity(player = new Player(this, tileMap, TILESIZE, TILESIZE));
 
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
@@ -153,7 +156,7 @@ public class GameScreen extends Screen {
             state = ESCAPESCREEN;
         }
         // Update player
-        player.update();
+        ENTITY_MANAGER.update();
 
         ScreenManager.CAMERA.setPosition(true);
 
@@ -220,7 +223,7 @@ public class GameScreen extends Screen {
         // Draw map behind the player
         tileMap.display(true);
         // Draw player
-        player.display();
+        ENTITY_MANAGER.display();
         // Draw map in front of the play
         tileMap.display(false);
     }
@@ -271,5 +274,6 @@ public class GameScreen extends Screen {
         death.unload();
         tileMap.unload();
         player.unload();
+        ENTITY_MANAGER.removeAll();
     }
 }

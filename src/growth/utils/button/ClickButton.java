@@ -1,6 +1,5 @@
 package growth.utils.button;
 
-import growth.render.Render;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;

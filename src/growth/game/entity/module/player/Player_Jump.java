@@ -1,7 +1,7 @@
-package growth.entity.module.player;
+package growth.game.entity.module.player;
 
-import growth.entity.Player;
-import growth.entity.module.Module;
+import growth.game.entity.type.Player;
+import growth.game.entity.module.Module;
 import growth.screen.ScreenManager;
 
 /**

@@ -1,11 +1,9 @@
-package growth.entity;
+package growth.game.entity.type;
 
-import growth.entity.module.Module;
-import growth.entity.module.entity.Entity_Fall;
-import growth.entity.module.player.*;
+import growth.game.entity.module.entity.Entity_Fall;
+import growth.game.entity.module.player.*;
 import growth.main.Growth;
 import growth.render.Animation;
-import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.game.tilemap.TileMap;
 
@@ -24,7 +22,6 @@ public class Player extends MovingEntity{
 	 * Player's states.
 	 * These static final variable counting the different state of player.
 	 */
-	public static final int IDLE = 0;
 	public static final int WALKING = 1;
 	public static final int JUMPING = 2;
 	public static final int FALLING = 3;
@@ -33,7 +30,6 @@ public class Player extends MovingEntity{
 	 * Player's animations priority.
 	 * These static final variable counting the different state of player.
 	 */
-	public static final int IDLE_P = 0;
 	public static final int WALKING_P = 1;
 	public static final int FALLING_P = 3;
 	public static final int JUMPING_P = 4;
@@ -46,11 +42,10 @@ public class Player extends MovingEntity{
 	 * @param tileMap Add tileMap to the player.
 	 * @param sizeX Add sizeX to the player.
 	 * @param sizeY Add sizeY to the player.
-	 * @param id The id of the entity.
 	 */
-	public Player(GameScreen gameScreen, TileMap tileMap, int sizeX, int sizeY, int id) {
+	public Player(GameScreen gameScreen, TileMap tileMap, int sizeX, int sizeY) {
 		// Call mother constructor
-		super(gameScreen, tileMap.getTileSize() ,tileMap, id);
+		super(gameScreen, tileMap.getTileSize() ,tileMap);
 
 		/* Init player's variables */
 		// Size, and boxSize
@@ -60,55 +55,6 @@ public class Player extends MovingEntity{
 		cY = sizeY;
 		// Load the player
 		load();
-	}
-
-	/**
-	 * Update the player's position, states and this current animation.
-	 */
-	public void update() {
-		animationPlayed = IDLE;
-		priority = IDLE_P;
-		for(Module module : modules){
-			module.update();
-		}
-
-		checkTileMapCollision();
-		setPosition(xTemp, yTemp);
-
-		// Direction
-		if (speedX < 0) facing = false;
-		else if (speedX > 0) facing = true;
-
-		// And update chosen animation
-		animations.get(animationPlayed).update(speed);
-	}
-
-	/**
-	 * Display the player with his good animation.
-	 */
-	public void display() {
-
-		// Set the map position
-		// Draw animation left to right if the player go the the right and invert if the player go to the invert direction
-		if (facing) {
-			TextureRenderer.image(
-					(posX - sizeX / 2),
-					(posY - sizeY / 2),
-					sizeX*1.0f, sizeY*1f,
-					animations.get(animationPlayed).getCurrentID(),1f ,1f);
-		} else {
-			TextureRenderer.image(
-					(posX - sizeX / 2 + sizeX),
-					(posY - sizeY / 2),
-					-sizeX, sizeY,
-					animations.get(animationPlayed).getCurrentID(),1f ,1f);
-		}
-
-		/*ShapeRenderer.rect(leftTile*tileSize, posY -sizeY/2, tileSize, tileSize,0,0.5f);
-		ShapeRenderer.rect(posX -sizeX/2, topTile*tileSize, tileSize, tileSize,100,0.5f);
-		ShapeRenderer.rect(rightTile*tileSize, posY -sizeY/2, tileSize, tileSize,180,0.5f);
-		ShapeRenderer.rect(leftTile*tileSize, bottomTile*tileSize, tileSize, tileSize,255,0.5f);
-		ShapeRenderer.rect(rightTile*tileSize, bottomTile*tileSize, tileSize, tileSize,255,0.5f);*/
 	}
 
 	/**
@@ -175,5 +121,6 @@ public class Player extends MovingEntity{
 	 */
 	public void died(){
 		gameScreen.setState(GameScreen.DEATHSCREEN);
+		super.died();
 	}
 }

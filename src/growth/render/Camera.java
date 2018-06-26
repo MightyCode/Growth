@@ -1,6 +1,6 @@
 package growth.render;
 
-import growth.entity.MovingEntity;
+import growth.game.entity.type.MovingEntity;
 import growth.main.Window;
 import growth.render.shape.ShapeRenderer;
 

@@ -1,8 +1,8 @@
-package growth.entity.module.entity;
+package growth.game.entity.module.entity;
 
-import growth.entity.MovingEntity;
-import growth.entity.Player;
-import growth.entity.module.Module;
+import growth.game.entity.type.MovingEntity;
+import growth.game.entity.type.Player;
+import growth.game.entity.module.Module;
 
 /**
  * Entity fall module class.

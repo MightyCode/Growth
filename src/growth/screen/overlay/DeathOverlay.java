@@ -1,7 +1,6 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
-import growth.render.Render;
 import growth.render.shape.ShapeRenderer;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
