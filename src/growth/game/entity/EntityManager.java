@@ -40,8 +40,8 @@ public class EntityManager {
      * Display entities on the screen.
      */
     public void display(){
-        for(Entity entities : entity){
-            if(entities.isOnScreen()) entities.display();
+        for(int i = 0; i < entity.size(); i++){
+            if(entity.get(i).isOnScreen()) entity.get(i).display();
         }
     }
 
@@ -92,7 +92,9 @@ public class EntityManager {
      * Remove all of the entity.
      */
     public void removeAll(){
-        System.out.println("");
+        for(int i = 0; i < entity.size(); i++){
+            entity.get(i).unload();
+        }
         System.out.println("Clear " + entity.size() + " entities.");
         entity = new ArrayList<>();
 

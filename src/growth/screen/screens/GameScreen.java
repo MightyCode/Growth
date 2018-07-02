@@ -3,6 +3,8 @@ package growth.screen.screens;
 import growth.game.Hud;
 import growth.game.entity.EntityManager;
 import growth.render.Render;
+import growth.render.texture.Texture;
+import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
 import growth.screen.overlay.PauseOverlay;
@@ -95,6 +97,8 @@ public class GameScreen extends Screen {
      */
     public GameScreen(ScreenManager screenManager) {
         super(screenManager);
+
+        HUD.load();
         Render.setClearColor(0.67f, 0.85f, 0.90f, 1f);
         System.out.println("\n-------------------------- \n");
 
@@ -110,7 +114,8 @@ public class GameScreen extends Screen {
         ScreenManager.CAMERA.setTween(0.3f, 1f);
 
         // Init player
-        ENTITY_MANAGER.addEntity(player = new Player(this, tileMap, TILESIZE, TILESIZE));
+        player = new Player(this, tileMap, TILESIZE, TILESIZE);
+        ENTITY_MANAGER.addEntity(player);
 
         // Player begin in the ground on Panel 1
         player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
@@ -194,14 +199,16 @@ public class GameScreen extends Screen {
     public void display() {
         // clear the framebuffer
         Render.clear();
+
         switch (state) {
             case NORMALSCREEN:
                 displayGame();
                 HUD.display();
                 break;
             case TRANSITIONSCREEN:
-                displayTransition();
+                displayGame();
                 HUD.display();
+                displayTransition();
                 break;
             case ESCAPESCREEN:
                 displayGame();
@@ -233,7 +240,6 @@ public class GameScreen extends Screen {
      * Display the transition between two map
      */
     private void displayTransition() {
-        displayGame();
         if (transitionCounter <= transitionTime / 2) {
             ScreenManager.CAMERA.transition( 0, (float) Math.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));
         } else {
@@ -252,7 +258,7 @@ public class GameScreen extends Screen {
             transitionPoint = data[1];
             state = TRANSITIONSCREEN;
         } else if (side == 3){
-            player.setPosition(-100,-100);
+            player.died();
             state = DEATHSCREEN;
         }
     }
@@ -270,10 +276,10 @@ public class GameScreen extends Screen {
      */
     public void unload() {
         System.out.println("\n--------------------------- \n");
+        HUD.unload();
         pause.unload();
         death.unload();
         tileMap.unload();
-        player.unload();
         ENTITY_MANAGER.removeAll();
     }
 }

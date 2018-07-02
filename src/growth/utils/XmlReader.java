@@ -118,8 +118,6 @@ public abstract class XmlReader {
 
 				map.setLayer(Integer.parseInt(subRoot.getAttribute("position"))-1,mapId);
 			}
-
-			System.out.println("Map " + Integer.parseInt(root.getAttribute("id")) + " loaded.");
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();

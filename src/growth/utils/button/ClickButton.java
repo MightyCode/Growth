@@ -163,7 +163,7 @@ public class ClickButton extends AbstractInput {
      * Free the memory.
      */
     public void unload(){
-        texOver.unload();
         texIdle.unload();
+        texOver.unload();
     }
 }

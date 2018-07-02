@@ -54,13 +54,13 @@ public class Player extends MovingEntity{
 		cX = (int) (sizeX * 0.65);
 		cY = sizeY;
 		// Load the player
-		load();
 	}
 
 	/**
 	 * Load the player
 	 */
 	public void load(){
+		super.load();
 		// Movement
 		float walkSpeed = 2.5f;
 		float maxSpeed = 6f;
