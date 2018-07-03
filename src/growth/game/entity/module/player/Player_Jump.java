@@ -1,7 +1,7 @@
-package growth.entity.module.player;
+package growth.game.entity.module.player;
 
-import growth.entity.Player;
-import growth.entity.module.Module;
+import growth.game.entity.type.Player;
+import growth.game.entity.module.Module;
 import growth.screen.ScreenManager;
 
 /**
@@ -54,7 +54,6 @@ public class Player_Jump extends Module {
     public void update(){
         // Keys update
         boolean jumping = ScreenManager.KEY.key(2);
-        player.setJumping(jumping);
         boolean falling = player.getFalling();
 
         float speedY = player.getSpeedY();

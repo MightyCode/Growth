@@ -1,7 +1,7 @@
-package growth.entity.module.player;
+package growth.game.entity.module.player;
 
-import growth.entity.Player;
-import growth.entity.module.Module;
+import growth.game.entity.type.Player;
+import growth.game.entity.module.Module;
 import growth.screen.ScreenManager;
 
 /**
@@ -36,11 +36,11 @@ public class Admin_Layer extends Module{
      */
     public void update(){
         if(ScreenManager.KEY.keyPressed(8)) {
-           player.tileMap.upLayer();
+           player.upLayer();
         }
 
         if(ScreenManager.KEY.keyPressed(9)) {
-            player.tileMap.downLayer();
+            player.downLayer();
         }
     }
 }

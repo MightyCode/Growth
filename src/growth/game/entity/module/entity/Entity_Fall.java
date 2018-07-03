@@ -1,8 +1,8 @@
-package growth.entity.module.entity;
+package growth.game.entity.module.entity;
 
-import growth.entity.MovingEntity;
-import growth.entity.Player;
-import growth.entity.module.Module;
+import growth.game.entity.type.MovingEntity;
+import growth.game.entity.type.Player;
+import growth.game.entity.module.Module;
 
 /**
  * Entity fall module class.
@@ -61,7 +61,6 @@ public class Entity_Fall extends Module {
             speedY += fallSpeed;
             if (speedY >= 0){
                 if (speedY > maxFallSpeed) speedY = maxFallSpeed;
-                entity.setJumping(false);
                 entity.setAnimations(Player.FALLING, Player.FALLING_P);
             }
         }

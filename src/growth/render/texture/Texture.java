@@ -64,6 +64,12 @@ public class Texture {
     private boolean loaded;
 
     /**
+     * Path.
+     * This variables contains the path of texture charged.
+     */
+    private String path;
+
+    /**
      * Texture class constructor. Empty.
      */
     public Texture() {
@@ -107,6 +113,7 @@ public class Texture {
      */
     public void load(String path) {
         try {
+            this.path = path;
             BufferedImage image = ImageIO.read(getClass().getResourceAsStream(path));
             createImage(image);
         } catch (Exception e) {
@@ -130,7 +137,7 @@ public class Texture {
 
             image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
-            System.out.println("Texture num : " + id + " , loaded.");
+            System.out.println("Texture num : " + id + " , loaded with path : " + path);
 
             ByteBuffer buffer = BufferUtils.createByteBuffer(image.getHeight() * image.getWidth() * 4);
 

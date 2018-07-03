@@ -1,6 +1,6 @@
-package growth.entity.module;
+package growth.game.entity.module;
 
-import growth.entity.Entity;
+import growth.game.entity.type.Entity;
 
 /**
  * Mother module class.

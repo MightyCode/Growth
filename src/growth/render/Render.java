@@ -1,8 +1,5 @@
 package growth.render;
 
-import growth.render.shape.ShapeRenderer;
-import growth.render.texture.TextureRenderer;
-
 import static org.lwjgl.opengl.GL11.*;
 
 public abstract class Render {

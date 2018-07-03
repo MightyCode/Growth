@@ -1,7 +1,7 @@
-package growth.entity.module.player;
+package growth.game.entity.module.player;
 
-import growth.entity.Player;
-import growth.entity.module.Module;
+import growth.game.entity.type.Player;
+import growth.game.entity.module.Module;
 import growth.screen.ScreenManager;
 
 /**
@@ -36,12 +36,14 @@ public class Admin_PlayerHealth extends Module {
      */
     public void update(){
         if(ScreenManager.KEY.keyPressed(10)) {
+            System.out.println("Before : " + player.getMaxHealthPoint());
             player.setMaxHealthPoint(player.getMaxHealthPoint()-2);
             System.out.println(":(admin):");
             System.out.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");
         }
 
         if(ScreenManager.KEY.keyPressed(11)) {
+            System.out.println("Before : " + player.getMaxHealthPoint());
             player.setMaxHealthPoint(player.getMaxHealthPoint()+2);
             System.out.println(":(admin):");
             System.out.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");

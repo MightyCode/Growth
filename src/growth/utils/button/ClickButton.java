@@ -1,6 +1,5 @@
 package growth.utils.button;
 
-import growth.render.Render;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
@@ -164,7 +163,7 @@ public class ClickButton extends AbstractInput {
      * Free the memory.
      */
     public void unload(){
-        texOver.unload();
         texIdle.unload();
+        texOver.unload();
     }
 }

@@ -105,7 +105,6 @@ public class Map {
 			exit[side][i][2] = old[i][2];
 			exit[side][i][3] = old[i][3];
 		}
-		System.out.println("Side -> " + side + " Point -> " + pointName + " MapID -> " + mapID + " beg -> " +beg + " end -> " + end);
 
 		exit[side][exit[side].length-1][0] = mapID;
 		exit[side][exit[side].length-1][1] = pointName;

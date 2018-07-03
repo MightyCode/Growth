@@ -103,7 +103,9 @@ public class ScreenManager {
      * Unload the currentScreen.
      */
     private void currentScreenUnload() {
+        System.out.println("\n -------------------------- \n");
         ActualScreen.unload();
+        System.out.println("\n -------------------------- \n");
     }
 
     /**
@@ -112,6 +114,5 @@ public class ScreenManager {
     public void unload() {
         ActualScreen.unload();
         ActualScreen = null;
-        GameScreen.HUD.unload();
     }
 }
