@@ -106,20 +106,6 @@ public class BasicEntity extends Entity{
 	 */
 
     /**
-     * Return position x.
-     *
-     * @return posX
-     */
-    public int getPosX() { return (int) posX; }
-
-    /**
-     * Return position y.
-     *
-     * @return posY
-     */
-    public int getPosY() { return (int) posY; }
-
-    /**
      * Return collision's box size x.
      *
      * @return cX
@@ -154,17 +140,6 @@ public class BasicEntity extends Entity{
     /*
      * Setters
      */
-
-    /**
-     * Set the entity's position.
-     *
-     * @param posX New position x.
-     * @param posY New position y.
-     */
-    public void setPosition(float posX, float posY) {
-        this.posX = posX;
-        this.posY = posY;
-    }
 
     /**
      * Set the new animation if the priority of the new animation is

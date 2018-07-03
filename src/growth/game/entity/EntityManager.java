@@ -1,6 +1,9 @@
 package growth.game.entity;
 
 import growth.game.entity.type.Entity;
+import growth.game.entity.type.MovingEntity;
+import growth.game.entity.type.Player;
+import growth.screen.ScreenManager;
 
 import java.util.ArrayList;
 
@@ -25,7 +28,10 @@ public class EntityManager {
      */
     public EntityManager(){
         entity = new ArrayList<>();
+        toRemove = new ArrayList<>();
     }
+
+    private ArrayList<Entity> toRemove;
 
     /**
      * Update entities on screen.
@@ -34,6 +40,14 @@ public class EntityManager {
         for(Entity entities : entity){
             entities.update();
         }
+    }
+
+    public void dispose(){
+        for(Entity entities: toRemove){
+            entity.remove(entities);
+        }
+
+        toRemove = new ArrayList<>();
     }
 
     /**
@@ -51,52 +65,57 @@ public class EntityManager {
      * @param newEntity The new entity to add.
      */
     public void addEntity(Entity newEntity){
-        // Check if a place is free
-        int result = checkPlace();
-
-        // If not
-        if(result == -1){
-            entity.add(newEntity);
-            entity.get(entity.size()-1).setId(entity.size()-1);
-        } else{
-            entity.remove(checkPlace());
-            entity.add(checkPlace()-1,newEntity);
-            entity.get(checkPlace()).setId(checkPlace());
-        }
+        entity.add(newEntity);
     }
 
     /**
      * Remove an entity from the Array list.
-     *
-     * @param id The id of the entity to suppress.
      */
-    public void removeEntity(int id){
-        entity.remove(id);
-        // Add an NULL entity
-        entity.add(id, (new Entity(1,0)));
-    }
-
-    /**
-     * Check if a place is free for a new entity.
-     *
-     * @return The identifier.
-     */
-    private int checkPlace(){
-        for(int i = 0; i < entity.size(); i++){
-            if(entity.get(i).getType() == -1) return i;
-        }
-        return -1;
+    public void removeEntity(Entity entity){
+        toRemove.add(entity);
     }
 
     /**
      * Remove all of the entity.
      */
     public void removeAll(){
-        for(int i = 0; i < entity.size(); i++){
-            entity.get(i).unload();
-        }
         System.out.println("Clear " + entity.size() + " entities.");
+        for(int i = 0; i < entity.size(); i++){
+            entity.get(0).unload();
+            entity.remove(0);
+        }
         entity = new ArrayList<>();
+    }
 
+    public void setPosition(float x, float y, int id){
+        entity.get(id).setPosition(x,y);
+    }
+
+    public void setCamera(int id){
+        ScreenManager.CAMERA.setEntityToCamera((MovingEntity)entity.get(id));
+    }
+
+    public int getCX(int id){
+        return ((MovingEntity)entity.get(id)).getCX();
+    }
+
+    public int getCY(int id){
+        return ((MovingEntity)entity.get(id)).getCY();
+    }
+
+    public void setSpeed(float x, float y, int id){
+        ((MovingEntity)entity.get(id)).setSpeed(x,y);
+    }
+
+    public Entity getEntity(int id){
+        return entity.get(id);
+    }
+
+    public int getPosX(int id){
+        return (entity.get(id)).getPosX();
+    }
+
+    public int getPosY(int id){
+        return (entity.get(id)).getPosY();
     }
 }

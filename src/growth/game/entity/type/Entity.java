@@ -38,12 +38,6 @@ public class Entity {
 	protected int sizeY;
 
 	/**
-	 * Identifier of the entity.
-	 * This variable contains the identifier of the entity. Using by the entity Manager of the game.
-	 */
-	protected int id;
-
-	/**
 	 * Player's type.
 	 * This variable contains the type of the entity (null or player for example).
 	 */
@@ -69,12 +63,6 @@ public class Entity {
 
 
 	/**
-	 * Entity class surcharge constructor.
-	 * Instance the class and set the entity's id and the entity'stype.
-	 */
-	public Entity(int id, int type){this.id = id; this.type = type;}
-
-	/**
 	 * Display the entity.
 	 */
 	public void display(){}
@@ -87,7 +75,7 @@ public class Entity {
 	/**
 	 * Unload the entity.
 	 */
-	public void unload(){ GameScreen.ENTITY_MANAGER.removeEntity(id); }
+	public void unload(){ GameScreen.ENTITY_MANAGER.removeEntity(this); }
 
 	/**
 	 * Test if the entity isn't on screen.
@@ -108,12 +96,20 @@ public class Entity {
 		return type;
 	}
 
+
 	/**
-	 * Set the if of the entity.
+	 * Return position x.
 	 *
-	 * @param id Id of the entity.
+	 * @return posX
 	 */
-	public void setId(int id){this.id = id;}
+	public int getPosX() { return (int) posX; }
+
+	/**
+	 * Return position y.
+	 *
+	 * @return posY
+	 */
+	public int getPosY() { return (int) posY; }
 
 	/**
 	 * Set the type of the entity.
@@ -121,4 +117,16 @@ public class Entity {
 	 * @param type New type for the entity.
 	 */
 	public void setType(int type) {this.type = type;}
+
+
+	/**
+	 * Set the entity's position.
+	 *
+	 * @param posX New position x.
+	 * @param posY New position y.
+	 */
+	public void setPosition(float posX, float posY) {
+		this.posX = posX;
+		this.posY = posY;
+	}
 }

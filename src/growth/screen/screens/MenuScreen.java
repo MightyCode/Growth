@@ -98,7 +98,6 @@ public class MenuScreen extends Screen {
      * Unload the textures in menu to free memory.
      */
     public void unload(){
-        System.out.println("\n-------------------------- \n");
         title.unload();
         but1.unload();
         but2.unload();

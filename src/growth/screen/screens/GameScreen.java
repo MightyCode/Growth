@@ -72,12 +72,6 @@ public class GameScreen extends Screen {
     private final TileMap tileMap;
 
     /**
-     * Player.
-     * This variable contains the player to ... play.
-     */
-    private final Player player;
-
-    /**
      * Pause Overlay.
      * This variable contains the pause overlay.
      */
@@ -113,15 +107,13 @@ public class GameScreen extends Screen {
         tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
         ScreenManager.CAMERA.setTween(0.3f, 1f);
 
-        // Init player
-        player = new Player(this, tileMap, TILESIZE, TILESIZE);
-        ENTITY_MANAGER.addEntity(player);
+        ENTITY_MANAGER.addEntity(new Player(this, tileMap, TILESIZE, TILESIZE));
 
         // Player begin in the ground on Panel 1
-        player.setPosition(24 * TILESIZE, 6 * TILESIZE - player.getCY() / 2);
+        ENTITY_MANAGER.setPosition(24 * TILESIZE, 6 * TILESIZE - ENTITY_MANAGER.getCY(0) / 2,0);
 
         // Add player for the camera
-        ScreenManager.CAMERA.setEntityToCamera(player);
+        ENTITY_MANAGER.setCamera(0);
 
         // Set the position of map before beginning of the game
         ScreenManager.CAMERA.setPosition(false);
@@ -166,15 +158,16 @@ public class GameScreen extends Screen {
         ScreenManager.CAMERA.setPosition(true);
 
         // Check border player collision to change the map
-        if (player.getPosX() - player.getCX() / 2 <= 0) {
+        if (ENTITY_MANAGER.getPosX(0) - ENTITY_MANAGER.getCX(0) / 2 <= 0) {
             changeMap(0);
-        } else if (player.getPosX() + player.getCX() / 2 >= tileMap.getSizeX()) {
+        } else if (ENTITY_MANAGER.getPosX(0) + ENTITY_MANAGER.getCX(0) / 2 >= tileMap.getSizeX()) {
             changeMap(2);
-        } else if(player.getPosY() + player.getCY()/ 2 >= tileMap.getSizeY()){
+        } else if(ENTITY_MANAGER.getPosY(0) + ENTITY_MANAGER.getCY(0)/ 2 >= tileMap.getSizeY()){
             changeMap(3);
         }
 
         HUD.update();
+        ENTITY_MANAGER.dispose();
     }
 
     /**
@@ -184,9 +177,9 @@ public class GameScreen extends Screen {
         transitionCounter++;
         if (transitionCounter == transitionTime / 2) {
             float[] pos = tileMap.changeMap(transitionSide,transitionPoint);
-            player.setPosition(pos[0], pos[1] - player.getCY() / 2);
+            ENTITY_MANAGER.setPosition(pos[0],pos[1] - ENTITY_MANAGER.getCY(0) / 2, 0);
             ScreenManager.CAMERA.setPosition(false);
-            player.setSpeed(0, 0);
+            ENTITY_MANAGER.setSpeed(0,0,0);
         } else if (transitionCounter > transitionTime) {
             state = NORMALSCREEN;
             transitionCounter = 0;
@@ -252,6 +245,7 @@ public class GameScreen extends Screen {
      *
      */
     private void changeMap(int side) {
+        Player player = (Player) ENTITY_MANAGER.getEntity(0);
         int[] data = tileMap.isMap(side, player.getPosX(), player.getPosY());
         if(data[0] != 0){
             transitionSide = side;
@@ -275,7 +269,6 @@ public class GameScreen extends Screen {
      * Unload the texture to free memory.
      */
     public void unload() {
-        System.out.println("\n--------------------------- \n");
         HUD.unload();
         pause.unload();
         death.unload();

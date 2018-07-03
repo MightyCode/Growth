@@ -71,10 +71,6 @@ public class Player extends MovingEntity{
 		float stopJumpSpeed = 0.2f;
 		float runSpeed = 1.45f;
 
-		setMaxHealthPoint(2);
-		setHealthPoint(2);
-
-
 		// Add the modules of action to the player
 		modules = new ArrayList<>();
 		modules.add(new Player_Movement(this,walkSpeed, maxSpeed, stopSpeed));
@@ -85,6 +81,9 @@ public class Player extends MovingEntity{
 			modules.add(new Admin_Layer(this));
 			modules.add(new Admin_PlayerHealth(this));
 		}
+
+		setMaxHealthPoint(2);
+		setHealthPoint(2);
 
 		// Sprite and Animation
 		facing = true;
@@ -114,6 +113,10 @@ public class Player extends MovingEntity{
 	public void setMaxHealthPoint(int newValue){
 		super.setMaxHealthPoint(newValue);
 		GameScreen.HUD.setMaxHealth(maxHealthPoint);
+	}
+
+	public void update(){
+		super.update();
 	}
 
 	/**

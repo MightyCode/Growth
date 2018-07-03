@@ -36,12 +36,14 @@ public class Admin_PlayerHealth extends Module {
      */
     public void update(){
         if(ScreenManager.KEY.keyPressed(10)) {
+            System.out.println("Before : " + player.getMaxHealthPoint());
             player.setMaxHealthPoint(player.getMaxHealthPoint()-2);
             System.out.println(":(admin):");
             System.out.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");
         }
 
         if(ScreenManager.KEY.keyPressed(11)) {
+            System.out.println("Before : " + player.getMaxHealthPoint());
             player.setMaxHealthPoint(player.getMaxHealthPoint()+2);
             System.out.println(":(admin):");
             System.out.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");

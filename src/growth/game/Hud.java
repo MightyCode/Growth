@@ -128,8 +128,7 @@ public class Hud {
 
         // Set the heart's bar
         currentHealth = 0;
-        maxHealth = 0;
-        setMaxHealth(maxHealth);
+        setMaxHealth(maxHealth = 0);
         sinCounter = 0;
     }
 

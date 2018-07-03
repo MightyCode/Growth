@@ -132,13 +132,13 @@ public class MovingEntity extends BasicEntity {
      * Health point.
      * This variable contains the health point of the entity.
      */
-    protected int healthPoint = 1;
+    protected int healthPoint;
 
     /**
      * Max health point.
      * This variable contains the maximum health point of the entity.
      */
-    protected int maxHealthPoint = 1;
+    protected int maxHealthPoint;
 
     /**
      * Moving Entity constructor.
@@ -353,15 +353,6 @@ public class MovingEntity extends BasicEntity {
     public void setSpeedY(float speedY){this.speedY = speedY;}
 
     /**
-     * Change the max value of health.
-     * @param newValue New maximum health value.
-     */
-    public void setMaxHealthPoint(int newValue){
-        if(newValue > 0)
-        maxHealthPoint = newValue;
-    }
-
-    /**
      * To take damage
      * @param damage The number of the damage
      */
@@ -379,6 +370,15 @@ public class MovingEntity extends BasicEntity {
             healthPoint = newValue;
             if(healthPoint<=0){died();}
         }
+    }
+
+    /**
+     * Change the max value of health.
+     * @param newValue New maximum health value.
+     */
+    public void setMaxHealthPoint(int newValue){
+        if(newValue > 0) maxHealthPoint = newValue;
+        if(healthPoint > maxHealthPoint) healthPoint = maxHealthPoint;
     }
 
     /*
