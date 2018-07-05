@@ -139,7 +139,7 @@ public class Window {
 
         // System of tps clock, tps and fps counters
         long start = 0;
-        long wait = 1000000000/TPS;
+        long wait = 980000000/TPS;
         long second = System.nanoTime();
         int fps = 0;
         int tps = 0;

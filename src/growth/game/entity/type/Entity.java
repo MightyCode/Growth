@@ -65,7 +65,8 @@ public class Entity {
 	/**
 	 * Display the entity.
 	 */
-	public void display(){}
+	public void display(){
+	}
 
 	/**
 	 * Update the entity.
@@ -110,6 +111,10 @@ public class Entity {
 	 * @return posY
 	 */
 	public int getPosY() { return (int) posY; }
+
+	public int getSizeX(){return sizeX;}
+
+	public int getSizeY(){return sizeY;}
 
 	/**
 	 * Set the type of the entity.

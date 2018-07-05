@@ -67,4 +67,6 @@ public class Entity_Fall extends Module {
 
         entity.setSpeedY(speedY);
     }
+
+    public void display(){}
 }

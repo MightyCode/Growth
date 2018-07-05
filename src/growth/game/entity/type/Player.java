@@ -53,7 +53,6 @@ public class Player extends MovingEntity{
 		this.sizeY = sizeY;
 		cX = (int) (sizeX * 0.65);
 		cY = sizeY;
-		// Load the player
 	}
 
 	/**
@@ -72,7 +71,6 @@ public class Player extends MovingEntity{
 		float runSpeed = 1.45f;
 
 		// Add the modules of action to the player
-		modules = new ArrayList<>();
 		modules.add(new Player_Movement(this,walkSpeed, maxSpeed, stopSpeed));
 		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
 		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
@@ -87,10 +85,8 @@ public class Player extends MovingEntity{
 
 		// Sprite and Animation
 		facing = true;
-		animationPlayed = 0;
 
 		// Load animation and animationFrame
-		animations = new ArrayList<>();
 		animations.add(new Animation("/images/game/entity/character/idle/", 1, 100));
 		animations.add(new Animation("/images/game/entity/character/walk/", 10, 4));
 		animations.add(new Animation("/images/game/entity/character/jump/", 1, 100));

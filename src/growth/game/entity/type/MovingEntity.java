@@ -6,6 +6,8 @@ import growth.screen.screens.GameScreen;
 import growth.game.tilemap.Tile;
 import growth.game.tilemap.TileMap;
 
+import java.util.ArrayList;
+
 /**
  * Moving entity class.
  * This class is the mother class of all entity who move.
@@ -148,20 +150,16 @@ public class MovingEntity extends BasicEntity {
      * @param tileSize The size of the tile.
      * @param tileMap Add tileMap to the entity.
      */
-    MovingEntity(GameScreen gameScreen, int tileSize, TileMap tileMap) {
+    public MovingEntity(GameScreen gameScreen, int tileSize, TileMap tileMap) {
         super(gameScreen, tileSize);
         speedX = 0;
         speedY = 0;
         this.tileMap = tileMap;
+
     }
 
     public void update(){
-        animationPlayed = IDLE;
-        priority = IDLE_P;
-        for(Module module : modules){
-            module.update();
-        }
-
+        super.update();
         checkTileMapCollision();
         setPosition(xTemp, yTemp);
 
@@ -170,22 +168,25 @@ public class MovingEntity extends BasicEntity {
         else if (speedX > 0) facing = true;
 
         // And update chosen animation
+        if(animations.size()>0) //TODO IF the entity hasn't animation.
         animations.get(animationPlayed).update(speed);
     }
 
     public void display(){
-        if (facing) {
-            TextureRenderer.image(
-                    (posX - sizeX / 2),
-                    (posY - sizeY / 2),
-                    sizeX*1f, sizeY*1f,
-                    animations.get(animationPlayed).getCurrentID(),1f ,1f);
-        } else {
-            TextureRenderer.image(
-                    (posX - sizeX / 2 + sizeX),
-                    (posY - sizeY / 2),
-                    -sizeX, sizeY,
-                    animations.get(animationPlayed).getCurrentID(),1f ,1f);
+        if(animations.size()>0) {  //TODO IF the entity hasn't animation.
+            if (facing) {
+                TextureRenderer.image(
+                        (posX - sizeX / 2),
+                        (posY - sizeY / 2),
+                        sizeX * 1f, sizeY * 1f,
+                        animations.get(animationPlayed).getCurrentID(), 1f, 1f);
+            } else {
+                TextureRenderer.image(
+                        (posX - sizeX / 2 + sizeX),
+                        (posY - sizeY / 2),
+                        -sizeX, sizeY,
+                        animations.get(animationPlayed).getCurrentID(), 1f, 1f);
+            }
         }
     }
 

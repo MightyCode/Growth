@@ -56,8 +56,8 @@ public abstract class ShapeRenderer {
      * @param color Black shades colour.
      * @param alpha Opacity of the image.
      */
-    private static void rect(int posX, int posY, int sizeX, int sizeY, int[] color, float alpha) {
-        int newPosY = Window.HEIGHT - posY - sizeY;
+    public static void rect(float posX, float posY, float sizeX, float sizeY, int[] color, float alpha) {
+        float newPosY = Window.HEIGHT - posY - sizeY;
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_TEXTURE);
         glColor4f(color[0], color[1], color[2], alpha);

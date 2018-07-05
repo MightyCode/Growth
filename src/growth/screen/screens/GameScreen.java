@@ -2,6 +2,9 @@ package growth.screen.screens;
 
 import growth.game.Hud;
 import growth.game.entity.EntityManager;
+import growth.game.entity.type.DummyEntity;
+import growth.game.entity.type.Entity;
+import growth.game.entity.type.MovingEntity;
 import growth.render.Render;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
@@ -154,7 +157,6 @@ public class GameScreen extends Screen {
         }
         // Update player
         ENTITY_MANAGER.update();
-
         ScreenManager.CAMERA.setPosition(true);
 
         // Check border player collision to change the map

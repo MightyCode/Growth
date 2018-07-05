@@ -70,6 +70,9 @@ public class BasicEntity extends Entity{
      * @param tileSize The size of the tile.
      */
     public BasicEntity(GameScreen gameScreen, int tileSize) {
+        modules = new ArrayList<>();
+        animations = new ArrayList<>();
+        animationPlayed = 0;
         this.gameScreen = gameScreen;
         this.tileSize = tileSize;
         load();
@@ -119,13 +122,24 @@ public class BasicEntity extends Entity{
      */
     public int getCY() { return cY; }
 
-    public void update(){}
+    public void update(){
+        animationPlayed = IDLE;
+        priority = IDLE_P;
+        for(Module module : modules){
+            module.update();
+        }
+    }
     public void display(){
-        TextureRenderer.image(
-                (posX - sizeX / 2),
-                (posY - sizeY / 2),
-                sizeX*1f, sizeY*1f,
-                animations.get(animationPlayed).getCurrentID(),1f ,1f);
+        for(Module module : modules){
+            module.display();
+        }
+        if(animations.size() > 0) {
+            TextureRenderer.image(
+                    (posX - sizeX / 2),
+                    (posY - sizeY / 2),
+                    sizeX * 1f, sizeY * 1f,
+                    animations.get(animationPlayed).getCurrentID(), 1f, 1f);
+        }
     }
 
     /**

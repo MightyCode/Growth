@@ -43,4 +43,6 @@ public class Admin_Layer extends Module{
             player.downLayer();
         }
     }
+
+    public void display(){}
 }

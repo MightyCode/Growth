@@ -54,8 +54,8 @@ public class EntityManager {
      * Display entities on the screen.
      */
     public void display(){
-        for(int i = 0; i < entity.size(); i++){
-            if(entity.get(i).isOnScreen()) entity.get(i).display();
+        for (Entity anEntity : entity) {
+            anEntity.display();
         }
     }
 

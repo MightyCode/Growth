@@ -61,4 +61,6 @@ public class Admin_PlayerHealth extends Module {
             System.out.println("\033[34mNew player health value : \033[0m" + player.getHealthPoint() + "\n");
         }
     }
+
+    public void display(){}
 }

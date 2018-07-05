@@ -23,12 +23,17 @@ public abstract class Module {
      *
      * @param entity Entity using the module.
      */
-    protected Module(Entity entity){
+    protected Module(Entity entity) {
         this.entity = entity;
     }
 
     /**
      * Update the entity with the utility of the module.
      */
-    public void update(){}
+    public abstract void update();
+
+    /**
+     * Display the entity with the utility of the module.
+     */
+    public abstract void display();
 }

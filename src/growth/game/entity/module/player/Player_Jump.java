@@ -74,4 +74,6 @@ public class Player_Jump extends Module {
 
         player.setSpeedY(speedY);
     }
+
+    public void display(){}
 }
