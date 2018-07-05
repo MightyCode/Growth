@@ -26,9 +26,9 @@
     <texture id="24" name="grass-Right" type="1" x="7" y="1"/>
     <texture id="25" name="grass-CornerLeft" type="0" x="8" y="1"/>
     <texture id="26" name="grass-CornerRight" type="0" x="9" y="1"/>
-    <texture id="27" name="fence-left" type="0" x="10" y="1"/>
-    <texture id="28" name="fence-middle" type="0" x="11" y="1"/>
-    <texture id="29" name="fence-right" type="0" x="12" y="1"/>
+    <texture id="27" name="fence-Left" type="0" x="10" y="1"/>
+    <texture id="28" name="fence-Middle" type="0" x="11" y="1"/>
+    <texture id="29" name="fence-Right" type="0" x="12" y="1"/>
 
     <texture id="32" name="panel-1" type="0" x="15" y="1"/>
     <texture id="33" name="bush-1-1-Left" type="0" x="0" y="2"/>
@@ -39,4 +39,12 @@
     <texture id="38" name="bush-1-2-Right" type="0" x="5" y="2"/>
     <texture id="39" name="bush-2-2-Left" type="0" x="6" y="2"/>
     <texture id="40" name="bush-2-2-Right" type="0" x="7" y="2"/>
+    <texture id="41" name="tree-1-Left" type="1" x="8" y="2"/>
+    <texture id="42" name="tree-1-Up" type="1" x="9" y="2"/>
+    <texture id="43" name="tree-1-Right" type="1" x="10" y="2"/>
+    <texture id="44" name="tree-1-Down" type="1" x="11" y="2"/>
+    <texture id="45" name="tree-2-Left" type="1" x="12" y="2"/>
+    <texture id="46" name="tree-2-Up" type="1" x="13" y="2"/>
+    <texture id="47" name="tree-2-Right" type="1" x="14" y="2"/>
+    <texture id="48" name="tree-2-Down" type="1" x="15" y="2"/>
 </tileset>
