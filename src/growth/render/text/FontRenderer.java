@@ -1,7 +1,9 @@
 package growth.render.text;
 
+import growth.main.Window;
 import growth.math.Color4;
 import growth.math.Vec2;
+import growth.screen.ScreenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +133,7 @@ public class FontRenderer {
         glBegin(GL_QUADS);
             for (int i = 0; i < mesh.size(); i++) {
                 glTexCoord2f(texture.get(i).getX(), texture.get(i).getY());
-                glVertex2f(mesh.get(i).getX() * size + pos.getX(), mesh.get(i).getY() * size + pos.getY());
+                glVertex2f(mesh.get(i).getX() * size + pos.getX() - ScreenManager.CAMERA.getPosX(), mesh.get(i).getY() * size + pos.getY() - ScreenManager.CAMERA.getPosY());
             }
         glEnd();
     }

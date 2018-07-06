@@ -97,6 +97,10 @@ public class TextureRenderer {
         image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, textID, color, alpha);
     }
 
+    public static void imageC(float posX, float posY, float sizeX, float sizeY){
+        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY);
+    }
+
     /**
      * Display an image.
      *

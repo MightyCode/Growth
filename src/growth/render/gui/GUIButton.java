@@ -87,10 +87,10 @@ public class GUIButton {
      */
     public void display() {
         if (!mouseOver) {
-            ShapeRenderer.rect(pos, size, backgroundColor);
+            ShapeRenderer.rectC(pos, size, backgroundColor);
             fontRenderer.render();
         } else {
-            ShapeRenderer.rect(pos, size, hoverColor);
+            ShapeRenderer.rectC(pos, size, hoverColor);
             fontRenderer.render();
         }
     }
@@ -105,5 +105,10 @@ public class GUIButton {
      */
     public void unload(){
 
+    }
+
+    public void setPos(Vec2 pos) {
+        this.pos = new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2));
+        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) - (fontRenderer.getWidth() / 2), this.pos.getY() + 3));
     }
 }
