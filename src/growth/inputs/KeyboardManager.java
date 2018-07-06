@@ -1,4 +1,4 @@
-package growth.utils;
+package growth.inputs;
 
 import growth.main.Window;
 
