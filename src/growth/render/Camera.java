@@ -2,6 +2,8 @@ package growth.render;
 
 import growth.game.entity.type.MovingEntity;
 import growth.main.Window;
+import growth.math.Color4;
+import growth.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 
 import static org.lwjgl.opengl.GL11.glTranslatef;
@@ -152,7 +154,7 @@ public class Camera {
      * @param alpha The alpha of the transition.
      */
     public void transition(int color, float alpha){
-        ShapeRenderer.rect(-posX, -posY, Window.WIDTH, Window.HEIGHT, color, alpha);
+        ShapeRenderer.rect(new Vec2(-posX, -posY), new Vec2(Window.WIDTH, Window.HEIGHT), new Color4(color, color, color, alpha));
     }
 
     /**

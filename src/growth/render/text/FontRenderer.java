@@ -36,6 +36,11 @@ public class FontRenderer {
     private Color4 color;
 
     /**
+     * Width of text.
+     */
+    private float width;
+
+    /**
      * Text mesh position data.
      */
     private List<Vec2> mesh;
@@ -109,6 +114,8 @@ public class FontRenderer {
 
                 currentX += fontChar.getxAdvance();
             }
+
+            width = Math.max(width, currentX);
 
             currentX = 0;
             lineY += font.getFontFile().getLineHeight();
@@ -221,5 +228,14 @@ public class FontRenderer {
      */
     public void setColor(Color4 color) {
         this.color = color;
+    }
+
+    /**
+     * Get text width;
+     *
+     * @return width;
+     */
+    public float getWidth() {
+        return width * size;
     }
 }

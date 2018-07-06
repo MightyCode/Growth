@@ -27,10 +27,31 @@ public class TextureRenderer {
      * @param alpha Opacity of the image.
      * @param color The color of the image.
      */
+
+
     public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha){
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textID);
         glColor4f(color, color, color, alpha);
+
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.f, 0.f);
+        glVertex2f(posX, posY);
+
+        glTexCoord2f(0.f, 1.f);
+        glVertex2f(posX, posY + sizeY);
+
+        glTexCoord2f(1.f, 1.f);
+        glVertex2f(posX + sizeX, posY + sizeY);
+
+        glTexCoord2f(1.f, 0.f);
+        glVertex2f(posX + sizeX, posY);
+        glEnd();
+    }
+
+    public static void image(float posX, float posY, float sizeX, float sizeY){
+        glActiveTexture(GL_TEXTURE0);
+        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
         glBegin(GL_QUADS);
         glTexCoord2f(0.f, 0.f);
