@@ -1,4 +1,4 @@
-package growth.utils;
+package growth.util;
 
 public class Timer {
     /**

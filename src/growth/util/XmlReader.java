@@ -1,4 +1,4 @@
-package growth.utils;
+package growth.util;
 
 import growth.game.tilemap.Map;
 import growth.game.tilemap.Tile;
