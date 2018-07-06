@@ -26,22 +26,16 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Window {
 
     /**
-     * Window class constructor.
-     * Do nothing for the moment
-     */
-    public Window(){}
-
-    /**
      * Window id.
      * This global variable contains the id of window using for many things.
      */
-    public static final long WINDOWID = createWindow();
+    public static long windowID;
 
     /**
      * Screen manager.
      * This global variable contains the manager of game'screens.
      */
-    public static final ScreenManager SCREENMANAGER = new ScreenManager();
+    public static ScreenManager screenManager;
 
     /**
      * Width window size.
@@ -60,6 +54,15 @@ public class Window {
      * This global variable contains the refresh rate per second.
      */
     private static final int TPS = 60;
+
+    /**
+     * Window class constructor.
+     * Do nothing for the moment
+     */
+    public Window(){
+        windowID = createWindow();
+        screenManager = new ScreenManager();
+    }
 
     /**
      * Create the window and return the window'id into the global variable WINDOW_ID.
@@ -132,34 +135,34 @@ public class Window {
     /**
      * Main method of game.
      */
-    private void loop() {
+    private static void loop() {
         // Set render parameters
         Render.setClearColor(225,255);
         Render.glEnable2D();
 
         // System of tps clock, tps and fps counters
         long start = 0;
-        long wait = 980000000/TPS;
+        long wait = 980000000 / TPS;
         long second = System.nanoTime();
         int fps = 0;
         int tps = 0;
 
-        while(true){
+        while(!glfwWindowShouldClose(windowID)){
             long now = System.nanoTime();
 
             // Update system
             if (now - start > wait) {
-                SCREENMANAGER.update();
+                screenManager.update();
                 start = System.nanoTime();
                 tps++;
             }
 
             // Display system
-            SCREENMANAGER.display();
+            screenManager.display();
             fps++;
 
             // Swap the color buffers
-            glfwSwapBuffers(WINDOWID);
+            glfwSwapBuffers(windowID);
 
             if (second + 1000000000 < System.nanoTime()) {
                 System.out.println("\n-_-_-_-_-_-_-_-_-_-_-_-_-\n \033[92m FPS : " + fps + "   TPS : " + tps + "\033[0m");
@@ -168,27 +171,25 @@ public class Window {
             }
 
             glfwPollEvents();
-            if (glfwWindowShouldClose(WINDOWID)) {
-                exit();
-            }
         }
     }
 
     /**
      * Exit the game.
      */
-    public void exit() {
-        SCREENMANAGER.unload();
+    public static void exit() {
+        screenManager.unload();
+
         // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(WINDOWID);
-        glfwDestroyWindow(WINDOWID);
+        glfwFreeCallbacks(windowID);
+        glfwDestroyWindow(windowID);
 
         // Terminate GLFW and free the error callback
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
         System.out.println("\n-------------------------- \n");
-        System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Bouin Alexandre" +
-                "\033[0m and\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
+        System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Boin Alexandre" +
+                "\033[0m and mainly \033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
         System.out.println("\n-------------------------- \n");
 
         System.exit(0);
