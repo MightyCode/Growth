@@ -1,6 +1,5 @@
 package growth.screen.screens;
 
-import growth.main.Growth;
 import growth.render.Render;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
@@ -51,7 +50,7 @@ public class MenuScreen extends Screen {
         super(screenManager);
         Render.setClearColor(1f,1f);
 
-        title = new Texture("/images/menu/Title.png");
+        title = new Texture("/textures/menu/Title.png");
 
         but1 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.45), 200, 100, "Play", this) {
             @Override

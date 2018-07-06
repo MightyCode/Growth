@@ -82,7 +82,7 @@ public class GameScreen extends Screen {
 
     /**
      * Death Overlay.
-     * This variable contains the overlay of death that appears when the character dies.
+     * This variable contains the overlay of death that appears when the player dies.
      */
     private final DeathOverlay death;
 

@@ -82,8 +82,8 @@ public class ClickButton extends AbstractInput {
         overSizeY = (int)( sizeY*1.1);
         // Textures
 
-        texIdle = new Texture("/images/menu/" + name + ".png");
-        texOver= new Texture("/images/menu/" + name + "-hover.png");
+        texIdle = new Texture("/textures/menu/" + name + ".png");
+        texOver= new Texture("/textures/menu/" + name + "-hover.png");
         // Mouse interaction class
     }
 
@@ -108,8 +108,8 @@ public class ClickButton extends AbstractInput {
         overSizeY = (int)( sizeY*1.1);
         // Textures
 
-        texIdle = new Texture("/images/menu/" + name + ".png");
-        texOver= new Texture("/images/menu/" + name + "-hover.png");
+        texIdle = new Texture("/textures/menu/" + name + ".png");
+        texOver= new Texture("/textures/menu/" + name + "-hover.png");
         // Mouse interaction class
     }
 
