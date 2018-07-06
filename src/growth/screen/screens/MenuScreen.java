@@ -69,7 +69,7 @@ public class MenuScreen extends Screen {
         but3 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.85), 200, 100, "Quit", this) {
             @Override
             public void action() {
-                Growth.WINDOW.exit();
+                Window.exit();
             }
         };
     }

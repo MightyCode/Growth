@@ -72,7 +72,7 @@ public class KeyboardManager {
      * @return State of the key.
      */
     public boolean key(int keyID){
-        return glfwGetKey(Window.WINDOWID, keys[keyID]) == 1;
+        return glfwGetKey(Window.windowID, keys[keyID]) == 1;
     }
 
     /**
@@ -83,7 +83,7 @@ public class KeyboardManager {
      */
     public boolean keyPressed(int keyID){
         tempState[keys[keyID]] = state[keys[keyID]];
-        state[keys[keyID]] = glfwGetKey(Window.WINDOWID, keys[keyID]) == 1;
+        state[keys[keyID]] = glfwGetKey(Window.windowID, keys[keyID]) == 1;
 
         return (state[keys[keyID]] && !tempState[keys[keyID]]);
     }
@@ -96,7 +96,7 @@ public class KeyboardManager {
      */
     public boolean keyReleased(int keyID){
         tempState[keys[keyID]] = state[keys[keyID]];
-        state[keys[keyID]] = glfwGetKey(Window.WINDOWID, keys[keyID]) == 1;
+        state[keys[keyID]] = glfwGetKey(Window.windowID, keys[keyID]) == 1;
 
         return (!state[keys[keyID]] && tempState[keys[keyID]]);
     }
