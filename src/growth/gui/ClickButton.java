@@ -1,11 +1,11 @@
-package growth.utils.button;
+package growth.gui;
 
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.Overlay;
 import growth.screen.screens.Screen;
-import growth.utils.MouseManager;
+import growth.inputs.MouseManager;
 
 import static org.lwjgl.glfw.GLFW.*;
 
