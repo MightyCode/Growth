@@ -2,6 +2,7 @@ package growth.main;
 
 import growth.render.Render;
 import growth.screen.ScreenManager;
+import growth.utils.Timer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryStack;
@@ -50,10 +51,29 @@ public class Window {
     public static final int HEIGHT = 720;
 
     /**
-     * Update per second .
-     * This global variable contains the refresh rate per second.
+     * 1 second in nanoseconds.
      */
-    private static final int TPS = 60;
+    private static final float SECOND = 1000000000.0f;
+
+    /**
+     * Needed TPS.
+     */
+    private static final float TPS = 60.0f;
+
+    /**
+     * Max FPS.
+     */
+    private static final float FPS = 100000.0f;
+
+    /**
+     * Time in a tick.
+     */
+    private static final double TICK_TIME = SECOND / TPS;
+
+    /**
+     * Time in a frame.
+     */
+    private static final double FRAME_TIME = SECOND / FPS;
 
     /**
      * Window class constructor.
@@ -140,37 +160,39 @@ public class Window {
         Render.setClearColor(225,255);
         Render.glEnable2D();
 
-        // System of tps clock, tps and fps counters
-        long start = 0;
-        long wait = 980000000 / TPS;
-        long second = System.nanoTime();
-        int fps = 0;
-        int tps = 0;
+        int ticks = 0;
+        int frames = 0;
+
+        Timer timer = new Timer();
+
+        double lastTick = 0.0;
+        double lastFrame = 0.0;
+        double lastSecond = 0.0;
 
         while(!glfwWindowShouldClose(windowID)){
-            long now = System.nanoTime();
-
-            // Update system
-            if (now - start > wait) {
+            if (timer.getDuration() - lastTick >= TICK_TIME) {
                 screenManager.update();
-                start = System.nanoTime();
-                tps++;
+                ticks++;
+                lastTick += TICK_TIME;
+            } else if (timer.getDuration() - lastFrame >= FRAME_TIME) {
+                screenManager.display();
+                glfwSwapBuffers(windowID);
+                glfwPollEvents();
+                frames++;
+                lastFrame += FRAME_TIME;
+            } else {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
-            // Display system
-            screenManager.display();
-            fps++;
-
-            // Swap the color buffers
-            glfwSwapBuffers(windowID);
-
-            if (second + 1000000000 < System.nanoTime()) {
-                System.out.println("\n-_-_-_-_-_-_-_-_-_-_-_-_-\n \033[92m FPS : " + fps + "   TPS : " + tps + "\033[0m");
-                fps = tps = 0;
-                second = System.nanoTime();
+            if (timer.getDuration() - lastSecond >= SECOND) {
+                glfwSetWindowTitle(windowID, "Space | FPS:" + frames + "; TPS:" + ticks);
+                ticks = frames = 0;
+                lastSecond += SECOND;
             }
-
-            glfwPollEvents();
         }
     }
 
