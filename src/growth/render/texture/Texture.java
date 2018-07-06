@@ -98,7 +98,7 @@ public class Texture {
     /**
      * Bind the loaded texture.
      */
-    private void bind() {
+    public void bind() {
         if (isTextureLoaded()) {
             glBindTexture(GL_TEXTURE_2D, id);
         } else {
