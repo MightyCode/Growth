@@ -183,7 +183,7 @@ public class TileMap {
 					if(map[row][col]==0)continue;
 					TextureRenderer.image(
 							col * tileSize,
-							+ row * tileSize,
+							row * tileSize,
 							tileSize, tileSize,
 							tileSet[map[row][col]].getTexX(),
 							tileSet[map[row][col]].getTexY(),
