@@ -6,7 +6,7 @@ import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.screen.screens.Screen;
-import growth.utils.button.ClickButton;
+import growth.gui.ClickButton;
 
 /**
  * Death Overlay class.
@@ -39,7 +39,7 @@ public class DeathOverlay extends Overlay{
 
         // Init variable
         // Title
-        lose = new Texture("/images/menu/Lose.png");
+        lose = new Texture("/textures/menu/Lose.png");
 
         // Buttons
         restart = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.45,Window.WIDTH*0.12,Window.HEIGHT*0.11,"Restart",this){

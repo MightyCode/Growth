@@ -7,7 +7,7 @@ import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
 import growth.screen.ScreenManager;
-import growth.utils.button.ClickButton;
+import growth.gui.ClickButton;
 
 /**
  * Pause Overlay class.
@@ -40,7 +40,7 @@ public class PauseOverlay extends Overlay{
         // Init variable
 
         // Title
-        pause = new Texture("/images/menu/Pause.png");
+        pause = new Texture("/textures/menu/Pause.png");
 
         // Buttons
         resume = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.5,Window.WIDTH*0.12,Window.HEIGHT*0.11,"Continue",this){

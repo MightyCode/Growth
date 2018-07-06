@@ -2,7 +2,7 @@ package growth.main;
 
 import growth.render.Render;
 import growth.screen.ScreenManager;
-import growth.utils.Timer;
+import growth.util.Timer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryStack;

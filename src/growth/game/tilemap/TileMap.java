@@ -4,7 +4,7 @@ import growth.main.Window;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
-import growth.utils.XmlReader;
+import growth.util.XmlReader;
 import java.util.ArrayList;
 
 /**
