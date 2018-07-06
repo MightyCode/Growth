@@ -8,6 +8,7 @@ import growth.render.text.FontRenderer;
 import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
+import growth.screen.ScreenManager;
 import growth.screen.screens.Screen;
 
 /**
@@ -34,13 +35,14 @@ public class DeathOverlay extends Overlay{
 
         // Init variable
         // Title
-        loose = new FontRenderer("Pause", StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
+        loose = new FontRenderer("Game Over", StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
     }
 
     /**
      * Update the overlay and its components.
      */
     public void update(){
+        loose.setPos(new Vec2(Window.WIDTH / 2 - loose.getWidth() / 2 - ScreenManager.CAMERA.getPosX(), 0.18f * Window.HEIGHT - ScreenManager.CAMERA.getPosY()));
     }
 
     /**
@@ -53,7 +55,6 @@ public class DeathOverlay extends Overlay{
 
         // Textures and button
         loose.render();
-
     }
 
     public void unload(){}
