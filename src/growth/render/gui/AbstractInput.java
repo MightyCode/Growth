@@ -1,4 +1,4 @@
-package growth.gui;
+package growth.render.gui;
 
 import growth.screen.overlay.Overlay;
 import growth.screen.screens.Screen;

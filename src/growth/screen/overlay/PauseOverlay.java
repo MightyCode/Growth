@@ -7,7 +7,7 @@ import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
 import growth.screen.ScreenManager;
-import growth.gui.ClickButton;
+import growth.render.gui.ClickButton;
 
 /**
  * Pause Overlay class.

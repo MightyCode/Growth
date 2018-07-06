@@ -6,7 +6,7 @@ import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.screen.screens.Screen;
-import growth.gui.ClickButton;
+import growth.render.gui.ClickButton;
 
 /**
  * Death Overlay class.

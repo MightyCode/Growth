@@ -1,4 +1,4 @@
-package growth.gui;
+package growth.render.gui;
 
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
