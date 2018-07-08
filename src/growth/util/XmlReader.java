@@ -278,4 +278,17 @@ public abstract class XmlReader {
 			return null;
 		}
 	}
+
+	public static float[] loadConfig(){
+		float[] config = new float[3];
+
+		// Window size
+		config[0] = 1280;
+		config[1] = 720;
+
+		// Window fullscreen
+		config[2] = 1;
+
+		return config;
+	}
 }

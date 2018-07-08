@@ -115,14 +115,14 @@ public class Hud {
      */
     public Hud(){
         // Set the size of heart and the size, position of the acorn counter
-        heartSizeX = Window.WIDTH * 0.035f;
-        heartSizeY = Window.WIDTH * 0.035f;
+        heartSizeX = Window.width * 0.035f;
+        heartSizeY = Window.width * 0.035f;
 
-        acornSizeX = Window.WIDTH * 0.07f;
-        acornSizeY = Window.WIDTH * 0.07f;
+        acornSizeX = Window.width * 0.07f;
+        acornSizeY = Window.height * 0.07f;
 
-        acornPosX = Window.WIDTH * 0.05f;
-        acornPosY = Window.HEIGHT * 0.85f;
+        acornPosX = Window.width * 0.05f;
+        acornPosY = Window.height * 0.85f;
 
         spaceBetweenTwoHeart = heartSizeX*1.4f;
 
@@ -209,20 +209,20 @@ public class Hud {
         // i count the number of heart
         numHeart = i;
 
-        float center = Window.WIDTH/2;
+        float center = Window.width/2;
 
         // If the number of heart is pair
         if(((double)i)/2 == i/2){
            for(int a = 0; a < numHeart; a++) {
                // Set position of each heart
                heartPos[a][0] = center + (a-(numHeart/2)) * spaceBetweenTwoHeart;
-               heartPos[a][1] = Window.HEIGHT*0.02f;
+               heartPos[a][1] = Window.height*0.02f;
            }
         } else {
             for(int a = 0; a < numHeart; a++) {
                 // Set position of each heart
                 heartPos[a][0] = center - (heartSizeXT/2) + (a-(numHeart/2)) * spaceBetweenTwoHeart;
-                heartPos[a][1] = Window.HEIGHT*0.02f;
+                heartPos[a][1] = Window.height*0.02f;
             }
         }
     }

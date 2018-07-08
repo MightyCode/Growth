@@ -62,4 +62,8 @@ public class Render {
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
 	}
+
+	public static void setViewPort(int width, int height){
+		glViewport(0, 0, width, height);
+	}
 }

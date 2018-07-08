@@ -33,7 +33,7 @@ public class MenuScreen extends Screen {
         background.load("/textures/menu/bg.png");
 
         title = new FontRenderer("Growth", StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
-        title.setPos(new Vec2(Window.WIDTH / 2 - title.getWidth() / 2, 100));
+        title.setPos(new Vec2(Window.width / 2 - title.getWidth() / 2, 100));
 
         Vec2 size = new Vec2(350, 35);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -42,7 +42,7 @@ public class MenuScreen extends Screen {
         Color4 hoverTextColor = Color4.BLACK;
 
         continuer = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 300),
+                new Vec2(Window.width / 2, 300),
                 size,
                 "Continuer la partie",
                 StaticFonts.monofonto,
@@ -58,7 +58,7 @@ public class MenuScreen extends Screen {
         };
 
         nouvelle = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 350),
+                new Vec2(Window.width / 2, 350),
                 size,
                 "Nouvelle partie",
                 StaticFonts.monofonto,
@@ -69,7 +69,7 @@ public class MenuScreen extends Screen {
         );
 
         charger = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 400),
+                new Vec2(Window.width / 2, 400),
                 size,
                 "Charger une partie",
                 StaticFonts.monofonto,
@@ -80,7 +80,7 @@ public class MenuScreen extends Screen {
         );
 
         options = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 450),
+                new Vec2(Window.width / 2, 450),
                 size,
                 "Options du jeu",
                 StaticFonts.monofonto,
@@ -96,7 +96,7 @@ public class MenuScreen extends Screen {
         };
 
         quitter = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 500),
+                new Vec2(Window.width / 2, 500),
                 size,
                 "Quitter",
                 StaticFonts.monofonto,
@@ -130,7 +130,7 @@ public class MenuScreen extends Screen {
         Render.clear();
 
         background.bind();
-        TextureRenderer.imageC(0, 0, Window.WIDTH, Window.HEIGHT);
+        TextureRenderer.imageC(0, 0, Window.width, Window.height);
 
         title.render();
 

@@ -38,7 +38,8 @@ public class OptionScreen extends Screen{
      */
     public void display() {
         Render.clear();
-        TextureRenderer.imageC( Window.WIDTH*0.35f, Window.HEIGHT *0.0f , Window.WIDTH*0.30f,Window.HEIGHT*0.20f, option.getID(),1f, 1f);
+        TextureRenderer.imageC( Window.width*0.35f, Window.height *0.0f ,
+                Window.width*0.30f,Window.height*0.20f, option.getID(),1f, 1f);
     }
 
     /**

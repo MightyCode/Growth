@@ -3,8 +3,10 @@ package growth.main;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.util.Timer;
+import growth.util.XmlReader;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWWindowFocusCallbackI;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
@@ -24,7 +26,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * @version of game : 2.2
  */
 @SuppressWarnings("InfiniteLoopStatement")
-public class Window {
+public class Window implements GLFWWindowFocusCallbackI {
 
     /**
      * Window id.
@@ -42,13 +44,13 @@ public class Window {
      * Width window size.
      * This global variable contains the width window size.
      */
-    public static final int WIDTH = 1280;
+    public static int width;
 
     /**
      * Height window size.
      * This global variable contains the height window size.
      */
-    public static final int HEIGHT = 720;
+    public static int height;
 
     /**
      * 1 second in nanoseconds.
@@ -89,6 +91,11 @@ public class Window {
      * @return windowID
      */
     private static long createWindow(){
+        float[] config = XmlReader.loadConfig();
+
+        width = (int)config[0];
+        height = (int)config[1];
+
         // Setup an error callback.
         GLFWErrorCallback.createPrint(System.err).set();
 
@@ -101,10 +108,19 @@ public class Window {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
 
-        // Create the window
-        long windowID = glfwCreateWindow(WIDTH, HEIGHT, "Growth", NULL, NULL);
+        // Create the window if fullscreen
+        if(config[2] == 1){
+            width = 1920; height = 1080;
+            windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
+        }
+        else{
+            windowID = glfwCreateWindow(width, height, "Growth", NULL, NULL);
+        }
+
+
         if (windowID == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
+
 
         // Get the thread stack and push a new frame
         try (MemoryStack stack = stackPush()) {
@@ -128,14 +144,13 @@ public class Window {
         // Make the OpenGL context current
         glfwMakeContextCurrent(windowID);
 
-        // Enable v-sync
-        glfwSwapInterval(0);
-
         // Make the window visible
         glfwShowWindow(windowID);
         createCapabilities();
 
-        glViewport(0, 0, WIDTH, HEIGHT);
+       // glfwSetWindowFocusCallback(windowID,GLFW_FOCUSED);
+
+        Render.setViewPort(width, height);
 
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
@@ -149,6 +164,7 @@ public class Window {
      */
     void run() {
         loop();
+
         exit();
     }
 
@@ -189,12 +205,13 @@ public class Window {
             }
 
             if (timer.getDuration() - lastSecond >= SECOND) {
-                glfwSetWindowTitle(windowID, "Growth | FPS:" + frames + "; TPS:" + ticks);
+                if(Growth.ADMIN) glfwSetWindowTitle(windowID, "Growth | FPS:" + frames + "; TPS:" + ticks);
                 ticks = frames = 0;
                 lastSecond += SECOND;
             }
         }
     }
+
 
     /**
      * Exit the game.
@@ -215,5 +232,10 @@ public class Window {
         System.out.println("\n-------------------------- \n");
 
         System.exit(0);
+    }
+
+    @Override
+    public void invoke(long l, boolean b) {
+        screenManager.focuse(b);
     }
 }

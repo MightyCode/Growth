@@ -145,13 +145,13 @@ public class TileMap {
 		// Init current map variables
 		numCols = map[0].length;
 		numRows = map.length;
-		numRowsToDraw = Window.HEIGHT / tileSize + 2;
-		numColsToDraw = Window.WIDTH / tileSize + 2;
+		numRowsToDraw = Window.height / tileSize + 2;
+		numColsToDraw = Window.width / tileSize + 2;
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
 		// Init camera
-		ScreenManager.CAMERA.setBoundMax(Window.WIDTH - sizeX, Window.HEIGHT  - sizeY);
+		ScreenManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
 		ScreenManager.CAMERA.setBoundMin(0, 0);
 	}
 
@@ -253,7 +253,7 @@ public class TileMap {
 		sizeX = numCols * tileSize;
 		sizeY = numRows * tileSize;
 
-		ScreenManager.CAMERA.setBoundMax(Window.WIDTH - sizeX, Window.HEIGHT  - sizeY);
+		ScreenManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
 		ScreenManager.CAMERA.setBoundMin(0, 0);
 
 		float[] newPos = new float[2];

@@ -109,6 +109,11 @@ public class ScreenManager {
         System.out.println("\n -------------------------- \n");
     }
 
+    public void focuse(boolean b){
+        System.out.println(b);
+        ActualScreen.focuse(b);
+    }
+
     /**
      * Unload the game before leaving.
      */

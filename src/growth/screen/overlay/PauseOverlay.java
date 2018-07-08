@@ -7,12 +7,9 @@ import growth.render.gui.GUIButton;
 import growth.render.shape.ShapeRenderer;
 import growth.render.text.FontRenderer;
 import growth.render.text.StaticFonts;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
 import growth.screen.ScreenManager;
-import sun.java2d.pipe.TextRenderer;
 
 /**
  * Pause Overlay class.
@@ -41,7 +38,7 @@ public class PauseOverlay extends Overlay{
 
         // Title
         pause = new FontRenderer("Pause", StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
-        pause.setPos(new Vec2(Window.WIDTH / 2 - pause.getWidth() / 2, 0.18f * Window.HEIGHT));
+        pause.setPos(new Vec2(Window.width / 2 - pause.getWidth() / 2, 0.18f * Window.height));
 
         Vec2 size = new Vec2(350, 40);
         Color4 backgroundColor = new Color4(1.0f, 0.0f, 1.0f, 0.5f);
@@ -50,7 +47,7 @@ public class PauseOverlay extends Overlay{
         Color4 hoverTextColor = Color4.WHITE;
 
         continuer = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 300),
+                new Vec2(Window.width / 2, 300),
                 size,
                 "Continuer à jouer",
                 StaticFonts.monofonto,
@@ -66,7 +63,7 @@ public class PauseOverlay extends Overlay{
         };
 
         quitter = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 375),
+                new Vec2(Window.width / 2, 375),
                 size,
                 "Quitter vers le menu",
                 StaticFonts.monofonto,
@@ -99,8 +96,9 @@ public class PauseOverlay extends Overlay{
      */
     public void display(){
         // Black rectangle
-        ShapeRenderer.rectC(new Vec2(), new Vec2(Window.WIDTH, Window.HEIGHT), new Color4(0.0f, 0.0f, 0.0f, 0.6f));
-        ShapeRenderer.rectC(new Vec2(0.1f * Window.WIDTH, 0.15f * Window.HEIGHT), new Vec2(0.8f * Window.WIDTH, 0.75f * Window.HEIGHT), new Color4(0.0f, 0.0f, 0.0f, 0.5f));
+        ShapeRenderer.rectC(new Vec2(), new Vec2(Window.width, Window.height), new Color4(0.0f, 0.0f, 0.0f, 0.6f));
+        ShapeRenderer.rectC(new Vec2(0.1f * Window.width, 0.15f * Window.height),
+                new Vec2(0.8f * Window.width, 0.75f * Window.height), new Color4(0.0f, 0.0f, 0.0f, 0.5f));
 
         // Textures and button
         pause.render();

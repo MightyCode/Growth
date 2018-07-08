@@ -2,6 +2,7 @@ package growth.screen.screens;
 
 import growth.game.Hud;
 import growth.game.entity.EntityManager;
+import growth.main.Window;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
@@ -27,7 +28,7 @@ public class GameScreen extends Screen {
      * Tile size.
      * This variable contains the definitive tile size.
      */
-    public static final int TILESIZE = 64;
+    public static final int TILESIZE = Window.width/20;
 
     /**
      * Game's states.
@@ -271,5 +272,9 @@ public class GameScreen extends Screen {
         death.unload();
         tileMap.unload();
         ENTITY_MANAGER.removeAll();
+    }
+
+    public void focuse(boolean b) {
+        if (!b) state = ESCAPESCREEN;
     }
 }

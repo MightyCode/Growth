@@ -15,13 +15,13 @@ public abstract class Screen {
      * ScreenManger.
      * This variable contains the screen manager to interact with it.
      */
-    final ScreenManager screenManager;
+    protected ScreenManager screenManager;
 
     /**
      * Screen state.
      * This variable contains the different states of game.
      */
-    int state;
+    protected int state;
 
     /**
      * Screen class constructor.
@@ -29,27 +29,18 @@ public abstract class Screen {
      *
      * @param screenManager Reference of screenManager.
      */
-    Screen(ScreenManager screenManager) {
+    public Screen(ScreenManager screenManager) {
         this.screenManager = screenManager;
     }
 
     /**
      * Base architecture of displaying method
      */
-    public void display() {
-    }
-
+    public abstract void display();
     /**
      * Base architecture of updating method
      */
-    public void update() {
-    }
-
-    /**
-     * Base architecture of unloading method
-     */
-    public void unload() {
-    }
+    public abstract void update();
 
     /**
      * Base architecture of setting screen method
@@ -63,5 +54,13 @@ public abstract class Screen {
      */
     public void setState(int newState){
         state = newState;
+    }
+
+    public void focuse(boolean b){}
+
+    /**
+     * Base architecture of unloading method
+     */
+    public void unload() {
     }
 }
