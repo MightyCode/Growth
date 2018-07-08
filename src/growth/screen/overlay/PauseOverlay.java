@@ -1,13 +1,18 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
+import growth.math.Color4;
+import growth.math.Vec2;
+import growth.render.gui.GUIButton;
 import growth.render.shape.ShapeRenderer;
+import growth.render.text.FontRenderer;
+import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
 import growth.screen.ScreenManager;
-import growth.utils.button.ClickButton;
+import sun.java2d.pipe.TextRenderer;
 
 /**
  * Pause Overlay class.
@@ -22,14 +27,9 @@ public class PauseOverlay extends Overlay{
      * Pause title texture.
      * This variable contains the texture's "title"  of the overlay.
      */
-    private final Texture pause;
+    private FontRenderer pause;
 
-    /**
-     * Click buttons.
-     * These variables contain buttons to make the overlay work.
-     */
-    private final ClickButton resume;
-    private final ClickButton menu;
+    private GUIButton continuer, quitter;
 
     /**
      * Pause overlay class constructor.
@@ -40,19 +40,44 @@ public class PauseOverlay extends Overlay{
         // Init variable
 
         // Title
-        pause = new Texture("/images/menu/Pause.png");
+        pause = new FontRenderer("Pause", StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
+        pause.setPos(new Vec2(Window.WIDTH / 2 - pause.getWidth() / 2, 0.18f * Window.HEIGHT));
 
-        // Buttons
-        resume = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.5,Window.WIDTH*0.12,Window.HEIGHT*0.11,"Continue",this){
+        Vec2 size = new Vec2(350, 40);
+        Color4 backgroundColor = new Color4(1.0f, 0.0f, 1.0f, 0.5f);
+        Color4 hoverColor = new Color4(1.0f, 0.0f, 1.0f, 1.0f);
+        Color4 textColor = new Color4(0.8f, 0.8f, 0.8f, 1.0f);
+        Color4 hoverTextColor = Color4.WHITE;
+
+        continuer = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 300),
+                size,
+                "Continuer à jouer",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ){
             @Override
-            public void action(){
-                overlay.setState(GameScreen.NORMALSCREEN);
+            public void action () {
+                screen.setState(GameScreen.NORMALSCREEN);
             }
         };
-        menu = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.75,Window.WIDTH*0.15,Window.HEIGHT*0.11,"Return",this){
+
+        quitter = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 375),
+                size,
+                "Quitter vers le menu",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ){
             @Override
-            public void action(){
-                overlay.setScreen(ScreenManager.MENUSCREEN);
+            public void action () {
+                Window.screenManager.setScreen(ScreenManager.MENUSCREEN);
             }
         };
     }
@@ -61,11 +86,12 @@ public class PauseOverlay extends Overlay{
      * Update the overlay and its components.
      */
     public void update(){
-        resume.update();
-        menu.update();
         if(ScreenManager.KEY.keyPressed(0)) {
             screen.setState(GameScreen.NORMALSCREEN);
         }
+
+        continuer.update();
+        quitter.update();
     }
 
     /**
@@ -73,19 +99,15 @@ public class PauseOverlay extends Overlay{
      */
     public void display(){
         // Black rectangle
-        ShapeRenderer.rectC(0, 0, Window.WIDTH, Window.HEIGHT,0, (float)0.6);
-        ShapeRenderer.rectC(Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.75f ,0, 0.5f);
+        ShapeRenderer.rectC(new Vec2(), new Vec2(Window.WIDTH, Window.HEIGHT), new Color4(0.0f, 0.0f, 0.0f, 0.6f));
+        ShapeRenderer.rectC(new Vec2(0.1f * Window.WIDTH, 0.15f * Window.HEIGHT), new Vec2(0.8f * Window.WIDTH, 0.75f * Window.HEIGHT), new Color4(0.0f, 0.0f, 0.0f, 0.5f));
 
         // Textures and button
-        TextureRenderer.imageC(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, pause.getID(), 1,1f);
+        pause.render();
 
-        resume.displayC();
-        menu.displayC();
+        continuer.display();
+        quitter.display();
     }
 
-    public void unload(){
-        resume.unload();
-        menu.unload();
-        pause.unload();
-    }
+    public void unload(){}
 }

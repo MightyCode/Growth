@@ -1,12 +1,17 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
+import growth.math.Color4;
+import growth.math.Vec2;
+import growth.render.gui.GUIButton;
 import growth.render.shape.ShapeRenderer;
+import growth.render.text.FontRenderer;
+import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
+import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
-import growth.utils.button.ClickButton;
 
 /**
  * Death Overlay class.
@@ -21,14 +26,9 @@ public class DeathOverlay extends Overlay{
      * Lose title texture.
      * This variable contains the texture's "title"  of the overlay.
      */
-    private final Texture lose;
+    private FontRenderer loose;
 
-    /**
-     * Click buttons.
-     * These variables contain buttons to make the overlay work.
-     */
-    private final ClickButton menu;
-    private final ClickButton restart;
+    private GUIButton recommencer, quitter;
 
     /**
      * Death overlay class constructor.
@@ -39,19 +39,44 @@ public class DeathOverlay extends Overlay{
 
         // Init variable
         // Title
-        lose = new Texture("/images/menu/Lose.png");
+        loose = new FontRenderer("Game Over", StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
+        loose.setPos(new Vec2(Window.WIDTH / 2 - loose.getWidth() / 2, 0.18f * Window.HEIGHT));
 
-        // Buttons
-        restart = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.45,Window.WIDTH*0.12,Window.HEIGHT*0.11,"Restart",this){
+        Vec2 size = new Vec2(350, 40);
+        Color4 backgroundColor = new Color4(1.0f, 0.0f, 1.0f, 0.5f);
+        Color4 hoverColor = new Color4(1.0f, 0.0f, 1.0f, 1.0f);
+        Color4 textColor = new Color4(0.8f, 0.8f, 0.8f, 1.0f);
+        Color4 hoverTextColor = Color4.WHITE;
+
+        recommencer = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 300),
+                size,
+                "Recommencer",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ){
             @Override
-            public void action(){
-                overlay.setScreen(ScreenManager.GAMESCREEN);
+            public void action () {
+                Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
             }
         };
-        menu = new ClickButton(Window.WIDTH*0.5,Window.HEIGHT*0.71,Window.WIDTH*0.15,Window.HEIGHT*0.11,"Return",this){
+
+        quitter = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 375),
+                size,
+                "Quitter vers le menu",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ){
             @Override
-            public void action(){
-                overlay.setScreen(ScreenManager.MENUSCREEN);
+            public void action () {
+                Window.screenManager.setScreen(ScreenManager.MENUSCREEN);
             }
         };
     }
@@ -60,8 +85,8 @@ public class DeathOverlay extends Overlay{
      * Update the overlay and its components.
      */
     public void update(){
-        restart.update();
-        menu.update();
+        recommencer.update();
+        quitter.update();
     }
 
     /**
@@ -69,19 +94,15 @@ public class DeathOverlay extends Overlay{
      */
     public void display(){
         // Black rectangle
-        ShapeRenderer.rectC(0, 0, Window.WIDTH, Window.HEIGHT,0, 0.6f);
-        ShapeRenderer.rectC( Window.WIDTH*0.1f, Window.HEIGHT*0.15f, Window.WIDTH*0.8f, Window.HEIGHT*0.751f ,0, 0.5f);
+        ShapeRenderer.rectC(new Vec2(), new Vec2(Window.WIDTH, Window.HEIGHT), new Color4(0.0f, 0.0f, 0.0f, 0.6f));
+        ShapeRenderer.rectC(new Vec2(0.1f * Window.WIDTH, 0.15f * Window.HEIGHT), new Vec2(0.8f * Window.WIDTH, 0.75f * Window.HEIGHT), new Color4(0.0f, 0.0f, 0.0f, 0.5f));
 
         // Textures and button
-        TextureRenderer.imageC(Window.WIDTH*0.40f,Window.HEIGHT*0.05f,Window.WIDTH*0.2f,Window.HEIGHT*0.09f, lose.getID(), 1, 1f);
+        loose.render();
 
-        restart.displayC();
-        menu.displayC();
+        recommencer.display();
+        quitter.display();
     }
 
-    public void unload(){
-        restart.unload();
-        menu.unload();
-        lose.unload();
-    }
+    public void unload(){}
 }

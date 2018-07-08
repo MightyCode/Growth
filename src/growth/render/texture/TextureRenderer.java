@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
  * @author MightyCode
  * @version 1.0
  */
-public abstract class TextureRenderer {
+public class TextureRenderer {
 
     /**
      * Display an image.
@@ -27,26 +27,44 @@ public abstract class TextureRenderer {
      * @param alpha Opacity of the image.
      * @param color The color of the image.
      */
-    public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha){
-        // Position y taking as a reference the top of the window
-        float newPosY = (Window.HEIGHT - posY - sizeY);
 
+
+    public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha){
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textID);
         glColor4f(color, color, color, alpha);
 
         glBegin(GL_QUADS);
-        glTexCoord2f(0.f, 1.f);
-        glVertex2f(posX, newPosY);
-
         glTexCoord2f(0.f, 0.f);
-        glVertex2f(posX, newPosY + sizeY);
+        glVertex2f(posX, posY);
 
-        glTexCoord2f(1.f, 0.f);
-        glVertex2f(posX + sizeX, newPosY + sizeY);
+        glTexCoord2f(0.f, 1.f);
+        glVertex2f(posX, posY + sizeY);
 
         glTexCoord2f(1.f, 1.f);
-        glVertex2f(posX + sizeX, newPosY);
+        glVertex2f(posX + sizeX, posY + sizeY);
+
+        glTexCoord2f(1.f, 0.f);
+        glVertex2f(posX + sizeX, posY);
+        glEnd();
+    }
+
+    public static void image(float posX, float posY, float sizeX, float sizeY){
+        glActiveTexture(GL_TEXTURE0);
+        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.f, 0.f);
+        glVertex2f(posX, posY);
+
+        glTexCoord2f(0.f, 1.f);
+        glVertex2f(posX, posY + sizeY);
+
+        glTexCoord2f(1.f, 1.f);
+        glVertex2f(posX + sizeX, posY + sizeY);
+
+        glTexCoord2f(1.f, 0.f);
+        glVertex2f(posX + sizeX, posY);
         glEnd();
     }
 
@@ -79,6 +97,10 @@ public abstract class TextureRenderer {
         image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, textID, color, alpha);
     }
 
+    public static void imageC(float posX, float posY, float sizeX, float sizeY){
+        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY);
+    }
+
     /**
      * Display an image.
      *
@@ -105,25 +127,22 @@ public abstract class TextureRenderer {
      * @param color The color of the image.
      */
     public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, int textID, float color, float alpha){
-        // Position y taking as a reference the top of the window
-        float newPosY = (Window.HEIGHT - posY - sizeY );
-
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textID);
         glColor4f(color, color, color, alpha);
 
         glBegin(GL_QUADS);
-        glTexCoord2f(fromX, toY);
-        glVertex2f(posX, newPosY);
-
         glTexCoord2f(fromX, fromY);
-        glVertex2f(posX, newPosY + sizeY);
+        glVertex2f(posX, posY);
 
-        glTexCoord2f(toX, fromY);
-        glVertex2f(posX + sizeX, newPosY + sizeY);
+        glTexCoord2f(fromX, toY);
+        glVertex2f(posX, posY + sizeY);
 
         glTexCoord2f(toX, toY);
-        glVertex2f(posX + sizeX, newPosY);
+        glVertex2f(posX + sizeX, posY + sizeY);
+
+        glTexCoord2f(toX, fromY);
+        glVertex2f(posX + sizeX, posY);
         glEnd();
     }
 }

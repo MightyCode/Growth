@@ -4,7 +4,7 @@ import growth.main.Window;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
-import growth.utils.XmlReader;
+import growth.util.XmlReader;
 import java.util.ArrayList;
 
 /**
@@ -122,7 +122,7 @@ public class TileMap {
 		this.tileSize = tileSize;
 
 		// Init tileSet
-		tileSetT = new Texture("/images/game/tiles/Tileset.png");
+		tileSetT = new Texture("/textures/game/tiles/Tileset.png");
 		tileSet = XmlReader.createTileSet(path);
 
 		// Init map
@@ -183,7 +183,7 @@ public class TileMap {
 					if(map[row][col]==0)continue;
 					TextureRenderer.image(
 							col * tileSize,
-							+ row * tileSize,
+							row * tileSize,
 							tileSize, tileSize,
 							tileSet[map[row][col]].getTexX(),
 							tileSet[map[row][col]].getTexY(),

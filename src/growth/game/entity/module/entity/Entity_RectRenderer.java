@@ -2,6 +2,8 @@ package growth.game.entity.module.entity;
 
 import growth.game.entity.module.Module;
 import growth.game.entity.type.Entity;
+import growth.math.Color4;
+import growth.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 
 public class Entity_RectRenderer extends Module{
@@ -43,7 +45,7 @@ public class Entity_RectRenderer extends Module{
     }
 
     public void display(){
-        ShapeRenderer.rect(posX,posY,sizeX,sizeY,color,1f);
+        ShapeRenderer.rect(new Vec2(posX, posY),new Vec2(sizeX, sizeY),new Color4(color[0], color[1], color[2], 1.0f));
     }
 
     public void newParam(){

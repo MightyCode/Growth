@@ -1,11 +1,14 @@
 package growth.screen.screens;
 
-import growth.main.Growth;
+import growth.math.Color4;
+import growth.math.Vec2;
 import growth.render.Render;
+import growth.render.text.FontRenderer;
+import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
-import growth.utils.button.ClickButton;
+import growth.render.gui.GUIButton;
 import growth.main.Window;
 
 /**
@@ -17,59 +20,94 @@ import growth.main.Window;
  */
 public class MenuScreen extends Screen {
 
-    /**
-     * Button 1.
-     * This variable contains the button to play game.
-     */
-    private final ClickButton but1;
+    private FontRenderer title;
+    private GUIButton continuer, nouvelle, charger, options, quitter;
 
-    /**
-     * Button 2.
-     * This variable contains the button to go to options screen.
-     */
-    private final ClickButton but2;
+    private Texture background;
 
-    /**
-     * Button 3.
-     * This variable contains the button to quit the game.
-     */
-    private final ClickButton but3;
-
-    /**
-     * Title.
-     * This variable contains the texture of title of the game.
-     */
-    private final Texture title;
-
-    /**
-     * MenuScreen class constructor.
-     * Instance the class and set all of the MenuScreen's variables.
-     *
-     * @param screenManager Add screenManager to change the global screen.
-     */
     public MenuScreen(ScreenManager screenManager) {
         super(screenManager);
-        Render.setClearColor(1f,1f);
+        Render.setClearColor(1f, 1f);
 
-        title = new Texture("/images/menu/Title.png");
+        background = new Texture();
+        background.load("/textures/menu/bg.png");
 
-        but1 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.45), 200, 100, "Play", this) {
+        title = new FontRenderer("Growth", StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
+        title.setPos(new Vec2(Window.WIDTH / 2 - title.getWidth() / 2, 100));
+
+        Vec2 size = new Vec2(350, 35);
+        Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
+        Color4 hoverColor = new Color4(0.0f, 0.0f, 0.0f, 0.2f);
+        Color4 textColor = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
+        Color4 hoverTextColor = Color4.BLACK;
+
+        continuer = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 300),
+                size,
+                "Continuer la partie",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ){
             @Override
-            public void action() {
-                screen.screenManager.setScreen(ScreenManager.GAMESCREEN);
+            public void action () {
+                Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
             }
         };
-        but2 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.65), 200, 100, "Options", this) {
+
+        nouvelle = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 350),
+                size,
+                "Nouvelle partie",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        );
+
+        charger = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 400),
+                size,
+                "Charger une partie",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        );
+
+        options = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 450),
+                size,
+                "Options du jeu",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ){
             @Override
-            public void action() {
-                screen.screenManager.setScreen(ScreenManager.OPTIONSCREEN);
+            public void action () {
+                Window.screenManager.setScreen(ScreenManager.OPTIONSCREEN);
             }
         };
 
-        but3 = new ClickButton(Window.WIDTH / 2, (int) (Window.HEIGHT * 0.85), 200, 100, "Quit", this) {
+        quitter = new GUIButton(
+                new Vec2(Window.WIDTH / 2, 500),
+                size,
+                "Quitter",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ){
             @Override
-            public void action() {
-                Growth.WINDOW.exit();
+            public void action () {
+                Window.exit();
             }
         };
     }
@@ -78,9 +116,11 @@ public class MenuScreen extends Screen {
      * Update the menu.
      */
     public void update() {
-        but1.update();
-        but2.update();
-        but3.update();
+        continuer.update();
+        nouvelle.update();
+        charger.update();
+        options.update();
+        quitter.update();
     }
 
     /**
@@ -88,19 +128,31 @@ public class MenuScreen extends Screen {
      */
     public void display() {
         Render.clear();
-        TextureRenderer.imageC( Window.WIDTH*0.35f, Window.HEIGHT *0.0f , Window.WIDTH*0.30f,Window.HEIGHT*0.30f, title.getID(),1, 1f);
-        but1.displayC();
-        but2.displayC();
-        but3.displayC();
+
+        background.bind();
+        TextureRenderer.imageC(0, 0, Window.WIDTH, Window.HEIGHT);
+
+        title.render();
+
+        continuer.display();
+        nouvelle.display();
+        charger.display();
+        options.display();
+        quitter.display();
     }
 
     /**
      * Unload the textures in menu to free memory.
      */
     public void unload(){
-        title.unload();
-        but1.unload();
-        but2.unload();
-        but3.unload();
+        // Unload the background
+        background.unload();
+
+        // Unload the button
+        continuer.unload();
+        nouvelle.unload();
+        charger.unload();
+        options.unload();
+        quitter.unload();
     }
 }

@@ -21,7 +21,7 @@ public class OptionScreen extends Screen{
     public OptionScreen(ScreenManager screenManager) {
         super(screenManager);
         Render.setClearColor(0.365f, 0.906f, 0.784f, 1f);
-        option = new Texture("/images/menu/Option_title.png");
+        option = new Texture("/textures/menu/Option_title.png");
     }
 
     /**

@@ -2,6 +2,8 @@ package growth.render;
 
 import growth.game.entity.type.MovingEntity;
 import growth.main.Window;
+import growth.math.Color4;
+import growth.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 
 import static org.lwjgl.opengl.GL11.glTranslatef;
@@ -51,7 +53,7 @@ public class Camera {
     /**
      * Max offset between the entity and the middle of screen.
      */
-    private final int maxOffset = Window.WIDTH/10;
+    private final int maxOffset = Window.WIDTH / 10;
 
     /**
      * The entity that will follow the camera.
@@ -113,7 +115,7 @@ public class Camera {
         float newTweenX = (isTween)? tweenX : 1;
         float newTweenY = (isTween)? tweenY : 1;
 
-        glTranslatef((int)((posX - this.posX + addCamera) * newTweenX),(int)((this.posY - posY) * newTweenY),0);
+        glTranslatef((int)((posX - this.posX + addCamera) * newTweenX),(int)((posY - this.posY) * newTweenY),0);
 
         this.posX += (int)((posX - this.posX + addCamera) * newTweenX);
         this.posY += (int)((posY - this.posY) * newTweenY);
@@ -133,12 +135,10 @@ public class Camera {
         }
 
         if(posY > yMin){
-            glTranslatef(0,yMin + posY,0);
+            glTranslatef(0,yMin - posY,0);
             posY = yMin;
-        }
-
-        if (posY < yMax){
-            glTranslatef(0, -yMax + posY ,0);
+        } else if (posY < yMax){
+            glTranslatef(0, yMax - posY ,0);
             posY = yMax;
         }
 
@@ -152,7 +152,7 @@ public class Camera {
      * @param alpha The alpha of the transition.
      */
     public void transition(int color, float alpha){
-        ShapeRenderer.rect(-posX, -posY, Window.WIDTH, Window.HEIGHT, color, alpha);
+        ShapeRenderer.rectC(new Vec2(0, 0), new Vec2(Window.WIDTH, Window.HEIGHT), new Color4(color, color, color, alpha));
     }
 
     /**

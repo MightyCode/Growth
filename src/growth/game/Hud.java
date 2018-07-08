@@ -134,10 +134,10 @@ public class Hud {
 
     public void load(){
         // Set the textures
-        t_heart = new Texture("/images/game/hud/Heart.png");
-        t_halfHeart = new Texture("/images/game/hud/Heart-half.png");
-        t_deadHeart = new Texture("/images/game/hud/Heart-dead.png");
-        acorn = new Texture("/images/game/hud/Acorn-exemple-f.png");
+        t_heart = new Texture("/textures/game/hud/Heart.png");
+        t_halfHeart = new Texture("/textures/game/hud/Heart-half.png");
+        t_deadHeart = new Texture("/textures/game/hud/Heart-dead.png");
+        acorn = new Texture("/textures/game/hud/Acorn-exemple-f.png");
     }
 
     /**

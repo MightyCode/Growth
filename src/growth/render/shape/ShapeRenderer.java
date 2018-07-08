@@ -1,6 +1,8 @@
 package growth.render.shape;
 
 import growth.main.Window;
+import growth.math.Color4;
+import growth.math.Vec2;
 import growth.screen.ScreenManager;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -12,76 +14,23 @@ import static org.lwjgl.opengl.GL11.*;
  * @author MightyCode
  * @version 1.0
  */
-public abstract class ShapeRenderer {
+public class ShapeRenderer {
 
-    /**
-     * Display a black shades rectangle.
-     *
-     * @param posX Position x of the top-left corner image.
-     * @param posY Position y of the top-left corner image.
-     * @param sizeX Image's width.
-     * @param sizeY Image's height.
-     * @param color Colour of the rectangle.
-     * @param alpha Opacity of the image.
-     */
-    public static void rect(int posX, int posY, int sizeX, int sizeY, int color, float alpha) {
-        int newPosY = Window.HEIGHT - posY - sizeY;
+    public static void rect(Vec2 pos, Vec2 size, Color4 color) {
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_TEXTURE);
-        glColor4f(color, color, color, alpha);
+        glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
         glBegin(GL_QUADS);
-        glVertex2d(posX, newPosY);
-        glVertex2d(posX + sizeX, newPosY);
-        glVertex2d(posX + sizeX, newPosY + sizeY);
-        glVertex2d(posX, newPosY + sizeY);
+        glVertex2d(pos.getX(), pos.getY());
+        glVertex2d(pos.getX() + size.getX(), pos.getY());
+        glVertex2d(pos.getX() + size.getX(), pos.getY() + size.getY());
+        glVertex2d(pos.getX(), pos.getY() + size.getY());
         glEnd();
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_TEXTURE);
     }
 
-    /**
-     * Surcharge of previous class, replace int position and size to double position and size.
-     */
-    public static void rect(float posX, float posY, float sizeX, float sizeY, int color, float alpha) {
-        rect((int)posX, (int) posY, (int) sizeX, (int) sizeY, color, alpha);
-    }
-
-    /**
-     * Display an multicolour rectangle.
-     *
-     * @param posX Position x of the top-left corner image.
-     * @param posY Position y of the top-left corner image.
-     * @param sizeX Image's width.
-     * @param sizeY Image's height.
-     * @param color Black shades colour.
-     * @param alpha Opacity of the image.
-     */
-    public static void rect(float posX, float posY, float sizeX, float sizeY, int[] color, float alpha) {
-        float newPosY = Window.HEIGHT - posY - sizeY;
-        glDisable(GL_TEXTURE_2D);
-        glDisable(GL_TEXTURE);
-        glColor4f(color[0], color[1], color[2], alpha);
-        glBegin(GL_QUADS);
-        glVertex2d(posX, newPosY);
-        glVertex2d(posX + sizeX, newPosY);
-        glVertex2d(posX + sizeX, newPosY + sizeY);
-        glVertex2d(posX, newPosY + sizeY);
-        glEnd();
-        glEnable(GL_TEXTURE_2D);
-        glEnable(GL_TEXTURE);
-    }
-
-    /**
-     * Display an multicolour rectangle.
-     *
-     * @param posX Position x of the top-left corner image.
-     * @param posY Position y of the top-left corner image.
-     * @param sizeX Image's width.
-     * @param sizeY Image's height.
-     * @param color Black shades colour.
-     * @param alpha Opacity of the image.
-     */
-    public static void rectC(float posX, float posY, float sizeX, float sizeY, int color, float alpha) {
-        rect((int)posX - ScreenManager.CAMERA.getPosX(), (int) posY - ScreenManager.CAMERA.getPosY(), (int) sizeX, (int) sizeY, color, alpha);
+    public static void rectC(Vec2 pos, Vec2 size, Color4 color) {
+        rect(new Vec2(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY()), size, color);
     }
 }

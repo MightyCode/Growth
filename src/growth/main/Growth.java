@@ -8,18 +8,19 @@ package growth.main;
  */
 public class Growth {
 
-    public static final Boolean ADMIN = true;
+    public static final boolean ADMIN = true;
 
     /**
      * Window.
      * This global variable contains all of the main game structure.
      */
-    public static final Window WINDOW = new Window();
+    public static Window window;
 
     /**
      * Run the game.
      */
     public static void main(String[] args) {
-        WINDOW.run();
+        window = new Window();
+        window.run();
     }
 }

@@ -87,10 +87,10 @@ public class Player extends MovingEntity{
 		facing = true;
 
 		// Load animation and animationFrame
-		animations.add(new Animation("/images/game/entity/character/idle/", 1, 100));
-		animations.add(new Animation("/images/game/entity/character/walk/", 10, 4));
-		animations.add(new Animation("/images/game/entity/character/jump/", 1, 100));
-		animations.add(new Animation("/images/game/entity/character/fall/", 1, 100));
+		animations.add(new Animation("/textures/game/entity/player/idle/", 1, 100));
+		animations.add(new Animation("/textures/game/entity/player/walk/", 10, 4));
+		animations.add(new Animation("/textures/game/entity/player/jump/", 1, 100));
+		animations.add(new Animation("/textures/game/entity/player/fall/", 1, 100));
 	}
 
 	/**

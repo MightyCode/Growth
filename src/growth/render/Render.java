@@ -2,7 +2,7 @@ package growth.render;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public abstract class Render {
+public class Render {
 
 	/**
 	 * Set the 2D view.
@@ -16,7 +16,7 @@ public abstract class Render {
 		glPushMatrix();
 		glLoadIdentity();
 
-		glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
+		glOrtho(0, vPort[2], vPort[3], 0, -1, 1);
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 		glLoadIdentity();

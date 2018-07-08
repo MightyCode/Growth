@@ -1,4 +1,4 @@
-package growth.utils;
+package growth.inputs;
 
 import growth.main.Window;
 import org.lwjgl.BufferUtils;
@@ -53,7 +53,7 @@ public class MouseManager {
      * @return state of the button.
      */
     public static boolean button(int buttonID){
-        return glfwGetMouseButton(Window.WINDOWID, buttonID) == 1;
+        return glfwGetMouseButton(Window.windowID, buttonID) == 1;
     }
 
     /**
@@ -64,7 +64,7 @@ public class MouseManager {
      */
     public boolean mousePressed(int buttonID){
         tempState[buttonID] = state[buttonID];
-        state[buttonID] = glfwGetMouseButton(Window.WINDOWID, buttonID) == 1;
+        state[buttonID] = glfwGetMouseButton(Window.windowID, buttonID) == 1;
         return state[buttonID] && !tempState[buttonID];
     }
 
@@ -76,7 +76,7 @@ public class MouseManager {
      */
     public boolean mouseReleased(int buttonID){
         tempState[buttonID] = state[buttonID];
-        state[buttonID] = glfwGetMouseButton(Window.WINDOWID, buttonID) == 1;
+        state[buttonID] = glfwGetMouseButton(Window.windowID, buttonID) == 1;
         return !state[buttonID] && tempState[buttonID];
     }
 
@@ -88,7 +88,7 @@ public class MouseManager {
     public static float mouseX(){
         DoubleBuffer x = BufferUtils.createDoubleBuffer(1);
 
-        glfwGetCursorPos(Window.WINDOWID, x, null);
+        glfwGetCursorPos(Window.windowID, x, null);
         return (float)x.get(0);
     }
 
@@ -100,7 +100,7 @@ public class MouseManager {
     public static float mouseY(){
         DoubleBuffer y = BufferUtils.createDoubleBuffer(1);
 
-        glfwGetCursorPos(Window.WINDOWID, null, y);
+        glfwGetCursorPos(Window.windowID, null, y);
         return (float)y.get(0);
     }
 }

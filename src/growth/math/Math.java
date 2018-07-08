@@ -1,4 +1,4 @@
-package growth.utils;
+package growth.math;
 
 /**
  * Math class.
@@ -7,7 +7,7 @@ package growth.utils;
  * @author MightyCode
  * @version 1.0
  */
-public abstract class Math {
+public class Math {
 
 	/**
 	 * Calculate the position of a number in the first interval to transpose this number in an second interval.

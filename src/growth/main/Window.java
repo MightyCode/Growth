@@ -2,6 +2,7 @@ package growth.main;
 
 import growth.render.Render;
 import growth.screen.ScreenManager;
+import growth.util.Timer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryStack;
@@ -26,22 +27,16 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Window {
 
     /**
-     * Window class constructor.
-     * Do nothing for the moment
-     */
-    public Window(){}
-
-    /**
      * Window id.
      * This global variable contains the id of window using for many things.
      */
-    public static final long WINDOWID = createWindow();
+    public static long windowID;
 
     /**
      * Screen manager.
      * This global variable contains the manager of game'screens.
      */
-    public static final ScreenManager SCREENMANAGER = new ScreenManager();
+    public static ScreenManager screenManager;
 
     /**
      * Width window size.
@@ -56,10 +51,38 @@ public class Window {
     public static final int HEIGHT = 720;
 
     /**
-     * Update per second .
-     * This global variable contains the refresh rate per second.
+     * 1 second in nanoseconds.
      */
-    private static final int TPS = 60;
+    private static final float SECOND = 1000000000.0f;
+
+    /**
+     * Needed TPS.
+     */
+    private static final float TPS = 60.0f;
+
+    /**
+     * Max FPS.
+     */
+    private static final float FPS = 100000.0f;
+
+    /**
+     * Time in a tick.
+     */
+    private static final double TICK_TIME = SECOND / TPS;
+
+    /**
+     * Time in a frame.
+     */
+    private static final double FRAME_TIME = SECOND / FPS;
+
+    /**
+     * Window class constructor.
+     * Do nothing for the moment
+     */
+    public Window(){
+        windowID = createWindow();
+        screenManager = new ScreenManager();
+    }
 
     /**
      * Create the window and return the window'id into the global variable WINDOW_ID.
@@ -132,44 +155,43 @@ public class Window {
     /**
      * Main method of game.
      */
-    private void loop() {
+    private static void loop() {
         // Set render parameters
         Render.setClearColor(225,255);
         Render.glEnable2D();
 
-        // System of tps clock, tps and fps counters
-        long start = 0;
-        long wait = 980000000/TPS;
-        long second = System.nanoTime();
-        int fps = 0;
-        int tps = 0;
+        int ticks = 0;
+        int frames = 0;
 
-        while(true){
-            long now = System.nanoTime();
+        Timer timer = new Timer();
 
-            // Update system
-            if (now - start > wait) {
-                SCREENMANAGER.update();
-                start = System.nanoTime();
-                tps++;
+        double lastTick = 0.0;
+        double lastFrame = 0.0;
+        double lastSecond = 0.0;
+
+        while(!glfwWindowShouldClose(windowID)){
+            if (timer.getDuration() - lastTick >= TICK_TIME) {
+                screenManager.update();
+                ticks++;
+                lastTick += TICK_TIME;
+            } else if (timer.getDuration() - lastFrame >= FRAME_TIME) {
+                screenManager.display();
+                glfwSwapBuffers(windowID);
+                glfwPollEvents();
+                frames++;
+                lastFrame += FRAME_TIME;
+            } else {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
-            // Display system
-            SCREENMANAGER.display();
-            fps++;
-
-            // Swap the color buffers
-            glfwSwapBuffers(WINDOWID);
-
-            if (second + 1000000000 < System.nanoTime()) {
-                System.out.println("\n-_-_-_-_-_-_-_-_-_-_-_-_-\n \033[92m FPS : " + fps + "   TPS : " + tps + "\033[0m");
-                fps = tps = 0;
-                second = System.nanoTime();
-            }
-
-            glfwPollEvents();
-            if (glfwWindowShouldClose(WINDOWID)) {
-                exit();
+            if (timer.getDuration() - lastSecond >= SECOND) {
+                glfwSetWindowTitle(windowID, "Growth | FPS:" + frames + "; TPS:" + ticks);
+                ticks = frames = 0;
+                lastSecond += SECOND;
             }
         }
     }
@@ -177,18 +199,19 @@ public class Window {
     /**
      * Exit the game.
      */
-    public void exit() {
-        SCREENMANAGER.unload();
+    public static void exit() {
+        screenManager.unload();
+
         // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(WINDOWID);
-        glfwDestroyWindow(WINDOWID);
+        glfwFreeCallbacks(windowID);
+        glfwDestroyWindow(windowID);
 
         // Terminate GLFW and free the error callback
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
         System.out.println("\n-------------------------- \n");
-        System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Bouin Alexandre" +
-                "\033[0m and\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
+        System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Boin Alexandre" +
+                "\033[0m and mainly\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
         System.out.println("\n-------------------------- \n");
 
         System.exit(0);

@@ -1,12 +1,13 @@
 package growth.screen;
 
 import growth.render.Camera;
+import growth.render.text.StaticFonts;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.MenuScreen;
 import growth.screen.screens.OptionScreen;
 import growth.screen.screens.Screen;
-import growth.utils.KeyboardManager;
-import growth.utils.MouseManager;
+import growth.inputs.KeyboardManager;
+import growth.inputs.MouseManager;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -114,5 +115,6 @@ public class ScreenManager {
     public void unload() {
         ActualScreen.unload();
         ActualScreen = null;
+        StaticFonts.unload();
     }
 }

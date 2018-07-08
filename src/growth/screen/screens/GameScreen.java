@@ -2,18 +2,13 @@ package growth.screen.screens;
 
 import growth.game.Hud;
 import growth.game.entity.EntityManager;
-import growth.game.entity.type.DummyEntity;
-import growth.game.entity.type.Entity;
-import growth.game.entity.type.MovingEntity;
 import growth.render.Render;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
 import growth.screen.overlay.PauseOverlay;
 import growth.game.tilemap.TileMap;
 import growth.game.entity.type.Player;
-import growth.utils.Math;
+import growth.math.Math;
 
 /**
  * Game class.
@@ -82,7 +77,7 @@ public class GameScreen extends Screen {
 
     /**
      * Death Overlay.
-     * This variable contains the overlay of death that appears when the character dies.
+     * This variable contains the overlay of death that appears when the player dies.
      */
     private final DeathOverlay death;
 
