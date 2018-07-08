@@ -15,8 +15,7 @@ public class FontFace {
     private FontFile fontFile;
 
     public FontFace(String name) {
-        fontAtlas = new Texture();
-        fontAtlas.load("/fonts/" + name + ".png");
+        fontAtlas = new Texture("/fonts/" + name + ".png");
 
         fontFile = new FontFile("/fonts/" + name + ".fnt");
     }
@@ -37,5 +36,9 @@ public class FontFace {
      */
     public FontFile getFontFile() {
         return fontFile;
+    }
+
+    public void unload() {
+        fontAtlas.unload();
     }
 }

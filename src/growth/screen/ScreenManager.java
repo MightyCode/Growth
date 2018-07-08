@@ -1,6 +1,7 @@
 package growth.screen;
 
 import growth.render.Camera;
+import growth.render.text.StaticFonts;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.MenuScreen;
 import growth.screen.screens.OptionScreen;
@@ -114,5 +115,6 @@ public class ScreenManager {
     public void unload() {
         ActualScreen.unload();
         ActualScreen = null;
+        StaticFonts.unload();
     }
 }

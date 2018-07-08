@@ -189,7 +189,7 @@ public class Window {
             }
 
             if (timer.getDuration() - lastSecond >= SECOND) {
-                glfwSetWindowTitle(windowID, "Space | FPS:" + frames + "; TPS:" + ticks);
+                glfwSetWindowTitle(windowID, "Growth | FPS:" + frames + "; TPS:" + ticks);
                 ticks = frames = 0;
                 lastSecond += SECOND;
             }
@@ -211,7 +211,7 @@ public class Window {
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
         System.out.println("\n-------------------------- \n");
         System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Boin Alexandre" +
-                "\033[0m and mainly \033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
+                "\033[0m and mainly\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
         System.out.println("\n-------------------------- \n");
 
         System.exit(0);

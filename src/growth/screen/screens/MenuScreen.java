@@ -20,18 +20,17 @@ import growth.main.Window;
  */
 public class MenuScreen extends Screen {
 
-
     private FontRenderer title;
     private GUIButton continuer, nouvelle, charger, options, quitter;
 
-    private Texture bg;
+    private Texture background;
 
     public MenuScreen(ScreenManager screenManager) {
         super(screenManager);
         Render.setClearColor(1f, 1f);
 
-        bg = new Texture();
-        bg.load("/textures/menu/bg.png");
+        background = new Texture();
+        background.load("/textures/menu/bg.png");
 
         title = new FontRenderer("Growth", StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
         title.setPos(new Vec2(Window.WIDTH / 2 - title.getWidth() / 2, 100));
@@ -130,7 +129,7 @@ public class MenuScreen extends Screen {
     public void display() {
         Render.clear();
 
-        bg.bind();
+        background.bind();
         TextureRenderer.imageC(0, 0, Window.WIDTH, Window.HEIGHT);
 
         title.render();
@@ -146,6 +145,10 @@ public class MenuScreen extends Screen {
      * Unload the textures in menu to free memory.
      */
     public void unload(){
+        // Unload the background
+        background.unload();
+
+        // Unload the button
         continuer.unload();
         nouvelle.unload();
         charger.unload();
