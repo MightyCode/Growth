@@ -2,12 +2,17 @@ package growth.util;
 
 import growth.game.tilemap.Map;
 import growth.game.tilemap.Tile;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 
 /**
  * XmlReader class.
@@ -41,7 +46,6 @@ public abstract class XmlReader {
 			// Set the spawn point of map
 			NodeList ins = root.getElementsByTagName("in");
 			final int insNumber = ins.getLength();
-
 
 			int newInsNumber = 0;
 			for(int a = 0; a < insNumber; a++){
@@ -141,7 +145,6 @@ public abstract class XmlReader {
 
 			int i = 0;
 			Element subRoot1;
-
 
 			if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
 			else {
@@ -281,14 +284,88 @@ public abstract class XmlReader {
 
 	public static float[] loadConfig(){
 		float[] config = new float[3];
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(XmlReader.class.getResourceAsStream("/config/config.xml"));
+			Element root = document.getDocumentElement();
 
-		// Window size
-		config[0] = 1280;
-		config[1] = 720;
+			NodeList rootNode = root.getChildNodes();
+			Element layer = (Element) rootNode.item(1);
 
-		// Window fullscreen
-		config[2] = 1;
+			// Window size
+			config[0] = Integer.parseInt(layer.getAttribute("width"));
+			config[1] = Integer.parseInt(layer.getAttribute("height"));
 
-		return config;
+			// Window fullscreen
+			config[2] = Integer.parseInt(layer.getAttribute("fullscreen"));
+			return config;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new float[0];
+		}
+	}
+
+	public static void test(){
+		try {
+
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+			// root elements
+			Document doc = docBuilder.newDocument();
+			Element rootElement = doc.createElement("company");
+			doc.appendChild(rootElement);
+
+			// staff elements
+			Element staff = doc.createElement("Staff");
+			rootElement.appendChild(staff);
+
+			// set attribute to staff element
+			Attr attr = doc.createAttribute("id");
+			attr.setValue("1");
+			staff.setAttributeNode(attr);
+
+			// shorten way
+			// staff.setAttribute("id", "1");
+
+			// firstname elements
+			Element firstname = doc.createElement("firstname");
+			firstname.appendChild(doc.createTextNode("yong"));
+			staff.appendChild(firstname);
+
+			// lastname elements
+			Element lastname = doc.createElement("lastname");
+			lastname.appendChild(doc.createTextNode("mook kim"));
+			staff.appendChild(lastname);
+
+			// nickname elements
+			Element nickname = doc.createElement("nickname");
+			nickname.appendChild(doc.createTextNode("mkyong"));
+			staff.appendChild(nickname);
+
+			// salary elements
+			Element salary = doc.createElement("salary");
+			salary.appendChild(doc.createTextNode("100000"));
+			staff.appendChild(salary);
+
+			// write the content into xml file
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("resources/config/test/file.xml" ));
+
+			// Output to console for testing
+			// StreamResult result = new StreamResult(System.out);
+
+			transformer.transform(source, result);
+
+			System.out.println("File saved!");
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		}
 	}
 }

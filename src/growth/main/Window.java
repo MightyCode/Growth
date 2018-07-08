@@ -84,6 +84,7 @@ public class Window implements GLFWWindowFocusCallbackI {
     public Window(){
         windowID = createWindow();
         screenManager = new ScreenManager();
+        XmlReader.test();
     }
 
     /**

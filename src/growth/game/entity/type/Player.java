@@ -61,13 +61,17 @@ public class Player extends MovingEntity{
 	public void load(){
 		super.load();
 		// Movement
-		float walkSpeed = 2.5f;
-		float maxSpeed = 6f;
-		float stopSpeed = 0.5f;
-		float fallSpeed = 0.4f;
-		float maxFallSpeed = GameScreen.TILESIZE - 2;
-		float jumpStart = -13.5f;
-		float stopJumpSpeed = 0.2f;
+
+		// Value
+		float walkSpeed = tileSize/25.6f;
+		float maxSpeed = tileSize/10f;
+		float stopSpeed = tileSize/89f;
+		float fallSpeed = tileSize/110f;
+		float maxFallSpeed = tileSize - 2f;
+		float jumpStart = tileSize/-4.8f;
+		float stopJumpSpeed = tileSize/130f;
+
+		// Coefficient
 		float runSpeed = 1.45f;
 
 		// Add the modules of action to the player

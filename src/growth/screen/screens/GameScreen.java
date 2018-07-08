@@ -28,7 +28,7 @@ public class GameScreen extends Screen {
      * Tile size.
      * This variable contains the definitive tile size.
      */
-    public static final int TILESIZE = Window.width/20;
+    public static int tileSize;
 
     /**
      * Game's states.
@@ -91,6 +91,8 @@ public class GameScreen extends Screen {
     public GameScreen(ScreenManager screenManager) {
         super(screenManager);
 
+        tileSize = Window.width/20;
+
         HUD.load();
         Render.setClearColor(0.67f, 0.85f, 0.90f, 1f);
         System.out.println("\n-------------------------- \n");
@@ -103,13 +105,13 @@ public class GameScreen extends Screen {
         death = new DeathOverlay(this);
 
         // Init tileMap
-        tileMap = new TileMap(TILESIZE, "/map/tileset.xml");
+        tileMap = new TileMap(tileSize, "/map/tileset.xml");
         ScreenManager.CAMERA.setTween(0.3f, 1f);
 
-        ENTITY_MANAGER.addEntity(new Player(this, tileMap, TILESIZE, TILESIZE));
+        ENTITY_MANAGER.addEntity(new Player(this, tileMap, tileSize, tileSize));
 
         // Player begin in the ground on Panel 1
-        ENTITY_MANAGER.setPosition(24 * TILESIZE, 6 * TILESIZE - ENTITY_MANAGER.getCY(0) / 2,0);
+        ENTITY_MANAGER.setPosition(24 * tileSize, 6 * tileSize - ENTITY_MANAGER.getCY(0) / 2,0);
 
         // Add player for the camera
         ENTITY_MANAGER.setCamera(0);
