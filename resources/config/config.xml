@@ -1,3 +1,10 @@
 <config>
     <window width="1280" height="720" fullscreen="1"/>
+    <inputs number="15"/>
+    <keyConfigs escape="81" left="68" right="90" up="83" down="263" jump="262" sprint="265"
+                interact="264" attack="-1" upLayer="21" downLayer="21" upMaxHealth="21"
+                downMaxHealth="21" upHealth="21" downHealth="21"/>
+    <mouseConfig escape="-1" left="-1" right="-1" up="-1" down="-1" jump="-1" sprint="-1"
+                 interact="-1" attack="1" upLayer="21" downLayer="21" upMaxHealth="21"
+                 downMaxHealth="21" upHealth="21" downHealth="21"/>
 </config>
