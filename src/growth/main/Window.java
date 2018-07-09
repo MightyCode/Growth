@@ -82,20 +82,19 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Do nothing for the moment
      */
     public Window(){
-        windowID = createWindow();
-        screenManager = new ScreenManager();
-        XmlReader.test();
+        createWindow();
     }
 
     /**
      * Create the window and return the window'id into the global variable WINDOW_ID.
      * @return windowID
      */
-    private static long createWindow(){
-        float[] config = XmlReader.loadConfig();
+    private static void createWindow(){
+        // Get the game global configurations.
+        Config config = new Config("/config/config.xml");
 
-        width = (int)config[0];
-        height = (int)config[1];
+        width = config.getWindowWidth();
+        height = config.getWindowHeight();
 
         // Setup an error callback.
         GLFWErrorCallback.createPrint(System.err).set();
@@ -110,14 +109,13 @@ public class Window implements GLFWWindowFocusCallbackI {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
 
         // Create the window if fullscreen
-        if(config[2] == 1){
+        if(config.getFullscreen()){
             width = 1920; height = 1080;
             windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
         }
         else{
             windowID = glfwCreateWindow(width, height, "Growth", NULL, NULL);
         }
-
 
         if (windowID == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
@@ -157,7 +155,9 @@ public class Window implements GLFWWindowFocusCallbackI {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        return windowID;
+        /* End loading of Open GL*/
+        // Set the screen manager
+        screenManager = new ScreenManager(config.getInputs());
     }
 
     /**

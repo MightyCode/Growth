@@ -28,7 +28,7 @@ public class OptionScreen extends Screen{
      * Update the menu.
      */
     public void update() {
-        if(ScreenManager.KEY.keyPressed(0)) {
+        if(ScreenManager.inputsManager.inputPressed(0)) {
             saveConfiguration();
         }
     }

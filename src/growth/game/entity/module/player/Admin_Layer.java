@@ -35,11 +35,11 @@ public class Admin_Layer extends Module{
      * Update the module.
      */
     public void update(){
-        if(ScreenManager.KEY.keyPressed(8)) {
+        if(ScreenManager.inputsManager.inputPressed(9)) {
            player.upLayer();
         }
 
-        if(ScreenManager.KEY.keyPressed(9)) {
+        if(ScreenManager.inputsManager.inputPressed(10)) {
             player.downLayer();
         }
     }

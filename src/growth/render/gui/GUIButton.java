@@ -77,7 +77,7 @@ public class GUIButton {
             fontRenderer.setColor(textColor);
         }
 
-        if(mouseOver && ScreenManager.MOUSE.mousePressed(GLFW_MOUSE_BUTTON_LEFT)){
+        if(mouseOver && ScreenManager.mouseManager.mousePressed(GLFW_MOUSE_BUTTON_LEFT)){
             action();
         }
     }

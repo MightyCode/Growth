@@ -2,17 +2,13 @@ package growth.util;
 
 import growth.game.tilemap.Map;
 import growth.game.tilemap.Tile;
+import growth.main.Config;
 import org.w3c.dom.*;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
+
+import static org.lwjgl.glfw.GLFW.*;
+
 
 /**
  * XmlReader class.
@@ -31,13 +27,11 @@ public abstract class XmlReader {
 	 * @return map
 	 */
 	public static Map createMap(String map_path) {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream("/map/" + map_path));
-			Element root = document.getDocumentElement();
 
+			Element root = root("/map/" + map_path);
+
+			assert root != null;
 			int width = Integer.parseInt(root.getAttribute("width"));
 			int height = Integer.parseInt(root.getAttribute("height"));
 
@@ -45,10 +39,9 @@ public abstract class XmlReader {
 
 			// Set the spawn point of map
 			NodeList ins = root.getElementsByTagName("in");
-			final int insNumber = ins.getLength();
 
 			int newInsNumber = 0;
-			for(int a = 0; a < insNumber; a++){
+			for(int a = 0; a < ins.getLength(); a++){
 				subRoot = (Element) ins.item(a);
 				if(Integer.parseInt(subRoot.getAttribute("name"))> newInsNumber)
 					newInsNumber = Integer.parseInt(subRoot.getAttribute("name"));
@@ -57,7 +50,7 @@ public abstract class XmlReader {
 			// Instance the map
 			Map map = new Map(Integer.parseInt(root.getAttribute("id")), newInsNumber);
 
-			for(int a = 0; a < insNumber; a++){
+			for(int a = 0; a < ins.getLength(); a++){
 				subRoot = (Element) ins.item(a);
 				map.setSpawnTile(Integer.parseInt(subRoot.getAttribute("name"))-1,
 						Float.parseFloat(subRoot.getAttribute("x")),
@@ -66,8 +59,7 @@ public abstract class XmlReader {
 
 			// Set the exit point of map
 			NodeList outs = root.getElementsByTagName("out");
-			final int outNumber = outs.getLength();
-			for(int a = 0; a < outNumber; a++){
+			for(int a = 0; a < outs.getLength(); a++){
 				subRoot = (Element) outs.item(a);
 				map.setExit(Integer.parseInt(subRoot.getAttribute("side"))-1,
 						Integer.parseInt(subRoot.getAttribute("to"))-1,
@@ -76,12 +68,10 @@ public abstract class XmlReader {
 						Float.parseFloat(subRoot.getAttribute("end")));
 			}
 
-
 			// Loading the layers
 			NodeList layers = root.getElementsByTagName("layer");
-			final int nubLayer = layers.getLength();
 
-			for(int a = 0; a < nubLayer; a++){
+			for(int a = 0; a < layers.getLength(); a++){
 				subRoot = (Element) layers.item(a);
 
 				int[][] mapId = new int[height][width];
@@ -133,31 +123,8 @@ public abstract class XmlReader {
 	 * Load the map number from the xml map option file and return it.
 	 */
 	public static int options_nbMap(){
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream("/map/mapOptions.xml"));
-			Element root = document.getDocumentElement();
-
-			// Get all child nodes of the root
-			NodeList rootNodes = root.getChildNodes();
-
-			int i = 0;
-			Element subRoot1;
-
-			if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
-			else {
-				i++;
-				subRoot1 = (Element) rootNodes.item(i);
-			}
-
-			while (!(subRoot1.getNodeName().equals("number"))) {
-				i++;
-				if (rootNodes.item(i).getNodeType() == Node.ELEMENT_NODE) subRoot1 = (Element) rootNodes.item(i);
-			}
-
-			return Integer.parseInt(subRoot1.getAttribute("number"))+1;
+			return Integer.parseInt((search("number", root("/map/mapOptions.xml")).getAttribute("number"))+1);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -188,14 +155,11 @@ public abstract class XmlReader {
 	 * @return tileSet
 	 */
 	public static Tile[] createTileSet(String tileSet_path) {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSet_path));
-			Element root = document.getDocumentElement();
+			Element root = root(tileSet_path);
 
 			// Get all child nodes of the root
+			assert root != null;
 			NodeList rootNode = root.getChildNodes();
 
 			int nbNodes = root.getElementsByTagName("texture").getLength();
@@ -248,13 +212,10 @@ public abstract class XmlReader {
 	}
 
 	public static int getTileSize(String tileSet_path){
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSet_path));
-			Element root = document.getDocumentElement();
+			Element root = root(tileSet_path);
 
+			assert root != null;
 			return Integer.parseInt(root.getAttribute("size"));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -262,110 +223,57 @@ public abstract class XmlReader {
 		}
 	}
 
-	public static int[] getTileSetSize(String tileSet_path){
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
+	public static void loadConfig(String path, Config config){
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream(tileSet_path));
-			Element root = document.getDocumentElement();
+			Element root = root(path);
 
-			int[] data = new int[2];
-
-			data[0] = Integer.parseInt(root.getAttribute("width"));
-			data[1] = Integer.parseInt(root.getAttribute("height"));
-
-			return data;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public static float[] loadConfig(){
-		float[] config = new float[3];
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(XmlReader.class.getResourceAsStream("/config/config.xml"));
-			Element root = document.getDocumentElement();
-
-			NodeList rootNode = root.getChildNodes();
-			Element layer = (Element) rootNode.item(1);
+			assert root != null;
+			Element layer = search("window", root);
 
 			// Window size
-			config[0] = Integer.parseInt(layer.getAttribute("width"));
-			config[1] = Integer.parseInt(layer.getAttribute("height"));
+			config.setWindowWidth(Integer.parseInt(layer.getAttribute("width")));
+			config.setWindowHeight(Integer.parseInt(layer.getAttribute("height")));
 
 			// Window fullscreen
-			config[2] = Integer.parseInt(layer.getAttribute("fullscreen"));
-			return config;
+			config.setFullscreen(Integer.parseInt(layer.getAttribute("fullscreen")));
+
+			layer = search("inputs", root);
+
+			int inputNumber = Integer.parseInt(layer.getAttribute("number"));
+
+			int[][] inputs = new int[inputNumber][2];
+
+			for(int i = 0; i < inputNumber; i++){
+				String data = layer.getAttribute("i"+i);
+				inputs[i][Integer.parseInt(data.substring(0,1))] = Integer.parseInt(data.substring(2,data.length()));
+				inputs[i][Math.abs(Integer.parseInt(data.substring(0,1))-1)] = -1;
+			}
+			System.out.println(inputs[1][1]);
+			config.setInputs(inputs);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new float[0];
 		}
 	}
 
-	public static void test(){
+	private static Element search(String name, Element root){
+		NodeList rootNode = root.getChildNodes();
+		int i = 0;
+		if (rootNode.item(i).getNodeType() != Node.ELEMENT_NODE) i++;
+		while(!name.equals(rootNode.item(i).getNodeName())){
+			i++;
+			if (rootNode.item(i).getNodeType() != Node.ELEMENT_NODE) i++;
+		}
+
+		return (Element) rootNode.item(i);
+	}
+
+	private static Element root(String path){
+
 		try {
-
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
-			// root elements
-			Document doc = docBuilder.newDocument();
-			Element rootElement = doc.createElement("company");
-			doc.appendChild(rootElement);
-
-			// staff elements
-			Element staff = doc.createElement("Staff");
-			rootElement.appendChild(staff);
-
-			// set attribute to staff element
-			Attr attr = doc.createAttribute("id");
-			attr.setValue("1");
-			staff.setAttributeNode(attr);
-
-			// shorten way
-			// staff.setAttribute("id", "1");
-
-			// firstname elements
-			Element firstname = doc.createElement("firstname");
-			firstname.appendChild(doc.createTextNode("yong"));
-			staff.appendChild(firstname);
-
-			// lastname elements
-			Element lastname = doc.createElement("lastname");
-			lastname.appendChild(doc.createTextNode("mook kim"));
-			staff.appendChild(lastname);
-
-			// nickname elements
-			Element nickname = doc.createElement("nickname");
-			nickname.appendChild(doc.createTextNode("mkyong"));
-			staff.appendChild(nickname);
-
-			// salary elements
-			Element salary = doc.createElement("salary");
-			salary.appendChild(doc.createTextNode("100000"));
-			staff.appendChild(salary);
-
-			// write the content into xml file
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("resources/config/test/file.xml" ));
-
-			// Output to console for testing
-			// StreamResult result = new StreamResult(System.out);
-
-			transformer.transform(source, result);
-
-			System.out.println("File saved!");
-
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
-		} catch (TransformerException tfe) {
-			tfe.printStackTrace();
+			return (((DocumentBuilderFactory.newInstance()).newDocumentBuilder()).parse(XmlReader.class.getResourceAsStream(path))).getDocumentElement();
+		} 	catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

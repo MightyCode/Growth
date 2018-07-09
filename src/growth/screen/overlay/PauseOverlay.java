@@ -83,7 +83,7 @@ public class PauseOverlay extends Overlay{
      * Update the overlay and its components.
      */
     public void update(){
-        if(ScreenManager.KEY.keyPressed(0)) {
+        if(ScreenManager.inputsManager.input(0)) {
             screen.setState(GameScreen.NORMALSCREEN);
         }
 

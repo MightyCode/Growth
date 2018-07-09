@@ -67,8 +67,8 @@ public class Player_Movement extends Module {
      */
     public void update(){
         // Keys update
-        left = ScreenManager.KEY.key(1);
-        right = ScreenManager.KEY.key(3);
+        left = ScreenManager.inputsManager.input(1);
+        right = ScreenManager.inputsManager.input(2);
 
         float speedX = player.getSpeedX();
 

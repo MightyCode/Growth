@@ -55,7 +55,7 @@ public class Player_Sprint extends Module {
     public void update(){
         float speedX = player.getSpeedX();
 
-        if (ScreenManager.KEY.key(5) ) {
+        if (ScreenManager.inputsManager.input(6) ) {
             if (speedX > 0 && movement.getRight() && !movement.getLeft()) {
                 speedX *= runSpeed;
             } else if (speedX < 0 && movement.getLeft() && !movement.getRight()) {

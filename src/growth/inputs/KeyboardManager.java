@@ -19,18 +19,6 @@ public class KeyboardManager {
     private static final int INPUTS = 512;
 
     /**
-     * Number of key use.
-     * This variable contains the number of key use on the game.
-     */
-    private static final int KEYUSE = 14;
-    /**
-     * Table of key input.
-     * This variable contains all of the keys use in the game.
-     * This system is use to do a changeable keys system.
-     */
-    private final int[] keys;
-
-    /**
      * Keys state.
      * This class contains the state of every keys.
      */
@@ -51,17 +39,6 @@ public class KeyboardManager {
             state[i] = false;
             tempState[i] = false;
         }
-
-        keys = new int[KEYUSE];
-    }
-
-    /**
-     * Set the key use the a action on the game.
-     * @param keyNumber The number of the key.
-     * @param value The value give per GWJGL_KEY_yourkey.
-     */
-    public void setKey(int keyNumber, int value){
-        keys[keyNumber] = value;
     }
 
     /**
@@ -71,8 +48,8 @@ public class KeyboardManager {
      *
      * @return State of the key.
      */
-    public boolean key(int keyID){
-        return glfwGetKey(Window.windowID, keys[keyID]) == 1;
+    public static boolean key(int keyID){
+        return glfwGetKey(Window.windowID, keyID) == 1;
     }
 
     /**
@@ -82,10 +59,10 @@ public class KeyboardManager {
      * @return boolean
      */
     public boolean keyPressed(int keyID){
-        tempState[keys[keyID]] = state[keys[keyID]];
-        state[keys[keyID]] = glfwGetKey(Window.windowID, keys[keyID]) == 1;
+        tempState[keyID] = state[keyID];
+        state[keyID] = glfwGetKey(Window.windowID, keyID) == 1;
 
-        return (state[keys[keyID]] && !tempState[keys[keyID]]);
+        return (state[keyID] && !tempState[keyID]);
     }
 
     /**
@@ -95,9 +72,9 @@ public class KeyboardManager {
      * @return boolean
      */
     public boolean keyReleased(int keyID){
-        tempState[keys[keyID]] = state[keys[keyID]];
-        state[keys[keyID]] = glfwGetKey(Window.windowID, keys[keyID]) == 1;
+        tempState[keyID] = state[keyID];
+        state[keyID] = glfwGetKey(Window.windowID, keyID) == 1;
 
-        return (!state[keys[keyID]] && tempState[keys[keyID]]);
+        return (!state[keyID] && tempState[keyID]);
     }
 }

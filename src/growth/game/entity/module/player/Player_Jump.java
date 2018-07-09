@@ -53,7 +53,7 @@ public class Player_Jump extends Module {
      */
     public void update(){
         // Keys update
-        boolean jumping = ScreenManager.KEY.key(2);
+        boolean jumping = ScreenManager.inputsManager.input(5);
         boolean falling = player.getFalling();
 
         float speedY = player.getSpeedY();

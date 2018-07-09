@@ -150,7 +150,7 @@ public class GameScreen extends Screen {
      * Update the player and the map.
      */
     private void updateGame() {
-        if(ScreenManager.KEY.keyPressed(0)) {
+        if(ScreenManager.inputsManager.inputPressed(0)) {
             state = ESCAPESCREEN;
         }
         // Update player
