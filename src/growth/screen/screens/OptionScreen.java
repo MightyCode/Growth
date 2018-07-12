@@ -12,6 +12,8 @@ public class OptionScreen extends Screen{
 
     private final Texture option;
 
+    private Texture background;
+
     /**
      * MenuScreen class constructor.
      * Instance the class and set all of the MenuScreen's variables.
@@ -20,8 +22,10 @@ public class OptionScreen extends Screen{
      */
     public OptionScreen(ScreenManager screenManager) {
         super(screenManager);
-        Render.setClearColor(0.365f, 0.906f, 0.784f, 1f);
-        option = new Texture("/textures/menu/Option_title.png");
+        option = new Texture("/textures/menu/Option_title2.png");
+
+        background = new Texture();
+        background.load("/textures/menu/bg.png");
     }
 
     /**
@@ -38,8 +42,12 @@ public class OptionScreen extends Screen{
      */
     public void display() {
         Render.clear();
-        TextureRenderer.imageC( Window.width*0.35f, Window.height *0.0f ,
-                Window.width*0.30f,Window.height*0.20f, option.getID(),1f, 1f);
+
+        background.bind();
+        TextureRenderer.imageC(0, 0, Window.width, Window.height);
+
+        TextureRenderer.imageC( Window.width*0.35f, Window.height * 0.02f ,
+                Window.width*0.30f,Window.height*0.20f, option.getID(), 1f);
     }
 
     /**

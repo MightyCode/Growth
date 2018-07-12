@@ -7,8 +7,6 @@ import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 
 /**
  * XmlReader class.
@@ -248,7 +246,6 @@ public abstract class XmlReader {
 				inputs[i][Integer.parseInt(data.substring(0,1))] = Integer.parseInt(data.substring(2,data.length()));
 				inputs[i][Math.abs(Integer.parseInt(data.substring(0,1))-1)] = -1;
 			}
-			System.out.println(inputs[1][1]);
 			config.setInputs(inputs);
 		} catch (Exception e) {
 			e.printStackTrace();

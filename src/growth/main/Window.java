@@ -3,7 +3,6 @@ package growth.main;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.util.Timer;
-import growth.util.XmlReader;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallbackI;
@@ -83,11 +82,11 @@ public class Window implements GLFWWindowFocusCallbackI {
      */
     public Window(){
         createWindow();
+        glfwSetWindowFocusCallback(windowID,this);
     }
 
     /**
      * Create the window and return the window'id into the global variable WINDOW_ID.
-     * @return windowID
      */
     private static void createWindow(){
         // Get the game global configurations.
@@ -146,8 +145,6 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Make the window visible
         glfwShowWindow(windowID);
         createCapabilities();
-
-       // glfwSetWindowFocusCallback(windowID,GLFW_FOCUSED);
 
         Render.setViewPort(width, height);
 
