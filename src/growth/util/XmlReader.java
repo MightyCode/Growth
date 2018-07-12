@@ -4,8 +4,18 @@ import growth.game.tilemap.Map;
 import growth.game.tilemap.Tile;
 import growth.main.Config;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
+import javax.print.Doc;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -27,7 +37,7 @@ public abstract class XmlReader {
 	public static Map createMap(String map_path) {
 		try {
 
-			Element root = root("/map/" + map_path);
+			Element root = getRoot("/map/" + map_path);
 
 			assert root != null;
 			int width = Integer.parseInt(root.getAttribute("width"));
@@ -122,26 +132,10 @@ public abstract class XmlReader {
 	 */
 	public static int options_nbMap(){
 		try {
-			return Integer.parseInt((search("number", root("/map/mapOptions.xml")).getAttribute("number"))+1);
+			return Integer.parseInt((search("number", getRoot("/map/mapOptions.xml")).getAttribute("number"))+1);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
-		}
-	}
-
-	/**
-	 * Test if a string is a number
-	 *
-	 * @param string String to test
-	 *
-	 * @return boolean's result
-	 */
-	private static boolean notInteger(String string) {
-		try {
-			Integer.parseInt(string);
-			return false;
-		} catch (NumberFormatException e) {
-			return true;
 		}
 	}
 
@@ -154,7 +148,7 @@ public abstract class XmlReader {
 	 */
 	public static Tile[] createTileSet(String tileSet_path) {
 		try {
-			Element root = root(tileSet_path);
+			Element root = getRoot(tileSet_path);
 
 			// Get all child nodes of the root
 			assert root != null;
@@ -211,7 +205,7 @@ public abstract class XmlReader {
 
 	public static int getTileSize(String tileSet_path){
 		try {
-			Element root = root(tileSet_path);
+			Element root = getRoot(tileSet_path);
 
 			assert root != null;
 			return Integer.parseInt(root.getAttribute("size"));
@@ -223,7 +217,7 @@ public abstract class XmlReader {
 
 	public static void loadConfig(String path, Config config){
 		try {
-			Element root = root(path);
+			Element root = getRoot(path);
 
 			assert root != null;
 			Element layer = search("window", root);
@@ -252,6 +246,44 @@ public abstract class XmlReader {
 		}
 	}
 
+	public static void changeValue(String path, String nodeName, String attributeName, String newValue){
+		try{
+			Document doc = getDocument(path);
+			assert doc != null;
+			Element root = doc.getDocumentElement();
+			search(nodeName, root).setAttribute(attributeName,newValue);
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("resources/"+path));
+			transformer.transform(source, result);
+
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public static String getValue(String path, String nodeName, String attributeName){
+		try{
+			Element root = getRoot(path);
+			Element layer = search(nodeName, root);
+
+			return layer.getAttribute(attributeName);
+		} catch (Exception e){
+			e.printStackTrace();
+			return "fail !!";
+		}
+	}
+
+	private static Document getDocument(String path){
+		try {
+			return ((DocumentBuilderFactory.newInstance()).newDocumentBuilder()).parse(XmlReader.class.getResourceAsStream(path));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	private static Element search(String name, Element root){
 		NodeList rootNode = root.getChildNodes();
 		int i = 0;
@@ -264,13 +296,28 @@ public abstract class XmlReader {
 		return (Element) rootNode.item(i);
 	}
 
-	private static Element root(String path){
-
+	private static Element getRoot(String path){
 		try {
 			return (((DocumentBuilderFactory.newInstance()).newDocumentBuilder()).parse(XmlReader.class.getResourceAsStream(path))).getDocumentElement();
 		} 	catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	/**
+	 * Test if a string is a number
+	 *
+	 * @param string String to test
+	 *
+	 * @return boolean's result
+	 */
+	private static boolean notInteger(String string) {
+		try {
+			Integer.parseInt(string);
+			return false;
+		} catch (NumberFormatException e) {
+			return true;
 		}
 	}
 }
