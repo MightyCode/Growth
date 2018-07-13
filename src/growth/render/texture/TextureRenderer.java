@@ -19,20 +19,14 @@ public class TextureRenderer {
     /**
      * Display an image.
      *
-     * @param posX Position x of the top-left corner image.
-     * @param posY Position y of the top-left corner image.
+     * @param posX  Position x of the top-left corner image.
+     * @param posY  Position y of the top-left corner image.
      * @param sizeX Image's width.
      * @param sizeY Image's height.
-     * @param textID ID of the image.
-     * @param alpha Opacity of the image.
-     * @param color The color of the image.
      */
-
-
-    public static void image(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha){
+    public static void image(float posX, float posY, float sizeX, float sizeY, float alpha) {
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textID);
-        glColor4f(color, color, color, alpha);
+        glColor4f(1.f, 1.f, 1.f, alpha);
 
         glBegin(GL_QUADS);
         glTexCoord2f(0.f, 0.f);
@@ -49,83 +43,45 @@ public class TextureRenderer {
         glEnd();
     }
 
-    public static void image(float posX, float posY, float sizeX, float sizeY){
+    public static void image(float posX, float posY, float sizeX, float sizeY) {
+        image(posX, posY, sizeX, sizeY, 1.f);
+    }
+
+    public static void image(Vec2 pos, Vec2 size) {
+        image(pos.getX(), pos.getY(), size.getX(), size.getY(), 1.f);
+    }
+
+    public static void image(Vec2 pos, Vec2 size, float alpha) {
+        image(pos.getX(), pos.getY(), size.getX(), size.getY(), alpha);
+    }
+
+    public static void imageC(float posX, float posY, float sizeX, float sizeY) {
+        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, 1.f);
+    }
+
+    public static void imageC(float posX, float posY, float sizeX, float sizeY, float alpha) {
+        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, alpha);
+    }
+
+    public static void imageC(Vec2 pos, Vec2 size) {
+        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(), 1.f);
+    }
+
+    public static void imageC(Vec2 pos, Vec2 size, float alpha) {
+        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(), alpha);
+    }
+
+    /**
+     * Display a part of image.
+     *
+     * @param posX  Position x of the top-left corner image.
+     * @param posY  Position y of the top-left corner image.
+     * @param sizeX Image's width.
+     * @param sizeY Image's height.
+     */
+    public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, float alpha) {
         glActiveTexture(GL_TEXTURE0);
-        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-        glBegin(GL_QUADS);
-        glTexCoord2f(0.f, 0.f);
-        glVertex2f(posX, posY);
-
-        glTexCoord2f(0.f, 1.f);
-        glVertex2f(posX, posY + sizeY);
-
-        glTexCoord2f(1.f, 1.f);
-        glVertex2f(posX + sizeX, posY + sizeY);
-
-        glTexCoord2f(1.f, 0.f);
-        glVertex2f(posX + sizeX, posY);
-        glEnd();
-    }
-
-    /**
-     * Display an image without the color.
-     *
-     * @param posX Position x of the top-left corner image.
-     * @param posY Position y of the top-left corner image.
-     * @param sizeX Image's width.
-     * @param sizeY Image's height.
-     * @param textID ID of the image.
-     * @param alpha Opacity of the image.
-     */
-    public static void image(float posX, float posY, float sizeX, float sizeY, float textID, float alpha){
-        image(posX, posY, sizeX, sizeY, (int)textID, 1f, alpha);
-    }
-
-    /**
-     * Display an image.
-     *
-     * @param posX Position x of the top-left corner image.
-     * @param posY Position y of the top-left corner image.
-     * @param sizeX Image's width.
-     * @param sizeY Image's height.
-     * @param textID ID of the image.
-     * @param alpha Opacity of the image.
-     * @param color The color of the image.
-     */
-    public static void imageC(float posX, float posY, float sizeX, float sizeY, int textID, float color, float alpha){
-        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, textID, color, alpha);
-    }
-
-    public static void imageC(float posX, float posY, float sizeX, float sizeY){
-        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY);
-    }
-
-    /**
-     * Display an image.
-     *
-     * @param posX Position x of the top-left corner image.
-     * @param posY Position y of the top-left corner image.
-     * @param sizeX Image's width.
-     * @param sizeY Image's height.
-     * @param textID ID of the image.
-     * @param alpha Opacity of the image.
-     */
-    public static void imageC(float posX, float posY, float sizeX, float sizeY, int textID, float alpha){
-        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, textID, 1f, alpha);
-    }
-
-    /**
-     * Display an image.
-     *
-     * @param posX Position x of the top-left corner image.
-     * @param posY Position y of the top-left corner image.
-     * @param sizeX Image's width.
-     * @param sizeY Image's height.
-     */
-    public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY){
-        glActiveTexture(GL_TEXTURE0);
-        glColor4f(1f, 1f, 1f, 1f);
+        glColor4f(1f, 1f, 1f, alpha);
 
         glBegin(GL_QUADS);
         glTexCoord2f(fromX, fromY);
@@ -142,13 +98,34 @@ public class TextureRenderer {
         glEnd();
     }
 
-    public static void imageC(Vec2 pos, Vec2 size, float alpha){
-        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(), 1f, alpha);
+    public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY) {
+        image(posX, posY, sizeX, sizeY, fromX, fromY, toX, toY, 1.f);
     }
 
-    public static void imageC(Vec2 pos, Vec2 size,int textID, float alpha){
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textID);
-        image( pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(), 1f, alpha);
+    public static void image(Vec2 pos, Vec2 size, Vec2 from, Vec2 to) {
+        image(pos.getX(), pos.getY(), size.getX(), size.getY(), from.getX(), from.getY(), to.getX(), to.getY(), 1.f);
     }
+
+    public static void image(Vec2 pos, Vec2 size, Vec2 from, Vec2 to, float alpha) {
+        image(pos.getX(), pos.getY(), size.getX(), size.getY(), from.getX(), from.getY(), to.getX(), to.getY(), alpha);
+    }
+
+    public static void imageC(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY) {
+        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, 1.f);
+    }
+
+    public static void imageC(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, float alpha) {
+        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, alpha);
+    }
+
+    public static void imageC(Vec2 pos, Vec2 size, Vec2 from, Vec2 to) {
+        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(),
+                from.getX(), from.getY(), to.getX(), to.getY(), 1.f);
+    }
+
+    public static void imageC(Vec2 pos, Vec2 size, Vec2 from, Vec2 to, float alpha) {
+        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(),
+                from.getX(), from.getY(), to.getX(), to.getY(), alpha);
+    }
+
 }

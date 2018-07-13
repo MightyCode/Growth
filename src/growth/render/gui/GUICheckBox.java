@@ -12,7 +12,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
 
 public class GUICheckBox extends GUIComponents{
 
-    protected boolean state;
     private Texture uncheck, uncheck_hover, check, check_hover;
     private Color4 textColor;
     private Color4 hoverTextColor;
@@ -51,7 +50,7 @@ public class GUICheckBox extends GUIComponents{
         if(mouseOver){
             fontRenderer.setColor(hoverTextColor);
             if(ScreenManager.mouseManager.mousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
-                state = !state;
+                state = (state == 1)? 0 : 1;
                 action();
             }
         } else{
@@ -63,7 +62,7 @@ public class GUICheckBox extends GUIComponents{
      * Display the button.
      */
     public void display() {
-        if(state){
+        if(state == 1){
             if (mouseOver) {
                 check_hover.bind();
             } else {

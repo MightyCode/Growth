@@ -13,13 +13,13 @@ public class Config {
         XmlReader.loadConfig(path, this);
     }
 
-    boolean getFullscreen() {
+    public boolean getFullscreen() {
         return fullscreen;
     }
 
     public void setFullscreen(int fullscreen) { this.fullscreen = fullscreen == 1; }
 
-    int getWindowWidth() {
+    public int getWindowWidth() {
         return windowWidth;
     }
 

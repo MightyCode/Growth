@@ -5,6 +5,7 @@ import growth.math.Vec2;
 
 public abstract class GUIComponents {
 
+    protected int state;
     protected Vec2 pos;
     protected Vec2 size;
     protected boolean lock;
@@ -31,5 +32,13 @@ public abstract class GUIComponents {
 
     public void setLock(boolean newState){
         lock = newState;
+    }
+
+    public void setState(int newState){
+        state = newState;
+    }
+
+    public void setState(boolean newState){
+       state = (newState)? 1 : 0;
     }
 }

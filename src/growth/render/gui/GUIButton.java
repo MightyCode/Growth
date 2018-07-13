@@ -6,7 +6,6 @@ import growth.render.shape.ShapeRenderer;
 import growth.render.text.FontFace;
 import growth.render.text.FontRenderer;
 import growth.screen.ScreenManager;
-import growth.inputs.MouseManager;
 
 import static org.lwjgl.glfw.GLFW.*;
 
