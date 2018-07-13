@@ -36,7 +36,7 @@ public class Hud {
      * Heart id.
      * This table contains the type of each heart displayed.
      */
-    private int[]heartType;
+    private Texture[]heartType;
 
     /**
      * Heart position.
@@ -162,9 +162,11 @@ public class Hud {
      */
     public void display(){
         for(int i = 0; i < numHeart; i++) {
-            TextureRenderer.imageC(heartPos[i][0], heartPos[i][1], heartSize[i][0], heartSize[i][1], heartType[i], 1f);
+            heartType[i].bind();
+            TextureRenderer.imageC(heartPos[i][0], heartPos[i][1], heartSize[i][0], heartSize[i][1]);
         }
-        TextureRenderer.imageC(acornPosX,  acornPosY, acornSizeX, acornSizeY, acorn.getID(), 1f);
+        acorn.bind();
+        TextureRenderer.imageC(acornPosX,  acornPosY, acornSizeX, acornSizeY);
     }
 
     /**
@@ -180,7 +182,7 @@ public class Hud {
         // Set the id of the hearth for each receptacle
         int i = 0;
         while(i < newHealth/2){
-            heartType[i] = t_heart.getID();
+            heartType[i] = t_heart;
             heartSize[i][0] = heartSizeXT;
             heartSize[i][1] = heartSizeYT;
             if(((double)newHealth)/2 == newHealth/2){
@@ -192,7 +194,7 @@ public class Hud {
         }
 
         if(((double)newHealth)/2 != newHealth/2) {
-            heartType[i] = t_halfHeart.getID();
+            heartType[i] = t_halfHeart;
             heartSize[i][0] = heartSizeXT;
             heartSize[i][1] = heartSizeYT;
             currentHeartUse = i;
@@ -200,7 +202,7 @@ public class Hud {
         }
 
         while(i < maxHealth/2){
-            heartType[i] = t_deadHeart.getID();
+            heartType[i] = t_deadHeart;
             heartSize[i][0] = heartSizeXT * 0.9f;
             heartSize[i][1] = heartSizeYT * 0.9f;
             i++;
@@ -240,7 +242,7 @@ public class Hud {
         spaceBetweenTwoHeart = heartSizeXT*1.4f;
 
         this.maxHealth = newMaxHealth;
-        heartType = new int[(int) Math.ceil((double) newMaxHealth / 2)];
+        heartType = new Texture[(int) Math.ceil((double) newMaxHealth / 2)];
         heartPos = new float[(int) Math.ceil((double) newMaxHealth / 2)][2];
         heartSize = new float[(int) Math.ceil((double) newMaxHealth / 2)][2];
         if (currentHealth > maxHealth) currentHealth = maxHealth;

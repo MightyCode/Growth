@@ -12,13 +12,13 @@
             s2="Nouvelle partie"
             s3="Charger une partie"
             s4="Options du jeu"
-            s5="Quittez"
+            s5="Quitter"
             s6="Pause"
             s7="Continuer à jouer"
             s8="Options"
-            s9="Quittez vers le menu"
+            s9="Quitter vers le menu"
             s10="Game over"
             s11="Recommencer"
-            s12="Quittez vers le menu"
+            s12="Quitter vers le menu"
     />
 </word>

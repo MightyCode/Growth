@@ -170,19 +170,18 @@ public class MovingEntity extends BasicEntity {
     }
 
     public void display(){
+        animations.get(animationPlayed).bind();
         if(animations.size()>0) {  //TODO IF the entity hasn't animation.
             if (facing) {
                 TextureRenderer.image(
                         (posX - sizeX / 2),
                         (posY - sizeY / 2),
-                        sizeX * 1f, sizeY * 1f,
-                        animations.get(animationPlayed).getCurrentID(), 1f, 1f);
+                        sizeX * 1f, sizeY * 1f);
             } else {
                 TextureRenderer.image(
                         (posX - sizeX / 2 + sizeX),
                         (posY - sizeY / 2),
-                        -sizeX, sizeY,
-                        animations.get(animationPlayed).getCurrentID(), 1f, 1f);
+                        -sizeX, sizeY);
             }
         }
     }

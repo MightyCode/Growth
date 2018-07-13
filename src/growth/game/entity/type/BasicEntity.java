@@ -133,12 +133,13 @@ public class BasicEntity extends Entity{
         for(Module module : modules){
             module.display();
         }
+
+        animations.get(animationPlayed).bind();
         if(animations.size() > 0) {
             TextureRenderer.image(
                     (posX - sizeX / 2),
                     (posY - sizeY / 2),
-                    sizeX * 1f, sizeY * 1f,
-                    animations.get(animationPlayed).getCurrentID(), 1f, 1f);
+                    sizeX * 1f, sizeY * 1f);
         }
     }
 

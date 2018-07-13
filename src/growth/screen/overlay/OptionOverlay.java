@@ -4,7 +4,6 @@ import growth.main.Window;
 import growth.math.Color4;
 import growth.math.Vec2;
 import growth.render.Render;
-import growth.render.gui.GUIButton;
 import growth.render.gui.GUICheckBox;
 import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
@@ -60,10 +59,10 @@ public class OptionOverlay extends Overlay {
 
     public void display() {
         Render.clear();
-        TextureRenderer.imageC(0, 0, Window.width, Window.height, background.getID(),1f);
-
-        TextureRenderer.imageC( Window.width*0.35f, Window.height * 0.02f ,
-                Window.width*0.30f,Window.height*0.20f, option.getID(), 1f);
+        background.bind();
+        TextureRenderer.imageC(0, 0, Window.width, Window.height);
+        option.bind();
+        TextureRenderer.imageC( Window.width*0.35f, Window.height * 0.02f , Window.width*0.30f,Window.height*0.20f);
         test.display();
     }
 

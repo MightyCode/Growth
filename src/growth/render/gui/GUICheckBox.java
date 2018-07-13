@@ -65,18 +65,18 @@ public class GUICheckBox extends GUIComponents{
     public void display() {
         if(state){
             if (mouseOver) {
-                TextureRenderer.imageC(pos,size,check_hover.getID(),1f);
+                check_hover.bind();
             } else {
-                TextureRenderer.imageC(pos,size,check.getID(),1f);
+                check.bind();
             }
         } else{
             if (mouseOver) {
-                TextureRenderer.imageC(pos,size,uncheck_hover.getID(),1f);
+                uncheck_hover.bind();
             } else {
-                TextureRenderer.imageC(pos,size,uncheck_hover.getID(),1f);
+                uncheck.bind();
             }
         }
-
+        TextureRenderer.imageC(pos,size,1f);
         fontRenderer.render();
     }
 

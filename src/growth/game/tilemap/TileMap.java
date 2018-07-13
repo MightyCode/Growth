@@ -159,6 +159,8 @@ public class TileMap {
 	 * Display the current map.
 	 */
 	public void display(boolean pos) {
+
+		tileSetT.bind();
 		colOffset = -ScreenManager.CAMERA.getPosX() / tileSize;
 		rowOffset = -ScreenManager.CAMERA.getPosY() / tileSize;
 
@@ -188,8 +190,7 @@ public class TileMap {
 							tileSet[map[row][col]].getTexX(),
 							tileSet[map[row][col]].getTexY(),
 							tileSet[map[row][col]].getTexToX(),
-							tileSet[map[row][col]].getTexToY(),
-							tileSetT.getID(), color , 1f
+							tileSet[map[row][col]].getTexToY()
 					);
 				}
 			}

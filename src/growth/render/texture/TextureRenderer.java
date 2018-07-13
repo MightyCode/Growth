@@ -122,14 +122,10 @@ public class TextureRenderer {
      * @param posY Position y of the top-left corner image.
      * @param sizeX Image's width.
      * @param sizeY Image's height.
-     * @param textID ID of the image.
-     * @param alpha Opacity of the image.
-     * @param color The color of the image.
      */
-    public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, int textID, float color, float alpha){
+    public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY){
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textID);
-        glColor4f(color, color, color, alpha);
+        glColor4f(1f, 1f, 1f, 1f);
 
         glBegin(GL_QUADS);
         glTexCoord2f(fromX, fromY);

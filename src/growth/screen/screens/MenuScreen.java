@@ -157,7 +157,8 @@ public class MenuScreen extends Screen {
             case 0:
                 Render.clear();
 
-                TextureRenderer.imageC(0, 0, Window.width, Window.height, background.getID(),1f);
+                background.bind();
+                TextureRenderer.imageC(0, 0, Window.width, Window.height);
 
                 title.render();
 
