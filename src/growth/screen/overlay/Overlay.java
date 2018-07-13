@@ -17,7 +17,7 @@ public abstract class Overlay {
      * Screen.
      * This variable contains the screen which have instance this overlay.
      */
-    final Screen screen;
+    protected final Screen screen;
 
     /**
      * Overlay abstract class constructor.

@@ -95,7 +95,7 @@ public class ScreenManager {
 
     public void focuse(boolean b){
         System.out.println(b);
-        ActualScreen.focuse(b);
+        ActualScreen.focus(b);
     }
 
     /**

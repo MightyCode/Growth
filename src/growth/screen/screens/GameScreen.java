@@ -6,6 +6,7 @@ import growth.main.Window;
 import growth.render.Render;
 import growth.screen.ScreenManager;
 import growth.screen.overlay.DeathOverlay;
+import growth.screen.overlay.OptionOverlay;
 import growth.screen.overlay.PauseOverlay;
 import growth.game.tilemap.TileMap;
 import growth.game.entity.type.Player;
@@ -39,6 +40,7 @@ public class GameScreen extends Screen {
     public static final int ESCAPESCREEN = 2;
     public static final int INVENTORYSCREEN = 3;
     public static final int DEATHSCREEN = 4;
+    public static final int OPTIONSCREEN = 5;
 
     /**
      * Time to transition.
@@ -82,6 +84,8 @@ public class GameScreen extends Screen {
      */
     private final DeathOverlay death;
 
+    private final OptionOverlay option;
+
     /**
      * GameScreen class constructor.
      * Instance the class and set all of the GameScreen's variables.
@@ -103,6 +107,12 @@ public class GameScreen extends Screen {
         // Init screen's overlay
         pause = new PauseOverlay(this);
         death = new DeathOverlay(this);
+        option = new OptionOverlay(this){
+            @Override
+            public void quit(){
+                screen.setState(ESCAPESCREEN);
+            }
+        };
 
         // Init tileMap
         tileMap = new TileMap(tileSize, "/map/tileset.xml");
@@ -139,8 +149,10 @@ public class GameScreen extends Screen {
             case DEATHSCREEN:
                 death.update();
                 break;
+            case OPTIONSCREEN:
+                option.update();
+                break;
             default:
-                updateGame();
                 updateGame();
                 break;
         }
@@ -209,6 +221,9 @@ public class GameScreen extends Screen {
                 break;
             case INVENTORYSCREEN:
                 break;
+            case OPTIONSCREEN:
+                option.display();
+                break;
             case DEATHSCREEN:
                 displayGame();
                 death.display();
@@ -273,10 +288,11 @@ public class GameScreen extends Screen {
         pause.unload();
         death.unload();
         tileMap.unload();
+        option.unload();
         ENTITY_MANAGER.removeAll();
     }
 
-    public void focuse(boolean b) {
+    public void focus(boolean b) {
         if (!b) state = ESCAPESCREEN;
     }
 }

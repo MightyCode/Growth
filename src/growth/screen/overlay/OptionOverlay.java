@@ -52,7 +52,7 @@ public class OptionOverlay extends Overlay {
 
     public void update() {
         if(ScreenManager.inputsManager.inputPressed(0)) {
-            screen.setScreen(ScreenManager.MENUSCREEN);
+            quit();
         }
         test.update();
     }
@@ -68,6 +68,8 @@ public class OptionOverlay extends Overlay {
         test.display();
     }
 
+    public void quit(){
+    }
 
     public void unload() {
         System.out.println("\n-------------------------- \n");

@@ -56,7 +56,7 @@ public abstract class Screen {
         state = newState;
     }
 
-    public void focuse(boolean b){}
+    public void focus(boolean b){}
 
     /**
      * Base architecture of unloading method

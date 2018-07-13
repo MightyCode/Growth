@@ -26,7 +26,7 @@ public class PauseOverlay extends Overlay{
      */
     private FontRenderer pause;
 
-    private GUIButton continuer, quitter;
+    private GUIButton continuer, options,  quitter;
 
     /**
      * Pause overlay class constructor.
@@ -47,7 +47,7 @@ public class PauseOverlay extends Overlay{
         Color4 hoverTextColor = Color4.WHITE;
 
         continuer = new GUIButton(
-                new Vec2(Window.width / 2, 300),
+                new Vec2(Window.width / 2, Window.height/2.4f),
                 size,
                 "Continuer à jouer",
                 StaticFonts.monofonto,
@@ -62,8 +62,24 @@ public class PauseOverlay extends Overlay{
             }
         };
 
+        options = new GUIButton(
+                new Vec2(Window.width / 2, Window.height/2f),
+                size,
+                "Options",
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ){
+            @Override
+            public void action () {
+                screen.setState(GameScreen.OPTIONSCREEN);
+            }
+        };
+
         quitter = new GUIButton(
-                new Vec2(Window.width / 2, 375),
+                new Vec2(Window.width / 2, Window.height/1.71f),
                 size,
                 "Quitter vers le menu",
                 StaticFonts.monofonto,
@@ -88,6 +104,7 @@ public class PauseOverlay extends Overlay{
         }
 
         continuer.update();
+        options.update();
         quitter.update();
     }
 
@@ -104,8 +121,13 @@ public class PauseOverlay extends Overlay{
         pause.render();
 
         continuer.display();
+        options.display();
         quitter.display();
     }
 
-    public void unload(){}
+    public void unload(){
+        continuer.unload();
+        options.unload();
+        quitter.unload();
+    }
 }

@@ -17,7 +17,7 @@ import growth.screen.screens.Screen;
  * @author MightyCode
  * @version 1.0
  */
-public class DeathOverlay extends Overlay{
+public class DeathOverlay extends Overlay {
 
     /**
      * Lose title texture.
@@ -31,7 +31,7 @@ public class DeathOverlay extends Overlay{
      * Death overlay class constructor.
      * Instance the class and set overlay's variables.
      */
-    public DeathOverlay(Screen screen){
+    public DeathOverlay(Screen screen) {
         super(screen);
 
         // Init variable
@@ -54,9 +54,9 @@ public class DeathOverlay extends Overlay{
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
+            public void action() {
                 Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
             }
         };
@@ -70,9 +70,9 @@ public class DeathOverlay extends Overlay{
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
+            public void action() {
                 Window.screenManager.setScreen(ScreenManager.MENUSCREEN);
             }
         };
@@ -81,7 +81,7 @@ public class DeathOverlay extends Overlay{
     /**
      * Update the overlay and its components.
      */
-    public void update(){
+    public void update() {
         recommencer.update();
         quitter.update();
     }
@@ -89,7 +89,7 @@ public class DeathOverlay extends Overlay{
     /**
      * Update the overlay.
      */
-    public void display(){
+    public void display() {
         // Black rectangle
         ShapeRenderer.rectC(new Vec2(), new Vec2(Window.width, Window.height), new Color4(0.0f, 0.0f, 0.0f, 0.6f));
         ShapeRenderer.rectC(new Vec2(0.1f * Window.width, 0.15f * Window.height),
@@ -102,5 +102,8 @@ public class DeathOverlay extends Overlay{
         quitter.display();
     }
 
-    public void unload(){}
+    public void unload() {
+        recommencer.unload();
+        quitter.unload();
+    }
 }

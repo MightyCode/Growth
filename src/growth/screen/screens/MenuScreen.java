@@ -118,7 +118,12 @@ public class MenuScreen extends Screen {
         };
 
         // Load the option Overlay
-        option = new OptionOverlay(this);
+        option = new OptionOverlay(this){
+            @Override
+            public void quit () {
+                screen.setState(0);
+            }
+        };
     }
 
     /**
