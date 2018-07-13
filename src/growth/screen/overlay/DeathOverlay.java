@@ -25,7 +25,7 @@ public class DeathOverlay extends Overlay {
      */
     private FontRenderer loose;
 
-    private GUIButton recommencer, quitter;
+    private GUIButton retry, quitter;
 
     /**
      * Death overlay class constructor.
@@ -36,7 +36,7 @@ public class DeathOverlay extends Overlay {
 
         // Init variable
         // Title
-        loose = new FontRenderer("Game Over", StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
+        loose = new FontRenderer(ScreenManager.getWord(10), StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
         loose.setPos(new Vec2(Window.width / 2 - loose.getWidth() / 2, 0.18f * Window.height));
 
         Vec2 size = new Vec2(350, 40);
@@ -45,10 +45,10 @@ public class DeathOverlay extends Overlay {
         Color4 textColor = new Color4(0.8f, 0.8f, 0.8f, 1.0f);
         Color4 hoverTextColor = Color4.WHITE;
 
-        recommencer = new GUIButton(
+        retry = new GUIButton(
                 new Vec2(Window.width / 2, 300),
                 size,
-                "Recommencer",
+                ScreenManager.getWord(11),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -64,7 +64,7 @@ public class DeathOverlay extends Overlay {
         quitter = new GUIButton(
                 new Vec2(Window.width / 2, 375),
                 size,
-                "Quitter vers le menu",
+                ScreenManager.getWord(12),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -82,7 +82,7 @@ public class DeathOverlay extends Overlay {
      * Update the overlay and its components.
      */
     public void update() {
-        recommencer.update();
+        retry.update();
         quitter.update();
     }
 
@@ -98,12 +98,12 @@ public class DeathOverlay extends Overlay {
         // Textures and button
         loose.render();
 
-        recommencer.display();
+        retry.display();
         quitter.display();
     }
 
     public void unload() {
-        recommencer.unload();
+        retry.unload();
         quitter.unload();
     }
 }

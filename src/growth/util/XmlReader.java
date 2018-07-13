@@ -3,19 +3,15 @@ package growth.util;
 import growth.game.tilemap.Map;
 import growth.game.tilemap.Tile;
 import growth.main.Config;
+import growth.main.Window;
 import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 
-import javax.print.Doc;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.IOException;
 
 
 /**
@@ -220,23 +216,27 @@ public abstract class XmlReader {
 			Element root = getRoot(path);
 
 			assert root != null;
-			Element layer = search("window", root);
+			// General configuration
+			Element tag = search("general", root);
+			config.setLanguage(tag.getAttribute("language"));
 
 			// Window size
-			config.setWindowWidth(Integer.parseInt(layer.getAttribute("width")));
-			config.setWindowHeight(Integer.parseInt(layer.getAttribute("height")));
+			 tag = search("window", root);
+			config.setWindowWidth(Integer.parseInt(tag.getAttribute("width")));
+			config.setWindowHeight(Integer.parseInt(tag.getAttribute("height")));
 
 			// Window fullscreen
-			config.setFullscreen(Integer.parseInt(layer.getAttribute("fullscreen")));
+			config.setFullscreen(Integer.parseInt(tag.getAttribute("fullscreen")));
 
-			layer = search("inputs", root);
+			// Inputs configuration
+			tag = search("inputs", root);
 
-			int inputNumber = Integer.parseInt(layer.getAttribute("number"));
+			int inputNumber = Integer.parseInt(tag.getAttribute("number"));
 
 			int[][] inputs = new int[inputNumber][2];
 
 			for(int i = 0; i < inputNumber; i++){
-				String data = layer.getAttribute("i"+i);
+				String data = tag.getAttribute("i"+i);
 				inputs[i][Integer.parseInt(data.substring(0,1))] = Integer.parseInt(data.substring(2,data.length()));
 				inputs[i][Math.abs(Integer.parseInt(data.substring(0,1))-1)] = -1;
 			}
@@ -267,12 +267,33 @@ public abstract class XmlReader {
 	public static String getValue(String path, String nodeName, String attributeName){
 		try{
 			Element root = getRoot(path);
+			assert root != null;
 			Element layer = search(nodeName, root);
 
 			return layer.getAttribute(attributeName);
 		} catch (Exception e){
 			e.printStackTrace();
 			return "fail !!";
+		}
+	}
+
+	public static String[] loadWord(){
+		try{
+			String[] word;
+			Element root = getRoot("/word/" + Window.config.getLanguage() + ".xml");
+			assert root != null;
+			Element tag = search("info",root);
+			int size = Integer.parseInt(tag.getAttribute("number"));
+			word = new String[size];
+			tag = search("sentence",root);
+
+			for(int i = 0; i < size; i++){
+				word[i]=tag.getAttribute("s"+i);
+			}
+			return word;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 

@@ -76,6 +76,8 @@ public class Window implements GLFWWindowFocusCallbackI {
      */
     private static final double FRAME_TIME = SECOND / FPS;
 
+    public static Config config;
+
     /**
      * Window class constructor.
      * Do nothing for the moment
@@ -90,7 +92,7 @@ public class Window implements GLFWWindowFocusCallbackI {
      */
     private static void createWindow(){
         // Get the game global configurations.
-        Config config = new Config("/config/config.xml");
+        config = new Config("/config/config.xml");
 
         width = config.getWindowWidth();
         height = config.getWindowHeight();
@@ -234,6 +236,6 @@ public class Window implements GLFWWindowFocusCallbackI {
 
     @Override
     public void invoke(long l, boolean b) {
-        screenManager.focuse(b);
+        screenManager.focus(b);
     }
 }

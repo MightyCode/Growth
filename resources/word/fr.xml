@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<word>
+    <info number="13" language="fr"/>
+    <!--
+    0 - 5 : menu
+    6 - 9 : Pause/Escape overlay
+    9 - 12 : Death overlay
+    -->
+    <sentence
+            s0="Growth"
+            s1="Continuer la partie"
+            s2="Nouvelle partie"
+            s3="Charger une partie"
+            s4="Options du jeu"
+            s5="Quittez"
+            s6="Pause"
+            s7="Continuer à jouer"
+            s8="Options"
+            s9="Quittez vers le menu"
+            s10="Game over"
+            s11="Recommencer"
+            s12="Quittez vers le menu"
+    />
+</word>

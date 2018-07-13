@@ -37,7 +37,7 @@ public class PauseOverlay extends Overlay{
         // Init variable
 
         // Title
-        pause = new FontRenderer("Pause", StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
+        pause = new FontRenderer(ScreenManager.getWord(6), StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
         pause.setPos(new Vec2(Window.width / 2 - pause.getWidth() / 2, 0.18f * Window.height));
 
         Vec2 size = new Vec2(350, 40);
@@ -49,7 +49,7 @@ public class PauseOverlay extends Overlay{
         continuer = new GUIButton(
                 new Vec2(Window.width / 2, Window.height/2.4f),
                 size,
-                "Continuer à jouer",
+                ScreenManager.getWord(7),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -65,7 +65,7 @@ public class PauseOverlay extends Overlay{
         options = new GUIButton(
                 new Vec2(Window.width / 2, Window.height/2f),
                 size,
-                "Options",
+                ScreenManager.getWord(8),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -81,7 +81,7 @@ public class PauseOverlay extends Overlay{
         quitter = new GUIButton(
                 new Vec2(Window.width / 2, Window.height/1.71f),
                 size,
-                "Quitter vers le menu",
+                ScreenManager.getWord(9),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,

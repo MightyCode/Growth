@@ -1,6 +1,5 @@
 package growth.render.texture;
 
-import growth.main.Window;
 import growth.screen.ScreenManager;
 
 import static org.lwjgl.opengl.GL11.*;

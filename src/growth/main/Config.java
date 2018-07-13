@@ -7,8 +7,9 @@ public class Config {
     private int windowWidth;
     private int windowHeight;
     private int[][] inputs;
+    private String language;
 
-    Config(String path){
+    public Config(String path){
         XmlReader.loadConfig(path, this);
     }
 
@@ -41,4 +42,8 @@ public class Config {
     public void setInputs(int[][] inputs) {
         this.inputs = inputs;
     }
+
+    public void setLanguage(String newLanguage){language = newLanguage;}
+
+    public String getLanguage(){return language;}
 }

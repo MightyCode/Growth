@@ -1,12 +1,9 @@
 package growth.game.entity.type;
 
-import growth.game.entity.module.Module;
 import growth.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.game.tilemap.Tile;
 import growth.game.tilemap.TileMap;
-
-import java.util.ArrayList;
 
 /**
  * Moving entity class.

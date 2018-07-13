@@ -293,6 +293,6 @@ public class GameScreen extends Screen {
     }
 
     public void focus(boolean b) {
-        if (!b) state = ESCAPESCREEN;
+        if (!b && state == NORMALSCREEN) state = ESCAPESCREEN;
     }
 }

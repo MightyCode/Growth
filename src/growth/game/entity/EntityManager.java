@@ -2,7 +2,6 @@ package growth.game.entity;
 
 import growth.game.entity.type.Entity;
 import growth.game.entity.type.MovingEntity;
-import growth.game.entity.type.Player;
 import growth.screen.ScreenManager;
 
 import java.util.ArrayList;

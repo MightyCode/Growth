@@ -11,7 +11,6 @@ import growth.screen.ScreenManager;
 import growth.render.gui.GUIButton;
 import growth.main.Window;
 import growth.screen.overlay.OptionOverlay;
-import growth.screen.overlay.Overlay;
 
 /**
  * Menu class.
@@ -25,7 +24,7 @@ public class MenuScreen extends Screen {
     private FontRenderer title;
     private GUIButton continuer, nouvelle, charger, options, quitter;
 
-    OptionOverlay option;
+    private OptionOverlay option;
 
     private Texture background;
 
@@ -38,7 +37,7 @@ public class MenuScreen extends Screen {
         background = new Texture();
         background.load("/textures/menu/bg.png");
 
-        title = new FontRenderer("Growth", StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
+        title = new FontRenderer(ScreenManager.getWord(0), StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
         title.setPos(new Vec2(Window.width / 2 - title.getWidth() / 2, 100));
 
         Vec2 size = new Vec2(Window.width/4, Window.height/20);
@@ -50,7 +49,7 @@ public class MenuScreen extends Screen {
         continuer = new GUIButton(
                 new Vec2(Window.width / 2, 300),
                 size,
-                "Continuer la partie",
+                ScreenManager.getWord(1),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -66,18 +65,23 @@ public class MenuScreen extends Screen {
         nouvelle = new GUIButton(
                 new Vec2(Window.width / 2, 350),
                 size,
-                "Nouvelle partie",
+                ScreenManager.getWord(2),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        );
+        ){
+            @Override
+            public void action () {
+                Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
+            }
+        };
 
         charger = new GUIButton(
                 new Vec2(Window.width / 2, 400),
                 size,
-                "Charger une partie",
+                ScreenManager.getWord(3),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -88,7 +92,7 @@ public class MenuScreen extends Screen {
         options = new GUIButton(
                 new Vec2(Window.width / 2, 450),
                 size,
-                "Options du jeu",
+                ScreenManager.getWord(4),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -104,7 +108,7 @@ public class MenuScreen extends Screen {
         quitter = new GUIButton(
                 new Vec2(Window.width / 2, 500),
                 size,
-                "Quitter",
+                ScreenManager.getWord(5),
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,

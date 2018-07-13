@@ -7,8 +7,6 @@ import growth.render.Animation;
 import growth.screen.screens.GameScreen;
 import growth.game.tilemap.TileMap;
 
-import java.util.ArrayList;
-
 /**
  * Player class.
  * This class is the class of player controlled by the played.

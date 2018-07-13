@@ -1,6 +1,5 @@
 package growth.render.text;
 
-import growth.main.Window;
 import growth.math.Color4;
 import growth.math.Vec2;
 import growth.screen.ScreenManager;
