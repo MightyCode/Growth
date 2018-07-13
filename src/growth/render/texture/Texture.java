@@ -114,7 +114,7 @@ public class Texture {
     public void load(String path) {
         try {
             this.path = path;
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(path));
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(this.path));
             createImage(image);
         } catch (Exception e) {
             e.printStackTrace();

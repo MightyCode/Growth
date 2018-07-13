@@ -46,29 +46,18 @@ public class GUIButton extends GUIComponents{
     }
 
     /**
-     * Test if the mouse is over the button.
-     */
-    private boolean mouseOver() {
-        return  (MouseManager.mouseX() > pos.getX() &&
-                MouseManager.mouseX() < pos.getX() + size.getX()) &&
-                (MouseManager.mouseY() > pos.getY() &&
-                MouseManager.mouseY() < pos.getY() + size.getY());
-    }
-
-    /**
      * Update the button.
      */
     public void update() {
         mouseOver = mouseOver();
 
-        if (mouseOver) {
+        if(mouseOver){
             fontRenderer.setColor(hoverTextColor);
-        } else {
+            if(ScreenManager.mouseManager.mousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
+                action();
+            }
+        } else{
             fontRenderer.setColor(textColor);
-        }
-
-        if(mouseOver && ScreenManager.mouseManager.mousePressed(GLFW_MOUSE_BUTTON_LEFT)){
-            action();
         }
     }
 

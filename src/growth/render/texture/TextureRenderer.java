@@ -1,5 +1,6 @@
 package growth.render.texture;
 
+import growth.math.Vec2;
 import growth.screen.ScreenManager;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -143,5 +144,15 @@ public class TextureRenderer {
         glTexCoord2f(toX, fromY);
         glVertex2f(posX + sizeX, posY);
         glEnd();
+    }
+
+    public static void imageC(Vec2 pos, Vec2 size, float alpha){
+        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(), 1f, alpha);
+    }
+
+    public static void imageC(Vec2 pos, Vec2 size,int textID, float alpha){
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textID);
+        image( pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(), 1f, alpha);
     }
 }

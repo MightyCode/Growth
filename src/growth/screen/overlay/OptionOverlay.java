@@ -5,6 +5,7 @@ import growth.math.Color4;
 import growth.math.Vec2;
 import growth.render.Render;
 import growth.render.gui.GUIButton;
+import growth.render.gui.GUICheckBox;
 import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
@@ -15,12 +16,13 @@ import growth.util.XmlReader;
 public class OptionOverlay extends Overlay {
 
     private final Texture option;
-    private GUIButton test;
+    private GUICheckBox test;
     private Texture background;
 
     public OptionOverlay(Screen screen){
         super(screen);
 
+        background = new Texture("/textures/menu/bg.png");
         option = new Texture("/textures/menu/Option_title2.png");
 
         Vec2 size = new Vec2(350, 35);
@@ -29,25 +31,23 @@ public class OptionOverlay extends Overlay {
         Color4 textColor = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
         Color4 hoverTextColor = Color4.BLACK;
 
-        test = new GUIButton(
+        test = new GUICheckBox(
                 new Vec2(Window.width / 2, 300),
                 size,
-                "Change the fullscreen",
+                "Langue française",
                 StaticFonts.monofonto,
-                backgroundColor,
-                hoverColor,
                 textColor,
                 hoverTextColor
         ){
             @Override
             public void action () {
-                XmlReader.changeValue("/config/config.xml","window","fullscreen","0");
-                System.out.println(XmlReader.getValue("/config/config.xml","window","fullscreen"));
+                if(this.state){
+                    XmlReader.changeValue("/config/config.xml", "general","language","fr");
+                } else{
+                    XmlReader.changeValue("/config/config.xml", "general","language","en");
+                }
             }
         };
-
-        background = new Texture();
-        background.load("/textures/menu/bg.png");
     }
 
     public void update() {
@@ -60,8 +60,7 @@ public class OptionOverlay extends Overlay {
 
     public void display() {
         Render.clear();
-        background.bind();
-        TextureRenderer.imageC(0, 0, Window.width, Window.height);
+        TextureRenderer.imageC(0, 0, Window.width, Window.height, background.getID(),1f);
 
         TextureRenderer.imageC( Window.width*0.35f, Window.height * 0.02f ,
                 Window.width*0.30f,Window.height*0.20f, option.getID(), 1f);
