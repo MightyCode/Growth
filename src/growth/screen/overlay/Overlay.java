@@ -12,6 +12,7 @@ import growth.screen.screens.Screen;
  */
 public abstract class Overlay {
 
+    protected int state;
     /**
      * Screen.
      * This variable contains the screen which have instance this overlay.
@@ -24,34 +25,37 @@ public abstract class Overlay {
      */
     Overlay(Screen screen) {
         this.screen = screen;
+        state = 0;
     }
 
     /**
      * Update the overlay.
      */
-    public void update(){ }
+    public abstract void update();
 
     /**
      * Update the overlay.
      */
-    public void display(){}
+    public abstract void display();
 
     /**
      * Set the screen.
      */
-    void setScreen(int newScreen){
+    public void setScreen(int newScreen){
         Window.screenManager.setScreen(newScreen);
     }
 
     /**
      * Set the state of the screen which have instance the overlay.
      */
-    void setState(int newsState){
+    public void setScreenState(int newsState){
         screen.setState(newsState);
     }
+
+    public void setState(int newState){state = newState;}
 
     /**
      * Free memory.
      */
-    public void unload(){ }
+    public abstract void unload();
 }

@@ -5,14 +5,8 @@ import growth.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 import growth.render.text.FontFace;
 import growth.render.text.FontRenderer;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
-import growth.screen.overlay.Overlay;
-import growth.screen.screens.Screen;
 import growth.inputs.MouseManager;
-
-import java.awt.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -24,10 +18,7 @@ import static org.lwjgl.glfw.GLFW.*;
  * @author MightyCode
  * @version 1.0
  */
-public class GUIButton {
-
-    private Vec2 pos;
-    private Vec2 size;
+public class GUIButton extends GUIComponents{
 
     private String text;
     private FontFace font;
@@ -42,8 +33,7 @@ public class GUIButton {
     private boolean mouseOver;
 
     public GUIButton(Vec2 pos, Vec2 size, String text, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
-        this.pos = new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2));
-        this.size = size;
+        super(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)),size);
         this.text = text;
         this.font = font;
         this.backgroundColor = backgroundColor;
@@ -52,7 +42,7 @@ public class GUIButton {
         this.hoverTextColor = hoverTextColor;
 
         fontRenderer = new FontRenderer(text, font, size.getY() - 6, pos, textColor);
-        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) - (fontRenderer.getWidth() / 2), this.pos.getY() + 3));
+        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) - (fontRenderer.getWidth() / 2f), this.pos.getY()));
     }
 
     /**
@@ -94,11 +84,6 @@ public class GUIButton {
             fontRenderer.render();
         }
     }
-
-    /**
-     * Override class for what does the button.
-     */
-    protected void action() {}
 
     /**
      * Free the memory.

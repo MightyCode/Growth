@@ -1,4 +1,4 @@
-package growth.screen.screens;
+package growth.screen.overlay;
 
 import growth.main.Window;
 import growth.math.Color4;
@@ -9,26 +9,17 @@ import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
+import growth.screen.screens.Screen;
 import growth.util.XmlReader;
 
-public class OptionScreen extends Screen{
-
-    private int state;
+public class OptionOverlay extends Overlay {
 
     private final Texture option;
-
     private GUIButton test;
-
     private Texture background;
 
-    /**
-     * MenuScreen class constructor.
-     * Instance the class and set all of the MenuScreen's variables.
-     *
-     * @param screenManager Add screenManager to change the global screen.
-     */
-    public OptionScreen(ScreenManager screenManager) {
-        super(screenManager);
+    public OptionOverlay(Screen screen){
+        super(screen);
 
         option = new Texture("/textures/menu/Option_title2.png");
 
@@ -59,22 +50,16 @@ public class OptionScreen extends Screen{
         background.load("/textures/menu/bg.png");
     }
 
-    /**
-     * Update the menu.
-     */
     public void update() {
         if(ScreenManager.inputsManager.inputPressed(0)) {
-            screenManager.setScreen(ScreenManager.MENUSCREEN);
+            screen.setScreen(ScreenManager.MENUSCREEN);
         }
         test.update();
     }
 
-    /**
-     * Display the menu.
-     */
+
     public void display() {
         Render.clear();
-
         background.bind();
         TextureRenderer.imageC(0, 0, Window.width, Window.height);
 
@@ -83,12 +68,11 @@ public class OptionScreen extends Screen{
         test.display();
     }
 
-    /**
-     * Unload the textures in menu to free memory.
-     */
+
     public void unload() {
         System.out.println("\n-------------------------- \n");
         option.unload();
         test.unload();
+        background.unload();
     }
 }

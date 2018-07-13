@@ -5,7 +5,6 @@ import growth.render.Camera;
 import growth.render.text.StaticFonts;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.MenuScreen;
-import growth.screen.screens.OptionScreen;
 import growth.screen.screens.Screen;
 import growth.inputs.KeyboardManager;
 import growth.inputs.MouseManager;
@@ -31,7 +30,6 @@ public class ScreenManager {
      */
     public static final int MENUSCREEN = 0;
     public static final int GAMESCREEN = 1;
-    public static final int OPTIONSCREEN = 2;
 
     /**
      * Window ID.
@@ -82,9 +80,6 @@ public class ScreenManager {
                 break;
             case GAMESCREEN:
                 ActualScreen = (new GameScreen(this));
-                break;
-            case OPTIONSCREEN:
-                ActualScreen = (new OptionScreen(this));
                 break;
         }
     }

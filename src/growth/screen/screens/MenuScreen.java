@@ -10,6 +10,8 @@ import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.render.gui.GUIButton;
 import growth.main.Window;
+import growth.screen.overlay.OptionOverlay;
+import growth.screen.overlay.Overlay;
 
 /**
  * Menu class.
@@ -23,10 +25,14 @@ public class MenuScreen extends Screen {
     private FontRenderer title;
     private GUIButton continuer, nouvelle, charger, options, quitter;
 
+    OptionOverlay option;
+
     private Texture background;
 
     public MenuScreen(ScreenManager screenManager) {
         super(screenManager);
+
+        // Load the screen
         Render.setClearColor(1f, 1f);
 
         background = new Texture();
@@ -35,7 +41,7 @@ public class MenuScreen extends Screen {
         title = new FontRenderer("Growth", StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
         title.setPos(new Vec2(Window.width / 2 - title.getWidth() / 2, 100));
 
-        Vec2 size = new Vec2(350, 35);
+        Vec2 size = new Vec2(Window.width/4, Window.height/20);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
         Color4 hoverColor = new Color4(0.0f, 0.0f, 0.0f, 0.2f);
         Color4 textColor = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
@@ -91,7 +97,7 @@ public class MenuScreen extends Screen {
         ){
             @Override
             public void action () {
-                Window.screenManager.setScreen(ScreenManager.OPTIONSCREEN);
+                state = 1;
             }
         };
 
@@ -110,35 +116,53 @@ public class MenuScreen extends Screen {
                 Window.exit();
             }
         };
+
+        // Load the option Overlay
+        option = new OptionOverlay(this);
     }
 
     /**
      * Update the menu.
      */
     public void update() {
-        continuer.update();
-        nouvelle.update();
-        charger.update();
-        options.update();
-        quitter.update();
+        switch (state){
+            case 0:
+                continuer.update();
+                nouvelle.update();
+                charger.update();
+                options.update();
+                quitter.update();
+                break;
+            case 1:
+                option.update();
+                break;
+        }
+
     }
 
     /**
      * Display the menu.
      */
     public void display() {
-        Render.clear();
+        switch(state){
+            case 0:
+                Render.clear();
 
-        background.bind();
-        TextureRenderer.imageC(0, 0, Window.width, Window.height);
+                background.bind();
+                TextureRenderer.imageC(0, 0, Window.width, Window.height);
 
-        title.render();
+                title.render();
 
-        continuer.display();
-        nouvelle.display();
-        charger.display();
-        options.display();
-        quitter.display();
+                continuer.display();
+                nouvelle.display();
+                charger.display();
+                options.display();
+                quitter.display();
+                break;
+            case 1:
+                option.display();
+                break;
+        }
     }
 
     /**
@@ -148,11 +172,14 @@ public class MenuScreen extends Screen {
         // Unload the background
         background.unload();
 
-        // Unload the button
+        // Unload buttons
         continuer.unload();
         nouvelle.unload();
         charger.unload();
         options.unload();
         quitter.unload();
+
+        // Unload the overlay
+        option.unload();
     }
 }
