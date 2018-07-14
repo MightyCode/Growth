@@ -124,18 +124,6 @@ public abstract class XmlReader {
 	}
 
 	/**
-	 * Load the map number from the xml map option file and return it.
-	 */
-	public static int options_nbMap(){
-		try {
-			return Integer.parseInt((search("number", getRoot("/map/mapOptions.xml")).getAttribute("number"))+1);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
 	 * Create the tileSet from the xml's file.
 	 *
 	 * @param tileSet_path Path to find the Xml's file
@@ -199,18 +187,6 @@ public abstract class XmlReader {
 		}
 	}
 
-	public static int getTileSize(String tileSet_path){
-		try {
-			Element root = getRoot(tileSet_path);
-
-			assert root != null;
-			return Integer.parseInt(root.getAttribute("size"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
-
 	public static void loadConfig(String path, Config config){
 		try {
 			Element root = getRoot(path);
@@ -264,13 +240,22 @@ public abstract class XmlReader {
 		}
 	}
 
-	public static String getValue(String path, String nodeName, String attributeName){
+	public static String getValue(String path, String attributeName, String... nodeName){
 		try{
 			Element root = getRoot(path);
 			assert root != null;
-			Element layer = search(nodeName, root);
+			return search(nodeName, root).getAttribute(attributeName);
+		} catch (Exception e){
+			e.printStackTrace();
+			return "fail !!";
+		}
+	}
 
-			return layer.getAttribute(attributeName);
+	public static String getValue(String path, String attributeName){
+		try{
+			Element root = getRoot(path);
+			assert root != null;
+			return root.getAttribute(attributeName);
 		} catch (Exception e){
 			e.printStackTrace();
 			return "fail !!";

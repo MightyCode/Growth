@@ -1,5 +1,6 @@
 package growth.game.tilemap;
 
+import growth.main.Config;
 import growth.main.Window;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
@@ -126,7 +127,8 @@ public class TileMap {
 		tileSet = XmlReader.createTileSet(path);
 
 		// Init map
-		nbMap = XmlReader.options_nbMap();
+		nbMap = Integer.parseInt(XmlReader.getValue(Config.MAP_OPTION_PATH,"number", "number"));
+		System.out.println(nbMap);
 
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));

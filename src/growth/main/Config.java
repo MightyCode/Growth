@@ -11,6 +11,9 @@ public class Config {
 
     public static final String CONFIG_PATH = "/config/config.xml";
     public static final String SAVE_PATH = "/config/saves/";
+    public static final String MAP_PATH = "/map/";
+    public static final String MAP_OPTION_PATH = "/map/mapOptions.xml";
+
 
     public Config(String path){
         XmlReader.loadConfig(path, this);

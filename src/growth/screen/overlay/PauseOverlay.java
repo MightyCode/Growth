@@ -38,7 +38,7 @@ public class PauseOverlay extends Overlay{
 
         // Title
         pause = new FontRenderer(ScreenManager.getWord(6), StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
-        pause.setPos(new Vec2(Window.width / 2 - pause.getWidth() / 2, 0.18f * Window.height));
+        pause.setPos(new Vec2(Window.width / 2, 0.18f * Window.height));
 
         Vec2 size = new Vec2(350, 40);
         Color4 backgroundColor = new Color4(1.0f, 0.0f, 1.0f, 0.5f);
