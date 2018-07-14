@@ -246,12 +246,12 @@ public abstract class XmlReader {
 		}
 	}
 
-	public static void changeValue(String path, String nodeName, String attributeName, String newValue){
+	public static void changeValue(String path, String attributeName, String newValue, String... nodesName){
 		try{
 			Document doc = getDocument(path);
 			assert doc != null;
 			Element root = doc.getDocumentElement();
-			search(nodeName, root).setAttribute(attributeName,newValue);
+			search(nodesName,root).setAttribute(attributeName,newValue);
 
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
@@ -315,6 +315,14 @@ public abstract class XmlReader {
 		}
 
 		return (Element) rootNode.item(i);
+	}
+
+	private static Element search(String[] nodesName, Element root){
+		Element layer = search(nodesName[0],root);
+		for(int i = 1; i < nodesName.length; i++){
+			layer = search(nodesName[i], layer);
+		}
+		return layer;
 	}
 
 	private static Element getRoot(String path){

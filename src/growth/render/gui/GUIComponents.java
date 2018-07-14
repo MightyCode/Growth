@@ -10,6 +10,12 @@ public abstract class GUIComponents {
     protected Vec2 size;
     protected boolean lock;
 
+    public GUIComponents(){
+    }
+
+    public GUIComponents(Vec2 size){
+        this.size = size;
+    }
     public GUIComponents(Vec2 pos, Vec2 size){
         this.pos = pos;
         this.size = size;
@@ -40,5 +46,9 @@ public abstract class GUIComponents {
 
     public void setState(boolean newState){
        state = (newState)? 1 : 0;
+    }
+
+    public void setPos(Vec2 pos) {
+        this.pos = new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2));
     }
 }

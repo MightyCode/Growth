@@ -95,7 +95,7 @@ public class GameScreen extends Screen {
     public GameScreen(ScreenManager screenManager) {
         super(screenManager);
 
-        tileSize = Window.width/20;
+        tileSize = 64;
 
         HUD.load();
         Render.setClearColor(0.67f, 0.85f, 0.90f, 1f);
@@ -165,6 +165,7 @@ public class GameScreen extends Screen {
         if(ScreenManager.inputsManager.inputPressed(0)) {
             state = ESCAPESCREEN;
         }
+
         // Update player
         ENTITY_MANAGER.update();
         ScreenManager.CAMERA.setPosition(true);

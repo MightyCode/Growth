@@ -52,13 +52,10 @@ public class FontRenderer {
     private List<Vec2> texture;
 
     public FontRenderer(String text, FontFace font, float size, Vec2 pos, Color4 color) {
-        mesh = new ArrayList<>();
-        texture = new ArrayList<>();
-
         this.font = font;
         this.text = text;
         this.size = size;
-        this.pos = pos;
+        setPos(pos);
         this.color = color;
 
         calc();
@@ -68,6 +65,8 @@ public class FontRenderer {
      * Calculate mesh position data and texture coordinates.
      */
     private void calc() {
+        mesh = new ArrayList<>();
+        texture = new ArrayList<>();
         String[] lines = text.split("\n");
 
         float lineY = 0;
@@ -210,6 +209,7 @@ public class FontRenderer {
      * @param pos Position of the text on screen.
      */
     public void setPos(Vec2 pos) {
+        pos.setPosition(pos.getX()-(getWidth()/2), pos.getY());
         this.pos = pos;
     }
 
@@ -238,5 +238,11 @@ public class FontRenderer {
      */
     public float getWidth() {
         return width * size;
+    }
+
+    public void reload(String newText){
+        text = newText;
+        calc();
+        setPos(pos);
     }
 }

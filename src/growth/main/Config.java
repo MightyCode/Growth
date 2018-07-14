@@ -9,6 +9,9 @@ public class Config {
     private int[][] inputs;
     private String language;
 
+    public static final String CONFIG_PATH = "/config/config.xml";
+    public static final String SAVE_PATH = "/config/saves/";
+
     public Config(String path){
         XmlReader.loadConfig(path, this);
     }

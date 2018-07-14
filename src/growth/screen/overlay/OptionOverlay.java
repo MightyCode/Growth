@@ -1,5 +1,6 @@
 package growth.screen.overlay;
 
+import growth.main.Config;
 import growth.main.Window;
 import growth.math.Color4;
 import growth.math.Vec2;
@@ -15,7 +16,7 @@ import growth.util.XmlReader;
 public class OptionOverlay extends Overlay {
 
     private final Texture option;
-    private GUICheckBox fullscreen;
+    private GUICheckBox fullscreen, language;
     private Texture background;
 
     public OptionOverlay(Screen screen){
@@ -24,16 +25,16 @@ public class OptionOverlay extends Overlay {
         background = new Texture("/textures/menu/bg.png");
         option = new Texture("/textures/menu/Option_title2.png");
 
-        Vec2 size = new Vec2(350, 35);
+        Vec2 size = new Vec2(Window.width*0.27f, Window.height*0.032f);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
         Color4 hoverColor = new Color4(0.0f, 0.0f, 0.0f, 0.2f);
         Color4 textColor = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
         Color4 hoverTextColor = Color4.BLACK;
 
         fullscreen = new GUICheckBox(
-                new Vec2(Window.width / 2, Window.height/2.4f),
-                new Vec2(Window.width/4, Window.height/5f),
-                "Fullscreen",
+                new Vec2(Window.width*0.5f, Window.height*0.41f),
+                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                ScreenManager.getWord(13),
                 StaticFonts.monofonto,
                 textColor,
                 hoverTextColor
@@ -41,21 +42,43 @@ public class OptionOverlay extends Overlay {
             @Override
             public void action () {
                 if(state == 0){
-                    XmlReader.changeValue("/config/config.xml", "window","fullscreen","0");
+                    XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","0","window");
                 } else{
-                    XmlReader.changeValue("/config/config.xml", "window","fullscreen","1");
+                    XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","1","window");
                 }
             }
         };
 
         fullscreen.setState(Window.config.getFullscreen());
+
+        language = new GUICheckBox(
+                new Vec2(Window.width*0.5f, Window.height*0.55f),
+                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                ScreenManager.getWord(14),
+                StaticFonts.monofonto,
+                textColor,
+                hoverTextColor
+        ){
+            @Override
+            public void action () {
+                if(state == 0){
+                    XmlReader.changeValue(Config.CONFIG_PATH, "language","fr","general");
+                } else{
+                    XmlReader.changeValue(Config.CONFIG_PATH, "language","en","general");
+                }
+            }
+        };
+
+        language.setState(Window.config.getLanguage().equals("en"));
     }
 
     public void update() {
         if(ScreenManager.inputsManager.inputPressed(0)) {
             quit();
         }
+
         fullscreen.update();
+        language.update();
     }
 
 
@@ -66,6 +89,7 @@ public class OptionOverlay extends Overlay {
         option.bind();
         TextureRenderer.imageC( Window.width*0.35f, Window.height * 0.02f , Window.width*0.30f,Window.height*0.20f);
         fullscreen.display();
+        language.display();
     }
 
     public void quit(){
@@ -75,6 +99,7 @@ public class OptionOverlay extends Overlay {
         System.out.println("\n-------------------------- \n");
         option.unload();
         fullscreen.unload();
+        language.unload();
         background.unload();
     }
 }

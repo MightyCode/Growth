@@ -32,7 +32,8 @@ public class GUIButton extends GUIComponents{
     private boolean mouseOver;
 
     public GUIButton(Vec2 pos, Vec2 size, String text, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
-        super(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)),size);
+        super(pos,size);
+
         this.text = text;
         this.font = font;
         this.backgroundColor = backgroundColor;
@@ -41,7 +42,7 @@ public class GUIButton extends GUIComponents{
         this.hoverTextColor = hoverTextColor;
 
         fontRenderer = new FontRenderer(text, font, size.getY() - 6, pos, textColor);
-        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) - (fontRenderer.getWidth() / 2f), this.pos.getY()));
+        setPos(pos);
     }
 
     /**
@@ -72,16 +73,16 @@ public class GUIButton extends GUIComponents{
             fontRenderer.render();
         }
     }
+    public void setPos(Vec2 pos) {
+        super.setPos(pos);
+        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) , this.pos.getY()));
+    }
+
 
     /**
      * Free the memory.
      */
     public void unload(){
 
-    }
-
-    public void setPos(Vec2 pos) {
-        this.pos = new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2));
-        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) - (fontRenderer.getWidth() / 2), this.pos.getY() + 3));
     }
 }

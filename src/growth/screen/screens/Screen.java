@@ -21,7 +21,7 @@ public abstract class Screen {
      * Screen state.
      * This variable contains the different states of game.
      */
-    protected static int state;
+    protected static int state = 0;
 
     /**
      * Screen class constructor.

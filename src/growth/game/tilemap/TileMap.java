@@ -159,7 +159,6 @@ public class TileMap {
 	 * Display the current map.
 	 */
 	public void display(boolean pos) {
-
 		tileSetT.bind();
 		colOffset = -ScreenManager.CAMERA.getPosX() / tileSize;
 		rowOffset = -ScreenManager.CAMERA.getPosY() / tileSize;

@@ -37,8 +37,8 @@ public class GUICheckBox extends GUIComponents{
         this.textColor = textColor;
         this.hoverTextColor = hoverTextColor;
 
-        fontRenderer = new FontRenderer(text, font, size.getY() - 6, pos, textColor);
-        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) - (fontRenderer.getWidth() / 2f), this.pos.getY()));
+        fontRenderer = new FontRenderer(text, font, size.getY()*0.4f, pos, textColor);
+        fontRenderer.setPos(new Vec2(this.pos.getX() + size.getX()/2, this.pos.getY()));
     }
 
     /**

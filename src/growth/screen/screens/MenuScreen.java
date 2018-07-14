@@ -11,6 +11,7 @@ import growth.screen.ScreenManager;
 import growth.render.gui.GUIButton;
 import growth.main.Window;
 import growth.screen.overlay.OptionOverlay;
+import growth.util.XmlReader;
 
 /**
  * Menu class.
@@ -30,7 +31,6 @@ public class MenuScreen extends Screen {
 
     public MenuScreen(ScreenManager screenManager) {
         super(screenManager);
-
         // Load the screen
         Render.setClearColor(1f, 1f);
 
@@ -38,16 +38,16 @@ public class MenuScreen extends Screen {
         background.load("/textures/menu/bg.png");
 
         title = new FontRenderer(ScreenManager.getWord(0), StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
-        title.setPos(new Vec2(Window.width / 2 - title.getWidth() / 2, Window.height/7f));
+        title.setPos(new Vec2(Window.width / 2, Window.height/7f));
 
-        Vec2 size = new Vec2(Window.width/4, Window.height/20);
+        Vec2 size = new Vec2(Window.width/4f, Window.height/20f);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
         Color4 hoverColor = new Color4(0.0f, 0.0f, 0.0f, 0.2f);
         Color4 textColor = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
         Color4 hoverTextColor = Color4.BLACK;
 
         continuer = new GUIButton(
-                new Vec2(Window.width / 2, Window.height*0.5f),
+                new Vec2(Window.width*0.5f, Window.height*0.5f),
                 size,
                 ScreenManager.getWord(1),
                 StaticFonts.monofonto,
@@ -63,7 +63,7 @@ public class MenuScreen extends Screen {
         };
 
         nouvelle = new GUIButton(
-                new Vec2(Window.width / 2, Window.height*0.58f),
+                new Vec2(Window.width*0.5f, Window.height*0.58f),
                 size,
                 ScreenManager.getWord(2),
                 StaticFonts.monofonto,
@@ -79,7 +79,7 @@ public class MenuScreen extends Screen {
         };
 
         charger = new GUIButton(
-                new Vec2(Window.width / 2, Window.height*0.66f),
+                new Vec2(Window.width*0.5f, Window.height*0.66f),
                 size,
                 ScreenManager.getWord(3),
                 StaticFonts.monofonto,
@@ -90,7 +90,7 @@ public class MenuScreen extends Screen {
         );
 
         options = new GUIButton(
-                new Vec2(Window.width / 2, Window.height*0.74f),
+                new Vec2(Window.width*0.5f, Window.height*0.74f),
                 size,
                 ScreenManager.getWord(4),
                 StaticFonts.monofonto,
@@ -106,7 +106,7 @@ public class MenuScreen extends Screen {
         };
 
         quitter = new GUIButton(
-                new Vec2(Window.width / 2, Window.height*0.82f),
+                new Vec2(Window.width*0.5f, Window.height*0.82f),
                 size,
                 ScreenManager.getWord(5),
                 StaticFonts.monofonto,
