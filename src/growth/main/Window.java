@@ -192,6 +192,7 @@ public class Window implements GLFWWindowFocusCallbackI {
                 lastTick += TICK_TIME;
             } else if (timer.getDuration() - lastFrame >= FRAME_TIME) {
                 screenManager.display();
+                //System.out.println(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory());
                 glfwSwapBuffers(windowID);
                 glfwPollEvents();
                 frames++;

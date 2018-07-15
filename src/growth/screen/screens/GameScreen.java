@@ -95,7 +95,7 @@ public class GameScreen extends Screen {
     public GameScreen(ScreenManager screenManager) {
         super(screenManager);
 
-        tileSize = 64;
+        tileSize = Window.width/20;
 
         HUD.load();
         Render.setClearColor(0.67f, 0.85f, 0.90f, 1f);
@@ -110,7 +110,7 @@ public class GameScreen extends Screen {
         option = new OptionOverlay(this){
             @Override
             public void quit(){
-                screen.setState(ESCAPESCREEN);
+                Screen.setState(ESCAPESCREEN);
             }
         };
 
@@ -203,6 +203,7 @@ public class GameScreen extends Screen {
      * Display the screen in terms of the game'state
      */
     public void display() {
+
         // clear the framebuffer
         Render.clear();
 

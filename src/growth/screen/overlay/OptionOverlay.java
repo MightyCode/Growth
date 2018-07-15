@@ -45,7 +45,6 @@ public class OptionOverlay extends Overlay {
                     XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","0","window");
                 } else{
                     XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","1","window");
-                    
                 }
             }
         };

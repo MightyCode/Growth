@@ -58,7 +58,7 @@ public class PauseOverlay extends Overlay{
         ){
             @Override
             public void action () {
-                screen.setState(GameScreen.NORMALSCREEN);
+                Screen.setState(GameScreen.NORMALSCREEN);
             }
         };
 
@@ -74,7 +74,7 @@ public class PauseOverlay extends Overlay{
         ){
             @Override
             public void action () {
-                screen.setState(GameScreen.OPTIONSCREEN);
+                Screen.setState(GameScreen.OPTIONSCREEN);
             }
         };
 
@@ -90,6 +90,7 @@ public class PauseOverlay extends Overlay{
         ){
             @Override
             public void action () {
+                Screen.setState(GameScreen.NORMALSCREEN);
                 Window.screenManager.setScreen(ScreenManager.MENUSCREEN);
             }
         };
@@ -100,7 +101,7 @@ public class PauseOverlay extends Overlay{
      */
     public void update(){
         if(ScreenManager.inputsManager.inputPressed(0)) {
-            screen.setState(GameScreen.NORMALSCREEN);
+            Screen.setState(GameScreen.NORMALSCREEN);
         }
 
         continuer.update();

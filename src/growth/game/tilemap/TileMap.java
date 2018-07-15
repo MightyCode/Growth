@@ -127,8 +127,7 @@ public class TileMap {
 		tileSet = XmlReader.createTileSet(path);
 
 		// Init map
-		nbMap = Integer.parseInt(XmlReader.getValue(Config.MAP_OPTION_PATH,"number", "number"));
-		System.out.println(nbMap);
+		nbMap = Integer.parseInt(XmlReader.getValue(Config.MAP_OPTION_PATH,"number", "number"))+1;
 
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));
@@ -175,7 +174,6 @@ public class TileMap {
 		for(int i  =  begin; i < end ; i++){
 
 			int[][] map = maps.get(currentMap).getMap(i);
-			float color = 1f;//maps.get(currentMap).getColor(i);
 
 			// For each row
 			for (int row = rowOffset; row < maxRow; row++) {
