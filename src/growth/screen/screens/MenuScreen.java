@@ -37,51 +37,51 @@ public class MenuScreen extends Screen {
         background = new Texture();
         background.load("/textures/menu/bg.png");
 
-        title = new FontRenderer(ScreenManager.getWord(0), StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
-        title.setPos(new Vec2(Window.width / 2, Window.height/7f));
+        title = new FontRenderer(0, StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
+        title.setPos(new Vec2(Window.width / 2, Window.height / 7f));
 
-        Vec2 size = new Vec2(Window.width/4f, Window.height/20f);
+        Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
         Color4 hoverColor = new Color4(0.0f, 0.0f, 0.0f, 0.2f);
         Color4 textColor = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
         Color4 hoverTextColor = Color4.BLACK;
 
         continuer = new GUIButton(
-                new Vec2(Window.width*0.5f, Window.height*0.5f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.5f),
                 size,
-                ScreenManager.getWord(1),
+                1,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
+            public void action() {
                 Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
             }
         };
 
         nouvelle = new GUIButton(
-                new Vec2(Window.width*0.5f, Window.height*0.58f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.58f),
                 size,
-                ScreenManager.getWord(2),
+                2,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
+            public void action() {
                 Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
             }
         };
 
         charger = new GUIButton(
-                new Vec2(Window.width*0.5f, Window.height*0.66f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.66f),
                 size,
-                ScreenManager.getWord(3),
+                3,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -90,41 +90,41 @@ public class MenuScreen extends Screen {
         );
 
         options = new GUIButton(
-                new Vec2(Window.width*0.5f, Window.height*0.74f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.74f),
                 size,
-                ScreenManager.getWord(4),
+                4,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
+            public void action() {
                 MenuScreen.setState(1);
             }
         };
 
         quitter = new GUIButton(
-                new Vec2(Window.width*0.5f, Window.height*0.82f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.82f),
                 size,
-                ScreenManager.getWord(5),
+                5,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
+            public void action() {
                 Window.exit();
             }
         };
 
         // Load the option Overlay
-        option = new OptionOverlay(this){
+        option = new OptionOverlay(this) {
             @Override
-            public void quit () {
+            public void quit() {
                 Screen.setState(0);
             }
         };
@@ -134,7 +134,7 @@ public class MenuScreen extends Screen {
      * Update the menu.
      */
     public void update() {
-        switch (state){
+        switch (state) {
             case 0:
                 continuer.update();
                 nouvelle.update();
@@ -153,7 +153,7 @@ public class MenuScreen extends Screen {
      * Display the menu.
      */
     public void display() {
-        switch(state){
+        switch (state) {
             case 0:
                 Render.clear();
 
@@ -177,7 +177,7 @@ public class MenuScreen extends Screen {
     /**
      * Unload the textures in menu to free memory.
      */
-    public void unload(){
+    public void unload() {
         // Unload the background
         background.unload();
 
@@ -187,8 +187,9 @@ public class MenuScreen extends Screen {
         charger.unload();
         options.unload();
         quitter.unload();
-
+        title.unload();
         // Unload the overlay
         option.unload();
+
     }
 }

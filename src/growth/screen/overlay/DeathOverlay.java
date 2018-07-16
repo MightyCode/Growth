@@ -36,7 +36,7 @@ public class DeathOverlay extends Overlay {
 
         // Init variable
         // Title
-        loose = new FontRenderer(ScreenManager.getWord(10), StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
+        loose = new FontRenderer(10, StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
         loose.setPos(new Vec2(Window.width / 2 - loose.getWidth() / 2, 0.18f * Window.height));
 
         Vec2 size = new Vec2(350, 40);
@@ -48,7 +48,7 @@ public class DeathOverlay extends Overlay {
         retry = new GUIButton(
                 new Vec2(Window.width / 2, 300),
                 size,
-                ScreenManager.getWord(11),
+                11,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -64,7 +64,7 @@ public class DeathOverlay extends Overlay {
         quitter = new GUIButton(
                 new Vec2(Window.width / 2, 375),
                 size,
-                ScreenManager.getWord(12),
+                12,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -105,5 +105,6 @@ public class DeathOverlay extends Overlay {
     public void unload() {
         retry.unload();
         quitter.unload();
+        loose.unload();
     }
 }

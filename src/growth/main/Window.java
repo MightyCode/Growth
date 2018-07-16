@@ -94,8 +94,8 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Get the game global configurations.
         config = new Config("/config/config.xml");
 
-        width = config.getWindowWidth();
-        height = config.getWindowHeight();
+        width = Config.getWindowWidth();
+        height = Config.getWindowHeight();
 
         // Setup an error callback.
         GLFWErrorCallback.createPrint(System.err).set();
@@ -110,7 +110,7 @@ public class Window implements GLFWWindowFocusCallbackI {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
 
         // Create the window if fullscreen
-        if(config.getFullscreen()){
+        if(Config.getFullscreen()){
             width = 1920; height = 1080;
             windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
         }
@@ -156,7 +156,7 @@ public class Window implements GLFWWindowFocusCallbackI {
 
         /* End loading of Open GL*/
         // Set the screen manager
-        screenManager = new ScreenManager(config.getInputs());
+        screenManager = new ScreenManager(Config.getInputs());
     }
 
     /**

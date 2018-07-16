@@ -3,11 +3,11 @@ package growth.main;
 import growth.util.XmlReader;
 
 public class Config {
-    private boolean fullscreen;
-    private int windowWidth;
-    private int windowHeight;
-    private int[][] inputs;
-    private String language;
+    private static boolean fullscreen;
+    private static int windowWidth;
+    private static int windowHeight;
+    private static int[][] inputs;
+    private static String language;
 
     public static final String CONFIG_PATH = "/config/config.xml";
     public static final String SAVE_PATH = "/config/saves/";
@@ -19,37 +19,37 @@ public class Config {
         XmlReader.loadConfig(path, this);
     }
 
-    public boolean getFullscreen() {
+    public static boolean getFullscreen() {
         return fullscreen;
     }
 
-    public void setFullscreen(int fullscreen) { this.fullscreen = fullscreen == 1; }
+    public static void setFullscreen(int fullscreen) { Config.fullscreen = fullscreen == 1; }
 
-    public int getWindowWidth() {
+    public static int getWindowWidth() {
         return windowWidth;
     }
 
-    public void setWindowWidth(int windowWidth) {
-        this.windowWidth = windowWidth;
+    public static void setWindowWidth(int windowWidth) {
+        Config.windowWidth = windowWidth;
     }
 
-    public int getWindowHeight() {
+    public static int getWindowHeight() {
         return windowHeight;
     }
 
-    public void setWindowHeight(int windowHeight) {
-        this.windowHeight = windowHeight;
+    public static void setWindowHeight(int windowHeight) {
+        Config.windowHeight = windowHeight;
     }
 
-    public int[][] getInputs() {
+    public static int[][] getInputs() {
         return inputs;
     }
 
-    public void setInputs(int[][] inputs) {
-        this.inputs = inputs;
+    public static void setInputs(int[][] inputs) {
+        Config.inputs = inputs;
     }
 
-    public void setLanguage(String newLanguage){language = newLanguage;}
+    public static void setLanguage(String newLanguage){language = newLanguage;}
 
-    public String getLanguage(){return language;}
+    public static String getLanguage(){return language;}
 }

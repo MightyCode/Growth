@@ -19,9 +19,6 @@ import static org.lwjgl.glfw.GLFW.*;
  */
 public class GUIButton extends GUIComponents{
 
-    private String text;
-    private FontFace font;
-
     private Color4 backgroundColor;
     private Color4 hoverColor;
     private Color4 textColor;
@@ -34,14 +31,24 @@ public class GUIButton extends GUIComponents{
     public GUIButton(Vec2 pos, Vec2 size, String text, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
         super(pos,size);
 
-        this.text = text;
-        this.font = font;
         this.backgroundColor = backgroundColor;
         this.hoverColor = hoverColor;
         this.textColor = textColor;
         this.hoverTextColor = hoverTextColor;
 
         fontRenderer = new FontRenderer(text, font, size.getY() - 6, pos, textColor);
+        setPos(pos);
+    }
+
+    public GUIButton(Vec2 pos, Vec2 size, int number, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
+        super(pos,size);
+
+        this.backgroundColor = backgroundColor;
+        this.hoverColor = hoverColor;
+        this.textColor = textColor;
+        this.hoverTextColor = hoverTextColor;
+
+        fontRenderer = new FontRenderer(number, font, size.getY() - 6, pos, textColor);
         setPos(pos);
     }
 
@@ -83,6 +90,6 @@ public class GUIButton extends GUIComponents{
      * Free the memory.
      */
     public void unload(){
-
+        fontRenderer.unload();
     }
 }

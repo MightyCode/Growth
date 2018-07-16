@@ -265,7 +265,7 @@ public abstract class XmlReader {
 	public static String[] loadWord(){
 		try{
 			String[] word;
-			Element root = getRoot("/word/" + Window.config.getLanguage() + ".xml");
+			Element root = getRoot("/word/" + Config.getLanguage() + ".xml");
 			assert root != null;
 			Element tag = search("info",root);
 			int size = Integer.parseInt(tag.getAttribute("number"));

@@ -11,7 +11,9 @@ import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
 import growth.screen.ScreenManager;
 import growth.screen.screens.Screen;
+import growth.util.TextManager;
 import growth.util.XmlReader;
+import sun.java2d.pipe.TextRenderer;
 
 public class OptionOverlay extends Overlay {
 
@@ -19,7 +21,7 @@ public class OptionOverlay extends Overlay {
     private GUICheckBox fullscreen, language;
     private Texture background;
 
-    public OptionOverlay(Screen screen){
+    protected OptionOverlay(Screen screen){
         super(screen);
 
         background = new Texture("/textures/menu/bg.png");
@@ -34,7 +36,7 @@ public class OptionOverlay extends Overlay {
         fullscreen = new GUICheckBox(
                 new Vec2(Window.width*0.5f, Window.height*0.41f),
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                ScreenManager.getWord(13),
+                13,
                 StaticFonts.monofonto,
                 textColor,
                 hoverTextColor
@@ -49,12 +51,12 @@ public class OptionOverlay extends Overlay {
             }
         };
 
-        fullscreen.setState(Window.config.getFullscreen());
+        fullscreen.setState(Config.getFullscreen());
 
         language = new GUICheckBox(
                 new Vec2(Window.width*0.5f, Window.height*0.55f),
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                ScreenManager.getWord(14),
+                14,
                 StaticFonts.monofonto,
                 textColor,
                 hoverTextColor
@@ -62,14 +64,14 @@ public class OptionOverlay extends Overlay {
             @Override
             public void action () {
                 if(state == 0){
-                    XmlReader.changeValue(Config.CONFIG_PATH, "language","fr","general");
+                   ScreenManager.textManager.changeLanguage("fr");
                 } else{
-                    XmlReader.changeValue(Config.CONFIG_PATH, "language","en","general");
+                    ScreenManager.textManager.changeLanguage("en");
                 }
             }
         };
 
-        language.setState(Window.config.getLanguage().equals("en"));
+        language.setState(Config.getLanguage().equals("en"));
     }
 
     public void update() {

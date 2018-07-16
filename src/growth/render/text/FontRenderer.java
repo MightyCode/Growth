@@ -3,6 +3,8 @@ package growth.render.text;
 import growth.math.Color4;
 import growth.math.Vec2;
 import growth.screen.ScreenManager;
+import growth.util.TextManager;
+import sun.java2d.pipe.TextRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +53,33 @@ public class FontRenderer {
      */
     private List<Vec2> texture;
 
+    /**
+     *
+     */
+    private int wordNumber;
+
+    /**
+     *
+     * @param text
+     * @param font
+     * @param size
+     * @param pos
+     * @param color
+     */
     public FontRenderer(String text, FontFace font, float size, Vec2 pos, Color4 color) {
         this.font = font;
         this.text = text;
+        this.size = size;
+        setPos(pos);
+        this.color = color;
+
+        calc();
+    }
+
+    public FontRenderer(int wordNumber, FontFace font, float size, Vec2 pos, Color4 color) {
+        this.wordNumber = wordNumber;
+        this.font = font;
+        this.text = ScreenManager.textManager.getWord(this,wordNumber);
         this.size = size;
         setPos(pos);
         this.color = color;
@@ -240,9 +266,13 @@ public class FontRenderer {
         return width * size;
     }
 
-    public void reload(String newText){
-        text = newText;
+    public void update(){
+        text = ScreenManager.textManager.getWord(wordNumber);
         calc();
         setPos(pos);
+    }
+
+    public void unload(){
+        ScreenManager.textManager.remove(this);
     }
 }

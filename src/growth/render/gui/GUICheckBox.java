@@ -20,9 +20,6 @@ public class GUICheckBox extends GUIComponents{
 
     private boolean mouseOver;
 
-    private String text;
-    private FontFace font;
-
     public GUICheckBox(Vec2 pos, Vec2 size, String text, FontFace font, Color4 textColor, Color4 hoverTextColor){
         super(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)),size);
         // Loading texture
@@ -31,13 +28,25 @@ public class GUICheckBox extends GUIComponents{
         check = new Texture("/textures/menu/GUICheckBox-check.png");
         check_hover = new Texture("/textures/menu/GUICheckBox-checkHover.png");
 
-        this.text = text;
-        this.font = font;
-
         this.textColor = textColor;
         this.hoverTextColor = hoverTextColor;
 
         fontRenderer = new FontRenderer(text, font, size.getY()*0.4f, pos, textColor);
+        fontRenderer.setPos(new Vec2(this.pos.getX() + size.getX()/2, this.pos.getY()));
+    }
+
+    public GUICheckBox(Vec2 pos, Vec2 size, int number, FontFace font, Color4 textColor, Color4 hoverTextColor){
+        super(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)),size);
+        // Loading texture
+        uncheck = new Texture("/textures/menu/GUICheckBox-uncheck.png");
+        uncheck_hover = new Texture("/textures/menu/GUICheckBox-uncheckHover.png");
+        check = new Texture("/textures/menu/GUICheckBox-check.png");
+        check_hover = new Texture("/textures/menu/GUICheckBox-checkHover.png");
+
+        this.textColor = textColor;
+        this.hoverTextColor = hoverTextColor;
+
+        fontRenderer = new FontRenderer(number, font, size.getY()*0.4f, pos, textColor);
         fontRenderer.setPos(new Vec2(this.pos.getX() + size.getX()/2, this.pos.getY()));
     }
 
@@ -87,5 +96,6 @@ public class GUICheckBox extends GUIComponents{
         uncheck_hover.unload();
         check.unload();
         check_hover.unload();
+        fontRenderer.unload();
     }
 }

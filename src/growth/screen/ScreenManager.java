@@ -8,6 +8,7 @@ import growth.screen.screens.MenuScreen;
 import growth.screen.screens.Screen;
 import growth.inputs.KeyboardManager;
 import growth.inputs.MouseManager;
+import growth.util.TextManager;
 import growth.util.XmlReader;
 
 /**
@@ -32,7 +33,7 @@ public class ScreenManager {
     public static final int MENUSCREEN = 0;
     public static final int GAMESCREEN = 1;
 
-    private static String[] words;
+    public static TextManager textManager;
 
     /**
      * Window ID.
@@ -49,7 +50,7 @@ public class ScreenManager {
      * Instance the class and set the current screen.
      */
     public ScreenManager(int[][] input) {
-        loadWord();
+        textManager = new TextManager();
         ActualScreen = (new MenuScreen(this));
         inputsManager = new InputManager(input);
         keyboardManager = new KeyboardManager();
@@ -96,14 +97,6 @@ public class ScreenManager {
     }
 
     public void focus(boolean b){ ActualScreen.focus(b);}
-
-    public void loadWord(){
-        words = XmlReader.loadWord();
-    }
-
-    public static String getWord(int number){
-        return words[number];
-    }
 
     /**
      * Unload the game before leaving.
