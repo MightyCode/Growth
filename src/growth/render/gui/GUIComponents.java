@@ -15,11 +15,6 @@ public abstract class GUIComponents {
         this.size = size;
     }
 
-    public void update(){
-        if(lock)return;
-    }
-
-
     /**
      * Override class for what does the button.
      */

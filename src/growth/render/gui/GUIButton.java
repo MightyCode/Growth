@@ -56,7 +56,7 @@ public class GUIButton extends GUIComponents{
      * Update the button.
      */
     public void update() {
-        super.update();
+        if(lock) return;
         mouseOver = mouseOver();
 
         if(mouseOver){
@@ -81,11 +81,13 @@ public class GUIButton extends GUIComponents{
             fontRenderer.render();
         }
     }
+
     public void setPos(Vec2 pos) {
         super.setPos(pos);
         fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) , this.pos.getY()));
     }
 
+    public void setMouseOver(boolean newState){ mouseOver = newState;}
 
     /**
      * Free the memory.

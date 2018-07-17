@@ -43,13 +43,15 @@ public class OptionOverlay extends Overlay {
                 size, 13, StaticFonts.monofonto, backgroundColor, hoverColor, textColor, hoverTextColor
         ) {
             @Override public void action() {
-                System.out.println(lock);
                 lock = true;
                 video.setLock(false);
                 inputs.setLock(false);
                 Overlay.setState(0);
             }
         };
+
+        general.setMouseOver(true);
+        general.setLock(true);
 
         video = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.3f),

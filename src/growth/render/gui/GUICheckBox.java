@@ -54,7 +54,7 @@ public class GUICheckBox extends GUIComponents{
      * Update the button.
      */
     public void update() {
-        super.update();
+        if (lock) return;
         mouseOver = mouseOver();
 
         if(mouseOver){
@@ -88,6 +88,8 @@ public class GUICheckBox extends GUIComponents{
         TextureRenderer.imageC(pos,size,1f);
         fontRenderer.render();
     }
+
+    public void setMouseOver(boolean newState){ mouseOver = newState;}
 
     /**
      * Free the memory.
