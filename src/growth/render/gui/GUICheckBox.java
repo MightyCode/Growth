@@ -54,6 +54,7 @@ public class GUICheckBox extends GUIComponents{
      * Update the button.
      */
     public void update() {
+        super.update();
         mouseOver = mouseOver();
 
         if(mouseOver){

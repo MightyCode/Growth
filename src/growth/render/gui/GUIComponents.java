@@ -10,16 +10,15 @@ public abstract class GUIComponents {
     protected Vec2 size;
     protected boolean lock;
 
-    public GUIComponents(){
-    }
-
-    public GUIComponents(Vec2 size){
-        this.size = size;
-    }
     public GUIComponents(Vec2 pos, Vec2 size){
         this.pos = pos;
         this.size = size;
     }
+
+    public void update(){
+        if(lock)return;
+    }
+
 
     /**
      * Override class for what does the button.

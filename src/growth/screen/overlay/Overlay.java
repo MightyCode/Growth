@@ -12,7 +12,7 @@ import growth.screen.screens.Screen;
  */
 public abstract class Overlay {
 
-    protected int state;
+    protected static int state;
     /**
      * Screen.
      * This variable contains the screen which have instance this overlay.
@@ -48,11 +48,11 @@ public abstract class Overlay {
     /**
      * Set the state of the screen which have instance the overlay.
      */
-    public void setScreenState(int newsState){
-        screen.setState(newsState);
+    public static void setScreenState(int newsState){
+        Screen.setState(newsState);
     }
 
-    public void setState(int newState){state = newState;}
+    public static  void setState(int newState){state = newState;}
 
     /**
      * Free memory.

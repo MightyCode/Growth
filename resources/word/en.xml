@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <word>
-    <info number="15" language="en"/>
+    <info number="18" language="en"/>
     <!--
     0 - 5 : menu
     6 - 9 : Pause/Escape overlay
     9 - 12 : Death overlay
+    13 - ++ : Option overlay
     -->
     <sentence
             s0="Growth"
@@ -20,7 +21,10 @@
             s10="Game over !!"
             s11="Retry"
             s12="Quit to the menu"
-            s13="Fullscreen"
-            s14="English"
+            s13="General"
+            s14="Video"
+            s15="Inputs"
+            s16="Fullscreen"
+            s17="In english"
     />
 </word>

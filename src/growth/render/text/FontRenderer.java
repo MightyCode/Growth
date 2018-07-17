@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
+@SuppressWarnings("JavaDoc")
 public class FontRenderer {
 
     /**
@@ -64,6 +65,7 @@ public class FontRenderer {
      * @param pos
      * @param color
      */
+    @SuppressWarnings("JavaDoc")
     public FontRenderer(String text, FontFace font, float size, Vec2 pos, Color4 color) {
         this.font = font;
         this.text = text;

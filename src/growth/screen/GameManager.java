@@ -10,7 +10,6 @@ import growth.inputs.KeyboardManager;
 import growth.inputs.MouseManager;
 import growth.sound.SoundManager;
 import growth.util.TextManager;
-import growth.util.XmlReader;
 
 /**
  * ScreenManager class.

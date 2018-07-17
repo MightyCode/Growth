@@ -8,7 +8,6 @@ import growth.render.texture.TextureRenderer;
 import growth.screen.GameManager;
 import growth.screen.screens.GameScreen;
 import growth.util.XmlReader;
-import growth.util.math.Vec2;
 
 import java.util.ArrayList;
 
@@ -112,6 +111,7 @@ public class TileMap {
 	private Entity entity;
 
 	private float givePosX, givePosY;
+
 	private int newMapId;
 
 	/**
@@ -217,7 +217,6 @@ public class TileMap {
 	public void changeMap(int mapID, int point){
 		GameScreen.setState(GameScreen.TRANSITIONSCREEN);
 		newMapId = mapID;
-		System.out.println("fucking " + maps.get(mapID).getTileToComeX(point) + " fuck + " + maps.get(mapID).getTileToComeY(point));
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
 		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - entity.getSizeY()/2;
 	}
@@ -237,14 +236,14 @@ public class TileMap {
 
 		float[][] neighbour = maps.get(currentMap).getExitPoints(Math.abs(side-2));
 
-		for (int i = 0; i < neighbour.length; i++) {
+		for (float[] aNeighbour : neighbour) {
 			if (side == 0 || side == 2) {
-				if (neighbour[i][2] < posY && posY < neighbour[i][3]) {
-					return new int[]{1, (int)neighbour[i][0]-1};
+				if (aNeighbour[2] < posY && posY < aNeighbour[3]) {
+					return new int[]{1, (int) aNeighbour[0] - 1};
 				}
 			} else if (side == 1 || side == 3) {
-				if (neighbour[i][2] < posX && posX < neighbour[i][3]) {
-					return new int[]{1, (int)neighbour[i][0]-1};
+				if (aNeighbour[2] < posX && posX < aNeighbour[3]) {
+					return new int[]{1, (int) aNeighbour[0] - 1};
 				}
 			}
 		}
@@ -265,6 +264,27 @@ public class TileMap {
 		GameManager.CAMERA.setBoundMin(0, 0);
 		GameManager.CAMERA.setPosition(false);
 		System.out.println("New map, id: " + currentMap);
+	}
+
+
+	/**
+	 * Charge the current layer for collision and another features.
+	 */
+	private void chargeMap(){
+		map = maps.get(currentMap).getMap(currentLayer);
+	}
+
+	/**
+	 * Change the layer to a higher layer.
+	 */
+	public void setLayer(int numberToAdd){
+		if(currentLayer + numberToAdd > 0 || currentLayer + numberToAdd < 2) {
+			maps.get(currentMap).setColor(currentLayer, 0.9f);
+			currentLayer+= numberToAdd;
+			System.out.println("Change the current layer to " + currentLayer);
+			maps.get(currentMap).setColor(currentLayer, 1f);
+			chargeMap();
+		}
 	}
 
 	/*
@@ -326,26 +346,4 @@ public class TileMap {
 	public void unload() {
 		tileSetT.unload();
 	}
-
-	/**
-	 * Change the layer to a higher layer.
-	 */
-	public void setLayer(int numberToAdd){
-	    if(currentLayer + numberToAdd > 0 || currentLayer + numberToAdd < 2) {
-            maps.get(currentMap).setColor(currentLayer, 0.9f);
-            currentLayer+= numberToAdd;
-            System.out.println("Change the current layer to " + currentLayer);
-            maps.get(currentMap).setColor(currentLayer, 1f);
-            chargeMap();
-        }
-	}
-
-
-	/**
-	 * Charge the current layer for collision and another features.
-	 */
-	private void chargeMap(){
-		map = maps.get(currentMap).getMap(currentLayer);
-	}
-
 }
