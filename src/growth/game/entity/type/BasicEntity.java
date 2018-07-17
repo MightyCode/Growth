@@ -11,12 +11,6 @@ import java.util.ArrayList;
 public class BasicEntity extends Entity{
 
     /**
-     * TileSize.
-     * This variable contains the tileSize to interact with it.
-     */
-    protected final int tileSize;
-
-    /**
      * Entity collision box size X.
      * This variable contains the width of the collision's box entity.
      */
@@ -67,21 +61,12 @@ public class BasicEntity extends Entity{
      * Instance the class and set the tileMap.
      *
      * @param gameScreen Add tileMap to the entity.
-     * @param tileSize The size of the tile.
      */
-    public BasicEntity(GameScreen gameScreen, int tileSize) {
+    public BasicEntity(GameScreen gameScreen) {
         modules = new ArrayList<>();
         animations = new ArrayList<>();
         animationPlayed = 0;
         this.gameScreen = gameScreen;
-        this.tileSize = tileSize;
-        load();
-    }
-
-    /**
-     * Loading the param of the entity
-     */
-    public void load(){
         priority = 0;
         speed = 1;
         posX = 0;

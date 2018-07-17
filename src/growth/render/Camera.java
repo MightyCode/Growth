@@ -2,8 +2,8 @@ package growth.render;
 
 import growth.game.entity.type.MovingEntity;
 import growth.main.Window;
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 
 import static org.lwjgl.opengl.GL11.glTranslatef;

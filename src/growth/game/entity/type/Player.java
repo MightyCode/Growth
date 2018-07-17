@@ -2,10 +2,13 @@ package growth.game.entity.type;
 
 import growth.game.entity.module.entity.Entity_Fall;
 import growth.game.entity.module.player.*;
+import growth.main.Config;
 import growth.main.Growth;
 import growth.render.Animation;
 import growth.screen.screens.GameScreen;
 import growth.game.tilemap.TileMap;
+import growth.screen.screens.Screen;
+import growth.util.XmlReader;
 
 /**
  * Player class.
@@ -43,7 +46,7 @@ public class Player extends MovingEntity{
 	 */
 	public Player(GameScreen gameScreen, TileMap tileMap, int sizeX, int sizeY) {
 		// Call mother constructor
-		super(gameScreen, tileMap.getTileSize() ,tileMap);
+		super(gameScreen ,tileMap);
 
 		/* Init player's variables */
 		// Size, and boxSize
@@ -51,15 +54,8 @@ public class Player extends MovingEntity{
 		this.sizeY = sizeY;
 		cX = (int) (sizeX * 0.65);
 		cY = sizeY;
-	}
 
-	/**
-	 * Load the player
-	 */
-	public void load(){
-		super.load();
-		// Movement
-
+		int tileSize = GameScreen.tileSize;
 		// Value
 		float walkSpeed = tileSize/25.6f;
 		float maxSpeed = tileSize/10f;
@@ -82,8 +78,9 @@ public class Player extends MovingEntity{
 			modules.add(new Admin_PlayerHealth(this));
 		}
 
-		setMaxHealthPoint(2);
-		setHealthPoint(2);
+		System.out.println(Config.getPartyPath());
+		setMaxHealthPoint(Integer.parseInt(XmlReader.getValue(Config.getPartyPath() , "maxLife", "life")));
+		setHealthPoint(Integer.parseInt(XmlReader.getValue(Config.getPartyPath() , "life", "life")));
 
 		// Sprite and Animation
 		facing = true;
@@ -95,13 +92,14 @@ public class Player extends MovingEntity{
 		animations.add(new Animation("/textures/game/entity/player/fall/", 1, 100));
 	}
 
+
 	/**
 	 * Change the current health value.
 	 * @param newValue New current health value.
 	 */
 	public void setHealthPoint(int newValue){
 		super.setHealthPoint(newValue);
-		GameScreen.HUD.setHearth(healthPoint);
+		GameScreen.hud.setHearth(healthPoint);
 	}
 
 	/**
@@ -110,26 +108,31 @@ public class Player extends MovingEntity{
 	 */
 	public void setMaxHealthPoint(int newValue){
 		super.setMaxHealthPoint(newValue);
-		GameScreen.HUD.setMaxHealth(maxHealthPoint);
+		GameScreen.hud.setMaxHealth(maxHealthPoint);
 	}
 
 	public void update(){
 		super.update();
+
+		// Check border player collision to change the map
+		if (posX - cX / 2 <= 0) {
+			GameScreen.tileMap.changeMap(0, posX, posY);
+		} else if (posX + cX / 2 >= tileMap.getSizeX()) {
+			GameScreen.tileMap.changeMap(2, posX, posY);
+		} else if(posY + cY/ 2 >= tileMap.getSizeY()){
+			System.out.println("nandate");
+			if(!GameScreen.tileMap.changeMap(3, posX, posY)){
+				died();
+				GameScreen.setState(GameScreen.DEATHSCREEN);
+			}
+		}
 	}
 
 	/**
 	 * When the player die
 	 */
 	public void died(){
-		gameScreen.setState(GameScreen.DEATHSCREEN);
+		Screen.setState(GameScreen.DEATHSCREEN);
 		super.died();
-	}
-
-	public void upLayer() {
-		tileMap.upLayer();
-	}
-
-	public void downLayer() {
-		tileMap.downLayer();
 	}
 }

@@ -144,11 +144,10 @@ public class MovingEntity extends BasicEntity {
      * Instance the class and set the tileMap.
      *
      * @param gameScreen The reference to the game screen.
-     * @param tileSize The size of the tile.
      * @param tileMap Add tileMap to the entity.
      */
-    public MovingEntity(GameScreen gameScreen, int tileSize, TileMap tileMap) {
-        super(gameScreen, tileSize);
+    public MovingEntity(GameScreen gameScreen, TileMap tileMap) {
+        super(gameScreen);
         speedX = 0;
         speedY = 0;
         this.tileMap = tileMap;
@@ -198,10 +197,10 @@ public class MovingEntity extends BasicEntity {
      * @param posY Position Y.
      */
     private void calculateCorners(float posX, float posY) {
-        leftTile = (int) (posX - cX / 2) / tileSize;
-        rightTile = (int) (posX + cX / 2 - 1) / tileSize;
-        topTile = (int) ((posY - cY / 2) / tileSize);
-        bottomTile = (int) (posY + cY / 2 - 1) / tileSize;
+        leftTile = (int) (posX - cX / 2) / GameScreen.tileSize;
+        rightTile = (int) (posX + cX / 2 - 1) / GameScreen.tileSize;
+        topTile = (int) ((posY - cY / 2) / GameScreen.tileSize);
+        bottomTile = (int) (posY + cY / 2 - 1) / GameScreen.tileSize;
 
         if (bottomTile >= tileMap.getNumRows() || rightTile >= tileMap.getNumCols()) {
             topLeft = topRight = bottomLeft = bottomRight = true;
@@ -226,8 +225,8 @@ public class MovingEntity extends BasicEntity {
     private void checkTileMapCollision() {
 
         // Get position of player in the grid
-        currCol = (int) posX / tileSize;
-        currRow = (int) posY / tileSize;
+        currCol = (int) posX / GameScreen.tileSize;
+        currRow = (int) posY / GameScreen.tileSize;
 
         // Next position
         xDest = posX + speedX;
@@ -242,7 +241,7 @@ public class MovingEntity extends BasicEntity {
         if (speedY <= 0) {
             if (topLeft || topRight) {
                 speedY = 0;
-                yTemp = currRow * tileSize + cY / 2;
+                yTemp = currRow * GameScreen.tileSize + cY / 2;
             } else {
                 yTemp += speedY;
             }
@@ -255,7 +254,7 @@ public class MovingEntity extends BasicEntity {
             if (bottomLeft || bottomRight) {
                 speedY = 0;
                 falling = false;
-                yTemp = (currRow + 1) * tileSize - cY / 2;
+                yTemp = (currRow + 1) * GameScreen.tileSize - cY / 2;
             } else {
                 yTemp += speedY;
             }
@@ -266,7 +265,7 @@ public class MovingEntity extends BasicEntity {
         if (speedX < 0) {
             if (topLeft || bottomLeft) {
                 speedX = 0;
-                xTemp = currCol * tileSize + cX / 2;
+                xTemp = currCol * GameScreen.tileSize + cX / 2;
                 speedY*=0.96;
             } else {
                 xTemp += speedX;
@@ -280,7 +279,7 @@ public class MovingEntity extends BasicEntity {
         } else if (speedX > 0) {
             if (topRight || bottomRight) {
                 speedX = 0;
-                xTemp = (currCol + 1) * tileSize - cX / 2;
+                xTemp = (currCol + 1) * GameScreen.tileSize - cX / 2;
                 speedY*=0.96;
             } else {
                 xTemp += speedX;

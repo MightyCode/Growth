@@ -2,7 +2,7 @@ package growth.game.entity.module.player;
 
 import growth.game.entity.type.Player;
 import growth.game.entity.module.Module;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 
 /**
  * Player speed module class.
@@ -55,7 +55,7 @@ public class Player_Sprint extends Module {
     public void update(){
         float speedX = player.getSpeedX();
 
-        if (ScreenManager.inputsManager.input(6) ) {
+        if (GameManager.inputsManager.input(6) ) {
             if (speedX > 0 && movement.getRight() && !movement.getLeft()) {
                 speedX *= runSpeed;
             } else if (speedX < 0 && movement.getLeft() && !movement.getRight()) {

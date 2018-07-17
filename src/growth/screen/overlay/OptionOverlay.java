@@ -2,18 +2,16 @@ package growth.screen.overlay;
 
 import growth.main.Config;
 import growth.main.Window;
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.Render;
 import growth.render.gui.GUICheckBox;
 import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 import growth.screen.screens.Screen;
-import growth.util.TextManager;
 import growth.util.XmlReader;
-import sun.java2d.pipe.TextRenderer;
 
 public class OptionOverlay extends Overlay {
 
@@ -64,9 +62,9 @@ public class OptionOverlay extends Overlay {
             @Override
             public void action () {
                 if(state == 0){
-                   ScreenManager.textManager.changeLanguage("fr");
+                   GameManager.textManager.changeLanguage("fr");
                 } else{
-                    ScreenManager.textManager.changeLanguage("en");
+                    GameManager.textManager.changeLanguage("en");
                 }
             }
         };
@@ -75,7 +73,7 @@ public class OptionOverlay extends Overlay {
     }
 
     public void update() {
-        if(ScreenManager.inputsManager.inputPressed(0)) {
+        if(GameManager.inputsManager.inputPressed(0)) {
             quit();
         }
 

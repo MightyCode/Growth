@@ -1,10 +1,8 @@
 package growth.render.text;
 
-import growth.math.Color4;
-import growth.math.Vec2;
-import growth.screen.ScreenManager;
-import growth.util.TextManager;
-import sun.java2d.pipe.TextRenderer;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
+import growth.screen.GameManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +77,7 @@ public class FontRenderer {
     public FontRenderer(int wordNumber, FontFace font, float size, Vec2 pos, Color4 color) {
         this.wordNumber = wordNumber;
         this.font = font;
-        this.text = ScreenManager.textManager.getWord(this,wordNumber);
+        this.text = GameManager.textManager.getWord(this,wordNumber);
         this.size = size;
         setPos(pos);
         this.color = color;
@@ -157,7 +155,7 @@ public class FontRenderer {
         glBegin(GL_QUADS);
             for (int i = 0; i < mesh.size(); i++) {
                 glTexCoord2f(texture.get(i).getX(), texture.get(i).getY());
-                glVertex2f(mesh.get(i).getX() * size + pos.getX() - ScreenManager.CAMERA.getPosX(), mesh.get(i).getY() * size + pos.getY() - ScreenManager.CAMERA.getPosY());
+                glVertex2f(mesh.get(i).getX() * size + pos.getX() - GameManager.CAMERA.getPosX(), mesh.get(i).getY() * size + pos.getY() - GameManager.CAMERA.getPosY());
             }
         glEnd();
     }
@@ -235,7 +233,7 @@ public class FontRenderer {
      * @param pos Position of the text on screen.
      */
     public void setPos(Vec2 pos) {
-        pos.setPosition(pos.getX()-(getWidth()/2), pos.getY());
+        pos.setPosition(pos.getX(), pos.getY());
         this.pos = pos;
     }
 
@@ -267,12 +265,13 @@ public class FontRenderer {
     }
 
     public void update(){
-        text = ScreenManager.textManager.getWord(wordNumber);
-        calc();
+        text = GameManager.textManager.getWord(wordNumber);
         setPos(pos);
+        calc();
+
     }
 
     public void unload(){
-        ScreenManager.textManager.remove(this);
+        GameManager.textManager.remove(this);
     }
 }

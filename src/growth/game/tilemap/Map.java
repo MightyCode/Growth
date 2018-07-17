@@ -134,7 +134,7 @@ public class Map {
 	 *
 	 * @return Begin tile x.
 	 */
-	double getTileToComeX(int point) {
+	float getTileToComeX(int point) {
 		return spawn[point][0];
 	}
 
@@ -143,7 +143,7 @@ public class Map {
 	 *
 	 * @return Begin tile y.
 	 */
-	double getTileToComeY(int point) {
+	float getTileToComeY(int point) {
 		return spawn[point][1];
 	}
 

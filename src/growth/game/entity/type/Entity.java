@@ -1,5 +1,5 @@
 package growth.game.entity.type;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 import growth.screen.screens.GameScreen;
 
 import java.awt.*;
@@ -76,16 +76,16 @@ public class Entity {
 	/**
 	 * Unload the entity.
 	 */
-	public void unload(){ GameScreen.ENTITY_MANAGER.removeEntity(this); }
+	public void unload(){ GameScreen.entityManager.removeEntity(this); }
 
 	/**
 	 * Test if the entity isn't on screen.
 	 */
 	public boolean isOnScreen() {
-		return posX + ScreenManager.CAMERA.getPosX() + sizeX/2 < 0 ||
-				posX + ScreenManager.CAMERA.getPosX() - sizeX/2 > Window.WIDTH ||
-				posY + ScreenManager.CAMERA.getPosY() + sizeY/2 < 0 ||
-				posY + ScreenManager.CAMERA.getPosY() - sizeY/2 > Window.HEIGHT;
+		return posX + GameManager.CAMERA.getPosX() + sizeX/2 < 0 ||
+				posX + GameManager.CAMERA.getPosX() - sizeX/2 > Window.WIDTH ||
+				posY + GameManager.CAMERA.getPosY() + sizeY/2 < 0 ||
+				posY + GameManager.CAMERA.getPosY() - sizeY/2 > Window.HEIGHT;
 	}
 
 	/**

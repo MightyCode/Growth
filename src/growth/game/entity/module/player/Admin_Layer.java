@@ -2,7 +2,8 @@ package growth.game.entity.module.player;
 
 import growth.game.entity.type.Player;
 import growth.game.entity.module.Module;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
+import growth.screen.screens.GameScreen;
 
 /**
  * Administrator layer module class.
@@ -35,12 +36,12 @@ public class Admin_Layer extends Module{
      * Update the module.
      */
     public void update(){
-        if(ScreenManager.inputsManager.inputPressed(9)) {
-           player.upLayer();
+        if(GameManager.inputsManager.inputPressed(9)) {
+            GameScreen.tileMap.setLayer(1);
         }
 
-        if(ScreenManager.inputsManager.inputPressed(10)) {
-            player.downLayer();
+        if(GameManager.inputsManager.inputPressed(10)) {
+            GameScreen.tileMap.setLayer(-1);
         }
     }
 

@@ -1,15 +1,15 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.gui.GUIButton;
 import growth.render.shape.ShapeRenderer;
 import growth.render.text.FontRenderer;
 import growth.render.text.StaticFonts;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 
 /**
  * Pause Overlay class.
@@ -91,7 +91,7 @@ public class PauseOverlay extends Overlay{
             @Override
             public void action () {
                 Screen.setState(GameScreen.NORMALSCREEN);
-                Window.screenManager.setScreen(ScreenManager.MENUSCREEN);
+                Window.gameManager.setScreen(GameManager.MENUSCREEN);
             }
         };
     }
@@ -100,7 +100,7 @@ public class PauseOverlay extends Overlay{
      * Update the overlay and its components.
      */
     public void update(){
-        if(ScreenManager.inputsManager.inputPressed(0)) {
+        if(GameManager.inputsManager.inputPressed(0)) {
             Screen.setState(GameScreen.NORMALSCREEN);
         }
 

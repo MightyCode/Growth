@@ -3,7 +3,6 @@ package growth.util;
 import growth.game.tilemap.Map;
 import growth.game.tilemap.Tile;
 import growth.main.Config;
-import growth.main.Window;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,7 +32,7 @@ public abstract class XmlReader {
 	public static Map createMap(String map_path) {
 		try {
 
-			Element root = getRoot("/map/" + map_path);
+			Element root = getRoot(Config.MAP_PATH + map_path);
 
 			assert root != null;
 			int width = Integer.parseInt(root.getAttribute("width"));
@@ -99,7 +98,8 @@ public abstract class XmlReader {
 							numberOfCharacterRead++;
 						}
 
-						mapId[counter1][counter2] = mapId[counter1][counter2] * x + Integer.parseInt(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
+						mapId[counter1][counter2] =
+								mapId[counter1][counter2] * x + Integer.parseInt(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1));
 						numberOfCharacterRead++;
 						x *= 10;
 
@@ -153,7 +153,8 @@ public abstract class XmlReader {
 					layer = (Element) rootNode.item(i);
 				}
 
-				if(Integer.parseInt(layer.getAttribute("id"))>= tableLength) tableLength = Integer.parseInt(layer.getAttribute("id"))+1;
+				if(Integer.parseInt(layer.getAttribute("id"))>= tableLength)
+					tableLength = Integer.parseInt(layer.getAttribute("id"))+1;
 				a++;
 			}
 
@@ -187,22 +188,22 @@ public abstract class XmlReader {
 		}
 	}
 
-	public static void loadConfig(String path, Config config){
+	public static void loadConfig(){
 		try {
-			Element root = getRoot(path);
+			Element root = getRoot(Config.CONFIG_PATH);
 
 			assert root != null;
 			// General configuration
 			Element tag = search("general", root);
-			config.setLanguage(tag.getAttribute("language"));
+			Config.setLanguage(tag.getAttribute("language"));
 
 			// Window size
 			 tag = search("window", root);
-			config.setWindowWidth(Integer.parseInt(tag.getAttribute("width")));
-			config.setWindowHeight(Integer.parseInt(tag.getAttribute("height")));
+			Config.setWindowWidth(Integer.parseInt(tag.getAttribute("width")));
+			Config.setWindowHeight(Integer.parseInt(tag.getAttribute("height")));
 
 			// Window fullscreen
-			config.setFullscreen(Integer.parseInt(tag.getAttribute("fullscreen")));
+			Config.setFullscreen(Integer.parseInt(tag.getAttribute("fullscreen")));
 
 			// Inputs configuration
 			tag = search("inputs", root);
@@ -216,7 +217,12 @@ public abstract class XmlReader {
 				inputs[i][Integer.parseInt(data.substring(0,1))] = Integer.parseInt(data.substring(2,data.length()));
 				inputs[i][Math.abs(Integer.parseInt(data.substring(0,1))-1)] = -1;
 			}
-			config.setInputs(inputs);
+
+			Config.setInputs(inputs);
+
+			Config.setPartyNumber(search("game",root).getAttribute("number"));
+			Config.setPartyPath(Config.SAVE_PATH+Config.getPartyNumber()+".xml");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

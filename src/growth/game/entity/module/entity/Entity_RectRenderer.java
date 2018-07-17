@@ -2,8 +2,8 @@ package growth.game.entity.module.entity;
 
 import growth.game.entity.module.Module;
 import growth.game.entity.type.Entity;
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 
 public class Entity_RectRenderer extends Module{

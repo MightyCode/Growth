@@ -1,7 +1,7 @@
 package growth.render.gui;
 
 import growth.inputs.MouseManager;
-import growth.math.Vec2;
+import growth.util.math.Vec2;
 
 public abstract class GUIComponents {
 

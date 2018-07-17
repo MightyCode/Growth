@@ -1,11 +1,9 @@
 package growth.render.texture;
 
-import growth.math.Vec2;
-import growth.screen.ScreenManager;
+import growth.util.math.Vec2;
+import growth.screen.GameManager;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 /**
  * Texture rendering abstract class.
@@ -25,7 +23,6 @@ public class TextureRenderer {
      * @param sizeY Image's height.
      */
     public static void image(float posX, float posY, float sizeX, float sizeY, float alpha) {
-        glActiveTexture(GL_TEXTURE0);
         glColor4f(1.f, 1.f, 1.f, alpha);
 
         glBegin(GL_QUADS);
@@ -56,19 +53,19 @@ public class TextureRenderer {
     }
 
     public static void imageC(float posX, float posY, float sizeX, float sizeY) {
-        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, 1.f);
+        image(posX - GameManager.CAMERA.getPosX(), posY - GameManager.CAMERA.getPosY(), sizeX, sizeY, 1.f);
     }
 
     public static void imageC(float posX, float posY, float sizeX, float sizeY, float alpha) {
-        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, alpha);
+        image(posX - GameManager.CAMERA.getPosX(), posY - GameManager.CAMERA.getPosY(), sizeX, sizeY, alpha);
     }
 
     public static void imageC(Vec2 pos, Vec2 size) {
-        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(), 1.f);
+        image(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY(), size.getX(), size.getY(), 1.f);
     }
 
     public static void imageC(Vec2 pos, Vec2 size, float alpha) {
-        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(), alpha);
+        image(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY(), size.getX(), size.getY(), alpha);
     }
 
     /**
@@ -80,7 +77,7 @@ public class TextureRenderer {
      * @param sizeY Image's height.
      */
     public static void image(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, float alpha) {
-        glActiveTexture(GL_TEXTURE0);
+        //glActiveTexture(GL_TEXTURE0);
         glColor4f(1f, 1f, 1f, alpha);
 
         glBegin(GL_QUADS);
@@ -111,20 +108,20 @@ public class TextureRenderer {
     }
 
     public static void imageC(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY) {
-        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, 1.f);
+        image(posX - GameManager.CAMERA.getPosX(), posY - GameManager.CAMERA.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, 1.f);
     }
 
     public static void imageC(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, float alpha) {
-        image(posX - ScreenManager.CAMERA.getPosX(), posY - ScreenManager.CAMERA.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, alpha);
+        image(posX - GameManager.CAMERA.getPosX(), posY - GameManager.CAMERA.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, alpha);
     }
 
     public static void imageC(Vec2 pos, Vec2 size, Vec2 from, Vec2 to) {
-        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(),
+        image(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY(), size.getX(), size.getY(),
                 from.getX(), from.getY(), to.getX(), to.getY(), 1.f);
     }
 
     public static void imageC(Vec2 pos, Vec2 size, Vec2 from, Vec2 to, float alpha) {
-        image(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY(), size.getX(), size.getY(),
+        image(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY(), size.getX(), size.getY(),
                 from.getX(), from.getY(), to.getX(), to.getY(), alpha);
     }
 

@@ -1,11 +1,11 @@
 package growth.render.gui;
 
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 import growth.render.text.FontFace;
 import growth.render.text.FontRenderer;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -60,7 +60,7 @@ public class GUIButton extends GUIComponents{
 
         if(mouseOver){
             fontRenderer.setColor(hoverTextColor);
-            if(ScreenManager.mouseManager.mousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
+            if(GameManager.mouseManager.mousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
                 action();
             }
         } else{

@@ -42,7 +42,7 @@ public abstract class Overlay {
      * Set the screen.
      */
     public void setScreen(int newScreen){
-        Window.screenManager.setScreen(newScreen);
+        Window.gameManager.setScreen(newScreen);
     }
 
     /**

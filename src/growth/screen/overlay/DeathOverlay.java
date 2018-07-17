@@ -1,13 +1,14 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.gui.GUIButton;
 import growth.render.shape.ShapeRenderer;
 import growth.render.text.FontRenderer;
 import growth.render.text.StaticFonts;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
+import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
 
 /**
@@ -37,7 +38,7 @@ public class DeathOverlay extends Overlay {
         // Init variable
         // Title
         loose = new FontRenderer(10, StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
-        loose.setPos(new Vec2(Window.width / 2 - loose.getWidth() / 2, 0.18f * Window.height));
+        loose.setPos(new Vec2(Window.width/2, 0.18f * Window.height));
 
         Vec2 size = new Vec2(350, 40);
         Color4 backgroundColor = new Color4(1.0f, 0.0f, 1.0f, 0.5f);
@@ -57,7 +58,7 @@ public class DeathOverlay extends Overlay {
         ) {
             @Override
             public void action() {
-                Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
+                Window.gameManager.setScreen(GameManager.GAMESCREEN);
             }
         };
 
@@ -73,7 +74,8 @@ public class DeathOverlay extends Overlay {
         ) {
             @Override
             public void action() {
-                Window.screenManager.setScreen(ScreenManager.MENUSCREEN);
+                Screen.setState(GameScreen.NORMALSCREEN);
+                Window.gameManager.setScreen(GameManager.MENUSCREEN);
             }
         };
     }

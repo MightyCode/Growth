@@ -1,11 +1,15 @@
 package growth.game.tilemap;
 
+import growth.game.entity.type.Entity;
 import growth.main.Config;
 import growth.main.Window;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
+import growth.screen.screens.GameScreen;
 import growth.util.XmlReader;
+import growth.util.math.Vec2;
+
 import java.util.ArrayList;
 
 /**
@@ -35,12 +39,6 @@ public class TileMap {
 	 * This variable contains the every maps.
 	 */
 	private final ArrayList<Map> maps = new ArrayList<>();
-
-	/**
-	 * Tile size.
-	 * This variable contains the size of tiles.
-	 */
-	private final int tileSize;
 
 	/**
 	 * Number of row.
@@ -111,16 +109,19 @@ public class TileMap {
 	 */
 	private final int nbMap;
 
+	private Entity entity;
+
+	private float givePosX, givePosY;
+	private int newMapId;
+
 	/**
 	 * Tilemap class constructor.
 	 * Instance the class and set the tile's textures of tile set with the path.
 	 *
-	 * @param tileSize Get tile size.
 	 * @param path Path to file's xml to load.
 	 */
-	public TileMap(int tileSize, String path) {
-		// Init variables
-		this.tileSize = tileSize;
+	public TileMap( String path) {
+		// Init variables;
 
 		// Init tileSet
 		tileSetT = new Texture("/textures/game/tiles/Tileset.png");
@@ -146,14 +147,18 @@ public class TileMap {
 		// Init current map variables
 		numCols = map[0].length;
 		numRows = map.length;
-		numRowsToDraw = Window.height / tileSize + 2;
-		numColsToDraw = Window.width / tileSize + 2;
-		sizeX = numCols * tileSize;
-		sizeY = numRows * tileSize;
+		numRowsToDraw = Window.height / GameScreen.tileSize + 2;
+		numColsToDraw = Window.width / GameScreen.tileSize + 2;
+		sizeX = numCols * GameScreen.tileSize;
+		sizeY = numRows * GameScreen.tileSize;
 
 		// Init camera
-		ScreenManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
-		ScreenManager.CAMERA.setBoundMin(0, 0);
+		GameManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
+		GameManager.CAMERA.setBoundMin(0, 0);
+	}
+
+	public void setEntity(Entity newEntity){
+		entity = newEntity;
 	}
 
 	/**
@@ -161,8 +166,8 @@ public class TileMap {
 	 */
 	public void display(boolean pos) {
 		tileSetT.bind();
-		colOffset = -ScreenManager.CAMERA.getPosX() / tileSize;
-		rowOffset = -ScreenManager.CAMERA.getPosY() / tileSize;
+		colOffset = -GameManager.CAMERA.getPosX() / GameScreen.tileSize;
+		rowOffset = -GameManager.CAMERA.getPosY() / GameScreen.tileSize;
 
 		int begin = (pos)? 0: currentLayer+1;
 		int end = (pos)? currentLayer+1 : 4;
@@ -183,9 +188,9 @@ public class TileMap {
 
 					if(map[row][col]==0)continue;
 					TextureRenderer.image(
-							col * tileSize,
-							row * tileSize,
-							tileSize, tileSize,
+							col * GameScreen.tileSize,
+							row * GameScreen.tileSize,
+							GameScreen.tileSize, GameScreen.tileSize,
 							tileSet[map[row][col]].getTexX(),
 							tileSet[map[row][col]].getTexY(),
 							tileSet[map[row][col]].getTexToX(),
@@ -194,6 +199,27 @@ public class TileMap {
 				}
 			}
 		}
+	}
+
+	/*
+	 * Setters methods
+	 */
+
+	public boolean changeMap(int point, float posX, float posY){
+		int[] result = isMap( Math.abs(point-2), posX, posY);
+		if(result[0] == 1){
+			changeMap(result[1], Math.abs(point-2));
+			return true;
+		}
+		return false;
+	}
+
+	public void changeMap(int mapID, int point){
+		GameScreen.setState(GameScreen.TRANSITIONSCREEN);
+		newMapId = mapID;
+		System.out.println("fucking " + maps.get(mapID).getTileToComeX(point) + " fuck + " + maps.get(mapID).getTileToComeY(point));
+		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
+		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - entity.getSizeY()/2;
 	}
 
 	/**
@@ -205,62 +231,40 @@ public class TileMap {
 	 *
 	 * @return The new map id and the spawn point.
 	 */
-	public int[] isMap(int side, int x, int y) {
-		float posX = x / tileSize;
-		float posY = y / tileSize;
+	private int[] isMap(int side, float x, float y) {
+		float posX = x / GameScreen.tileSize;
+		float posY = y / GameScreen.tileSize;
 
-		float[][] neighbour = maps.get(currentMap).getExitPoints(side);
-		int[] table = new int[2];
+		float[][] neighbour = maps.get(currentMap).getExitPoints(Math.abs(side-2));
 
-		for(int counter = 0; counter < neighbour.length; counter++){
-			if(side == 0 || side == 2){
-				if(neighbour[counter][2] < posY && posY < neighbour[counter][3]){
-
-					table[0] = (int)neighbour[counter][0];
-					table[1] = counter;
-					return table;
+		for (int i = 0; i < neighbour.length; i++) {
+			if (side == 0 || side == 2) {
+				if (neighbour[i][2] < posY && posY < neighbour[i][3]) {
+					return new int[]{1, (int)neighbour[i][0]-1};
 				}
-			} else if (side == 1|| side == 3){
-				if(neighbour[counter][2] < posX && posX < neighbour[counter][3]){
-					table[0] = (int)neighbour[counter][0];
-					table[1] = counter;
-					return table;
+			} else if (side == 1 || side == 3) {
+				if (neighbour[i][2] < posX && posX < neighbour[i][3]) {
+					return new int[]{1, (int)neighbour[i][0]-1};
 				}
 			}
 		}
-		return table;
+		return new int[]{1};
 	}
 
-	/*
-	 * Setters methods
-	 */
-
-	/**
-	 * Change the map.
-	 *
-	 * @param side By which side the map will be changed.
-	 * @param point Where the next new map will spawn the player.
-	 *
-	 * @return The next player position on the new map.
-	 */
-	public float[] changeMap(int side, int point) {
-		float[][] data = maps.get(currentMap).getExitPoints(side);
-		currentMap = (int)data[point][0]-1;
+	public void givePosition(){
+		entity.setPosition(givePosX, givePosY);
+		currentMap = newMapId;
 		chargeMap();
 		numCols = map[0].length;
 		numRows = map.length;
 
-		sizeX = numCols * tileSize;
-		sizeY = numRows * tileSize;
+		sizeX = numCols * GameScreen.tileSize;
+		sizeY = numRows * GameScreen.tileSize;
 
-		ScreenManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
-		ScreenManager.CAMERA.setBoundMin(0, 0);
-
-		float[] newPos = new float[2];
-		newPos[0] = (float)(maps.get(currentMap).getTileToComeX((int)data[point][1]) * tileSize);
-
-		newPos[1] = (float)maps.get(currentMap).getTileToComeY((int)data[point][1]) * tileSize;
-		return newPos;
+		GameManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
+		GameManager.CAMERA.setBoundMin(0, 0);
+		GameManager.CAMERA.setPosition(false);
+		System.out.println("New map, id: " + currentMap);
 	}
 
 	/*
@@ -283,15 +287,6 @@ public class TileMap {
 	 */
 	public int getNumCols() {
 		return numCols;
-	}
-
-	/**
-	 * Return the tile size.
-	 *
-	 * @return the tile size
-	 */
-	public int getTileSize() {
-		return tileSize;
 	}
 
 	/**
@@ -335,28 +330,16 @@ public class TileMap {
 	/**
 	 * Change the layer to a higher layer.
 	 */
-	public void upLayer(){
-	    if(currentLayer < 2) {
+	public void setLayer(int numberToAdd){
+	    if(currentLayer + numberToAdd > 0 || currentLayer + numberToAdd < 2) {
             maps.get(currentMap).setColor(currentLayer, 0.9f);
-            currentLayer++;
+            currentLayer+= numberToAdd;
             System.out.println("Change the current layer to " + currentLayer);
             maps.get(currentMap).setColor(currentLayer, 1f);
             chargeMap();
         }
 	}
 
-	/**
-	 * Change the layer to a lower layer.
-	 */
-	public void downLayer(){
-	    if(currentLayer > 0) {
-            maps.get(currentMap).setColor(currentLayer, 0.9f);
-            currentLayer--;
-            System.out.println("Change the current layer to " + currentLayer);
-            maps.get(currentMap).setColor(currentLayer, 1f);
-            chargeMap();
-        }
-	}
 
 	/**
 	 * Charge the current layer for collision and another features.

@@ -8,6 +8,7 @@ import growth.screen.screens.MenuScreen;
 import growth.screen.screens.Screen;
 import growth.inputs.KeyboardManager;
 import growth.inputs.MouseManager;
+import growth.sound.SoundManager;
 import growth.util.TextManager;
 import growth.util.XmlReader;
 
@@ -18,13 +19,13 @@ import growth.util.XmlReader;
  * @author MightyCode
  * @version 1.0
  */
-public class ScreenManager {
+public class GameManager {
 
     /**
      * Current screen.
      * This variable contains the current screen displayed.
      */
-    private Screen ActualScreen;
+    private Screen currentScreen;
 
     /**
      * Screen's states.
@@ -34,6 +35,7 @@ public class ScreenManager {
     public static final int GAMESCREEN = 1;
 
     public static TextManager textManager;
+    public static SoundManager soundManager;
 
     /**
      * Window ID.
@@ -49,27 +51,30 @@ public class ScreenManager {
      * ScreenManager class constructor.
      * Instance the class and set the current screen.
      */
-    public ScreenManager(int[][] input) {
+    public GameManager(int[][] input) {
+        // Instance of the different manager
         textManager = new TextManager();
-        ActualScreen = (new MenuScreen(this));
+        soundManager = new SoundManager();
         inputsManager = new InputManager(input);
         keyboardManager = new KeyboardManager();
         mouseManager = new MouseManager();
-        // Set the key
+
+        // Load the fist screen
+        currentScreen = (new MenuScreen(this));
     }
 
     /**
      * Update the current screen.
      */
     public void update() {
-        ActualScreen.update();
+        currentScreen.update();
     }
 
     /**
      * Display the current screen.
      */
     public void display() {
-        ActualScreen.display();
+        currentScreen.display();
     }
 
     /**
@@ -81,10 +86,10 @@ public class ScreenManager {
         currentScreenUnload();
         switch (screen) {
             case MENUSCREEN:
-                ActualScreen = (new MenuScreen(this));
+                currentScreen = (new MenuScreen(this));
                 break;
             case GAMESCREEN:
-                ActualScreen = (new GameScreen(this));
+                currentScreen = (new GameScreen(this));
                 break;
         }
     }
@@ -93,17 +98,17 @@ public class ScreenManager {
      * Unload the currentScreen.
      */
     private void currentScreenUnload() {
-        ActualScreen.unload();
+        currentScreen.unload();
     }
 
-    public void focus(boolean b){ ActualScreen.focus(b);}
+    public void focus(boolean b){ currentScreen.focus(b);}
 
     /**
      * Unload the game before leaving.
      */
     public void unload() {
-        ActualScreen.unload();
-        ActualScreen = null;
+        currentScreen.unload();
+        currentScreen = null;
         StaticFonts.unload();
     }
 }

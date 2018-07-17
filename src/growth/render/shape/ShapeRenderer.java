@@ -1,8 +1,8 @@
 package growth.render.shape;
 
-import growth.math.Color4;
-import growth.math.Vec2;
-import growth.screen.ScreenManager;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
+import growth.screen.GameManager;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -30,6 +30,6 @@ public class ShapeRenderer {
     }
 
     public static void rectC(Vec2 pos, Vec2 size, Color4 color) {
-        rect(new Vec2(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY()), size, color);
+        rect(new Vec2(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY()), size, color);
     }
 }

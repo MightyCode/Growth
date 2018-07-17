@@ -8,15 +8,17 @@ public class Config {
     private static int windowHeight;
     private static int[][] inputs;
     private static String language;
+    private static String partyNumber;
+    private static String partyPath;
 
     public static final String CONFIG_PATH = "/config/config.xml";
-    public static final String SAVE_PATH = "/config/saves/";
+    public static final String SAVE_PATH = "/config/saves/save-";
     public static final String MAP_PATH = "/map/";
     public static final String MAP_OPTION_PATH = "/map/mapOptions.xml";
 
 
-    public Config(String path){
-        XmlReader.loadConfig(path, this);
+    public Config(){
+        XmlReader.loadConfig();
     }
 
     public static boolean getFullscreen() {
@@ -52,4 +54,12 @@ public class Config {
     public static void setLanguage(String newLanguage){language = newLanguage;}
 
     public static String getLanguage(){return language;}
+
+    public static String getPartyNumber() { return partyNumber; }
+
+    public static void setPartyNumber(String partyNumber) { Config.partyNumber = partyNumber; }
+
+    public static String getPartyPath() { return partyNumber; }
+
+    public static void setPartyPath(String partyNumber) { Config.partyNumber = partyNumber; }
 }

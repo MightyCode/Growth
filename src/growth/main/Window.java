@@ -1,7 +1,7 @@
 package growth.main;
 
 import growth.render.Render;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 import growth.util.Timer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -15,6 +15,8 @@ import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -37,7 +39,7 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Screen manager.
      * This global variable contains the manager of game'screens.
      */
-    public static ScreenManager screenManager;
+    public static GameManager gameManager;
 
     /**
      * Width window size.
@@ -92,7 +94,7 @@ public class Window implements GLFWWindowFocusCallbackI {
      */
     private static void createWindow(){
         // Get the game global configurations.
-        config = new Config("/config/config.xml");
+        config = new Config();
 
         width = Config.getWindowWidth();
         height = Config.getWindowHeight();
@@ -151,12 +153,13 @@ public class Window implements GLFWWindowFocusCallbackI {
         Render.setViewPort(width, height);
 
         glEnable(GL_TEXTURE_2D);
+        glActiveTexture(GL_TEXTURE0);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         /* End loading of Open GL*/
         // Set the screen manager
-        screenManager = new ScreenManager(Config.getInputs());
+        gameManager = new GameManager(Config.getInputs());
     }
 
     /**
@@ -164,7 +167,6 @@ public class Window implements GLFWWindowFocusCallbackI {
      */
     void run() {
         loop();
-
         exit();
     }
 
@@ -187,11 +189,11 @@ public class Window implements GLFWWindowFocusCallbackI {
 
         while(!glfwWindowShouldClose(windowID)){
             if (timer.getDuration() - lastTick >= TICK_TIME) {
-                screenManager.update();
+                gameManager.update();
                 ticks++;
                 lastTick += TICK_TIME;
             } else if (timer.getDuration() - lastFrame >= FRAME_TIME) {
-                screenManager.display();
+                gameManager.display();
                 //System.out.println(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory());
                 glfwSwapBuffers(windowID);
                 glfwPollEvents();
@@ -218,7 +220,7 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Exit the game.
      */
     public static void exit() {
-        screenManager.unload();
+        gameManager.unload();
 
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(windowID);
@@ -237,6 +239,6 @@ public class Window implements GLFWWindowFocusCallbackI {
 
     @Override
     public void invoke(long l, boolean b) {
-        screenManager.focus(b);
+        gameManager.focus(b);
     }
 }

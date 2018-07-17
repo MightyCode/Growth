@@ -1,6 +1,6 @@
 package growth.inputs;
 
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 
 public class InputManager {
     private int[] type;
@@ -39,8 +39,8 @@ public class InputManager {
      * @return boolean
      */
     public boolean inputPressed(int inputs){
-        if(type[inputs] == 0) return ScreenManager.keyboardManager.keyPressed(this.inputs[inputs]);
-        else return ScreenManager.mouseManager.mousePressed(this.inputs[inputs]);
+        if(type[inputs] == 0) return GameManager.keyboardManager.keyPressed(this.inputs[inputs]);
+        else return GameManager.mouseManager.mousePressed(this.inputs[inputs]);
     }
 
     /**
@@ -50,7 +50,7 @@ public class InputManager {
      * @return boolean
      */
     public boolean inputReleased(int inputs){
-        if(type[inputs] == 0) return ScreenManager.keyboardManager.keyReleased(this.inputs[inputs]);
-        else return ScreenManager.mouseManager.mouseReleased(this.inputs[inputs]);
+        if(type[inputs] == 0) return GameManager.keyboardManager.keyReleased(this.inputs[inputs]);
+        else return GameManager.mouseManager.mouseReleased(this.inputs[inputs]);
     }
 }

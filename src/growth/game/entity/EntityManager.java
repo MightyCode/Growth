@@ -2,7 +2,7 @@ package growth.game.entity;
 
 import growth.game.entity.type.Entity;
 import growth.game.entity.type.MovingEntity;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 
 import java.util.ArrayList;
 
@@ -91,7 +91,7 @@ public class EntityManager {
     }
 
     public void setCamera(int id){
-        ScreenManager.CAMERA.setEntityToCamera((MovingEntity)entity.get(id));
+        GameManager.CAMERA.setEntityToCamera((MovingEntity)entity.get(id));
     }
 
     public int getCX(int id){

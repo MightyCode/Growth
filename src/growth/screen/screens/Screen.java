@@ -1,6 +1,6 @@
 package growth.screen.screens;
 
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 
 /**
  * Screen class.
@@ -15,7 +15,7 @@ public abstract class Screen {
      * ScreenManger.
      * This variable contains the screen manager to interact with it.
      */
-    protected ScreenManager screenManager;
+    protected GameManager screenManager;
 
     /**
      * Screen state.
@@ -27,10 +27,10 @@ public abstract class Screen {
      * Screen class constructor.
      * Instance the class and set the screenManager reference.
      *
-     * @param screenManager Reference of screenManager.
+     * @param gameManager Reference of screenManager.
      */
-    public Screen(ScreenManager screenManager) {
-        this.screenManager = screenManager;
+    public Screen(GameManager gameManager) {
+        this.screenManager = gameManager;
     }
 
     /**

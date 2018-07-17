@@ -1,17 +1,16 @@
 package growth.screen.screens;
 
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.Render;
 import growth.render.text.FontRenderer;
 import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 import growth.render.gui.GUIButton;
 import growth.main.Window;
 import growth.screen.overlay.OptionOverlay;
-import growth.util.XmlReader;
 
 /**
  * Menu class.
@@ -29,8 +28,8 @@ public class MenuScreen extends Screen {
 
     private Texture background;
 
-    public MenuScreen(ScreenManager screenManager) {
-        super(screenManager);
+    public MenuScreen(GameManager gameManager) {
+        super(gameManager);
         // Load the screen
         Render.setClearColor(1f, 1f);
 
@@ -58,7 +57,7 @@ public class MenuScreen extends Screen {
         ) {
             @Override
             public void action() {
-                Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
+                Window.gameManager.setScreen(GameManager.GAMESCREEN);
             }
         };
 
@@ -74,7 +73,7 @@ public class MenuScreen extends Screen {
         ) {
             @Override
             public void action() {
-                Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
+                Window.gameManager.setScreen(GameManager.GAMESCREEN);
             }
         };
 

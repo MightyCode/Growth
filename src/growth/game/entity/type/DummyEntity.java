@@ -6,7 +6,7 @@ import growth.screen.screens.GameScreen;
 public class DummyEntity extends BasicEntity{
 
    public DummyEntity(GameScreen gameScreen, int posX, int posY, int sizeX, int sizeY){
-       super(gameScreen, 0);
+       super(gameScreen);
        /* Init player's variables */
        // Size, and boxSize
        this.posX = posX;

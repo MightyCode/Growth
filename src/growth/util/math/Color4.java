@@ -1,4 +1,4 @@
-package growth.math;
+package growth.util.math;
 
 public class Color4 {
 
