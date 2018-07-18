@@ -58,10 +58,6 @@ public class Map {
 		exit = new float[4][1][4];
 	}
 
-	/*
-	 * Setters methods
-	 */
-
 	/**
 	 * Set the beginning of map in relation to the arrival side.
 	 *
@@ -155,8 +151,4 @@ public class Map {
 	float[][] getExitPoints(int side){
 		return exit[side];
 	}
-
-	float getColor(int numLayer){return layer[numLayer].getColor();}
-
-	void setColor(int numLayer, float color){layer[numLayer].setColor(color);}
 }

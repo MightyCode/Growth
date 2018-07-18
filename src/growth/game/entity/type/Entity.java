@@ -112,8 +112,18 @@ public class Entity {
 	 */
 	public int getPosY() { return (int) posY; }
 
+	/**
+	 * Return size x.
+	 *
+	 * @return sizeX
+	 */
 	public int getSizeX(){return sizeX;}
 
+	/**
+	 * Return position y.
+	 *
+	 * @return posY
+	 */
 	public int getSizeY(){return sizeY;}
 
 	/**
@@ -122,7 +132,6 @@ public class Entity {
 	 * @param type New type for the entity.
 	 */
 	public void setType(int type) {this.type = type;}
-
 
 	/**
 	 * Set the entity's position.

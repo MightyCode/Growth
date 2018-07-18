@@ -118,6 +118,4 @@ public class Player_Movement extends Module {
      * @return Left state
      */
     boolean getLeft(){return left;}
-
-    public void display(){}
 }

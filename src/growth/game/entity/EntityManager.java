@@ -86,34 +86,56 @@ public class EntityManager {
         entity = new ArrayList<>();
     }
 
+    /**
+     * Set the position of an entity
+     * @param x New position x.
+     * @param y New position y.
+     * @param id The id of the entity.
+     */
     public void setPosition(float x, float y, int id){
         entity.get(id).setPosition(x,y);
     }
 
+    /**
+     * Focus the camera to a new entity.
+     * @param id The id of the entity.
+     */
     public void setCamera(int id){
         GameManager.CAMERA.setEntityToCamera((MovingEntity)entity.get(id));
     }
 
-    public int getCX(int id){
-        return ((MovingEntity)entity.get(id)).getCX();
-    }
-
-    public int getCY(int id){
-        return ((MovingEntity)entity.get(id)).getCY();
-    }
-
+    /**
+     * Set the speed of an entity.
+     * @param x New position x.
+     * @param y New position Y.
+     * @param id The id of the entity.
+     */
     public void setSpeed(float x, float y, int id){
         ((MovingEntity)entity.get(id)).setSpeed(x,y);
     }
 
+    /**
+     * Get an entity.
+     * @param id The id of the entity.
+     */
     public Entity getEntity(int id){
         return entity.get(id);
     }
 
+    /**
+     * Get the position x of an entity.
+     * @param id The id of the entity.
+     * @return posX
+     */
     public int getPosX(int id){
         return (entity.get(id)).getPosX();
     }
 
+    /**
+     * Get the position y of an entity.
+     * @param id The id of the entity.
+     * @return posY
+     */
     public int getPosY(int id){
         return (entity.get(id)).getPosY();
     }

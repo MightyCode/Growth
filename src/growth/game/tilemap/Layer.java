@@ -15,8 +15,6 @@ class Layer {
      */
     private final int[][] tileID;
 
-    private float color;
-
     /**
      * Layer class constructor.
      * Instance the class and set the right layer's content .
@@ -26,8 +24,6 @@ class Layer {
     Layer(int[][] tileID){
         this.tileID = tileID;
     }
-
-    void setColor(float color){ this.color = color; }
 
     /**
      * Get the layer's content.
@@ -49,6 +45,4 @@ class Layer {
     public int getWidth(){
         return tileID[0].length;
     }
-
-    float getColor(){return color; }
 }

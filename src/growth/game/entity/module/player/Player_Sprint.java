@@ -68,6 +68,4 @@ public class Player_Sprint extends Module {
 
         player.setSpeedX(speedX);
     }
-
-    public void display(){}
 }

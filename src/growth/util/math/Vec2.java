@@ -42,4 +42,30 @@ public class Vec2 {
         this.x = x;
         this.y = y;
     }
+
+    public void equal(Vec2 vec){
+        x = vec.getX();
+        y = vec.getY();
+    }
+
+    public Vec2 multiply(float f, boolean b){
+        return new Vec2(x*f,y*f);
+    }
+
+    public void remove(Vec2 vec){
+        x -= vec.getX();
+        y -= vec.getY();
+    }
+
+    public Vec2 remove(float f, boolean b){
+        return new Vec2(x-f,y-f);
+    }
+
+    public Vec2 remove(Vec2 vec, boolean b){
+        return new Vec2(x-vec.getX(),y-vec.getY());
+    }
+
+    public Vec2 copy(){
+        return new Vec2(this.getX(), this.getY());
+    }
 }

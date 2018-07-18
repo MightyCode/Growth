@@ -88,13 +88,10 @@ public class GameScreen extends Screen {
      */
     public GameScreen(GameManager gameManager) {
         super(gameManager);
-        Window.destroyWindow();
-        Window.createNewWindow();
 
         tileSize = Window.width/20;
 
         hud = new Hud();
-        hud.load();
         Render.setClearColor(0.67f, 0.85f, 0.90f, 1f);
         System.out.println("\n-------------------------- \n");
 
@@ -116,7 +113,7 @@ public class GameScreen extends Screen {
         GameManager.CAMERA.setTween(0.3f, 1f);
 
         entityManager.addEntity(new Player(this, tileMap, tileSize, tileSize));
-        tileMap.setEntity(entityManager.getEntity(0));
+        tileMap.setEntity((Player)entityManager.getEntity(0));
 
         // Player begin in the ground on Panel 1
         tileMap.changeMap(Integer.parseInt(XmlReader.getValue(Config.getPartyPath(),"map","location")),
@@ -176,7 +173,7 @@ public class GameScreen extends Screen {
      */
     private void updateTransition() {
         if (transitionCounter == transitionTime / 2) {
-            tileMap.givePosition();
+            tileMap.doTransition();
             entityManager.setSpeed(0,0,0);
         } else if (transitionCounter > transitionTime) {
             state = NORMALSCREEN;

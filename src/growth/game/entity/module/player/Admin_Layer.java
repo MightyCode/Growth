@@ -14,12 +14,6 @@ import growth.screen.screens.GameScreen;
  */
 public class Admin_Layer extends Module{
     /**
-     * Player.
-     * This variable contains the reference to the player who use this module.
-     */
-    private final Player player;
-
-    /**
      * Administrator player module class constructor.
      * Instance the class and set the reference to the entity.
      *
@@ -27,9 +21,6 @@ public class Admin_Layer extends Module{
      */
     public Admin_Layer(Player player){
         super(player);
-
-        // Init variables
-        this.player = player;
     }
 
     /**
@@ -44,6 +35,4 @@ public class Admin_Layer extends Module{
             GameScreen.tileMap.setLayer(-1);
         }
     }
-
-    public void display(){}
 }

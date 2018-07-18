@@ -22,8 +22,16 @@ public class BasicEntity extends Entity{
      */
     protected int cY;
 
-
+    /**
+     * Entity state
+     * These static final variable counting the different state of the entity
+     */
     public static final int IDLE = 0;
+
+    /**
+     * Animation priority
+     * This variable contains the priority of the idle animation.
+     */
     public static final int IDLE_P = 0;
 
     /**
@@ -89,9 +97,6 @@ public class BasicEntity extends Entity{
         return r1.intersects(r2);
     }
 
-	/*
-	  Getters
-	 */
 
     /**
      * Return collision's box size x.
@@ -107,6 +112,9 @@ public class BasicEntity extends Entity{
      */
     public int getCY() { return cY; }
 
+    /**
+     * Update the entity.
+     */
     public void update(){
         animationPlayed = IDLE;
         priority = IDLE_P;
@@ -114,6 +122,10 @@ public class BasicEntity extends Entity{
             module.update();
         }
     }
+
+    /**
+     * Display the entity.
+     */
     public void display(){
         for(Module module : modules){
             module.display();

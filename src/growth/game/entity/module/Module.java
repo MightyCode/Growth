@@ -30,10 +30,10 @@ public abstract class Module {
     /**
      * Update the entity with the utility of the module.
      */
-    public abstract void update();
+    public void update(){}
 
     /**
      * Display the entity with the utility of the module.
      */
-    public abstract void display();
+    public void display(){}
 }

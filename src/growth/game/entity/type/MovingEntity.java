@@ -154,6 +154,9 @@ public class MovingEntity extends BasicEntity {
 
     }
 
+    /**
+     * Update the entity.
+     */
     public void update(){
         super.update();
         checkTileMapCollision();
@@ -168,6 +171,9 @@ public class MovingEntity extends BasicEntity {
         animations.get(animationPlayed).update(speed);
     }
 
+    /**
+     * Display the entity.
+     */
     public void display(){
         animations.get(animationPlayed).bind();
         if(animations.size()>0) {  //TODO IF the entity hasn't animation.
@@ -185,7 +191,9 @@ public class MovingEntity extends BasicEntity {
         }
     }
 
-    // When the entity died
+    /**
+     * When the entity die.
+     */
     public void died(){
         unload();
     }

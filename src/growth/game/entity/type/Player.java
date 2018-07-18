@@ -21,7 +21,7 @@ public class Player extends MovingEntity{
 
 	/**
 	 * Player's states.
-	 * These static final variable counting the different state of player.
+	 * These static final variables counting the different state of player.
 	 */
 	public static final int WALKING = 1;
 	public static final int JUMPING = 2;
@@ -29,7 +29,7 @@ public class Player extends MovingEntity{
 
 	/**
 	 * Player's animations priority.
-	 * These static final variable counting the different state of player.
+	 * These static final variables counting the different animation's priority of player.
 	 */
 	public static final int WALKING_P = 1;
 	public static final int FALLING_P = 3;
@@ -111,6 +111,9 @@ public class Player extends MovingEntity{
 		GameScreen.hud.setMaxHealth(maxHealthPoint);
 	}
 
+	/**
+	 * Update the player.
+	 */
 	public void update(){
 		super.update();
 
@@ -120,7 +123,6 @@ public class Player extends MovingEntity{
 		} else if (posX + cX / 2 >= tileMap.getSizeX()) {
 			GameScreen.tileMap.changeMap(2, posX, posY);
 		} else if(posY + cY/ 2 >= tileMap.getSizeY()){
-			System.out.println("nandate");
 			if(!GameScreen.tileMap.changeMap(3, posX, posY)){
 				died();
 				GameScreen.setState(GameScreen.DEATHSCREEN);

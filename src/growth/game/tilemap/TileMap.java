@@ -1,6 +1,7 @@
 package growth.game.tilemap;
 
 import growth.game.entity.type.Entity;
+import growth.game.entity.type.Player;
 import growth.main.Config;
 import growth.main.Window;
 import growth.render.texture.Texture;
@@ -8,6 +9,8 @@ import growth.render.texture.TextureRenderer;
 import growth.screen.GameManager;
 import growth.screen.screens.GameScreen;
 import growth.util.XmlReader;
+import growth.util.math.Vec2;
+import sun.java2d.pipe.TextRenderer;
 
 import java.util.ArrayList;
 
@@ -108,7 +111,7 @@ public class TileMap {
 	 */
 	private final int nbMap;
 
-	private Entity entity;
+	private Player player;
 
 	private float givePosX, givePosY;
 
@@ -120,7 +123,7 @@ public class TileMap {
 	 *
 	 * @param path Path to file's xml to load.
 	 */
-	public TileMap( String path) {
+	public TileMap(String path) {
 		// Init variables;
 
 		// Init tileSet
@@ -135,13 +138,7 @@ public class TileMap {
 		}
 		currentMap = 0;
 
-		// Set layer
-		for(int i = 0; i < 3; i++){
-			maps.get(currentMap).setColor(i, 0.9f);
-		}
-
 		currentLayer = 1;
-		maps.get(currentMap).setColor(currentLayer, 1f);
 		chargeMap();
 
 		// Init current map variables
@@ -157,8 +154,12 @@ public class TileMap {
 		GameManager.CAMERA.setBoundMin(0, 0);
 	}
 
-	public void setEntity(Entity newEntity){
-		entity = newEntity;
+	/**
+	 * The player associated to the tilemap.
+	 * @param player The player.
+	 */
+	public void setEntity(Player player){
+		this.player = player;
 	}
 
 	/**
@@ -166,6 +167,7 @@ public class TileMap {
 	 */
 	public void display(boolean pos) {
 		tileSetT.bind();
+
 		colOffset = -GameManager.CAMERA.getPosX() / GameScreen.tileSize;
 		rowOffset = -GameManager.CAMERA.getPosY() / GameScreen.tileSize;
 
@@ -188,23 +190,24 @@ public class TileMap {
 
 					if(map[row][col]==0)continue;
 					TextureRenderer.image(
-							col * GameScreen.tileSize,
-							row * GameScreen.tileSize,
-							GameScreen.tileSize, GameScreen.tileSize,
-							tileSet[map[row][col]].getTexX(),
-							tileSet[map[row][col]].getTexY(),
-							tileSet[map[row][col]].getTexToX(),
-							tileSet[map[row][col]].getTexToY()
+							new Vec2(col * GameScreen.tileSize, row * GameScreen.tileSize),
+							new Vec2(GameScreen.tileSize, GameScreen.tileSize),
+							tileSet[map[row][col]].getFrom(),
+							tileSet[map[row][col]].getTo()
 					);
 				}
 			}
 		}
 	}
 
-	/*
-	 * Setters methods
+	/**
+	 * Change the map with side.
+	 * @param point The side of the window.
+	 * @param posX Player's position x.
+	 * @param posY Player's position y.
+	 *
+	 * @return isMap or not
 	 */
-
 	public boolean changeMap(int point, float posX, float posY){
 		int[] result = isMap( Math.abs(point-2), posX, posY);
 		if(result[0] == 1){
@@ -214,11 +217,16 @@ public class TileMap {
 		return false;
 	}
 
+	/**
+	 * Change the map with mapID.
+	 * @param mapID The new map.
+	 * @param point The point to come.
+	 */
 	public void changeMap(int mapID, int point){
 		GameScreen.setState(GameScreen.TRANSITIONSCREEN);
 		newMapId = mapID;
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
-		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - entity.getSizeY()/2;
+		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSizeY()/2;
 	}
 
 	/**
@@ -247,11 +255,14 @@ public class TileMap {
 				}
 			}
 		}
-		return new int[]{1};
+		return new int[]{0};
 	}
 
-	public void givePosition(){
-		entity.setPosition(givePosX, givePosY);
+	/**
+	 * Set the new map and give the position to the player.
+	 */
+	public void doTransition(){
+		player.setPosition(givePosX, givePosY);
 		currentMap = newMapId;
 		chargeMap();
 		numCols = map[0].length;
@@ -279,17 +290,11 @@ public class TileMap {
 	 */
 	public void setLayer(int numberToAdd){
 		if(currentLayer + numberToAdd > 0 || currentLayer + numberToAdd < 2) {
-			maps.get(currentMap).setColor(currentLayer, 0.9f);
 			currentLayer+= numberToAdd;
 			System.out.println("Change the current layer to " + currentLayer);
-			maps.get(currentMap).setColor(currentLayer, 1f);
 			chargeMap();
 		}
 	}
-
-	/*
-	 * Getters methods
-	 */
 
 	/**
 	 * Return the number of map'row.

@@ -3,6 +3,7 @@ package growth.game;
 import growth.main.Window;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
+import growth.util.math.Vec2;
 
 /**
  * Class of the game's hud.
@@ -42,13 +43,13 @@ public class Hud {
      * Heart position.
      * This table contains the position of each heart displayed.
      */
-    private float[][]heartPos;
+    private Vec2[] heartPosDisplayed;
 
     /**
      * Heart size.
      * This table contains the size of each heart displayed.
      */
-    private float[][]heartSize;
+    private Vec2[] heartSizeDisplayed;
 
     /**
      * Current heart use.
@@ -60,15 +61,12 @@ public class Hud {
      * Heart size
      * These variables contain the base size of heart.
      */
-    private final float heartSizeX;
-    private final float heartSizeY;
+    private Vec2 heartSize;
 
     /**
-     * Heart size
-     * These variables contain the base size of heart.
+     * Heart size use on calcs.
      */
-    private float heartSizeXT;
-    private float heartSizeYT;
+    private Vec2 heartSizeT;
 
     /**
      * Space between two heart.
@@ -98,15 +96,13 @@ public class Hud {
      * Texture of the acorn position.
      * These variables contain the position x and y of the acorn texture.
      */
-    private final float acornPosX;
-    private final float acornPosY;
+    private Vec2 acornPos;
 
     /**
      * Texture of the acorn size.
      * These variables contain the size x and y of the acorn texture.
      */
-    private final float acornSizeX;
-    private final float acornSizeY;
+    private Vec2 acornSize;
 
     /**
      * Hud class constructor.
@@ -115,24 +111,19 @@ public class Hud {
      */
     public Hud(){
         // Set the size of heart and the size, position of the acorn counter
-        heartSizeX = Window.width * 0.035f;
-        heartSizeY = Window.width * 0.035f;
+        heartSize = new Vec2(Window.height * 0.06f,Window.height * 0.06f);
+        heartSizeT = new Vec2();
 
-        acornSizeX = Window.width * 0.07f;
-        acornSizeY = Window.height * 0.07f;
+        acornSize = new Vec2(Window.height * 0.07f,Window.height * 0.07f);
+        acornPos = new Vec2(Window.width * 0.05f,Window.height * 0.85f);
 
-        acornPosX = Window.width * 0.05f;
-        acornPosY = Window.height * 0.85f;
-
-        spaceBetweenTwoHeart = heartSizeX*1.4f;
+        spaceBetweenTwoHeart = heartSize.getX()*1.4f;
 
         // Set the heart's bar
         currentHealth = 0;
         setMaxHealth(maxHealth = 0);
         sinCounter = 0;
-    }
 
-    public void load(){
         // Set the textures
         t_heart = new Texture("/textures/game/hud/Heart.png");
         t_halfHeart = new Texture("/textures/game/hud/Heart-half.png");
@@ -144,14 +135,11 @@ public class Hud {
      * Update the Hud.
      */
     public void update(){
-        float oldSizeX = heartSize[currentHeartUse][0];
-        float oldSizeY = heartSize[currentHeartUse][1];
+        Vec2 oldSize = heartSizeDisplayed[currentHeartUse].copy();
 
-        heartSize[currentHeartUse][0] = heartSizeXT* ((float)Math.sin(sinCounter)*0.07f+1.15f);
-        heartSize[currentHeartUse][1] = heartSizeYT* ((float)Math.sin(sinCounter)*0.07f+1.15f);
+        heartSizeDisplayed[currentHeartUse].equal(heartSizeT.multiply((float)Math.sin(sinCounter)*0.07f+1.15f,true));
 
-        heartPos[currentHeartUse][0] -= (heartSize[currentHeartUse][0] - oldSizeX)/2;
-        heartPos[currentHeartUse][1] -= (heartSize[currentHeartUse][1] - oldSizeY)/2;
+        heartPosDisplayed[currentHeartUse].remove(heartSizeDisplayed[currentHeartUse].remove(oldSize, true).multiply(0.5f,true));
 
         sinCounter+= Math.PI*2/120;
         if(sinCounter > Math.PI*2)sinCounter = 0;
@@ -163,10 +151,10 @@ public class Hud {
     public void display(){
         for(int i = 0; i < numHeart; i++) {
             heartType[i].bind();
-            TextureRenderer.imageC(heartPos[i][0], heartPos[i][1], heartSize[i][0], heartSize[i][1]);
+            TextureRenderer.imageC(heartPosDisplayed[i], heartSizeDisplayed[i]);
         }
         acorn.bind();
-        TextureRenderer.imageC(acornPosX,  acornPosY, acornSizeX, acornSizeY);
+        TextureRenderer.imageC(acornPos, acornSize);
     }
 
     /**
@@ -183,8 +171,9 @@ public class Hud {
         int i = 0;
         while(i < newHealth/2){
             heartType[i] = t_heart;
-            heartSize[i][0] = heartSizeXT;
-            heartSize[i][1] = heartSizeYT;
+            heartSizeDisplayed[i] = new Vec2();
+            heartSizeDisplayed[i].equal(heartSizeT);
+
             if(((double)newHealth)/2 == newHealth/2){
                 if(i+1 == newHealth/2){
                     currentHeartUse = i;
@@ -195,16 +184,16 @@ public class Hud {
 
         if(((double)newHealth)/2 != newHealth/2) {
             heartType[i] = t_halfHeart;
-            heartSize[i][0] = heartSizeXT;
-            heartSize[i][1] = heartSizeYT;
+            heartSizeDisplayed[i] = new Vec2();
+            heartSizeDisplayed[i].equal(heartSizeT);
             currentHeartUse = i;
             i++;
         }
 
         while(i < maxHealth/2){
             heartType[i] = t_deadHeart;
-            heartSize[i][0] = heartSizeXT * 0.9f;
-            heartSize[i][1] = heartSizeYT * 0.9f;
+            heartSizeDisplayed[i] = new Vec2();
+            heartSizeDisplayed[i] = (heartSizeT.multiply(0.9f,true));
             i++;
         }
 
@@ -217,14 +206,16 @@ public class Hud {
         if(((double)i)/2 == i/2){
            for(int a = 0; a < numHeart; a++) {
                // Set position of each heart
-               heartPos[a][0] = center + (a-(numHeart/2)) * spaceBetweenTwoHeart;
-               heartPos[a][1] = Window.height*0.02f;
+               heartPosDisplayed[a] = new Vec2();
+               heartPosDisplayed[a].setX(center + (a-(numHeart/2)) * spaceBetweenTwoHeart);
+               heartPosDisplayed[a].setY(Window.height*0.02f);
            }
         } else {
             for(int a = 0; a < numHeart; a++) {
                 // Set position of each heart
-                heartPos[a][0] = center - (heartSizeXT/2) + (a-(numHeart/2)) * spaceBetweenTwoHeart;
-                heartPos[a][1] = Window.height*0.02f;
+                heartPosDisplayed[a] = new Vec2();
+                heartPosDisplayed[a].setX(center - (heartSize.getX()/2) + (a-(numHeart/2)) * spaceBetweenTwoHeart);
+                heartPosDisplayed[a].setY(Window.height*0.02f);
             }
         }
     }
@@ -237,14 +228,14 @@ public class Hud {
     public void setMaxHealth(int newMaxHealth){
         if(newMaxHealth <= 0) return;
 
-        heartSizeXT = heartSizeX * (1-newMaxHealth*0.01f);
-        heartSizeYT = heartSizeY * (1-newMaxHealth*0.01f);
-        spaceBetweenTwoHeart = heartSizeXT*1.4f;
+        heartSizeT.equal(heartSize.multiply((1-newMaxHealth*0.01f),true));
+        spaceBetweenTwoHeart = heartSizeT.getX()*1.4f;
 
         this.maxHealth = newMaxHealth;
         heartType = new Texture[(int) Math.ceil((double) newMaxHealth / 2)];
-        heartPos = new float[(int) Math.ceil((double) newMaxHealth / 2)][2];
-        heartSize = new float[(int) Math.ceil((double) newMaxHealth / 2)][2];
+        heartPosDisplayed = new Vec2[(int) Math.ceil((double) newMaxHealth / 2)];
+        heartSizeDisplayed = new Vec2[(int) Math.ceil((double) newMaxHealth / 2)];
+
         if (currentHealth > maxHealth) currentHealth = maxHealth;
         setHearth(currentHealth);
     }

@@ -1,6 +1,6 @@
 package growth.game.tilemap;
 
-import growth.render.texture.Texture;
+import growth.util.math.Vec2;
 
 /**
  * Tile class.
@@ -18,25 +18,26 @@ public class Tile {
     public static final int BLOCKED = 1;
 
     /**
-     * Tile's texture.
-     * This variable contains the texture of the tile.
-     */
-    private final Texture texture;
-
-    /**
      * Tile's type.
      * This variable contains state of block.
      */
     private final int type;
 
-    private final float texX;
+    /**
+     * Begin Vector position.
+     * This variable contains the vector of the position of the beginning of the tile on the texture.
+     */
+    private Vec2 from;
 
-    private final float texY;
+    /**
+     * End Vector position.
+     * This variable contains the vector of the end position of the tile on the texture.
+     */
+    private Vec2 to;
 
-    private final float texToX;
-
-    private final float texToY;
-
+    /**
+     * The tile's name.
+     */
     private final String name;
     /**
      * Tile class constructor.
@@ -47,23 +48,10 @@ public class Tile {
      */
     public Tile(String name, int type, int texX, int texY, int size, int tileSet_width, int tileSet_height) {
         this.type = type;
-        texture = new Texture();
         this.name = name;
 
-        this.texX = (float) texX * size / tileSet_width;
-        this.texY = (float) texY * size / tileSet_height;
-
-        texToX = this.texX + ((float)size/tileSet_width);
-        texToY = this.texY + ((float)size/tileSet_height);
-    }
-
-    /**
-     * Return the tile's texture.
-     *
-     * @return texture
-     */
-    Texture getTexture() {
-        return texture;
+        from = new Vec2((float)texX * size / tileSet_width,(float)texY * size / tileSet_height);
+        to = new Vec2(from.getX()+(float)size/tileSet_width,from.getY()+(float)size/tileSet_height);
     }
 
     /**
@@ -71,23 +59,21 @@ public class Tile {
      *
      * @return type
      */
-    int getType() {
+    public int getType() {
         return type;
     }
 
-    float getTexX() {
-        return texX;
+    /**
+     * Get the begging position of the tile on the texture.
+     * @return Vec2 to
+     */
+    public Vec2 getTo() {
+        return to;
     }
 
-    float getTexY() {
-        return texY;
-    }
-
-    float getTexToX() {
-        return texToX;
-    }
-
-    float getTexToY() {
-        return texToY;
-    }
+    /**
+     * Get the end position of the tile on the texture.
+     * @return Vec2 from
+     */
+    public Vec2 getFrom() { return from;}
 }
