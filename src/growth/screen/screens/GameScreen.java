@@ -14,6 +14,10 @@ import growth.game.entity.type.Player;
 import growth.util.XmlReader;
 import growth.util.math.Math;
 
+import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
+import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
+import static org.lwjgl.system.MemoryUtil.NULL;
+
 /**
  * Game class.
  * This class is the game screen.
@@ -84,6 +88,8 @@ public class GameScreen extends Screen {
      */
     public GameScreen(GameManager gameManager) {
         super(gameManager);
+        Window.destroyWindow();
+        Window.createNewWindow();
 
         tileSize = Window.width/20;
 

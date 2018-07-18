@@ -106,11 +106,10 @@ public class Window implements GLFWWindowFocusCallbackI {
         if (!glfwInit())
             throw new IllegalStateException("Unable to initialize GLFW");
 
-        // Configure GLFW
-        glfwDefaultWindowHints(); // optional, the current window hints are already the default
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
+        createNewWindow();
+    }
 
+    public static void createNewWindow(){
         // Create the window if fullscreen
         if(Config.getFullscreen()){
             width = 1920; height = 1080;
@@ -120,7 +119,13 @@ public class Window implements GLFWWindowFocusCallbackI {
             windowID = glfwCreateWindow(width, height, "Growth", NULL, NULL);
         }
 
-        if (windowID == NULL)
+        System.out.println("\nWindow with id : "+ windowID +" created");
+        // Configure GLFW
+        glfwDefaultWindowHints(); // optional, the current window hints are already the default
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
+
+        if (windowID+1 == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
 
 
@@ -156,10 +161,13 @@ public class Window implements GLFWWindowFocusCallbackI {
         glActiveTexture(GL_TEXTURE0);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
 
-        /* End loading of Open GL*/
-        // Set the screen manager
-        gameManager = new GameManager(Config.getInputs());
+    public static void destroyWindow(){
+        // Free the window callbacks and destroy the window
+        glfwFreeCallbacks(windowID);
+        glfwDestroyWindow(windowID);
+        System.out.println("Window with id : " + windowID + " deleted");
     }
 
     /**
@@ -174,6 +182,8 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Main method of game.
      */
     private static void loop() {
+        // Set the screen manager
+        gameManager = new GameManager(Config.getInputs());
         // Set render parameters
         Render.setClearColor(225,255);
         Render.glEnable2D();
@@ -222,10 +232,7 @@ public class Window implements GLFWWindowFocusCallbackI {
     public static void exit() {
         gameManager.unload();
 
-        // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(windowID);
-        glfwDestroyWindow(windowID);
-
+        destroyWindow();
         // Terminate GLFW and free the error callback
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();

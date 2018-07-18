@@ -1,8 +1,10 @@
 package growth.screen.overlay;
 
 import growth.main.Config;
+import growth.main.Growth;
 import growth.main.Window;
 import growth.render.gui.GUIButton;
+import growth.render.text.FontRenderer;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
 import growth.render.Render;
@@ -17,6 +19,8 @@ import growth.util.XmlReader;
 public class OptionOverlay extends Overlay {
 
     private Texture option, background;
+
+    private FontRenderer help;
 
     // Button to choose the categories
     public GUIButton general, video, inputs;
@@ -77,6 +81,22 @@ public class OptionOverlay extends Overlay {
             }
         };
 
+        language = new GUICheckBox(
+                new Vec2(Window.width*0.5f, Window.height*0.41f),
+                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                17, StaticFonts.monofonto, textColor, hoverTextColor
+        ){
+            @Override
+            public void action () {
+                if(state == 0){
+                   GameManager.textManager.changeLanguage("fr");
+                } else{
+                    GameManager.textManager.changeLanguage("en");
+                }
+            }
+        };
+        language.setState(Config.getLanguage().equals("en"));
+
         fullscreen = new GUICheckBox(
                 new Vec2(Window.width*0.5f, Window.height*0.41f),
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
@@ -94,22 +114,8 @@ public class OptionOverlay extends Overlay {
 
         fullscreen.setState(Config.getFullscreen());
 
-        language = new GUICheckBox(
-                new Vec2(Window.width*0.5f, Window.height*0.41f),
-                new Vec2(Window.width*0.125f, Window.height*0.1f),
-                17, StaticFonts.monofonto, textColor, hoverTextColor
-        ){
-            @Override
-            public void action () {
-                if(state == 0){
-                   GameManager.textManager.changeLanguage("fr");
-                } else{
-                    GameManager.textManager.changeLanguage("en");
-                }
-            }
-        };
-
-        language.setState(Config.getLanguage().equals("en"));
+        help = new FontRenderer(18, StaticFonts.IBM, Window.height*0.04f,
+                new Vec2(Window.width * 0.5f, Window.height * 0.95f), Color4.BLACK);
     }
 
     public void update() {
@@ -156,6 +162,8 @@ public class OptionOverlay extends Overlay {
             case 2:
                 break;
         }
+
+        help.render();
     }
 
     public void quit(){
@@ -171,8 +179,10 @@ public class OptionOverlay extends Overlay {
         inputs.unload();
         
         language.unload();
-        
+
         fullscreen.unload();
-        
+
+
+        help.unload();
     }
 }

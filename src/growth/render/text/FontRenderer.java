@@ -71,10 +71,9 @@ public class FontRenderer {
         this.text = text;
         this.size = size;
         this.pos = new Vec2();
+        calc();
         setPos(pos);
         this.color = color;
-
-        calc();
     }
 
     public FontRenderer(int wordNumber, FontFace font, float size, Vec2 pos, Color4 color) {
@@ -82,11 +81,9 @@ public class FontRenderer {
         this.font = font;
         this.text = GameManager.textManager.getWord(this,wordNumber);
         this.size = size;
-        this.pos = new Vec2();
+        calc();
         setPos(pos);
         this.color = color;
-
-        calc();
     }
 
     /**
@@ -143,7 +140,7 @@ public class FontRenderer {
                 currentX += fontChar.getxAdvance();
             }
 
-            width = Math.max(width, currentX);
+            width = Math.max(0, currentX);
 
             currentX = 0;
             lineY += font.getFontFile().getLineHeight();
@@ -171,8 +168,8 @@ public class FontRenderer {
      */
     public void setText(String text) {
         this.text = text;
-
         calc();
+        setPos(originPos);
     }
 
     /**
@@ -200,8 +197,7 @@ public class FontRenderer {
      */
     public void setFont(FontFace font) {
         this.font = font;
-
-        calc();
+        setText(text);
     }
 
     /**
@@ -237,6 +233,7 @@ public class FontRenderer {
      * @param pos Position of the text on screen.
      */
     public void setPos(Vec2 pos) {
+        this.pos = new Vec2();
         originPos = new Vec2(pos.getX(), pos.getY());
         this.pos.setPosition(originPos.getX() - (getWidth()/2), originPos.getY() - size/2);
     }
@@ -269,9 +266,7 @@ public class FontRenderer {
     }
 
     public void update(){
-        text = GameManager.textManager.getWord(wordNumber);
-        calc();
-        setPos(originPos);
+        setText(GameManager.textManager.getWord(wordNumber));
     }
 
     public void unload(){
