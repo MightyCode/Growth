@@ -30,7 +30,7 @@ public class FontRenderer {
     /**
      * Position of the text.
      */
-    private Vec2 pos;
+    private Vec2 originPos, pos;
 
     /**
      * Color of the text.
@@ -70,6 +70,7 @@ public class FontRenderer {
         this.font = font;
         this.text = text;
         this.size = size;
+        this.pos = new Vec2();
         setPos(pos);
         this.color = color;
 
@@ -81,6 +82,7 @@ public class FontRenderer {
         this.font = font;
         this.text = GameManager.textManager.getWord(this,wordNumber);
         this.size = size;
+        this.pos = new Vec2();
         setPos(pos);
         this.color = color;
 
@@ -235,8 +237,8 @@ public class FontRenderer {
      * @param pos Position of the text on screen.
      */
     public void setPos(Vec2 pos) {
-        pos.setPosition(pos.getX(), pos.getY());
-        this.pos = pos;
+        originPos = new Vec2(pos.getX(), pos.getY());
+        this.pos.setPosition(originPos.getX() - (getWidth()/2), originPos.getY() - size/2);
     }
 
     /**
@@ -268,9 +270,8 @@ public class FontRenderer {
 
     public void update(){
         text = GameManager.textManager.getWord(wordNumber);
-        setPos(pos);
         calc();
-
+        setPos(originPos);
     }
 
     public void unload(){

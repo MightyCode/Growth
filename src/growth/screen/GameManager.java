@@ -83,6 +83,8 @@ public class GameManager {
      */
     public void setScreen(int screen) {
         currentScreenUnload();
+        currentScreen = null;
+        System.runFinalization();
         switch (screen) {
             case MENUSCREEN:
                 currentScreen = (new MenuScreen(this));

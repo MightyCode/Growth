@@ -37,7 +37,7 @@ public class MenuScreen extends Screen {
         background.load("/textures/menu/bg.png");
 
         title = new FontRenderer(0, StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
-        title.setPos(new Vec2(Window.width / 2, Window.height / 7f));
+        title.setPos(new Vec2(Window.width / 2f, Window.height / 7f));
 
         Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -189,6 +189,5 @@ public class MenuScreen extends Screen {
         title.unload();
         // Unload the overlay
         option.unload();
-
     }
 }

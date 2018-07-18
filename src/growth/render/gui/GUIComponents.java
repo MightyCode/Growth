@@ -15,6 +15,10 @@ public abstract class GUIComponents {
         this.size = size;
     }
 
+    public GUIComponents(Vec2 size){
+        this.size = size;
+    }
+
     /**
      * Override class for what does the button.
      */
@@ -43,6 +47,6 @@ public abstract class GUIComponents {
     }
 
     public void setPos(Vec2 pos) {
-        this.pos = new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2));
+        this.pos = pos;
     }
 }

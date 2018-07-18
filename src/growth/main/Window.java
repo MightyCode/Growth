@@ -233,7 +233,6 @@ public class Window implements GLFWWindowFocusCallbackI {
         System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Boin Alexandre" +
                 "\033[0m and mainly\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
         System.out.println("\n-------------------------- \n");
-
         System.exit(0);
     }
 

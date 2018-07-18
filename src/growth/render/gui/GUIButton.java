@@ -29,7 +29,7 @@ public class GUIButton extends GUIComponents{
     private boolean mouseOver;
 
     public GUIButton(Vec2 pos, Vec2 size, String text, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
-        super(pos,size);
+        super(size);
 
         this.backgroundColor = backgroundColor;
         this.hoverColor = hoverColor;
@@ -41,7 +41,7 @@ public class GUIButton extends GUIComponents{
     }
 
     public GUIButton(Vec2 pos, Vec2 size, int number, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
-        super(pos,size);
+        super(size);
 
         this.backgroundColor = backgroundColor;
         this.hoverColor = hoverColor;
@@ -83,8 +83,8 @@ public class GUIButton extends GUIComponents{
     }
 
     public void setPos(Vec2 pos) {
-        super.setPos(pos);
-        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) , this.pos.getY()));
+        super.setPos(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)));
+        fontRenderer.setPos(pos);
     }
 
     public void setMouseOver(boolean newState){ mouseOver = newState;}
