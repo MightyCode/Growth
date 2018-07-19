@@ -73,7 +73,7 @@ public class Player extends MovingEntity{
 		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
 		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
 		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
-		if(Growth.ADMIN){
+		if(Growth.admin){
 			modules.add(new Admin_Layer(this));
 			modules.add(new Admin_PlayerHealth(this));
 		}

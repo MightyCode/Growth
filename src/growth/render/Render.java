@@ -2,7 +2,12 @@ package growth.render;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Render {
+/**
+ * Class with utility.
+ * @author MightyCode
+ * @version 1.1
+ */
+public abstract class Render {
 
 	/**
 	 * Set the 2D view.
@@ -39,8 +44,7 @@ public class Render {
 	/**
 	 * Surcharge method to set color without alpha.
 	 */
-	public static void setClearColor(float color1, float color2, float color3){
-		glClearColor(color1, color2, color3, 1f);}
+	public static void setClearColor(float color1, float color2, float color3){ glClearColor(color1, color2, color3, 1f);}
 
 
 	/**

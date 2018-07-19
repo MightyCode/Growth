@@ -16,7 +16,7 @@ import growth.screen.screens.Screen;
  * This class is the death overlay class used when the player die.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
 public class DeathOverlay extends Overlay {
 
@@ -26,6 +26,9 @@ public class DeathOverlay extends Overlay {
      */
     private FontRenderer loose;
 
+    /**
+     * GUIButtons.
+     */
     private GUIButton retry, quitter;
 
     /**
@@ -35,7 +38,7 @@ public class DeathOverlay extends Overlay {
     public DeathOverlay(Screen screen) {
         super(screen);
 
-        // Init variable
+        // Init variables
         // Title
         loose = new FontRenderer(10, StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
         loose.setPos(new Vec2(Window.width * 0.5f,Window.height * 0.20f));
@@ -89,7 +92,7 @@ public class DeathOverlay extends Overlay {
     }
 
     /**
-     * Update the overlay.
+     * Display the overlay.
      */
     public void display() {
         // Black rectangle
@@ -104,6 +107,9 @@ public class DeathOverlay extends Overlay {
         quitter.display();
     }
 
+    /**
+     * Unload the overlay.
+     */
     public void unload() {
         retry.unload();
         quitter.unload();

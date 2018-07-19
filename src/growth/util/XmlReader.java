@@ -18,7 +18,7 @@ import java.io.File;
  * This class charge the different xml's files.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 2.0
  */
 public abstract class XmlReader {
 
@@ -222,6 +222,53 @@ public abstract class XmlReader {
 
 			Config.setPartyNumber(search("game",root).getAttribute("number"));
 			Config.setPartyPath(Config.SAVE_PATH+Config.getPartyNumber()+".xml");
+			tag = search("sound", root);
+
+			Config.setMusicVolume(Integer.parseInt(tag.getAttribute("music")));
+			Config.setNoiseVolume(Integer.parseInt(tag.getAttribute("noise")));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void saveConfiguration(){
+		try {
+			Document doc = getDocument(Config.CONFIG_PATH);
+			assert doc != null;
+			Element root = doc.getDocumentElement();
+
+			assert root != null;
+			// General configuration
+			Element tag = search("general", root);
+			tag.setAttribute("language",Config.getLanguage());
+			tag = search("window", root);
+			setAttribute(tag,"fullscreen",Config.getFullscreen());
+			setAttribute(tag,"width",Config.getWindowWidth());
+			setAttribute(tag,"height",Config.getWindowHeight());
+			tag = search("sound",root);
+			setAttribute(tag,"music",Config.getMusicVolume());
+			setAttribute(tag,"noise",Config.getNoiseVolume());
+
+			tag = search("inputs",root);
+			int[][]inputs = Config.getInputs();
+			for(int i = 0; i < inputs.length; i++){
+				if(inputs[i][1] == -1){
+					tag.setAttribute("i"+i,"0-"+inputs[i][0]);
+				} else{
+					tag.setAttribute("i"+i,"1-"+inputs[i][1]);
+				}
+			}
+
+			tag = search("game",root);
+
+			tag.setAttribute("number", Config.getPartyNumber());
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("resources/"+Config.CONFIG_PATH));
+			transformer.transform(source, result);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -245,6 +292,10 @@ public abstract class XmlReader {
 			e.printStackTrace();
 		}
 	}
+
+	public static void setAttribute(Element tag, String name, int value){ tag.setAttribute(name, String.valueOf(value)); }
+
+	public static void setAttribute(Element tag, String name, boolean value){ tag.setAttribute(name, (value)? "1" : "0"); }
 
 	public static String getValue(String path, String attributeName, String... nodeName){
 		try{

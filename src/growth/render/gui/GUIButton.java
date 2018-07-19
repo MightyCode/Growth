@@ -15,19 +15,39 @@ import static org.lwjgl.glfw.GLFW.*;
  * The button have two state, one for mouse's hover and one for not.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
-public class GUIButton extends GUIComponents{
+public class GUIButton extends GUIComponent {
 
+    /**
+     * The colors of the button.
+     */
     private Color4 backgroundColor;
     private Color4 hoverColor;
+
+    /**
+     * The colors of text of the button.
+     */
     private Color4 textColor;
     private Color4 hoverTextColor;
 
+    /**
+     * The font renderer use by the button.
+     */
     private FontRenderer fontRenderer;
 
-    private boolean mouseOver;
-
+    /**
+     * GUIButton class constructor with the string to display.
+     *
+     * @param pos Position of the button.
+     * @param size Size of the button.
+     * @param text The text to display.
+     * @param font The font use by its font renderer.
+     * @param backgroundColor The background color of the button.
+     * @param hoverColor The color of the button on its hovering state.
+     * @param textColor The normal text color.
+     * @param hoverTextColor The color of the text when the button is hovering.
+     */
     public GUIButton(Vec2 pos, Vec2 size, String text, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
         super(size);
 
@@ -40,6 +60,18 @@ public class GUIButton extends GUIComponents{
         setPos(pos);
     }
 
+    /**
+     * GUIButton class constructor with the number of the global string.
+     *
+     * @param pos Position of the button.
+     * @param size Size of the button.
+     * @param number The number of the global string to display.
+     * @param font The font use by its font renderer.
+     * @param backgroundColor The background color of the button.
+     * @param hoverColor The color of the button on its hovering state.
+     * @param textColor The normal text color.
+     * @param hoverTextColor The color of the text when the button is hovering.
+     */
     public GUIButton(Vec2 pos, Vec2 size, int number, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
         super(size);
 
@@ -82,12 +114,14 @@ public class GUIButton extends GUIComponents{
         }
     }
 
+    /**
+     * Set the new position of the button and its font renderer.
+     * @param pos The new position.
+     */
     public void setPos(Vec2 pos) {
         super.setPos(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)));
         fontRenderer.setPos(pos);
     }
-
-    public void setMouseOver(boolean newState){ mouseOver = newState;}
 
     /**
      * Free the memory.

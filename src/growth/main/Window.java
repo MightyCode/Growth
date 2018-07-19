@@ -90,7 +90,7 @@ public class Window implements GLFWWindowFocusCallbackI {
     }
 
     /**
-     * Create the window and return the window'id into the global variable WINDOW_ID.
+     * Create the window and get the window ID.
      */
     private static void createWindow(){
         // Get the game global configurations.
@@ -109,6 +109,9 @@ public class Window implements GLFWWindowFocusCallbackI {
         createNewWindow();
     }
 
+    /**
+     * Create a new window.
+     */
     public static void createNewWindow(){
         // Create the window if fullscreen
         if(Config.getFullscreen()){
@@ -163,6 +166,9 @@ public class Window implements GLFWWindowFocusCallbackI {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
+    /**
+     * Destroy the current window.
+     */
     public static void destroyWindow(){
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(windowID);
@@ -218,7 +224,7 @@ public class Window implements GLFWWindowFocusCallbackI {
             }
 
             if (timer.getDuration() - lastSecond >= SECOND) {
-                if(Growth.ADMIN) glfwSetWindowTitle(windowID, "Growth | FPS:" + frames + "; TPS:" + ticks);
+                if(Growth.admin) glfwSetWindowTitle(windowID, "Growth | FPS:" + frames + "; TPS:" + ticks);
                 ticks = frames = 0;
                 lastSecond += SECOND;
             }
@@ -231,6 +237,7 @@ public class Window implements GLFWWindowFocusCallbackI {
      */
     public static void exit() {
         gameManager.unload();
+        Config.close();
 
         destroyWindow();
         // Terminate GLFW and free the error callback
@@ -243,6 +250,12 @@ public class Window implements GLFWWindowFocusCallbackI {
         System.exit(0);
     }
 
+    /**
+     * Call the manager that the focus of the window as change.
+     *
+     * @param l Je n'en sais rien.
+     * @param b The new state.
+     */
     @Override
     public void invoke(long l, boolean b) {
         gameManager.focus(b);

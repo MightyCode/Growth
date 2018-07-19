@@ -16,20 +16,47 @@ import growth.screen.GameManager;
 import growth.screen.screens.Screen;
 import growth.util.XmlReader;
 
+/**
+ * Option Overlay class.
+ * This class is use on game and on the main menu to change the options.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
 public class OptionOverlay extends Overlay {
 
+    /**
+     * Textures use on the overlay.
+     */
     private Texture option, background;
 
+    /**
+     * Font renderer to render the help text.q
+     */
     private FontRenderer help;
 
-    // Button to choose the categories
+    /**
+     * GUIButton to choose the categories
+     */
     public GUIButton general, video, inputs;
-    // Button for general
+
+    /**
+     * Button for general
+     */
     private GUICheckBox fullscreen, language;
-    // Button for video
 
-    // Button for control
+    /**
+     * Button for video
+     */
 
+    /**
+     * Button for control
+     */
+
+    /**
+     * Option overlay class constructor.
+     * Instance the class and set overlay's variables.
+     */
     protected OptionOverlay(Screen screen){
         super(screen);
 
@@ -118,10 +145,11 @@ public class OptionOverlay extends Overlay {
                 new Vec2(Window.width * 0.5f, Window.height * 0.95f), Color4.BLACK);
     }
 
+    /**
+     * Update the overlay and its components.
+     */
     public void update() {
-        if(GameManager.inputsManager.inputPressed(0)) {
-            quit();
-        }
+        if(GameManager.inputsManager.inputPressed(0))  quit();
 
         general.update();
         video.update();
@@ -139,7 +167,9 @@ public class OptionOverlay extends Overlay {
         }
     }
 
-
+    /**
+     * Display the overlay.
+     */
     public void display() {
         Render.clear();
 
@@ -166,23 +196,35 @@ public class OptionOverlay extends Overlay {
         help.render();
     }
 
+    /**
+     * Override method to write what to do when you quit the overlay.
+     */
     public void quit(){
     }
 
+    /**
+     * Unload the overlay.
+     */
     public void unload() {
         System.out.println("\n-------------------------- \n");
+        // Textures
         option.unload();
         background.unload();
 
+        // Main part buttons
         general.unload();
         video.unload();
         inputs.unload();
-        
+
+        // Language
         language.unload();
 
+        // Video
         fullscreen.unload();
+        
+        // Control
 
-
+        // Font renderer
         help.unload();
     }
 }

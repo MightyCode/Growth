@@ -13,29 +13,29 @@ import static org.lwjgl.glfw.GLFW.glfwGetKey;
 public class KeyboardManager {
 
     /**
-     * Input number.
+     * Key number.
      * This variable contains the number of input in a keyboard.
      */
-    private static final int INPUTS = 512;
+    private static final int Keys = 512;
 
     /**
      * Keys state.
      * This class contains the state of every keys.
      */
-    private final boolean[] state = new boolean[INPUTS];
+    private final boolean[] state = new boolean[Keys];
 
     /**
      * Temp keys state.
      * This class contains the state of every keys in the previous frame.
      */
-    private final boolean[] tempState = new boolean[INPUTS];
+    private final boolean[] tempState = new boolean[Keys];
 
     /**
      * Keyboard manager class.
-     * Instance the class
+     * Instance the class.
      */
     public KeyboardManager(){
-        for(int i = 0; i < INPUTS; i++) {
+        for(int i = 0; i < Keys; i++) {
             state[i] = false;
             tempState[i] = false;
         }

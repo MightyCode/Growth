@@ -10,17 +10,42 @@ import growth.screen.GameManager;
 
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
 
-public class GUICheckBox extends GUIComponents{
+/**
+ * GUICheck box class.
+ * This class is the structure of the check box.
+ * The check box have two state and action, one for checking and one for unchecking.
+ *
+ * @author MightyCode
+ * @version 1.0
+ */
+public class GUICheckBox extends GUIComponent {
 
+    /**
+     * The texture use by the check button.
+     */
     private Texture uncheck, uncheck_hover, check, check_hover;
+
+    /**
+     * The colors of text of the check box.
+     */
     private Color4 textColor;
     private Color4 hoverTextColor;
 
+    /**
+     * The font renderer use by the check box.
+     */
     private FontRenderer fontRenderer;
 
-    private boolean mouseOver;
-
-
+    /**
+     * GUICheck box class constructor with the number of the global string.
+     *
+     * @param pos Position of the button.
+     * @param size Size of the button.
+     * @param number The number of the global string to display.
+     * @param font The font use by its font renderer.
+     * @param textColor The normal text color.
+     * @param hoverTextColor The color of the text when the button is hovering.
+     */
     public GUICheckBox(Vec2 pos, Vec2 size, int number, FontFace font, Color4 textColor, Color4 hoverTextColor){
         super(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)),size);
         // Loading texture
@@ -74,8 +99,6 @@ public class GUICheckBox extends GUIComponents{
         TextureRenderer.imageC(pos,size,1f);
         fontRenderer.render();
     }
-
-    public void setMouseOver(boolean newState){ mouseOver = newState;}
 
     /**
      * Free the memory.

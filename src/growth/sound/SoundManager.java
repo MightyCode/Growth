@@ -4,27 +4,31 @@ import growth.main.Config;
 import growth.util.XmlReader;
 
 public class SoundManager {
-    private static int noiseVolume;
     private static int musicVolume;
+    private static int noiseVolume;
 
-    public SoundManager(){
-        musicVolume = Integer.parseInt(XmlReader.getValue(Config.CONFIG_PATH, "music", "sound"));
-        noiseVolume = Integer.parseInt(XmlReader.getValue(Config.CONFIG_PATH, "noise", "sound"));
+    public SoundManager() {
+        musicVolume = Config.getMusicVolume();
+        noiseVolume = Config.getNoiseVolume();
     }
 
-    public float getMusicVolume() {
+    public static int getMusicVolume() {
         return musicVolume;
     }
 
-    public static void setMusicVolume(){
-
+    public static void setMusicVolume(int newVolume) {
+        if(newVolume < 0) musicVolume = 0;
+        if(newVolume > 100) musicVolume = 100;
+        Config.setMusicVolume(musicVolume);
     }
 
-    public float getNoiseVolume() {
+    public static int getNoiseVolume() {
         return noiseVolume;
     }
 
-    public static void setNoiseVolume(){
-
+    public static void setNoiseVolume(int newNoiseVolume) {
+        if(newNoiseVolume < 0) noiseVolume = 0;
+        if(newNoiseVolume > 100) noiseVolume = 100;
+        Config.setNoiseVolume(noiseVolume);
     }
 }

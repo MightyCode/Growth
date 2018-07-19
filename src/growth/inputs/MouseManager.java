@@ -20,26 +20,26 @@ public class MouseManager {
      * Input number.
      * This class contains the number of input in a keyboard.
      */
-    private static final int INPUTS = 8;
+    private static final int MOUSE_BUTTONS = 8;
 
     /**
      * Buttons state.
      * This class contains the state of every keys.
      */
-    private final boolean[] state = new boolean[INPUTS];
+    private final boolean[] state = new boolean[MOUSE_BUTTONS];
 
     /**
      * Temp buttons state.
      * This class contains the state of every keys in the previous frame.
      */
-    private final boolean[] tempState = new boolean[INPUTS];
+    private final boolean[] tempState = new boolean[MOUSE_BUTTONS];
 
     /**
      * Mouse manager class.
      * Instance the class
      */
     public MouseManager(){
-        for(int i = 0; i < INPUTS; i++) {
+        for(int i = 0; i < MOUSE_BUTTONS; i++) {
             state[i] = false;
             tempState[i] = false;
         }
