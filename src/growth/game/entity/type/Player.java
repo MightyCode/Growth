@@ -125,7 +125,7 @@ public class Player extends MovingEntity{
 		} else if(posY + cY/ 2 >= tileMap.getSizeY()){
 			if(!GameScreen.tileMap.changeMap(3, posX, posY)){
 				died();
-				GameScreen.setState(GameScreen.DEATHSCREEN);
+				GameScreen.setState(GameScreen.STATE_DEATH);
 			}
 		}
 	}
@@ -134,7 +134,7 @@ public class Player extends MovingEntity{
 	 * When the player die
 	 */
 	public void died(){
-		Screen.setState(GameScreen.DEATHSCREEN);
+		Screen.setState(GameScreen.STATE_DEATH);
 		super.died();
 	}
 }

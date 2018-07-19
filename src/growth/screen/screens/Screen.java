@@ -7,7 +7,7 @@ import growth.screen.GameManager;
  * This class is the basic architecture of all screens.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
 public abstract class Screen {
 
@@ -21,7 +21,7 @@ public abstract class Screen {
      * Screen state.
      * This variable contains the different states of game.
      */
-    protected static int state = 0;
+    protected static int screenState = 0;
 
     /**
      * Screen class constructor.
@@ -53,9 +53,13 @@ public abstract class Screen {
      * Base architecture of setting state method
      */
     public static void setState(int newState){
-        state = newState;
+        screenState = newState;
     }
 
+    /**
+     * Call the screen if the focus of the window change.
+     * @param b The focus.
+     */
     public void focus(boolean b){}
 
     /**

@@ -17,17 +17,33 @@ import growth.screen.overlay.OptionOverlay;
  * This class is the menu screen.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
 public class MenuScreen extends Screen {
 
+    /**
+     * The font renderer for the menu title.
+     */
     private FontRenderer title;
-    private GUIButton continuer, nouvelle, charger, options, quitter;
 
+    /**
+     * GUIButtons used on the menu.
+     */
+    private GUIButton goToGame, newGame, chargeGame, options, quit;
+
+    /**
+     * The option overlay to change the current parameters.
+     */
     private OptionOverlay option;
 
     private Texture background;
 
+    /**
+     * Menu screen class constructor.
+     * Instance the menu and set the menu screen's variables.
+     *
+     * @param gameManager Add gameManager to change the global screen.
+     */
     public MenuScreen(GameManager gameManager) {
         super(gameManager);
         // Load the screen
@@ -45,7 +61,7 @@ public class MenuScreen extends Screen {
         Color4 textColor = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
         Color4 hoverTextColor = Color4.BLACK;
 
-        continuer = new GUIButton(
+        goToGame = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.5f),
                 size,
                 1,
@@ -61,7 +77,7 @@ public class MenuScreen extends Screen {
             }
         };
 
-        nouvelle = new GUIButton(
+        newGame = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.58f),
                 size,
                 2,
@@ -77,7 +93,7 @@ public class MenuScreen extends Screen {
             }
         };
 
-        charger = new GUIButton(
+        chargeGame = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.66f),
                 size,
                 3,
@@ -104,7 +120,7 @@ public class MenuScreen extends Screen {
             }
         };
 
-        quitter = new GUIButton(
+        quit = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.82f),
                 size,
                 5,
@@ -133,13 +149,13 @@ public class MenuScreen extends Screen {
      * Update the menu.
      */
     public void update() {
-        switch (state) {
+        switch (screenState) {
             case 0:
-                continuer.update();
-                nouvelle.update();
-                charger.update();
+                goToGame.update();
+                newGame.update();
+                chargeGame.update();
                 options.update();
-                quitter.update();
+                quit.update();
                 break;
             case 1:
                 option.update();
@@ -152,7 +168,7 @@ public class MenuScreen extends Screen {
      * Display the menu.
      */
     public void display() {
-        switch (state) {
+        switch (screenState) {
             case 0:
                 Render.clear();
 
@@ -161,11 +177,11 @@ public class MenuScreen extends Screen {
 
                 title.render();
 
-                continuer.display();
-                nouvelle.display();
-                charger.display();
+                goToGame.display();
+                newGame.display();
+                chargeGame.display();
                 options.display();
-                quitter.display();
+                quit.display();
                 break;
             case 1:
                 option.display();
@@ -174,18 +190,18 @@ public class MenuScreen extends Screen {
     }
 
     /**
-     * Unload the textures in menu to free memory.
+     * Unload resources in menu to free memory.
      */
     public void unload() {
         // Unload the background
         background.unload();
 
         // Unload buttons
-        continuer.unload();
-        nouvelle.unload();
-        charger.unload();
+        goToGame.unload();
+        newGame.unload();
+        chargeGame.unload();
         options.unload();
-        quitter.unload();
+        quit.unload();
         title.unload();
         // Unload the overlay
         option.unload();

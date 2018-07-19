@@ -1,6 +1,5 @@
 package growth.game.tilemap;
 
-import growth.game.entity.type.Entity;
 import growth.game.entity.type.Player;
 import growth.main.Config;
 import growth.main.Window;
@@ -10,7 +9,6 @@ import growth.screen.GameManager;
 import growth.screen.screens.GameScreen;
 import growth.util.XmlReader;
 import growth.util.math.Vec2;
-import sun.java2d.pipe.TextRenderer;
 
 import java.util.ArrayList;
 
@@ -223,7 +221,7 @@ public class TileMap {
 	 * @param point The point to come.
 	 */
 	public void changeMap(int mapID, int point){
-		GameScreen.setState(GameScreen.TRANSITIONSCREEN);
+		GameScreen.setState(GameScreen.STATE_TRANSITION);
 		newMapId = mapID;
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
 		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSizeY()/2;

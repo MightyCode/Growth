@@ -221,7 +221,7 @@ public class OptionOverlay extends Overlay {
 
         // Video
         fullscreen.unload();
-        
+
         // Control
 
         // Font renderer

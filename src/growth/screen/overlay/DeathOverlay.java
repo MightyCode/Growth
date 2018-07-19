@@ -77,7 +77,7 @@ public class DeathOverlay extends Overlay {
         ) {
             @Override
             public void action() {
-                Screen.setState(GameScreen.NORMALSCREEN);
+                Screen.setState(GameScreen.STATE_NORMAL);
                 Window.gameManager.setScreen(GameManager.MENUSCREEN);
             }
         };

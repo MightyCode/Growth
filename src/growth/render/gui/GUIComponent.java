@@ -16,7 +16,7 @@ public abstract class GUIComponent {
     /**
      * The state of the GUIComponent.
      */
-    protected int state;
+    protected int GUIState;
 
     /**
      * The position of the GUIComponent.
@@ -87,13 +87,13 @@ public abstract class GUIComponent {
      * Set the new state of the GUIComponent.
      * @param newState The new state.
      */
-    public void setState(int newState){ state = newState; }
+    public void setState(int newState){ GUIState = newState; }
 
     /**
      * Surcharge method of setState() to use with boolean attribute.
      * @param newState The new state.
      */
-    public void setState(boolean newState){ state = (newState)? 1 : 0; }
+    public void setState(boolean newState){ GUIState = (newState)? 1 : 0; }
 
     /**
      * Set the position  of the GUIComponents.

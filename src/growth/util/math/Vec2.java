@@ -1,5 +1,9 @@
 package growth.util.math;
 
+/**
+ * Vector 2d.
+ * This class is use to manipulate 2d coordinates.
+ */
 public class Vec2 {
 
     /**

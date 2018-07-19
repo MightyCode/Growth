@@ -6,6 +6,9 @@ public class Timer {
      */
     private long startTime;
 
+    /**
+     * Class constructor.
+     */
     public Timer() {
         startTime = System.nanoTime();
     }

@@ -16,7 +16,7 @@ import growth.screen.GameManager;
  * This class is the pause overlay class use in the game.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
 public class PauseOverlay extends Overlay{
 
@@ -26,6 +26,9 @@ public class PauseOverlay extends Overlay{
      */
     private FontRenderer pause;
 
+    /**
+     * The GUIButton use on the overlay.
+     */
     private GUIButton continuer, options,  quitter;
 
     /**
@@ -58,7 +61,7 @@ public class PauseOverlay extends Overlay{
         ){
             @Override
             public void action () {
-                Screen.setState(GameScreen.NORMALSCREEN);
+                Screen.setState(GameScreen.STATE_NORMAL);
             }
         };
 
@@ -74,7 +77,7 @@ public class PauseOverlay extends Overlay{
         ){
             @Override
             public void action () {
-                Screen.setState(GameScreen.OPTIONSCREEN);
+                Screen.setState(GameScreen.STATE_OPTION);
             }
         };
 
@@ -90,7 +93,7 @@ public class PauseOverlay extends Overlay{
         ){
             @Override
             public void action () {
-                Screen.setState(GameScreen.NORMALSCREEN);
+                Screen.setState(GameScreen.STATE_NORMAL);
                 Window.gameManager.setScreen(GameManager.MENUSCREEN);
             }
         };
@@ -101,7 +104,7 @@ public class PauseOverlay extends Overlay{
      */
     public void update(){
         if(GameManager.inputsManager.inputPressed(0)) {
-            Screen.setState(GameScreen.NORMALSCREEN);
+            Screen.setState(GameScreen.STATE_NORMAL);
         }
 
         continuer.update();
@@ -126,6 +129,9 @@ public class PauseOverlay extends Overlay{
         quitter.display();
     }
 
+    /**
+     * Unload the overlay.
+     */
     public void unload(){
         continuer.unload();
         options.unload();
