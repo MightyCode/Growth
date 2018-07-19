@@ -2,7 +2,7 @@ package growth.game.entity.module.player;
 
 import growth.game.entity.type.Player;
 import growth.game.entity.module.Module;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 
 /**
  * Administrator player health module class.
@@ -35,32 +35,30 @@ public class Admin_PlayerHealth extends Module {
      * Update the module.
      */
     public void update(){
-        if(ScreenManager.KEY.keyPressed(10)) {
+        if(GameManager.inputsManager.inputPressed(11)) {
             System.out.println("Before : " + player.getMaxHealthPoint());
             player.setMaxHealthPoint(player.getMaxHealthPoint()-2);
             System.out.println(":(admin):");
             System.out.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");
         }
 
-        if(ScreenManager.KEY.keyPressed(11)) {
+        if(GameManager.inputsManager.inputPressed(12)) {
             System.out.println("Before : " + player.getMaxHealthPoint());
             player.setMaxHealthPoint(player.getMaxHealthPoint()+2);
             System.out.println(":(admin):");
             System.out.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");
         }
 
-        if(ScreenManager.KEY.keyPressed(12)) {
+        if(GameManager.inputsManager.inputPressed(13)) {
             player.setHealthPoint(player.getHealthPoint()-1);
             System.out.println(":(admin):");
             System.out.println("\033[34mNew player health value : \033[0m" + player.getHealthPoint() + "\n");
         }
 
-        if(ScreenManager.KEY.keyPressed(13)) {
+        if(GameManager.inputsManager.inputPressed(14)) {
             player.setHealthPoint(player.getHealthPoint()+1);
             System.out.println(":(admin):");
             System.out.println("\033[34mNew player health value : \033[0m" + player.getHealthPoint() + "\n");
         }
     }
-
-    public void display(){}
 }

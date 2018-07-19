@@ -2,7 +2,7 @@ package growth.game.entity.module.player;
 
 import growth.game.entity.type.Player;
 import growth.game.entity.module.Module;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 
 /**
  * Player movement module class.
@@ -67,8 +67,8 @@ public class Player_Movement extends Module {
      */
     public void update(){
         // Keys update
-        left = ScreenManager.KEY.key(1);
-        right = ScreenManager.KEY.key(3);
+        left = GameManager.inputsManager.input(1);
+        right = GameManager.inputsManager.input(2);
 
         float speedX = player.getSpeedX();
 
@@ -118,6 +118,4 @@ public class Player_Movement extends Module {
      * @return Left state
      */
     boolean getLeft(){return left;}
-
-    public void display(){}
 }

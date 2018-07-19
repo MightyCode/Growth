@@ -1,10 +1,11 @@
 package growth.main;
 
 import growth.render.Render;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 import growth.util.Timer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWWindowFocusCallbackI;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
@@ -14,6 +15,8 @@ import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -24,7 +27,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * @version of game : 2.2
  */
 @SuppressWarnings("InfiniteLoopStatement")
-public class Window {
+public class Window implements GLFWWindowFocusCallbackI {
 
     /**
      * Window id.
@@ -36,19 +39,19 @@ public class Window {
      * Screen manager.
      * This global variable contains the manager of game'screens.
      */
-    public static ScreenManager screenManager;
+    public static GameManager gameManager;
 
     /**
      * Width window size.
      * This global variable contains the width window size.
      */
-    public static final int WIDTH = 1280;
+    public static int width;
 
     /**
      * Height window size.
      * This global variable contains the height window size.
      */
-    public static final int HEIGHT = 720;
+    public static int height;
 
     /**
      * 1 second in nanoseconds.
@@ -75,20 +78,27 @@ public class Window {
      */
     private static final double FRAME_TIME = SECOND / FPS;
 
+    public static Config config;
+
     /**
      * Window class constructor.
      * Do nothing for the moment
      */
     public Window(){
-        windowID = createWindow();
-        screenManager = new ScreenManager();
+        createWindow();
+        glfwSetWindowFocusCallback(windowID,this);
     }
 
     /**
-     * Create the window and return the window'id into the global variable WINDOW_ID.
-     * @return windowID
+     * Create the window and get the window ID.
      */
-    private static long createWindow(){
+    private static void createWindow(){
+        // Get the game global configurations.
+        config = new Config();
+
+        width = Config.getWindowWidth();
+        height = Config.getWindowHeight();
+
         // Setup an error callback.
         GLFWErrorCallback.createPrint(System.err).set();
 
@@ -96,15 +106,31 @@ public class Window {
         if (!glfwInit())
             throw new IllegalStateException("Unable to initialize GLFW");
 
+        createNewWindow();
+    }
+
+    /**
+     * Create a new window.
+     */
+    public static void createNewWindow(){
+        // Create the window if fullscreen
+        if(Config.getFullscreen()){
+            width = 1920; height = 1080;
+            windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
+        }
+        else{
+            windowID = glfwCreateWindow(width, height, "Growth", NULL, NULL);
+        }
+
+        System.out.println("\nWindow with id : "+ windowID +" created");
         // Configure GLFW
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
 
-        // Create the window
-        long windowID = glfwCreateWindow(WIDTH, HEIGHT, "Growth", NULL, NULL);
-        if (windowID == NULL)
+        if (windowID+1 == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
+
 
         // Get the thread stack and push a new frame
         try (MemoryStack stack = stackPush()) {
@@ -128,20 +154,26 @@ public class Window {
         // Make the OpenGL context current
         glfwMakeContextCurrent(windowID);
 
-        // Enable v-sync
-        glfwSwapInterval(0);
-
         // Make the window visible
         glfwShowWindow(windowID);
         createCapabilities();
 
-        glViewport(0, 0, WIDTH, HEIGHT);
+        Render.setViewPort(width, height);
 
         glEnable(GL_TEXTURE_2D);
+        glActiveTexture(GL_TEXTURE0);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
 
-        return windowID;
+    /**
+     * Destroy the current window.
+     */
+    public static void destroyWindow(){
+        // Free the window callbacks and destroy the window
+        glfwFreeCallbacks(windowID);
+        glfwDestroyWindow(windowID);
+        System.out.println("Window with id : " + windowID + " deleted");
     }
 
     /**
@@ -156,6 +188,8 @@ public class Window {
      * Main method of game.
      */
     private static void loop() {
+        // Set the screen manager
+        gameManager = new GameManager(Config.getInputs());
         // Set render parameters
         Render.setClearColor(225,255);
         Render.glEnable2D();
@@ -171,11 +205,12 @@ public class Window {
 
         while(!glfwWindowShouldClose(windowID)){
             if (timer.getDuration() - lastTick >= TICK_TIME) {
-                screenManager.update();
+                gameManager.update();
                 ticks++;
                 lastTick += TICK_TIME;
             } else if (timer.getDuration() - lastFrame >= FRAME_TIME) {
-                screenManager.display();
+                gameManager.display();
+                //System.out.println(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory());
                 glfwSwapBuffers(windowID);
                 glfwPollEvents();
                 frames++;
@@ -189,23 +224,22 @@ public class Window {
             }
 
             if (timer.getDuration() - lastSecond >= SECOND) {
-                glfwSetWindowTitle(windowID, "Growth | FPS:" + frames + "; TPS:" + ticks);
+                if(Growth.admin) glfwSetWindowTitle(windowID, "Growth | FPS:" + frames + "; TPS:" + ticks);
                 ticks = frames = 0;
                 lastSecond += SECOND;
             }
         }
     }
 
+
     /**
      * Exit the game.
      */
     public static void exit() {
-        screenManager.unload();
+        gameManager.unload();
+        Config.close();
 
-        // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(windowID);
-        glfwDestroyWindow(windowID);
-
+        destroyWindow();
         // Terminate GLFW and free the error callback
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
@@ -213,7 +247,17 @@ public class Window {
         System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Boin Alexandre" +
                 "\033[0m and mainly\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
         System.out.println("\n-------------------------- \n");
-
         System.exit(0);
+    }
+
+    /**
+     * Call the manager that the focus of the window as change.
+     *
+     * @param l Je n'en sais rien.
+     * @param b The new state.
+     */
+    @Override
+    public void invoke(long l, boolean b) {
+        gameManager.focus(b);
     }
 }

@@ -1,15 +1,15 @@
 package growth.render.text;
 
-import growth.main.Window;
-import growth.math.Color4;
-import growth.math.Vec2;
-import growth.screen.ScreenManager;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
+import growth.screen.GameManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
+@SuppressWarnings("JavaDoc")
 public class FontRenderer {
 
     /**
@@ -30,7 +30,7 @@ public class FontRenderer {
     /**
      * Position of the text.
      */
-    private Vec2 pos;
+    private Vec2 originPos, pos;
 
     /**
      * Color of the text.
@@ -52,23 +52,46 @@ public class FontRenderer {
      */
     private List<Vec2> texture;
 
-    public FontRenderer(String text, FontFace font, float size, Vec2 pos, Color4 color) {
-        mesh = new ArrayList<>();
-        texture = new ArrayList<>();
+    /**
+     *
+     */
+    private int wordNumber;
 
+    /**
+     *
+     * @param text
+     * @param font
+     * @param size
+     * @param pos
+     * @param color
+     */
+    @SuppressWarnings("JavaDoc")
+    public FontRenderer(String text, FontFace font, float size, Vec2 pos, Color4 color) {
         this.font = font;
         this.text = text;
         this.size = size;
-        this.pos = pos;
-        this.color = color;
-
+        this.pos = new Vec2();
         calc();
+        setPos(pos);
+        this.color = color;
+    }
+
+    public FontRenderer(int wordNumber, FontFace font, float size, Vec2 pos, Color4 color) {
+        this.wordNumber = wordNumber;
+        this.font = font;
+        this.text = GameManager.textManager.getWord(this,wordNumber);
+        this.size = size;
+        calc();
+        setPos(pos);
+        this.color = color;
     }
 
     /**
      * Calculate mesh position data and texture coordinates.
      */
     private void calc() {
+        mesh = new ArrayList<>();
+        texture = new ArrayList<>();
         String[] lines = text.split("\n");
 
         float lineY = 0;
@@ -117,7 +140,7 @@ public class FontRenderer {
                 currentX += fontChar.getxAdvance();
             }
 
-            width = Math.max(width, currentX);
+            width = Math.max(0, currentX);
 
             currentX = 0;
             lineY += font.getFontFile().getLineHeight();
@@ -133,7 +156,7 @@ public class FontRenderer {
         glBegin(GL_QUADS);
             for (int i = 0; i < mesh.size(); i++) {
                 glTexCoord2f(texture.get(i).getX(), texture.get(i).getY());
-                glVertex2f(mesh.get(i).getX() * size + pos.getX() - ScreenManager.CAMERA.getPosX(), mesh.get(i).getY() * size + pos.getY() - ScreenManager.CAMERA.getPosY());
+                glVertex2f(mesh.get(i).getX() * size + pos.getX() - GameManager.CAMERA.getPosX(), mesh.get(i).getY() * size + pos.getY() - GameManager.CAMERA.getPosY());
             }
         glEnd();
     }
@@ -145,8 +168,8 @@ public class FontRenderer {
      */
     public void setText(String text) {
         this.text = text;
-
         calc();
+        setPos(originPos);
     }
 
     /**
@@ -174,8 +197,7 @@ public class FontRenderer {
      */
     public void setFont(FontFace font) {
         this.font = font;
-
-        calc();
+        setText(text);
     }
 
     /**
@@ -211,7 +233,9 @@ public class FontRenderer {
      * @param pos Position of the text on screen.
      */
     public void setPos(Vec2 pos) {
-        this.pos = pos;
+        this.pos = new Vec2();
+        originPos = new Vec2(pos.getX(), pos.getY());
+        this.pos.setPosition(originPos.getX() - (getWidth()/2), originPos.getY() - size/2);
     }
 
     /**
@@ -239,5 +263,13 @@ public class FontRenderer {
      */
     public float getWidth() {
         return width * size;
+    }
+
+    public void update(){
+        setText(GameManager.textManager.getWord(wordNumber));
+    }
+
+    public void unload(){
+        GameManager.textManager.remove(this);
     }
 }

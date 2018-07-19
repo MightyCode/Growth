@@ -8,7 +8,7 @@ package growth.main;
  */
 public class Growth {
 
-    public static final boolean ADMIN = true;
+    public static boolean admin;
 
     /**
      * Window.
@@ -20,6 +20,8 @@ public class Growth {
      * Run the game.
      */
     public static void main(String[] args) {
+            admin = true;
+
         window = new Window();
         window.run();
     }

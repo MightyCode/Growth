@@ -1,9 +1,8 @@
 package growth.render.text;
 
-import java.awt.*;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,8 +49,8 @@ public class FontFile {
 
     public FontFile(String path) {
         try {
-            FileReader fileReader = new FileReader(this.getClass().getResource(path).getFile());
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(path)));
 
             String line;
             Map<String, String> values = new HashMap<String, String>();

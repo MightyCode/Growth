@@ -2,12 +2,13 @@ package growth.game.entity.type;
 
 import growth.game.entity.module.entity.Entity_Fall;
 import growth.game.entity.module.player.*;
+import growth.main.Config;
 import growth.main.Growth;
 import growth.render.Animation;
 import growth.screen.screens.GameScreen;
 import growth.game.tilemap.TileMap;
-
-import java.util.ArrayList;
+import growth.screen.screens.Screen;
+import growth.util.XmlReader;
 
 /**
  * Player class.
@@ -20,7 +21,7 @@ public class Player extends MovingEntity{
 
 	/**
 	 * Player's states.
-	 * These static final variable counting the different state of player.
+	 * These static final variables counting the different state of player.
 	 */
 	public static final int WALKING = 1;
 	public static final int JUMPING = 2;
@@ -28,7 +29,7 @@ public class Player extends MovingEntity{
 
 	/**
 	 * Player's animations priority.
-	 * These static final variable counting the different state of player.
+	 * These static final variables counting the different animation's priority of player.
 	 */
 	public static final int WALKING_P = 1;
 	public static final int FALLING_P = 3;
@@ -45,7 +46,7 @@ public class Player extends MovingEntity{
 	 */
 	public Player(GameScreen gameScreen, TileMap tileMap, int sizeX, int sizeY) {
 		// Call mother constructor
-		super(gameScreen, tileMap.getTileSize() ,tileMap);
+		super(gameScreen ,tileMap);
 
 		/* Init player's variables */
 		// Size, and boxSize
@@ -53,21 +54,18 @@ public class Player extends MovingEntity{
 		this.sizeY = sizeY;
 		cX = (int) (sizeX * 0.65);
 		cY = sizeY;
-	}
 
-	/**
-	 * Load the player
-	 */
-	public void load(){
-		super.load();
-		// Movement
-		float walkSpeed = 2.5f;
-		float maxSpeed = 6f;
-		float stopSpeed = 0.5f;
-		float fallSpeed = 0.4f;
-		float maxFallSpeed = GameScreen.TILESIZE - 2;
-		float jumpStart = -13.5f;
-		float stopJumpSpeed = 0.2f;
+		int tileSize = GameScreen.tileSize;
+		// Value
+		float walkSpeed = tileSize/25.6f;
+		float maxSpeed = tileSize/10f;
+		float stopSpeed = tileSize/89f;
+		float fallSpeed = tileSize/110f;
+		float maxFallSpeed = tileSize - 2f;
+		float jumpStart = tileSize/-4.8f;
+		float stopJumpSpeed = tileSize/130f;
+
+		// Coefficient
 		float runSpeed = 1.45f;
 
 		// Add the modules of action to the player
@@ -75,13 +73,14 @@ public class Player extends MovingEntity{
 		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
 		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
 		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
-		if(Growth.ADMIN){
+		if(Growth.admin){
 			modules.add(new Admin_Layer(this));
 			modules.add(new Admin_PlayerHealth(this));
 		}
 
-		setMaxHealthPoint(2);
-		setHealthPoint(2);
+		System.out.println(Config.getPartyPath());
+		setMaxHealthPoint(Integer.parseInt(XmlReader.getValue(Config.getPartyPath() , "maxLife", "life")));
+		setHealthPoint(Integer.parseInt(XmlReader.getValue(Config.getPartyPath() , "life", "life")));
 
 		// Sprite and Animation
 		facing = true;
@@ -93,13 +92,14 @@ public class Player extends MovingEntity{
 		animations.add(new Animation("/textures/game/entity/player/fall/", 1, 100));
 	}
 
+
 	/**
 	 * Change the current health value.
 	 * @param newValue New current health value.
 	 */
 	public void setHealthPoint(int newValue){
 		super.setHealthPoint(newValue);
-		GameScreen.HUD.setHearth(healthPoint);
+		GameScreen.hud.setHearth(healthPoint);
 	}
 
 	/**
@@ -108,26 +108,33 @@ public class Player extends MovingEntity{
 	 */
 	public void setMaxHealthPoint(int newValue){
 		super.setMaxHealthPoint(newValue);
-		GameScreen.HUD.setMaxHealth(maxHealthPoint);
+		GameScreen.hud.setMaxHealth(maxHealthPoint);
 	}
 
+	/**
+	 * Update the player.
+	 */
 	public void update(){
 		super.update();
+
+		// Check border player collision to change the map
+		if (posX - cX / 2 <= 0) {
+			GameScreen.tileMap.changeMap(0, posX, posY);
+		} else if (posX + cX / 2 >= tileMap.getSizeX()) {
+			GameScreen.tileMap.changeMap(2, posX, posY);
+		} else if(posY + cY/ 2 >= tileMap.getSizeY()){
+			if(!GameScreen.tileMap.changeMap(3, posX, posY)){
+				died();
+				GameScreen.setState(GameScreen.STATE_DEATH);
+			}
+		}
 	}
 
 	/**
 	 * When the player die
 	 */
 	public void died(){
-		gameScreen.setState(GameScreen.DEATHSCREEN);
+		Screen.setState(GameScreen.STATE_DEATH);
 		super.died();
-	}
-
-	public void upLayer() {
-		tileMap.upLayer();
-	}
-
-	public void downLayer() {
-		tileMap.downLayer();
 	}
 }

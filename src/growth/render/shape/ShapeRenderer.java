@@ -1,9 +1,8 @@
 package growth.render.shape;
 
-import growth.main.Window;
-import growth.math.Color4;
-import growth.math.Vec2;
-import growth.screen.ScreenManager;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
+import growth.screen.GameManager;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -12,10 +11,16 @@ import static org.lwjgl.opengl.GL11.*;
  * This class is only call by the Render class to display different shape
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
 public class ShapeRenderer {
 
+    /**
+     * Display a rectangle using vec2
+     * @param pos The position of the rectangle.
+     * @param size The size of the rectangle.
+     * @param color The color of the rectangle.
+     */
     public static void rect(Vec2 pos, Vec2 size, Color4 color) {
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_TEXTURE);
@@ -30,7 +35,13 @@ public class ShapeRenderer {
         glEnable(GL_TEXTURE);
     }
 
+    /**
+     * Display a rectangle without taking into account the movement of the camera.
+     * @param pos The position of the rectangle.
+     * @param size The size of the rectangle.
+     * @param color The color of the rectangle.
+     */
     public static void rectC(Vec2 pos, Vec2 size, Color4 color) {
-        rect(new Vec2(pos.getX() - ScreenManager.CAMERA.getPosX(), pos.getY() - ScreenManager.CAMERA.getPosY()), size, color);
+        rect(new Vec2(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY()), size, color);
     }
 }

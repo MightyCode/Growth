@@ -2,7 +2,8 @@ package growth.game.entity.module.player;
 
 import growth.game.entity.type.Player;
 import growth.game.entity.module.Module;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
+import growth.screen.screens.GameScreen;
 
 /**
  * Administrator layer module class.
@@ -13,12 +14,6 @@ import growth.screen.ScreenManager;
  */
 public class Admin_Layer extends Module{
     /**
-     * Player.
-     * This variable contains the reference to the player who use this module.
-     */
-    private final Player player;
-
-    /**
      * Administrator player module class constructor.
      * Instance the class and set the reference to the entity.
      *
@@ -26,23 +21,18 @@ public class Admin_Layer extends Module{
      */
     public Admin_Layer(Player player){
         super(player);
-
-        // Init variables
-        this.player = player;
     }
 
     /**
      * Update the module.
      */
     public void update(){
-        if(ScreenManager.KEY.keyPressed(8)) {
-           player.upLayer();
+        if(GameManager.inputsManager.inputPressed(9)) {
+            GameScreen.tileMap.setLayer(1);
         }
 
-        if(ScreenManager.KEY.keyPressed(9)) {
-            player.downLayer();
+        if(GameManager.inputsManager.inputPressed(10)) {
+            GameScreen.tileMap.setLayer(-1);
         }
     }
-
-    public void display(){}
 }

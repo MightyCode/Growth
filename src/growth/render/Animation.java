@@ -77,11 +77,9 @@ public class Animation {
 	}
 
 	/**
-	 * Get the id of the current texture.
-	 *
-	 * @return current texture id
+	 * Bind the current texture
 	 */
-	public int getCurrentID() {
-		return textures[current].getID();
+	public void bind() {
+		 textures[current].bind();
 	}
 }

@@ -58,10 +58,6 @@ public class Map {
 		exit = new float[4][1][4];
 	}
 
-	/*
-	 * Setters methods
-	 */
-
 	/**
 	 * Set the beginning of map in relation to the arrival side.
 	 *
@@ -134,7 +130,7 @@ public class Map {
 	 *
 	 * @return Begin tile x.
 	 */
-	double getTileToComeX(int point) {
+	float getTileToComeX(int point) {
 		return spawn[point][0];
 	}
 
@@ -143,7 +139,7 @@ public class Map {
 	 *
 	 * @return Begin tile y.
 	 */
-	double getTileToComeY(int point) {
+	float getTileToComeY(int point) {
 		return spawn[point][1];
 	}
 
@@ -155,8 +151,4 @@ public class Map {
 	float[][] getExitPoints(int side){
 		return exit[side];
 	}
-
-	float getColor(int numLayer){return layer[numLayer].getColor();}
-
-	void setColor(int numLayer, float color){layer[numLayer].setColor(color);}
 }

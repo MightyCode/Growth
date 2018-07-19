@@ -1,18 +1,11 @@
 package growth.render.gui;
 
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 import growth.render.text.FontFace;
 import growth.render.text.FontRenderer;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
-import growth.screen.ScreenManager;
-import growth.screen.overlay.Overlay;
-import growth.screen.screens.Screen;
-import growth.inputs.MouseManager;
-
-import java.awt.*;
+import growth.screen.GameManager;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -22,63 +15,89 @@ import static org.lwjgl.glfw.GLFW.*;
  * The button have two state, one for mouse's hover and one for not.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
-public class GUIButton {
+public class GUIButton extends GUIComponent {
 
-    private Vec2 pos;
-    private Vec2 size;
-
-    private String text;
-    private FontFace font;
-
+    /**
+     * The colors of the button.
+     */
     private Color4 backgroundColor;
     private Color4 hoverColor;
+
+    /**
+     * The colors of text of the button.
+     */
     private Color4 textColor;
     private Color4 hoverTextColor;
 
+    /**
+     * The font renderer use by the button.
+     */
     private FontRenderer fontRenderer;
 
-    private boolean mouseOver;
-
+    /**
+     * GUIButton class constructor with the string to display.
+     *
+     * @param pos Position of the button.
+     * @param size Size of the button.
+     * @param text The text to display.
+     * @param font The font use by its font renderer.
+     * @param backgroundColor The background color of the button.
+     * @param hoverColor The color of the button on its hovering state.
+     * @param textColor The normal text color.
+     * @param hoverTextColor The color of the text when the button is hovering.
+     */
     public GUIButton(Vec2 pos, Vec2 size, String text, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
-        this.pos = new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2));
-        this.size = size;
-        this.text = text;
-        this.font = font;
+        super(size);
+
         this.backgroundColor = backgroundColor;
         this.hoverColor = hoverColor;
         this.textColor = textColor;
         this.hoverTextColor = hoverTextColor;
 
         fontRenderer = new FontRenderer(text, font, size.getY() - 6, pos, textColor);
-        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) - (fontRenderer.getWidth() / 2), this.pos.getY() + 3));
+        setPos(pos);
     }
 
     /**
-     * Test if the mouse is over the button.
+     * GUIButton class constructor with the number of the global string.
+     *
+     * @param pos Position of the button.
+     * @param size Size of the button.
+     * @param number The number of the global string to display.
+     * @param font The font use by its font renderer.
+     * @param backgroundColor The background color of the button.
+     * @param hoverColor The color of the button on its hovering state.
+     * @param textColor The normal text color.
+     * @param hoverTextColor The color of the text when the button is hovering.
      */
-    private boolean mouseOver() {
-        return  (MouseManager.mouseX() > pos.getX() &&
-                MouseManager.mouseX() < pos.getX() + size.getX()) &&
-                (MouseManager.mouseY() > pos.getY() &&
-                MouseManager.mouseY() < pos.getY() + size.getY());
+    public GUIButton(Vec2 pos, Vec2 size, int number, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
+        super(size);
+
+        this.backgroundColor = backgroundColor;
+        this.hoverColor = hoverColor;
+        this.textColor = textColor;
+        this.hoverTextColor = hoverTextColor;
+
+        fontRenderer = new FontRenderer(number, font, size.getY() - 6, pos, textColor);
+        setPos(pos);
     }
 
     /**
      * Update the button.
      */
     public void update() {
+        if(lock) return;
         mouseOver = mouseOver();
 
-        if (mouseOver) {
+        if(mouseOver){
             fontRenderer.setColor(hoverTextColor);
-        } else {
+            if(GameManager.mouseManager.mousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
+                action();
+            }
+        } else{
             fontRenderer.setColor(textColor);
-        }
-
-        if(mouseOver && ScreenManager.MOUSE.mousePressed(GLFW_MOUSE_BUTTON_LEFT)){
-            action();
         }
     }
 
@@ -96,19 +115,18 @@ public class GUIButton {
     }
 
     /**
-     * Override class for what does the button.
+     * Set the new position of the button and its font renderer.
+     * @param pos The new position.
      */
-    protected void action() {}
+    public void setPos(Vec2 pos) {
+        super.setPos(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)));
+        fontRenderer.setPos(pos);
+    }
 
     /**
      * Free the memory.
      */
     public void unload(){
-
-    }
-
-    public void setPos(Vec2 pos) {
-        this.pos = new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2));
-        fontRenderer.setPos(new Vec2(this.pos.getX() + (size.getX() / 2) - (fontRenderer.getWidth() / 2), this.pos.getY() + 3));
+        fontRenderer.unload();
     }
 }

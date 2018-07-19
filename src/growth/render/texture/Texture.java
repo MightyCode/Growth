@@ -36,7 +36,7 @@ import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
  * Warning : Don't forget to use the clean() function when you do not use that texture anymore.
  *
  * @author yoctoctet
- * @version 1.0
+ * @version 1.1
  */
 public class Texture {
     /**
@@ -114,7 +114,7 @@ public class Texture {
     public void load(String path) {
         try {
             this.path = path;
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(path));
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream(this.path));
             createImage(image);
         } catch (Exception e) {
             e.printStackTrace();

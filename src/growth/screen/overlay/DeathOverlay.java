@@ -1,15 +1,13 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.gui.GUIButton;
 import growth.render.shape.ShapeRenderer;
 import growth.render.text.FontRenderer;
 import growth.render.text.StaticFonts;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.Screen;
 
@@ -18,9 +16,9 @@ import growth.screen.screens.Screen;
  * This class is the death overlay class used when the player die.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
-public class DeathOverlay extends Overlay{
+public class DeathOverlay extends Overlay {
 
     /**
      * Lose title texture.
@@ -28,19 +26,22 @@ public class DeathOverlay extends Overlay{
      */
     private FontRenderer loose;
 
-    private GUIButton recommencer, quitter;
+    /**
+     * GUIButtons.
+     */
+    private GUIButton retry, quitter;
 
     /**
      * Death overlay class constructor.
      * Instance the class and set overlay's variables.
      */
-    public DeathOverlay(Screen screen){
+    public DeathOverlay(Screen screen) {
         super(screen);
 
-        // Init variable
+        // Init variables
         // Title
-        loose = new FontRenderer("Game Over", StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
-        loose.setPos(new Vec2(Window.WIDTH / 2 - loose.getWidth() / 2, 0.18f * Window.HEIGHT));
+        loose = new FontRenderer(10, StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
+        loose.setPos(new Vec2(Window.width * 0.5f,Window.height * 0.20f));
 
         Vec2 size = new Vec2(350, 40);
         Color4 backgroundColor = new Color4(1.0f, 0.0f, 1.0f, 0.5f);
@@ -48,35 +49,36 @@ public class DeathOverlay extends Overlay{
         Color4 textColor = new Color4(0.8f, 0.8f, 0.8f, 1.0f);
         Color4 hoverTextColor = Color4.WHITE;
 
-        recommencer = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 300),
+        retry = new GUIButton(
+                new Vec2(Window.width / 2, 300),
                 size,
-                "Recommencer",
+                11,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
-                Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
+            public void action() {
+                Window.gameManager.setScreen(GameManager.GAMESCREEN);
             }
         };
 
         quitter = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 375),
+                new Vec2(Window.width / 2, 375),
                 size,
-                "Quitter vers le menu",
+                12,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
-                Window.screenManager.setScreen(ScreenManager.MENUSCREEN);
+            public void action() {
+                Screen.setState(GameScreen.STATE_NORMAL);
+                Window.gameManager.setScreen(GameManager.MENUSCREEN);
             }
         };
     }
@@ -84,25 +86,33 @@ public class DeathOverlay extends Overlay{
     /**
      * Update the overlay and its components.
      */
-    public void update(){
-        recommencer.update();
+    public void update() {
+        retry.update();
         quitter.update();
     }
 
     /**
-     * Update the overlay.
+     * Display the overlay.
      */
-    public void display(){
+    public void display() {
         // Black rectangle
-        ShapeRenderer.rectC(new Vec2(), new Vec2(Window.WIDTH, Window.HEIGHT), new Color4(0.0f, 0.0f, 0.0f, 0.6f));
-        ShapeRenderer.rectC(new Vec2(0.1f * Window.WIDTH, 0.15f * Window.HEIGHT), new Vec2(0.8f * Window.WIDTH, 0.75f * Window.HEIGHT), new Color4(0.0f, 0.0f, 0.0f, 0.5f));
+        ShapeRenderer.rectC(new Vec2(), new Vec2(Window.width, Window.height), new Color4(0.0f, 0.0f, 0.0f, 0.6f));
+        ShapeRenderer.rectC(new Vec2(0.1f * Window.width, 0.15f * Window.height),
+                new Vec2(0.8f * Window.width, 0.75f * Window.height), new Color4(0.0f, 0.0f, 0.0f, 0.5f));
 
         // Textures and button
         loose.render();
 
-        recommencer.display();
+        retry.display();
         quitter.display();
     }
 
-    public void unload(){}
+    /**
+     * Unload the overlay.
+     */
+    public void unload() {
+        retry.unload();
+        quitter.unload();
+        loose.unload();
+    }
 }

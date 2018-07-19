@@ -2,8 +2,8 @@ package growth.render;
 
 import growth.game.entity.type.MovingEntity;
 import growth.main.Window;
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.shape.ShapeRenderer;
 
 import static org.lwjgl.opengl.GL11.glTranslatef;
@@ -53,7 +53,7 @@ public class Camera {
     /**
      * Max offset between the entity and the middle of screen.
      */
-    private final int maxOffset = Window.WIDTH / 10;
+    private final int maxOffset = Window.width / 10;
 
     /**
      * The entity that will follow the camera.
@@ -96,8 +96,8 @@ public class Camera {
      * @param isTween Apply the tween (true) or no (false).
      */
     public void setPosition(boolean isTween){
-        int posX = Window.WIDTH / 2 - entity.getPosX();
-        int posY = Window.HEIGHT / 2 - entity.getPosY();
+        int posX = Window.width / 2 - entity.getPosX();
+        int posY = Window.height / 2 - entity.getPosY();
         float speedX = entity.getSpeedX();
 
         if(speedX > 0) {
@@ -152,7 +152,7 @@ public class Camera {
      * @param alpha The alpha of the transition.
      */
     public void transition(int color, float alpha){
-        ShapeRenderer.rectC(new Vec2(0, 0), new Vec2(Window.WIDTH, Window.HEIGHT), new Color4(color, color, color, alpha));
+        ShapeRenderer.rectC(new Vec2(0, 0), new Vec2(Window.width, Window.height), new Color4(color, color, color, alpha));
     }
 
     /**

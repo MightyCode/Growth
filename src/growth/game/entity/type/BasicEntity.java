@@ -11,12 +11,6 @@ import java.util.ArrayList;
 public class BasicEntity extends Entity{
 
     /**
-     * TileSize.
-     * This variable contains the tileSize to interact with it.
-     */
-    protected final int tileSize;
-
-    /**
      * Entity collision box size X.
      * This variable contains the width of the collision's box entity.
      */
@@ -28,8 +22,16 @@ public class BasicEntity extends Entity{
      */
     protected int cY;
 
-
+    /**
+     * Entity state
+     * These static final variable counting the different state of the entity
+     */
     public static final int IDLE = 0;
+
+    /**
+     * Animation priority
+     * This variable contains the priority of the idle animation.
+     */
     public static final int IDLE_P = 0;
 
     /**
@@ -67,21 +69,12 @@ public class BasicEntity extends Entity{
      * Instance the class and set the tileMap.
      *
      * @param gameScreen Add tileMap to the entity.
-     * @param tileSize The size of the tile.
      */
-    public BasicEntity(GameScreen gameScreen, int tileSize) {
+    public BasicEntity(GameScreen gameScreen) {
         modules = new ArrayList<>();
         animations = new ArrayList<>();
         animationPlayed = 0;
         this.gameScreen = gameScreen;
-        this.tileSize = tileSize;
-        load();
-    }
-
-    /**
-     * Loading the param of the entity
-     */
-    public void load(){
         priority = 0;
         speed = 1;
         posX = 0;
@@ -104,9 +97,6 @@ public class BasicEntity extends Entity{
         return r1.intersects(r2);
     }
 
-	/*
-	  Getters
-	 */
 
     /**
      * Return collision's box size x.
@@ -122,6 +112,9 @@ public class BasicEntity extends Entity{
      */
     public int getCY() { return cY; }
 
+    /**
+     * Update the entity.
+     */
     public void update(){
         animationPlayed = IDLE;
         priority = IDLE_P;
@@ -129,16 +122,21 @@ public class BasicEntity extends Entity{
             module.update();
         }
     }
+
+    /**
+     * Display the entity.
+     */
     public void display(){
         for(Module module : modules){
             module.display();
         }
+
+        animations.get(animationPlayed).bind();
         if(animations.size() > 0) {
             TextureRenderer.image(
                     (posX - sizeX / 2),
                     (posY - sizeY / 2),
-                    sizeX * 1f, sizeY * 1f,
-                    animations.get(animationPlayed).getCurrentID(), 1f, 1f);
+                    sizeX * 1f, sizeY * 1f);
         }
     }
 

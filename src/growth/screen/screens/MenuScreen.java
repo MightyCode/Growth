@@ -1,77 +1,102 @@
 package growth.screen.screens;
 
-import growth.math.Color4;
-import growth.math.Vec2;
+import growth.util.math.Color4;
+import growth.util.math.Vec2;
 import growth.render.Render;
 import growth.render.text.FontRenderer;
 import growth.render.text.StaticFonts;
 import growth.render.texture.Texture;
 import growth.render.texture.TextureRenderer;
-import growth.screen.ScreenManager;
+import growth.screen.GameManager;
 import growth.render.gui.GUIButton;
 import growth.main.Window;
+import growth.screen.overlay.OptionOverlay;
 
 /**
  * Menu class.
  * This class is the menu screen.
  *
  * @author MightyCode
- * @version 1.0
+ * @version 1.1
  */
 public class MenuScreen extends Screen {
 
+    /**
+     * The font renderer for the menu title.
+     */
     private FontRenderer title;
-    private GUIButton continuer, nouvelle, charger, options, quitter;
+
+    /**
+     * GUIButtons used on the menu.
+     */
+    private GUIButton goToGame, newGame, chargeGame, options, quit;
+
+    /**
+     * The option overlay to change the current parameters.
+     */
+    private OptionOverlay option;
 
     private Texture background;
 
-    public MenuScreen(ScreenManager screenManager) {
-        super(screenManager);
+    /**
+     * Menu screen class constructor.
+     * Instance the menu and set the menu screen's variables.
+     *
+     * @param gameManager Add gameManager to change the global screen.
+     */
+    public MenuScreen(GameManager gameManager) {
+        super(gameManager);
+        // Load the screen
         Render.setClearColor(1f, 1f);
 
         background = new Texture();
         background.load("/textures/menu/bg.png");
 
-        title = new FontRenderer("Growth", StaticFonts.IBM, 100, new Vec2(), Color4.BLACK);
-        title.setPos(new Vec2(Window.WIDTH / 2 - title.getWidth() / 2, 100));
+        title = new FontRenderer(0, StaticFonts.IBM, 100,
+                new Vec2(Window.width / 2f, Window.height / 7f), Color4.BLACK);
 
-        Vec2 size = new Vec2(350, 35);
+        Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
         Color4 hoverColor = new Color4(0.0f, 0.0f, 0.0f, 0.2f);
         Color4 textColor = new Color4(0.2f, 0.2f, 0.2f, 1.0f);
         Color4 hoverTextColor = Color4.BLACK;
 
-        continuer = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 300),
+        goToGame = new GUIButton(
+                new Vec2(Window.width * 0.5f, Window.height * 0.5f),
                 size,
-                "Continuer la partie",
+                1,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
-                Window.screenManager.setScreen(ScreenManager.GAMESCREEN);
+            public void action() {
+                Window.gameManager.setScreen(GameManager.GAMESCREEN);
             }
         };
 
-        nouvelle = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 350),
+        newGame = new GUIButton(
+                new Vec2(Window.width * 0.5f, Window.height * 0.58f),
                 size,
-                "Nouvelle partie",
+                2,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        );
+        ) {
+            @Override
+            public void action() {
+                Window.gameManager.setScreen(GameManager.GAMESCREEN);
+            }
+        };
 
-        charger = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 400),
+        chargeGame = new GUIButton(
+                new Vec2(Window.width * 0.5f, Window.height * 0.66f),
                 size,
-                "Charger une partie",
+                3,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -80,34 +105,42 @@ public class MenuScreen extends Screen {
         );
 
         options = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 450),
+                new Vec2(Window.width * 0.5f, Window.height * 0.74f),
                 size,
-                "Options du jeu",
+                4,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
-                Window.screenManager.setScreen(ScreenManager.OPTIONSCREEN);
+            public void action() {
+                MenuScreen.setState(1);
             }
         };
 
-        quitter = new GUIButton(
-                new Vec2(Window.WIDTH / 2, 500),
+        quit = new GUIButton(
+                new Vec2(Window.width * 0.5f, Window.height * 0.82f),
                 size,
-                "Quitter",
+                5,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ){
+        ) {
             @Override
-            public void action () {
+            public void action() {
                 Window.exit();
+            }
+        };
+
+        // Load the option Overlay
+        option = new OptionOverlay(this) {
+            @Override
+            public void quit() {
+                Screen.setState(0);
             }
         };
     }
@@ -116,43 +149,61 @@ public class MenuScreen extends Screen {
      * Update the menu.
      */
     public void update() {
-        continuer.update();
-        nouvelle.update();
-        charger.update();
-        options.update();
-        quitter.update();
+        switch (screenState) {
+            case 0:
+                goToGame.update();
+                newGame.update();
+                chargeGame.update();
+                options.update();
+                quit.update();
+                break;
+            case 1:
+                option.update();
+                break;
+        }
+
     }
 
     /**
      * Display the menu.
      */
     public void display() {
-        Render.clear();
+        switch (screenState) {
+            case 0:
+                Render.clear();
 
-        background.bind();
-        TextureRenderer.imageC(0, 0, Window.WIDTH, Window.HEIGHT);
+                background.bind();
+                TextureRenderer.imageC(0, 0, Window.width, Window.height);
 
-        title.render();
+                title.render();
 
-        continuer.display();
-        nouvelle.display();
-        charger.display();
-        options.display();
-        quitter.display();
+                goToGame.display();
+                newGame.display();
+                chargeGame.display();
+                options.display();
+                quit.display();
+                break;
+            case 1:
+                option.display();
+                break;
+        }
     }
 
     /**
-     * Unload the textures in menu to free memory.
+     * Unload resources in menu to free memory.
      */
-    public void unload(){
+    public void unload() {
         // Unload the background
         background.unload();
 
-        // Unload the button
-        continuer.unload();
-        nouvelle.unload();
-        charger.unload();
+        // Unload buttons
+        goToGame.unload();
+        newGame.unload();
+        chargeGame.unload();
         options.unload();
-        quitter.unload();
+        quit.unload();
+        title.unload();
+        // Unload the overlay
+        option.unload();
     }
 }
