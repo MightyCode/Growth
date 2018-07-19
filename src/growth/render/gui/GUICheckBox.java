@@ -71,7 +71,7 @@ public class GUICheckBox extends GUIComponent {
         if(mouseOver){
             fontRenderer.setColor(hoverTextColor);
             if(GameManager.mouseManager.mousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
-                state = (state == 1)? 0 : 1;
+                GUIState = (GUIState == 1)? 0 : 1;
                 action();
             }
         } else{
@@ -83,7 +83,7 @@ public class GUICheckBox extends GUIComponent {
      * Display the button.
      */
     public void display() {
-        if(state == 1){
+        if(GUIState == 1){
             if (mouseOver) {
                 check_hover.bind();
             } else {

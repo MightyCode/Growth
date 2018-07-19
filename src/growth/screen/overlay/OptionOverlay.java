@@ -115,7 +115,7 @@ public class OptionOverlay extends Overlay {
         ){
             @Override
             public void action () {
-                if(state == 0){
+                if(GUIState == 0){
                    GameManager.textManager.changeLanguage("fr");
                 } else{
                     GameManager.textManager.changeLanguage("en");
@@ -131,7 +131,7 @@ public class OptionOverlay extends Overlay {
         ){
             @Override
             public void action () {
-                if(state == 0){
+                if(GUIState == 0){
                     XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","0","window");
                 } else{
                     XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","1","window");
@@ -155,7 +155,7 @@ public class OptionOverlay extends Overlay {
         video.update();
         inputs.update();
 
-        switch (state){
+        switch (overlayState){
             case 0:
                 language.update();
                 break;
@@ -182,7 +182,7 @@ public class OptionOverlay extends Overlay {
         video.display();
         inputs.display();
 
-        switch (state){
+        switch (overlayState){
             case 0:
                 language.display();
                 break;
