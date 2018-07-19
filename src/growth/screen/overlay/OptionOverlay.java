@@ -132,8 +132,10 @@ public class OptionOverlay extends Overlay {
             @Override
             public void action () {
                 if(GUIState == 0){
+                    Config.setFullscreen(0);
                     XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","0","window");
                 } else{
+                    Config.setFullscreen(1);
                     XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","1","window");
                 }
             }

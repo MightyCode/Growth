@@ -82,6 +82,7 @@ public class Config {
      */
     public static void setFullscreen(int fullscreen) { Config.fullscreen = fullscreen == 1; }
 
+
     /**
      * Get the window width size.
      * @return The size(int).
