@@ -52,7 +52,7 @@ public class MenuScreen extends Screen {
         background = new Texture();
         background.load("/textures/menu/bg.png");
 
-        title = new FontRenderer(0, StaticFonts.IBM, 100,
+        title = new FontRenderer(0, StaticFonts.monofonto, 100,
                 new Vec2(Window.width / 2f, Window.height / 7f), Color4.BLACK);
 
         Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);

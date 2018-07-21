@@ -129,7 +129,7 @@ public class TileMap {
 		tileSet = XmlReader.createTileSet(path);
 
 		// Init map
-		nbMap = Integer.parseInt(XmlReader.getValue(Config.MAP_OPTION_PATH,"number", "number"))+1;
+		nbMap = Integer.parseInt(XmlReader.getValueInJar(Config.MAP_OPTION_PATH,"number", "number"))+1;
 
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));

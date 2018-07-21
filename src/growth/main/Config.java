@@ -58,10 +58,11 @@ public class Config {
     /**
      * Public static final string about the path for different thing.
      */
-    public static final String CONFIG_PATH = "/config/config.xml";
-    public static final String SAVE_PATH = "/config/saves/save-";
+    public static final String CONFIG_PATH = "data/config/config.xml";
+    public static final String SAVE_PATH = "data/config/saves/save-";
     public static final String MAP_PATH = "/map/";
     public static final String MAP_OPTION_PATH = "/map/mapOptions.xml";
+    public static final String TILESET_PATH = "/map/tileset.xml";
 
     /**
      * Class constructor.

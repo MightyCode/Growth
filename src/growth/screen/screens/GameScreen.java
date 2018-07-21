@@ -112,7 +112,7 @@ public class GameScreen extends Screen {
         };
 
         // Init tileMap
-        tileMap = new TileMap( "/map/tileset.xml");
+        tileMap = new TileMap( Config.TILESET_PATH);
         GameManager.CAMERA.setTween(0.3f, 1f);
 
         entityManager.addEntity(new Player(this, tileMap, tileSize, tileSize));
