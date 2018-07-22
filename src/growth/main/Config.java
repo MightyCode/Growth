@@ -1,6 +1,12 @@
 package growth.main;
 
+import growth.util.FileMethods;
 import growth.util.XmlReader;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * This class save the config of the game.
@@ -9,6 +15,11 @@ import growth.util.XmlReader;
  * @version 1.0
  */
 public class Config {
+
+    /**
+     * Project path
+     */
+    private static String projectPath;
 
     /**
      * Fullscreen state.
@@ -68,6 +79,21 @@ public class Config {
      * Class constructor.
      */
     public Config(){
+        // Test if the file data exist
+        System.out.println(projectPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+        File dossier = new File("data/");
+        // If the directory exists
+        if (!dossier.exists() && !dossier.isDirectory()){
+            System.out.println("Create file Data");
+            File data = new File("data\\config\\saves");
+            data.mkdirs();
+
+            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+                //data.delete();
+            }
+        }
+        // Load configurationss
         XmlReader.loadConfig();
     }
 

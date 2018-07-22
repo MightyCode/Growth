@@ -86,6 +86,8 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Do nothing for the moment
      */
     public Window(){
+        // Get the game global configurations.
+        config = new Config();
         createWindow();
         glfwSetWindowFocusCallback(windowID,this);
     }
@@ -94,9 +96,6 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Create the window and get the window ID.
      */
     private static void createWindow(){
-        // Get the game global configurations.
-        config = new Config();
-
         width = Config.getWindowWidth();
         height = Config.getWindowHeight();
 
