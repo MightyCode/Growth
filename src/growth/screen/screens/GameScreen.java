@@ -11,6 +11,7 @@ import growth.screen.overlay.OptionOverlay;
 import growth.screen.overlay.PauseOverlay;
 import growth.game.tilemap.TileMap;
 import growth.game.entity.type.Player;
+import growth.util.FileMethods;
 import growth.util.XmlReader;
 import growth.util.math.Math;
 
@@ -91,6 +92,15 @@ public class GameScreen extends Screen {
      */
     public GameScreen(GameManager gameManager) {
         super(gameManager);
+
+        // Load the current party
+        if(Config.getPartyNumber().equals("-1")){
+            if(!FileMethods.copyFromJar("/config/saveOriginal.xml","data/config/saves/save-1.xml")){
+                System.out.println("Probleme to create the party");
+                setScreen(GameManager.MENUSCREEN);
+            }
+            Config.setPartyNumber("1");
+        }
 
         tileSize = Window.width/20;
 

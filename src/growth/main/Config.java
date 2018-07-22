@@ -90,7 +90,9 @@ public class Config {
             data.mkdirs();
 
             if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
-                //data.delete();
+                data.delete();
+                System.out.println("Data corrupted");
+                Window.exit();
             }
         }
         // Load configurationss
@@ -168,7 +170,10 @@ public class Config {
      * Set the new party number.
      * @param partyNumber The new party number.
      */
-    public static void setPartyNumber(String partyNumber) { Config.partyNumber = partyNumber; }
+    public static void setPartyNumber(String partyNumber) {
+        Config.partyNumber = partyNumber;
+        partyPath = SAVE_PATH + partyNumber + ".xml";
+    }
 
     /**
      * Get party path.

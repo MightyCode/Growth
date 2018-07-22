@@ -226,7 +226,6 @@ public abstract class XmlReader {
 			Config.setInputs(inputs);
 
 			Config.setPartyNumber(search("game",root).getAttribute("number"));
-			Config.setPartyPath(Config.SAVE_PATH+Config.getPartyNumber()+".xml");
 			tag = search("sound", root);
 
 			Config.setMusicVolume(Integer.parseInt(tag.getAttribute("music")));
