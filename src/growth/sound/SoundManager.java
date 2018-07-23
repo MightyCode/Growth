@@ -38,8 +38,8 @@ public class SoundManager {
      */
     public static void setMusicVolume(int newMusicVolume) {
         if(newMusicVolume < 0) musicVolume = 0;
-        if(newMusicVolume > 100) musicVolume = 100;
-        Config.setMusicVolume(musicVolume);
+        else if(newMusicVolume > 100) musicVolume = 100;
+        else musicVolume = newMusicVolume;
     }
 
     /**
@@ -55,6 +55,7 @@ public class SoundManager {
     public static void setNoiseVolume(int newNoiseVolume) {
         if(newNoiseVolume < 0) noiseVolume = 0;
         if(newNoiseVolume > 100) noiseVolume = 100;
+        else noiseVolume = newNoiseVolume;
         Config.setNoiseVolume(noiseVolume);
     }
 }

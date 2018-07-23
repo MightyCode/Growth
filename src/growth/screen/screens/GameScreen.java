@@ -96,7 +96,7 @@ public class GameScreen extends Screen {
         // Load the current party
         if(Config.getPartyNumber().equals("-1")){
             if(!FileMethods.copyFromJar("/config/saveOriginal.xml","data/config/saves/save-1.xml")){
-                System.out.println("Probleme to create the party");
+                System.out.println("Error to create the party");
                 setScreen(GameManager.MENUSCREEN);
             }
             Config.setPartyNumber("1");
@@ -247,9 +247,9 @@ public class GameScreen extends Screen {
      */
     private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
-            GameManager.CAMERA.transition( 0, (float) Math.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));
+            GameManager.CAMERA.transition( 0, Math.map(transitionCounter, 0, transitionTime / 2, 0, 1.5f));
         } else {
-            GameManager.CAMERA.transition(0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+            GameManager.CAMERA.transition(0, Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5f, 0));
         }
     }
 
