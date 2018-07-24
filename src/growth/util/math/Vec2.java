@@ -26,6 +26,10 @@ public class Vec2 {
         this.y = y;
     }
 
+    public Vec2(float y) {
+        x = this.y =y;
+    }
+
     public float getX() {
         return x;
     }

@@ -40,6 +40,7 @@ public class SoundManager {
         if(newMusicVolume < 0) musicVolume = 0;
         else if(newMusicVolume > 100) musicVolume = 100;
         else musicVolume = newMusicVolume;
+        Config.setMusicVolume(musicVolume);
     }
 
     /**

@@ -1,14 +1,12 @@
 package growth.screen.overlay;
 
 import growth.main.Config;
-import growth.main.Growth;
 import growth.main.Window;
 import growth.render.gui.GUIButton;
 import growth.render.gui.GUISlider;
 import growth.render.text.FontRenderer;
 import growth.sound.SoundManager;
 import growth.util.math.Color4;
-import growth.util.math.Math;
 import growth.util.math.Vec2;
 import growth.render.Render;
 import growth.render.gui.GUICheckBox;
@@ -138,7 +136,7 @@ public class OptionOverlay extends Overlay {
         ){
             @Override
             public void action () {
-                SoundManager.setMusicVolume(value);
+                SoundManager.setMusicVolume((int)value);
             }
         };
 
@@ -149,7 +147,7 @@ public class OptionOverlay extends Overlay {
         ){
             @Override
             public void action () {
-                SoundManager.setNoiseVolume(value);
+                SoundManager.setNoiseVolume((int)value);
             }
         };
 
