@@ -52,7 +52,7 @@ public class MenuScreen extends Screen {
         background = new Texture();
         background.load("/textures/menu/bg.png");
 
-        title = new FontRenderer(0, StaticFonts.monofonto, 100,
+        title = new FontRenderer(0, StaticFonts.monofonto, Window.width*0.06f,
                 new Vec2(Window.width / 2f, Window.height / 7f), Color4.BLACK);
 
         Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
@@ -62,7 +62,7 @@ public class MenuScreen extends Screen {
         Color4 hoverTextColor = Color4.BLACK;
 
         goToGame = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.5f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.40f),
                 size,
                 1,
                 StaticFonts.monofonto,
@@ -78,7 +78,7 @@ public class MenuScreen extends Screen {
         };
 
         newGame = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.58f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.48f),
                 size,
                 2,
                 StaticFonts.monofonto,
@@ -94,7 +94,7 @@ public class MenuScreen extends Screen {
         };
 
         chargeGame = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.66f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.56f),
                 size,
                 3,
                 StaticFonts.monofonto,
@@ -105,7 +105,7 @@ public class MenuScreen extends Screen {
         );
 
         options = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.74f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.64f),
                 size,
                 4,
                 StaticFonts.monofonto,
@@ -121,7 +121,7 @@ public class MenuScreen extends Screen {
         };
 
         quit = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.82f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.72f),
                 size,
                 5,
                 StaticFonts.monofonto,

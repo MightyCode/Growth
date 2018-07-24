@@ -40,12 +40,12 @@ public class PauseOverlay extends Overlay{
         // Init variable
 
         // Title
-        pause = new FontRenderer(6, StaticFonts.IBM, 60, new Vec2(), Color4.WHITE);
+        pause = new FontRenderer(6, StaticFonts.IBM, Window.width*0.05f, new Vec2(), Color4.WHITE);
         pause.setPos(new Vec2(Window.width * 0.5f, Window.height * 0.20f));
 
-        Vec2 size = new Vec2(350, 40);
-        Color4 backgroundColor = new Color4(1.0f, 0.0f, 1.0f, 0.5f);
-        Color4 hoverColor = new Color4(1.0f, 0.0f, 1.0f, 1.0f);
+        Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
+        Color4 backgroundColor = new Color4(0.40f, 0.65f, 0.65f, 0.5f);
+        Color4 hoverColor = new Color4(0.40f, 0.65f, 0.65f, 0.95f);
         Color4 textColor = new Color4(0.8f, 0.8f, 0.8f, 1.0f);
         Color4 hoverTextColor = Color4.WHITE;
 
