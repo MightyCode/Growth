@@ -1,5 +1,6 @@
 package growth.screen.screens;
 
+import growth.main.Growth;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
 import growth.render.Render;
@@ -24,7 +25,7 @@ public class MenuScreen extends Screen {
     /**
      * The font renderer for the menu title.
      */
-    private FontRenderer title;
+    private FontRenderer title, admin;
 
     /**
      * GUIButtons used on the menu.
@@ -53,7 +54,13 @@ public class MenuScreen extends Screen {
         background.load("/textures/menu/bg.png");
 
         title = new FontRenderer(0, StaticFonts.monofonto, Window.width*0.06f,
-                new Vec2(Window.width / 2f, Window.height / 7f), Color4.BLACK);
+                new Vec2(Window.width * 0.5f, Window.height * 0.13f), Color4.BLACK);
+
+        if(Growth.admin) admin = new FontRenderer("Mode admin", StaticFonts.monofonto, Window.width*0.02f,
+                new Vec2(Window.width * 0.5f, Window.height * 0.90f), new Color4(0.2f,0.2f,0.2f,0.9f));
+
+        else admin = new FontRenderer("", StaticFonts.monofonto, 0,
+                new Vec2(0, 0), new Color4(0,0,0,0));
 
         Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -176,6 +183,7 @@ public class MenuScreen extends Screen {
                 TextureRenderer.imageC(0, 0, Window.width, Window.height);
 
                 title.render();
+                admin.render();
 
                 goToGame.display();
                 newGame.display();
