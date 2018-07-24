@@ -70,7 +70,7 @@ public class Config {
      * Public static final string about the path for different thing.
      */
     public static final String CONFIG_PATH = "data/config/config.xml";
-    public static final String SAVE_PATH = "data/config/saves/save-";
+    public static final String SAVE_PATH = "data/saves/save-";
     public static final String MAP_PATH = "/map/";
     public static final String MAP_OPTION_PATH = "/map/mapOptions.xml";
     public static final String TILESET_PATH = "/map/tileset.xml";
@@ -79,22 +79,45 @@ public class Config {
      * Class constructor.
      */
     public Config(){
-        // Test if the file data exist
-        System.out.println(projectPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+        // Information
+        projectPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 
-        File dossier = new File("data/");
-        // If the directory exists
-        if (!dossier.exists() && !dossier.isDirectory()){
+        // If the directory don't exists
+        File test = new File("data/");
+        if (!test.exists() && !test.isDirectory()){
             System.out.println("Create file Data");
-            File data = new File("data\\config\\saves");
+            File config = new File("data\\config");
+            File data = new File("data\\saves");
+            config.mkdirs();
             data.mkdirs();
 
             if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
-                data.delete();
-                System.out.println("Data corrupted");
+                System.out.println("Error on creation of Data");
                 Window.exit();
             }
         }
+
+        test = new File("data/config");
+        if (!test.exists() && !test.isDirectory()){
+            System.out.println("Create file Config");
+            File config = new File("data\\config");
+            config.mkdirs();
+            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+                System.out.println("Error on creation of config");
+                Window.exit();
+            }
+        }
+
+
+        test = new File(Config.CONFIG_PATH);
+        if (!test.exists() && !test.isDirectory()){
+            System.out.println("Create file Config.xml");
+            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+                System.out.println("Error on creation of Config.xml");
+                Window.exit();
+            }
+        }
+
         // Load configurationss
         XmlReader.loadConfig();
     }

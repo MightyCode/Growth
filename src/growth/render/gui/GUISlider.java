@@ -111,14 +111,14 @@ public class GUISlider extends GUIComponent{
         //TextureRenderer.imageC(pos,size,1f);
         if (!mouseOver) {
             slider.bind();
-            TextureRenderer.image(pos,size);
+            TextureRenderer.imageC(pos,size);
             sliderButton.bind();
         } else {
             sliderHover.bind();
-            TextureRenderer.image(pos,size);
+            TextureRenderer.imageC(pos,size);
             sliderButtonHover.bind();
         }
-        TextureRenderer.image(cursorPos, cursorSize);
+        TextureRenderer.imageC(cursorPos, cursorSize);
         fontRenderer.render();
     }
 

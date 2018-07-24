@@ -15,6 +15,8 @@ import growth.util.FileMethods;
 import growth.util.XmlReader;
 import growth.util.math.Math;
 
+import java.io.File;
+
 /**
  * Game class.
  * This class is the game screen.
@@ -93,9 +95,17 @@ public class GameScreen extends Screen {
     public GameScreen(GameManager gameManager) {
         super(gameManager);
 
+        File test = new File("data/saves");
+        if(!test.exists() && !test.isDirectory()){
+            System.out.println("Create file save");
+            File save = new File("data\\saves");
+            save.mkdirs();
+        }
+
         // Load the current party
-        if(Config.getPartyNumber().equals("-1")){
-            if(!FileMethods.copyFromJar("/config/saveOriginal.xml","data/config/saves/save-1.xml")){
+        test = new File(Config.SAVE_PATH);
+        if(Config.getPartyNumber().equals("-1") || (!test.exists() && !test.isDirectory())){
+            if(!FileMethods.copyFromJar("/config/saveOriginal.xml","data/saves/save-1.xml")){
                 System.out.println("Error to create the party");
                 setScreen(GameManager.MENUSCREEN);
             }
