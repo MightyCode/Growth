@@ -1,5 +1,6 @@
 package growth.screen.screens;
 
+import growth.main.Growth;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
 import growth.render.Render;
@@ -24,7 +25,7 @@ public class MenuScreen extends Screen {
     /**
      * The font renderer for the menu title.
      */
-    private FontRenderer title;
+    private FontRenderer title, admin;
 
     /**
      * GUIButtons used on the menu.
@@ -52,8 +53,14 @@ public class MenuScreen extends Screen {
         background = new Texture();
         background.load("/textures/menu/bg.png");
 
-        title = new FontRenderer(0, StaticFonts.IBM, 100,
-                new Vec2(Window.width / 2f, Window.height / 7f), Color4.BLACK);
+        title = new FontRenderer(0, StaticFonts.monofonto, Window.width*0.06f,
+                new Vec2(Window.width * 0.5f, Window.height * 0.13f), Color4.BLACK);
+
+        if(Growth.admin) admin = new FontRenderer("Mode admin", StaticFonts.monofonto, Window.width*0.02f,
+                new Vec2(Window.width * 0.5f, Window.height * 0.90f), new Color4(0.2f,0.2f,0.2f,0.9f));
+
+        else admin = new FontRenderer("", StaticFonts.monofonto, 0,
+                new Vec2(0, 0), new Color4(0,0,0,0));
 
         Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
         Color4 backgroundColor = new Color4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -62,7 +69,7 @@ public class MenuScreen extends Screen {
         Color4 hoverTextColor = Color4.BLACK;
 
         goToGame = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.5f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.40f),
                 size,
                 1,
                 StaticFonts.monofonto,
@@ -78,7 +85,7 @@ public class MenuScreen extends Screen {
         };
 
         newGame = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.58f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.48f),
                 size,
                 2,
                 StaticFonts.monofonto,
@@ -94,7 +101,7 @@ public class MenuScreen extends Screen {
         };
 
         chargeGame = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.66f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.56f),
                 size,
                 3,
                 StaticFonts.monofonto,
@@ -105,7 +112,7 @@ public class MenuScreen extends Screen {
         );
 
         options = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.74f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.64f),
                 size,
                 4,
                 StaticFonts.monofonto,
@@ -121,7 +128,7 @@ public class MenuScreen extends Screen {
         };
 
         quit = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.82f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.72f),
                 size,
                 5,
                 StaticFonts.monofonto,
@@ -176,6 +183,7 @@ public class MenuScreen extends Screen {
                 TextureRenderer.imageC(0, 0, Window.width, Window.height);
 
                 title.render();
+                admin.render();
 
                 goToGame.display();
                 newGame.display();

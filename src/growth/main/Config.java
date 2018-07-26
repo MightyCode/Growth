@@ -1,6 +1,12 @@
 package growth.main;
 
+import growth.util.FileMethods;
 import growth.util.XmlReader;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * This class save the config of the game.
@@ -9,6 +15,11 @@ import growth.util.XmlReader;
  * @version 1.0
  */
 public class Config {
+
+    /**
+     * Project path
+     */
+    private static String projectPath;
 
     /**
      * Fullscreen state.
@@ -58,15 +69,56 @@ public class Config {
     /**
      * Public static final string about the path for different thing.
      */
-    public static final String CONFIG_PATH = "/config/config.xml";
-    public static final String SAVE_PATH = "/config/saves/save-";
+    public static final String CONFIG_PATH = "data/config/config.xml";
+    public static final String SAVE_PATH = "data/saves/save-";
     public static final String MAP_PATH = "/map/";
     public static final String MAP_OPTION_PATH = "/map/mapOptions.xml";
+    public static final String TILESET_PATH = "/map/tileset.xml";
 
     /**
      * Class constructor.
      */
     public Config(){
+        // Information
+        projectPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+
+        // If the directory don't exists
+        File test = new File("data/");
+        if (!test.exists() && !test.isDirectory()){
+            System.out.println("Create file Data");
+            File config = new File("data\\config");
+            File data = new File("data\\saves");
+            config.mkdirs();
+            data.mkdirs();
+
+            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+                System.out.println("Error on creation of Data");
+                Window.exit();
+            }
+        }
+
+        test = new File("data/config");
+        if (!test.exists() && !test.isDirectory()){
+            System.out.println("Create file Config");
+            File config = new File("data\\config");
+            config.mkdirs();
+            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+                System.out.println("Error on creation of config");
+                Window.exit();
+            }
+        }
+
+
+        test = new File(Config.CONFIG_PATH);
+        if (!test.exists() && !test.isDirectory()){
+            System.out.println("Create file Config.xml");
+            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+                System.out.println("Error on creation of Config.xml");
+                Window.exit();
+            }
+        }
+
+        // Load configurationss
         XmlReader.loadConfig();
     }
 
@@ -141,7 +193,10 @@ public class Config {
      * Set the new party number.
      * @param partyNumber The new party number.
      */
-    public static void setPartyNumber(String partyNumber) { Config.partyNumber = partyNumber; }
+    public static void setPartyNumber(String partyNumber) {
+        Config.partyNumber = partyNumber;
+        partyPath = SAVE_PATH + partyNumber + ".xml";
+    }
 
     /**
      * Get party path.

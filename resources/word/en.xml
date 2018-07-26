@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <word>
-    <info number="19" language="en"/>
+    <info number="21" language="en"/>
     <!--
     0 - 5 : menu
     6 - 9 : Pause/Escape overlay
@@ -18,7 +18,7 @@
             s7="Continue to play"
             s8="Options"
             s9="Quit to the menu"
-            s10="Game over !!"
+            s10="Game over"
             s11="Retry"
             s12="Quit to the menu"
             s13="General"
@@ -27,5 +27,7 @@
             s16="Fullscreen"
             s17="In english"
             s18="Restart the game to properly implement the changes."
+            s19="Music : "
+            s20="Noise : "
     />
 </word>

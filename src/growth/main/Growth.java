@@ -4,7 +4,7 @@ package growth.main;
  * Main class of the game.
  *
  * @author MightyCode
- * @version of the current game developed: 0.3.3
+ * @version of the current game developed: 0.3.4
  */
 public class Growth {
 

@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallbackI;
 import org.lwjgl.system.MemoryStack;
 
+import java.awt.*;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
@@ -85,6 +86,8 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Do nothing for the moment
      */
     public Window(){
+        // Get the game global configurations.
+        config = new Config();
         createWindow();
         glfwSetWindowFocusCallback(windowID,this);
     }
@@ -93,9 +96,6 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Create the window and get the window ID.
      */
     private static void createWindow(){
-        // Get the game global configurations.
-        config = new Config();
-
         width = Config.getWindowWidth();
         height = Config.getWindowHeight();
 
@@ -113,22 +113,28 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Create a new window.
      */
     public static void createNewWindow(){
-        // Create the window if fullscreen
-        if(Config.getFullscreen()){
-            width = 1920; height = 1080;
-            windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
-        }
-        else{
-            windowID = glfwCreateWindow(width, height, "Growth", NULL, NULL);
-        }
 
-        System.out.println("\nWindow with id : "+ windowID +" created");
         // Configure GLFW
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-        if (windowID+1 == NULL)
+        // Create the window if fullscreen
+        if(Config.getFullscreen()){
+            width = 1920; height = 1080;
+            System.out.println(width + "" + height);
+            windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
+
+        }
+        else{
+            windowID = glfwCreateWindow(width, height, "Growth", NULL, NULL);
+            System.out.println(width + "" + height);
+        }
+
+        System.out.println("\nWindow with id : "+ windowID +" created");
+
+
+        if (windowID == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
 
 

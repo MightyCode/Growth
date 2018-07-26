@@ -1,10 +1,11 @@
 package growth.screen.overlay;
 
 import growth.main.Config;
-import growth.main.Growth;
 import growth.main.Window;
 import growth.render.gui.GUIButton;
+import growth.render.gui.GUISlider;
 import growth.render.text.FontRenderer;
+import growth.sound.SoundManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
 import growth.render.Render;
@@ -41,16 +42,20 @@ public class OptionOverlay extends Overlay {
     public GUIButton general, video, inputs;
 
     /**
-     * Button for general
+     * Inputs for general
      */
-    private GUICheckBox fullscreen, language;
+    private GUICheckBox language;
+    private GUISlider musicVolume;
+    private GUISlider noiseVolume;
 
     /**
-     * Button for video
+     * Inputs for video
      */
 
+    private GUICheckBox fullscreen;
+
     /**
-     * Button for control
+     * Inputs for control
      */
 
     /**
@@ -124,6 +129,28 @@ public class OptionOverlay extends Overlay {
         };
         language.setState(Config.getLanguage().equals("en"));
 
+        musicVolume = new GUISlider(
+                new Vec2(Window.width*0.20f, Window.height*0.41f) ,
+                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                19, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Config.getMusicVolume()
+        ){
+            @Override
+            public void action () {
+                SoundManager.setMusicVolume((int)value);
+            }
+        };
+
+        noiseVolume = new GUISlider(
+                new Vec2(Window.width*0.20f, Window.height*0.55f) ,
+                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                20, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Config.getNoiseVolume()
+        ){
+            @Override
+            public void action () {
+                SoundManager.setNoiseVolume((int)value);
+            }
+        };
+
         fullscreen = new GUICheckBox(
                 new Vec2(Window.width*0.5f, Window.height*0.41f),
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
@@ -160,6 +187,8 @@ public class OptionOverlay extends Overlay {
         switch (overlayState){
             case 0:
                 language.update();
+                musicVolume.update();
+                noiseVolume.update();
                 break;
             case 1:
                 fullscreen.update();
@@ -187,6 +216,8 @@ public class OptionOverlay extends Overlay {
         switch (overlayState){
             case 0:
                 language.display();
+                musicVolume.display();
+                noiseVolume.display();
                 break;
             case 1:
                 fullscreen.display();
@@ -220,6 +251,8 @@ public class OptionOverlay extends Overlay {
 
         // Language
         language.unload();
+        musicVolume.unload();
+        noiseVolume.unload();
 
         // Video
         fullscreen.unload();

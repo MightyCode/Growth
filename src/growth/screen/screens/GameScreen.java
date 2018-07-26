@@ -11,8 +11,11 @@ import growth.screen.overlay.OptionOverlay;
 import growth.screen.overlay.PauseOverlay;
 import growth.game.tilemap.TileMap;
 import growth.game.entity.type.Player;
+import growth.util.FileMethods;
 import growth.util.XmlReader;
 import growth.util.math.Math;
+
+import java.io.File;
 
 /**
  * Game class.
@@ -92,6 +95,23 @@ public class GameScreen extends Screen {
     public GameScreen(GameManager gameManager) {
         super(gameManager);
 
+        File test = new File("data/saves");
+        if(!test.exists() && !test.isDirectory()){
+            System.out.println("Create file save");
+            File save = new File("data\\saves");
+            save.mkdirs();
+        }
+
+        // Load the current party
+        test = new File(Config.SAVE_PATH);
+        if(Config.getPartyNumber().equals("-1") || (!test.exists() && !test.isDirectory())){
+            if(!FileMethods.copyFromJar("/config/saveOriginal.xml","data/saves/save-1.xml")){
+                System.out.println("Error to create the party");
+                setScreen(GameManager.MENUSCREEN);
+            }
+            Config.setPartyNumber("1");
+        }
+
         tileSize = Window.width/20;
 
         hud = new Hud();
@@ -112,7 +132,7 @@ public class GameScreen extends Screen {
         };
 
         // Init tileMap
-        tileMap = new TileMap( "/map/tileset.xml");
+        tileMap = new TileMap( Config.TILESET_PATH);
         GameManager.CAMERA.setTween(0.3f, 1f);
 
         entityManager.addEntity(new Player(this, tileMap, tileSize, tileSize));
@@ -237,9 +257,9 @@ public class GameScreen extends Screen {
      */
     private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
-            GameManager.CAMERA.transition( 0, (float) Math.map(transitionCounter, 0, transitionTime / 2, 0, 1.5));
+            GameManager.CAMERA.transition( 0, Math.map(transitionCounter, 0, transitionTime / 2, 0, 1.5f));
         } else {
-            GameManager.CAMERA.transition(0, (float) Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5, 0));
+            GameManager.CAMERA.transition(0, Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5f, 0));
         }
     }
 

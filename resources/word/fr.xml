@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <word>
-    <info number="19" language="fr"/>
+    <info number="21" language="fr"/>
     <!--
     0 - 5 : menu
     6 - 9 : Pause/Escape overlay
@@ -27,5 +27,7 @@
             s16="Plein écran"
             s17="En englais"
             s18="Veuillez redémarrer le jeu pour bien appliquer les changements."
+            s19="Music : "
+            s20="Bruit : "
     />
 </word>

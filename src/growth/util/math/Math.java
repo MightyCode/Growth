@@ -20,7 +20,7 @@ public class Math {
 	 *
 	 * @return result
 	*/
-	public static double map(double x, double a, double b, double c, double d) {
+	public static float map(float x, float a, float b, float c, float d) {
 		return (x - a) / (b - a) * (d - c) + c;
 	}
 }

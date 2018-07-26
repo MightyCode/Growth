@@ -114,7 +114,7 @@ public class Hud {
         heartSize = new Vec2(Window.height * 0.06f,Window.height * 0.06f);
         heartSizeT = new Vec2();
 
-        acornSize = new Vec2(Window.height * 0.07f,Window.height * 0.07f);
+        acornSize = new Vec2(Window.height * 0.10f,Window.height * 0.10f);
         acornPos = new Vec2(Window.width * 0.05f,Window.height * 0.85f);
 
         spaceBetweenTwoHeart = heartSize.getX()*1.4f;
@@ -128,7 +128,7 @@ public class Hud {
         t_heart = new Texture("/textures/game/hud/Heart.png");
         t_halfHeart = new Texture("/textures/game/hud/Heart-half.png");
         t_deadHeart = new Texture("/textures/game/hud/Heart-dead.png");
-        acorn = new Texture("/textures/game/hud/Acorn-exemple-f.png");
+        acorn = new Texture("/textures/game/hud/Acorn-f.png");
     }
 
     /**
@@ -154,7 +154,7 @@ public class Hud {
             TextureRenderer.imageC(heartPosDisplayed[i], heartSizeDisplayed[i]);
         }
         acorn.bind();
-        TextureRenderer.imageC(acornPos, acornSize);
+        TextureRenderer.imageC(acornPos, acornSize,0.9f);
     }
 
     /**
