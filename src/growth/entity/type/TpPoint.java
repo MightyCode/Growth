@@ -2,7 +2,9 @@ package growth.entity.type;
 
 import growth.entity.Eobject.Eobject;
 import growth.screen.GameManager;
+import growth.screen.render.shape.ShapeRenderer;
 import growth.screen.screens.GameScreen;
+import growth.util.math.Color4;
 import growth.util.math.Vec2;
 
 public class TpPoint extends Eobject {
@@ -36,5 +38,9 @@ public class TpPoint extends Eobject {
                 }
             }
         }
+    }
+
+    public void display(){
+        ShapeRenderer.rect(pos,size,new Color4(0,0,0,0.5f));
     }
 }

@@ -208,9 +208,9 @@ public class TileMap {
 	 * @return isMap or not
 	 */
 	public boolean changeMap(int point, float posX, float posY){
-		int[] result = isMap( Math.abs(point-2), posX, posY);
+		int[] result = isMap(Math.abs(point-2), posX, posY);
 		if(result[0] == 1){
-			changeMap(result[1], Math.abs(point-2));
+			changeMap(result[1], result[2]);
 			return true;
 		}
 		return false;
@@ -226,7 +226,7 @@ public class TileMap {
 		newMapId = mapID;
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
 		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
-		System.out.println(givePosX + " " + givePosY + " " + point);
+		System.out.println("tp " + point);
 	}
 
 	/**
@@ -247,11 +247,11 @@ public class TileMap {
 		for (float[] aNeighbour : neighbour) {
 			if (side == 0 || side == 2) {
 				if (aNeighbour[2] < posY && posY < aNeighbour[3]) {
-					return new int[]{1, (int) aNeighbour[0] - 1};
+					return new int[]{1, (int) aNeighbour[0] - 1, (int)aNeighbour[1]};
 				}
 			} else if (side == 1 || side == 3) {
 				if (aNeighbour[2] < posX && posX < aNeighbour[3]) {
-					return new int[]{1, (int) aNeighbour[0] - 1};
+					return new int[]{1, (int) aNeighbour[0] - 1, (int)aNeighbour[1]};
 				}
 			}
 		}

@@ -4,7 +4,7 @@
     </ins>
 
     <outs>
-        <out side="3" to="1" mapId="1" beg="0" end="20"/>
+        <out side="3" to="6" mapId="1" beg="0" end="20"/>
     </outs>
 
     <layers>

@@ -3,11 +3,11 @@
 		<in name="3" x="29.5" y="6"/>
 		<in name="1" x="0.5" y="5"/>
 		<in name="5" x="15" y="6"/>
+        <in name="6" x="10" y="6"/>
 	</ins>
 
 	<outs>
 		<out side="3" to="1" mapId="2" beg="0" end="12"/>
-		<out side="1" to="3" mapId="5" beg="0" end="12"/>
 	</outs>
 
 	<layers>
@@ -57,6 +57,6 @@
 	</layers>
 
 	<objects>
-		<object type="TpPoint" numbAttributes="6" a0="9" a1="5" a2="2" a3="2" a4="5" a5="3"/>
+		<object type="TpPoint" numbAttributes="6" a0="9" a1="4" a2="2" a3="2" a4="5" a5="3"/>
 	</objects>
 </map>
