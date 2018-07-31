@@ -30,7 +30,6 @@ public class TpPoint extends Eobject {
     public void update() {
         float posX = GameScreen.entityManager.getPos().getX();
         float posY = GameScreen.entityManager.getPos().getY();
-
         if(GameManager.inputsManager.inputPressed(7)){
             if(posX > pos.getX() && posX < pos.getX()+size.getX()){
                 if(posY > pos.getY() && posY < pos.getY() + size.getY()){

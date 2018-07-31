@@ -194,17 +194,11 @@ public class GameScreen extends Screen {
         if(GameManager.inputsManager.inputPressed(0)) {
             screenState = STATE_PAUSE;
         }
+
         // Update player
         entityManager.update();
         GameManager.CAMERA.setPosition(true);
         hud.update();
-
-       /* try {
-            hud.getClass().getMethod("update").setAccessible();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }*/
-
 
         entityManager.dispose();
     }

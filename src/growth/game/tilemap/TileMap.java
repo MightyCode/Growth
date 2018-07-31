@@ -226,7 +226,6 @@ public class TileMap {
 		newMapId = mapID;
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
 		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
-		System.out.println("tp " + point);
 	}
 
 	/**
