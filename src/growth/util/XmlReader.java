@@ -121,7 +121,7 @@ public abstract class XmlReader {
 
 			NodeList object = root.getElementsByTagName("object");
 			String[][] ent = new String[object.getLength()][];
-			for(int i = 0 ; i < object.getLength();i++){
+			for(int i = 0 ; i < object.getLength(); i++){
 				subRoot = (Element) object.item(i);
 				int numberAttributes = Integer.parseInt(subRoot.getAttribute("numbAttributes"));
 				ent[i] = new String[numberAttributes+1];
@@ -130,7 +130,7 @@ public abstract class XmlReader {
 					ent[i][a] = subRoot.getAttribute("a"+(a-1));
 				}
 			}
-
+			System.out.println(ent.length);
 			map.setEntities(ent);
 			return map;
 		} catch (Exception e) {

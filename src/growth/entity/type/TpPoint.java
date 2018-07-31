@@ -34,7 +34,7 @@ public class TpPoint extends Eobject {
         if(GameManager.inputsManager.inputPressed(7)){
             if(posX > pos.getX() && posX < pos.getX()+size.getX()){
                 if(posY > pos.getY() && posY < pos.getY() + size.getY()){
-                    GameScreen.tileMap.changeMap(map,point);
+                    GameScreen.tileMap.changeMap(map, point);
                 }
             }
         }

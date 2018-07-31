@@ -1,6 +1,7 @@
 package growth.inputs;
 
 import growth.screen.GameManager;
+import growth.screen.screens.GameScreen;
 
 /**
  * This class is the input manager.
@@ -83,5 +84,13 @@ public class InputManager {
     public void setInput(int number, int newType, int newValue){
         type[number] = newType;
         inputs[number] = newValue;
+    }
+
+    public void dispose(){
+        for(int i = 0; i < inputs.length ; i++) {
+            if (type[i] == 0) {
+                GameManager.keyboardManager.dispose(inputs[i]);
+            }
+        }
     }
 }

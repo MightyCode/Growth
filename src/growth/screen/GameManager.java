@@ -84,6 +84,7 @@ public class GameManager {
      */
     public void update() {
         currentScreen.update();
+        inputsManager.dispose();
     }
 
     /**

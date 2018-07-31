@@ -60,8 +60,6 @@ public class KeyboardManager {
      * @return boolean
      */
     public boolean keyPressed(int keyID){
-        tempState[keyID] = state[keyID];
-        state[keyID] = glfwGetKey(Window.windowID, keyID) == 1;
         return (state[keyID] && !tempState[keyID]);
     }
 
@@ -72,9 +70,11 @@ public class KeyboardManager {
      * @return boolean
      */
     public boolean keyReleased(int keyID){
+        return (!state[keyID] && tempState[keyID]);
+    }
+
+    public void dispose(int keyID){
         tempState[keyID] = state[keyID];
         state[keyID] = glfwGetKey(Window.windowID, keyID) == 1;
-
-        return (!state[keyID] && tempState[keyID]);
     }
 }
