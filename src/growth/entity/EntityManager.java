@@ -2,6 +2,7 @@ package growth.entity;
 
 import growth.entity.Eobject.Emoveable;
 import growth.entity.Eobject.Eobject;
+import growth.entity.type.Player;
 import growth.screen.GameManager;
 import growth.util.math.Vec2;
 
@@ -22,6 +23,8 @@ public class EntityManager {
      */
     private ArrayList<Eobject> objects;
 
+    private Player player;
+
     private ArrayList<Eobject> toRemove;
 
     /**
@@ -40,6 +43,7 @@ public class EntityManager {
         for(Eobject object : objects){
             object.update();
         }
+        player.update();
     }
 
     public void dispose(){
@@ -57,6 +61,7 @@ public class EntityManager {
         for (Eobject object : objects) {
             object.display();
         }
+        player.display();
     }
 
     /**
@@ -95,6 +100,17 @@ public class EntityManager {
         objects.get(id).setPos(new Vec2(x,y));
     }
 
+    public void setPosition(float x, float y){
+        player.setPos(new Vec2(x,y));
+    }
+    public void setPosition(Vec2 newPos){
+        player.setPos(newPos);
+    }
+
+    public void setPlayer(Player player){
+        this.player = player;
+    }
+
     /**
      * Focus the camera to a new entity.
      * @param id The id of the entity.
@@ -128,5 +144,13 @@ public class EntityManager {
      */
     public Vec2 getPos(int id){
         return (objects.get(id)).getPos();
+    }
+
+    public void setSpeed(int i, int i1) {
+        player.setSpeed(new Vec2(i,i1));
+    }
+
+    public Vec2 getPos() {
+        return player.getPos();
     }
 }

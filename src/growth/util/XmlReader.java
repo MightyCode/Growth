@@ -118,6 +118,20 @@ public abstract class XmlReader {
 
 				map.setLayer(Integer.parseInt(subRoot.getAttribute("position"))-1,mapId);
 			}
+
+			NodeList object = root.getElementsByTagName("object");
+			String[][] ent = new String[object.getLength()][];
+			for(int i = 0 ; i < object.getLength();i++){
+				subRoot = (Element) object.item(i);
+				int numberAttributes = Integer.parseInt(subRoot.getAttribute("numbAttributes"));
+				ent[i] = new String[numberAttributes+1];
+				ent[i][0] = subRoot.getAttribute("type");
+				for(int a = 1; a < numberAttributes+1; a++){
+					ent[i][a] = subRoot.getAttribute("a"+(a-1));
+				}
+			}
+
+			map.setEntities(ent);
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();

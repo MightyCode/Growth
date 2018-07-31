@@ -1,5 +1,9 @@
 package growth.game.tilemap;
 
+import growth.entity.Eobject.Eobject;
+import growth.main.Config;
+import growth.screen.screens.GameScreen;
+
 /**
  * Map class.
  * This class is use to store a map with the layers and entities.
@@ -44,6 +48,8 @@ public class Map {
 	 * This variable contains the height of the map.
 	 */
 	private int height;
+
+	private String[][] entities;
 
 	/**
 	 * Map class constructor.
@@ -106,6 +112,22 @@ public class Map {
 		exit[side][exit[side].length-1][1] = pointName;
 		exit[side][exit[side].length-1][2] = beg;
 		exit[side][exit[side].length-1][3] = end;
+	}
+
+	public void setEntities(String[][] entities){
+		this.entities = entities;
+	}
+
+	public void loadEntity(){
+		for (String[] entity : entities) {
+			try {
+				GameScreen.entityManager.addEntity(
+						(Eobject) Class.forName(Config.ENTITY_PATH + entity[0]).getConstructor(String[].class).newInstance((Object) entity));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	/*

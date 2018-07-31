@@ -1,5 +1,6 @@
 package growth.game.tilemap;
 
+import growth.entity.EntityManager;
 import growth.entity.type.Player;
 import growth.main.Config;
 import growth.main.Window;
@@ -225,6 +226,7 @@ public class TileMap {
 		newMapId = mapID;
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
 		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
+		System.out.println(givePosX + " " + givePosY + " " + point);
 	}
 
 	/**
@@ -260,7 +262,7 @@ public class TileMap {
 	 * Set the new map and give the position to the player.
 	 */
 	public void doTransition(){
-		player.setPos(new Vec2(givePosX, givePosY));
+		GameScreen.entityManager.setPosition(new Vec2(givePosX, givePosY));
 		currentMap = newMapId;
 		chargeMap();
 		numCols = map[0].length;
@@ -281,6 +283,8 @@ public class TileMap {
 	 */
 	private void chargeMap(){
 		map = maps.get(currentMap).getMap(currentLayer);
+		GameScreen.entityManager.removeAll();
+		maps.get(currentMap).loadEntity();
 	}
 
 	/**

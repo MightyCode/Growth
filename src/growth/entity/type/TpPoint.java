@@ -18,14 +18,19 @@ public class TpPoint extends Eobject {
         this.point = point;
     }
 
+    public TpPoint(String[] att){
+        this.pos = new Vec2(Float.parseFloat(att[1]),Float.parseFloat(att[2])).multiply(GameScreen.tileSize,true);
+        this.size = new Vec2(Float.parseFloat(att[3]),Float.parseFloat(att[4])).multiply(GameScreen.tileSize,true);
+        this.map = Integer.parseInt(att[5])-1;
+        this.point = Integer.parseInt(att[6])-1;
+    }
+
     public void update() {
-        float posX = GameScreen.entityManager.getEntity(0).getPos().getX();
-        float posY = GameScreen.entityManager.getEntity(0).getPos().getY();
+        float posX = GameScreen.entityManager.getPos().getX();
+        float posY = GameScreen.entityManager.getPos().getY();
 
         if(GameManager.inputsManager.inputPressed(7)){
-            System.out.println("touch pressed");
             if(posX > pos.getX() && posX < pos.getX()+size.getX()){
-                System.out.println("pos x good");
                 if(posY > pos.getY() && posY < pos.getY() + size.getY()){
                     GameScreen.tileMap.changeMap(map,point);
                 }

@@ -53,7 +53,7 @@ public class OptionOverlay extends Overlay {
      */
 
     private GUICheckBox fullscreen;
-    
+
     /**
      * Option overlay class constructor.
      * Instance the class and set overlay's variables.

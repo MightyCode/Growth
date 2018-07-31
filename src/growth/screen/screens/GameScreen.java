@@ -1,9 +1,12 @@
 package growth.screen.screens;
 
+import growth.entity.Eobject.Emoveable;
+import growth.entity.Eobject.Eobject;
 import growth.game.Hud;
 import growth.entity.EntityManager;
 import growth.main.Config;
 import growth.main.Window;
+import growth.screen.render.Camera;
 import growth.screen.render.Render;
 import growth.screen.GameManager;
 import growth.screen.overlay.DeathOverlay;
@@ -15,8 +18,11 @@ import growth.util.FileMethods;
 import growth.util.XmlReader;
 import growth.util.math.Math;
 import growth.util.math.Vec2;
+import org.lwjgl.system.CallbackI;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 
 /**
  * Game class.
@@ -136,15 +142,18 @@ public class GameScreen extends Screen {
         tileMap = new TileMap( Config.TILESET_PATH);
         GameManager.CAMERA.setTween(0.3f, 1f);
 
-        entityManager.addEntity(new Player(this, tileMap, new Vec2(tileSize)));
-        tileMap.setEntity((Player)entityManager.getEntity(0));
+        Player player = new Player(this, tileMap, new Vec2(tileSize));
+
+        entityManager.setPlayer(player);
+
+        tileMap.setEntity(player);
 
         // Player begin in the ground on Panel 1
         tileMap.changeMap(Integer.parseInt(XmlReader.getValue(Config.getPartyPath(),"map","location")),
                 Integer.parseInt(XmlReader.getValue(Config.getPartyPath(),"point","location")));
 
         // Add player for the camera
-        entityManager.setCamera(0);
+        GameManager.CAMERA.setEntityToCamera(player);
 
         // Set the position of map before beginning of the game
         GameManager.CAMERA.setPosition(false);
@@ -190,6 +199,13 @@ public class GameScreen extends Screen {
         GameManager.CAMERA.setPosition(true);
         hud.update();
 
+       /* try {
+            hud.getClass().getMethod("update").setAccessible();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }*/
+
+
         entityManager.dispose();
     }
 
@@ -199,7 +215,7 @@ public class GameScreen extends Screen {
     private void updateTransition() {
         if (transitionCounter == transitionTime / 2) {
             tileMap.doTransition();
-            entityManager.setSpeed(0,0,0);
+            entityManager.setSpeed(0,0);
         } else if (transitionCounter > transitionTime) {
             screenState = STATE_NORMAL;
             transitionCounter = 0;
@@ -275,6 +291,7 @@ public class GameScreen extends Screen {
         tileMap.unload();
         option.unload();
         entityManager.removeAll();
+        entityManager.setPlayer(null);
     }
 
     /**

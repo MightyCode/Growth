@@ -74,6 +74,7 @@ public class Config {
     public static final String MAP_PATH = "/map/";
     public static final String MAP_OPTION_PATH = "/map/mapOptions.xml";
     public static final String TILESET_PATH = "/map/tileset.xml";
+    public static final String ENTITY_PATH = "growth.entity.type.";
 
     /**
      * Class constructor.
