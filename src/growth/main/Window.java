@@ -1,6 +1,6 @@
 package growth.main;
 
-import growth.render.Render;
+import growth.screen.render.Render;
 import growth.screen.GameManager;
 import growth.util.Timer;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -8,7 +8,6 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallbackI;
 import org.lwjgl.system.MemoryStack;
 
-import java.awt.*;
 import java.nio.IntBuffer;
 import java.util.Objects;
 

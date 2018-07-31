@@ -2,6 +2,7 @@ package growth.inputs;
 
 import growth.main.Window;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_J;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 /**
@@ -61,7 +62,6 @@ public class KeyboardManager {
     public boolean keyPressed(int keyID){
         tempState[keyID] = state[keyID];
         state[keyID] = glfwGetKey(Window.windowID, keyID) == 1;
-
         return (state[keyID] && !tempState[keyID]);
     }
 

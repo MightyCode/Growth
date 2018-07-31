@@ -1,10 +1,10 @@
 package growth.game.tilemap;
 
-import growth.game.entity.type.Player;
+import growth.entity.type.Player;
 import growth.main.Config;
 import growth.main.Window;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
+import growth.screen.render.texture.Texture;
+import growth.screen.render.texture.TextureRenderer;
 import growth.screen.GameManager;
 import growth.screen.screens.GameScreen;
 import growth.util.XmlReader;
@@ -224,7 +224,7 @@ public class TileMap {
 		GameScreen.setState(GameScreen.STATE_TRANSITION);
 		newMapId = mapID;
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
-		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSizeY()/2;
+		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
 	}
 
 	/**
@@ -260,7 +260,7 @@ public class TileMap {
 	 * Set the new map and give the position to the player.
 	 */
 	public void doTransition(){
-		player.setPosition(givePosX, givePosY);
+		player.setPos(new Vec2(givePosX, givePosY));
 		currentMap = newMapId;
 		chargeMap();
 		numCols = map[0].length;

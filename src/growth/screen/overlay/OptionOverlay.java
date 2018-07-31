@@ -2,17 +2,17 @@ package growth.screen.overlay;
 
 import growth.main.Config;
 import growth.main.Window;
-import growth.render.gui.GUIButton;
-import growth.render.gui.GUISlider;
-import growth.render.text.FontRenderer;
+import growth.entity.gui.GUIButton;
+import growth.entity.gui.GUISlider;
+import growth.screen.render.text.FontRenderer;
 import growth.sound.SoundManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
-import growth.render.Render;
-import growth.render.gui.GUICheckBox;
-import growth.render.text.StaticFonts;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
+import growth.screen.render.Render;
+import growth.entity.gui.GUICheckBox;
+import growth.screen.render.text.StaticFonts;
+import growth.screen.render.texture.Texture;
+import growth.screen.render.texture.TextureRenderer;
 import growth.screen.GameManager;
 import growth.screen.screens.Screen;
 import growth.util.XmlReader;
@@ -53,11 +53,7 @@ public class OptionOverlay extends Overlay {
      */
 
     private GUICheckBox fullscreen;
-
-    /**
-     * Inputs for control
-     */
-
+    
     /**
      * Option overlay class constructor.
      * Instance the class and set overlay's variables.

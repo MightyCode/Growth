@@ -1,8 +1,8 @@
 package growth.screen;
 
 import growth.inputs.InputManager;
-import growth.render.Camera;
-import growth.render.text.StaticFonts;
+import growth.screen.render.Camera;
+import growth.screen.render.text.StaticFonts;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.MenuScreen;
 import growth.screen.screens.Screen;

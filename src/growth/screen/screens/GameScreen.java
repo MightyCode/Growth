@@ -1,19 +1,20 @@
 package growth.screen.screens;
 
 import growth.game.Hud;
-import growth.game.entity.EntityManager;
+import growth.entity.EntityManager;
 import growth.main.Config;
 import growth.main.Window;
-import growth.render.Render;
+import growth.screen.render.Render;
 import growth.screen.GameManager;
 import growth.screen.overlay.DeathOverlay;
 import growth.screen.overlay.OptionOverlay;
 import growth.screen.overlay.PauseOverlay;
 import growth.game.tilemap.TileMap;
-import growth.game.entity.type.Player;
+import growth.entity.type.Player;
 import growth.util.FileMethods;
 import growth.util.XmlReader;
 import growth.util.math.Math;
+import growth.util.math.Vec2;
 
 import java.io.File;
 
@@ -135,7 +136,7 @@ public class GameScreen extends Screen {
         tileMap = new TileMap( Config.TILESET_PATH);
         GameManager.CAMERA.setTween(0.3f, 1f);
 
-        entityManager.addEntity(new Player(this, tileMap, tileSize, tileSize));
+        entityManager.addEntity(new Player(this, tileMap, new Vec2(tileSize)));
         tileMap.setEntity((Player)entityManager.getEntity(0));
 
         // Player begin in the ground on Panel 1
@@ -188,6 +189,7 @@ public class GameScreen extends Screen {
         entityManager.update();
         GameManager.CAMERA.setPosition(true);
         hud.update();
+
         entityManager.dispose();
     }
 

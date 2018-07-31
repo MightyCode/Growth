@@ -1,7 +1,7 @@
 package growth.util;
 
 import growth.main.Config;
-import growth.render.text.FontRenderer;
+import growth.screen.render.text.FontRenderer;
 
 import java.util.ArrayList;
 

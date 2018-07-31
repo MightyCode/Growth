@@ -1,8 +1,8 @@
 package growth.game;
 
 import growth.main.Window;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
+import growth.screen.render.texture.Texture;
+import growth.screen.render.texture.TextureRenderer;
 import growth.util.math.Vec2;
 
 /**

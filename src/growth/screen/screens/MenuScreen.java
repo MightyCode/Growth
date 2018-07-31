@@ -3,15 +3,19 @@ package growth.screen.screens;
 import growth.main.Growth;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
-import growth.render.Render;
-import growth.render.text.FontRenderer;
-import growth.render.text.StaticFonts;
-import growth.render.texture.Texture;
-import growth.render.texture.TextureRenderer;
+import growth.screen.render.Render;
+import growth.screen.render.text.FontRenderer;
+import growth.screen.render.text.StaticFonts;
+import growth.screen.render.texture.Texture;
+import growth.screen.render.texture.TextureRenderer;
 import growth.screen.GameManager;
-import growth.render.gui.GUIButton;
+import growth.entity.gui.GUIButton;
 import growth.main.Window;
 import growth.screen.overlay.OptionOverlay;
+import javafx.beans.binding.Binding;
+
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
 
 /**
  * Menu class.
