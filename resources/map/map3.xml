@@ -1,4 +1,4 @@
-<map id = "3" width="50" height="25">
+<map id = "3" width="50" height="25" zone="Forest" location="Acorn village">
 
 	<ins>
 		<in name="1" x="0.5" y="18"/>

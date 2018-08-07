@@ -1,6 +1,5 @@
 package growth.game.tilemap;
 
-import growth.entity.EntityManager;
 import growth.entity.type.Player;
 import growth.main.Config;
 import growth.main.Window;
@@ -123,7 +122,6 @@ public class TileMap {
 	 * @param path Path to file's xml to load.
 	 */
 	public TileMap(String path) {
-		// Init variables;
 
 		// Init tileSet
 		tileSetT = new Texture("/textures/game/tiles/Tileset.png");
@@ -135,6 +133,7 @@ public class TileMap {
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));
 		}
+
 		currentMap = 0;
 
 		currentLayer = 1;
@@ -151,6 +150,8 @@ public class TileMap {
 		// Init camera
 		GameManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
 		GameManager.CAMERA.setBoundMin(0, 0);
+
+		GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
 	}
 
 	/**
@@ -262,8 +263,15 @@ public class TileMap {
 	 */
 	public void doTransition(){
 		GameScreen.entityManager.setPosition(new Vec2(givePosX, givePosY));
+
+		String location = maps.get(currentMap).getLocation(), zone = maps.get(currentMap).getZone();
 		currentMap = newMapId;
+
 		chargeMap();
+
+		if(!zone.equals(maps.get(currentMap).getZone()))GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
+		else if(!location.equals(maps.get(currentMap).getLocation()))GameScreen.hud.setLocation(maps.get(currentMap).getLocation());
+
 		numCols = map[0].length;
 		numRows = map.length;
 

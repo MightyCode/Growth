@@ -1,4 +1,4 @@
-<map id="1" width="30" height="12">
+<map id="1" width="30" height="12" zone="Forest" location="Acorn village">
 	<ins>
 		<in name="3" x="29.5" y="6"/>
 		<in name="1" x="0.5" y="5"/>
@@ -58,6 +58,5 @@
 
 	<objects>
 		<object type="TpPoint" numbAttributes="6" a0="9" a1="4" a2="2" a3="2" a4="5" a5="3"/>
-		<object type="TpPoint" numbAttributes="6" a0="12" a1="4" a2="2" a3="2" a4="1" a5="6"/>
 	</objects>
 </map>

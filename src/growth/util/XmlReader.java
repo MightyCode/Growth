@@ -39,6 +39,8 @@ public abstract class XmlReader {
 			assert root != null;
 			int width = Integer.parseInt(root.getAttribute("width"));
 			int height = Integer.parseInt(root.getAttribute("height"));
+			String location = root.getAttribute("location");
+			String zone = root.getAttribute("zone");
 
 			Element subRoot;
 
@@ -54,6 +56,8 @@ public abstract class XmlReader {
 
 			// Instance the map
 			Map map = new Map(Integer.parseInt(root.getAttribute("id")), newInsNumber);
+			map.setLocation(location);
+			map.setZone(zone);
 
 			for(int a = 0; a < ins.getLength(); a++){
 				subRoot = (Element) ins.item(a);
@@ -130,7 +134,6 @@ public abstract class XmlReader {
 					ent[i][a] = subRoot.getAttribute("a"+(a-1));
 				}
 			}
-			System.out.println(ent.length);
 			map.setEntities(ent);
 			return map;
 		} catch (Exception e) {

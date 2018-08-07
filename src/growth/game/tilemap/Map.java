@@ -49,6 +49,8 @@ public class Map {
 	 */
 	private int height;
 
+	private String zone, location;
+
 	private String[][] entities;
 
 	/**
@@ -173,4 +175,12 @@ public class Map {
 	float[][] getExitPoints(int side){
 		return exit[side];
 	}
+
+	public void setLocation(String newLocation){location = newLocation;}
+
+	public void setZone(String newZone){zone = newZone;}
+
+	public String getLocation(){return location;}
+
+	public String getZone(){return zone;}
 }

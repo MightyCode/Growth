@@ -242,6 +242,10 @@ public class FontRenderer {
         this.pos.setPosition(originPos.getX() - (getWidth()/2), originPos.getY() - size/2);
     }
 
+    public void setOpacity(float newOpacity){
+        color.setA(newOpacity);
+    }
+
     /**
      * Get text color.
      *

@@ -191,9 +191,7 @@ public class GameScreen extends Screen {
      * Update the player and the map.
      */
     private void updateGame() {
-        if(GameManager.inputsManager.inputPressed(0)) {
-            screenState = STATE_PAUSE;
-        }
+        if(GameManager.inputsManager.inputPressed(0))screenState = STATE_PAUSE;
 
         // Update player
         entityManager.update();

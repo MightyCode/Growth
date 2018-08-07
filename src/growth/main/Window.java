@@ -61,12 +61,12 @@ public class Window implements GLFWWindowFocusCallbackI {
     /**
      * Needed TPS.
      */
-    private static final float TPS = 60.0f;
+    public static final float TPS = 60.0f;
 
     /**
      * Max FPS.
      */
-    private static final float FPS = 100000.0f;
+    public static final float FPS = 100000.0f;
 
     /**
      * Time in a tick.

@@ -38,6 +38,8 @@ public class Player extends Echaracter {
 	public static final int FALLING_P = 3;
 	public static final int JUMPING_P = 4;
 
+	public int sd = 5;
+
 	/**
 	 * Player class constructor.
 	 * Firstly call the mother class constructor.
