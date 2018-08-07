@@ -12,10 +12,15 @@ import java.util.ArrayList;
  */
 public class TextManager {
 
+    public static final int MENU = 0;
+    public static final int PAUSE = 1;
+    public static final int DEATH = 2;
+    public static final int OPTIONS = 3;
+
     /**
      * The sentences of the game.
      */
-    private String[] word;
+    private String[][] word;
 
     /**
      * Font renders using the word.
@@ -36,9 +41,9 @@ public class TextManager {
      * @param number The place number of the sentence on the table.
      * @return The sentence (String).
      */
-    public String getWord(FontRenderer newUser, int number) {
+    public String getWord(FontRenderer newUser, int screen, int number) {
         users.add(newUser);
-        return word[number];
+        return word[screen][number];
     }
 
     /**
@@ -46,8 +51,8 @@ public class TextManager {
      * @param number The place number of the sentence on the table.
      * @return The sentence (String).
      */
-    public String getWord(int number) {
-        return word[number];
+    public String getWord(int screen, int number) {
+        return word[screen][number];
     }
 
     /**

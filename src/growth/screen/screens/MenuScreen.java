@@ -1,6 +1,7 @@
 package growth.screen.screens;
 
 import growth.main.Growth;
+import growth.util.TextManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
 import growth.screen.render.Render;
@@ -57,7 +58,7 @@ public class MenuScreen extends Screen {
         background = new Texture();
         background.load("/textures/menu/bg.png");
 
-        title = new FontRenderer(0, StaticFonts.monofonto, Window.width*0.06f,
+        title = new FontRenderer(TextManager.MENU,0, StaticFonts.monofonto, Window.width*0.06f,
                 new Vec2(Window.width * 0.5f, Window.height * 0.13f), Color4.BLACK);
 
         if(Growth.admin) admin = new FontRenderer("Mode admin", StaticFonts.monofonto, Window.width*0.02f,
@@ -75,23 +76,7 @@ public class MenuScreen extends Screen {
         goToGame = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.40f),
                 size,
-                1,
-                StaticFonts.monofonto,
-                backgroundColor,
-                hoverColor,
-                textColor,
-                hoverTextColor
-        ) {
-            @Override
-            public void action() {
-                Window.gameManager.setScreen(GameManager.GAMESCREEN);
-            }
-        };
-
-        newGame = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.48f),
-                size,
-                2,
+                TextManager.MENU,1,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -105,9 +90,9 @@ public class MenuScreen extends Screen {
         };
 
         chargeGame = new GUIButton(
-                new Vec2(Window.width * 0.5f, Window.height * 0.56f),
+                new Vec2(Window.width * 0.5f, Window.height * 0.48f),
                 size,
-                3,
+                TextManager.MENU,2,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -115,10 +100,26 @@ public class MenuScreen extends Screen {
                 hoverTextColor
         );
 
+        newGame = new GUIButton(
+                new Vec2(Window.width * 0.5f, Window.height * 0.56f),
+                size,
+                TextManager.MENU,3,
+                StaticFonts.monofonto,
+                backgroundColor,
+                hoverColor,
+                textColor,
+                hoverTextColor
+        ) {
+            @Override
+            public void action() {
+                Window.gameManager.setScreen(GameManager.GAMESCREEN);
+            }
+        };
+
         options = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.64f),
                 size,
-                4,
+                TextManager.MENU,4,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -134,7 +135,7 @@ public class MenuScreen extends Screen {
         quit = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.72f),
                 size,
-                5,
+                TextManager.MENU,5,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,

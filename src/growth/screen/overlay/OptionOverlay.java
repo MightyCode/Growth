@@ -6,6 +6,7 @@ import growth.entity.gui.GUIButton;
 import growth.entity.gui.GUISlider;
 import growth.screen.render.text.FontRenderer;
 import growth.sound.SoundManager;
+import growth.util.TextManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
 import growth.screen.render.Render;
@@ -16,6 +17,7 @@ import growth.screen.render.texture.TextureRenderer;
 import growth.screen.GameManager;
 import growth.screen.screens.Screen;
 import growth.util.XmlReader;
+import sun.java2d.pipe.TextRenderer;
 
 /**
  * Option Overlay class.
@@ -39,7 +41,7 @@ public class OptionOverlay extends Overlay {
     /**
      * GUIButton to choose the categories
      */
-    public GUIButton general, video, inputs;
+    private GUIButton general, video, inputs;
 
     /**
      * Inputs for general
@@ -71,8 +73,8 @@ public class OptionOverlay extends Overlay {
         Color4 hoverTextColor = Color4.BLACK;
 
         general = new GUIButton(
-                new Vec2(Window.width * 0.2f, Window.height * 0.3f),
-                size, 13, StaticFonts.monofonto, backgroundColor, hoverColor, textColor, hoverTextColor
+                new Vec2(Window.width * 0.2f, Window.height * 0.3f), size,
+                TextManager.OPTIONS,0, StaticFonts.monofonto, backgroundColor, hoverColor, textColor, hoverTextColor
         ) {
             @Override public void action() {
                 lock = true;
@@ -87,7 +89,7 @@ public class OptionOverlay extends Overlay {
 
         video = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.3f),
-                size, 14, StaticFonts.monofonto, backgroundColor, hoverColor, textColor, hoverTextColor
+                size, TextManager.OPTIONS,1, StaticFonts.monofonto, backgroundColor, hoverColor, textColor, hoverTextColor
         ) {
             @Override public void action() {
                 lock = true;
@@ -99,7 +101,7 @@ public class OptionOverlay extends Overlay {
 
         inputs = new GUIButton(
                 new Vec2(Window.width * 0.8f, Window.height * 0.3f),
-                size, 15, StaticFonts.monofonto, backgroundColor, hoverColor, textColor, hoverTextColor
+                size, TextManager.OPTIONS,2, StaticFonts.monofonto, backgroundColor, hoverColor, textColor, hoverTextColor
         ) {
             @Override public void action() {
                 lock = true;
@@ -112,7 +114,7 @@ public class OptionOverlay extends Overlay {
         language = new GUICheckBox(
                 new Vec2(Window.width*0.5f, Window.height*0.41f),
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                17, StaticFonts.monofonto, textColor, hoverTextColor
+                TextManager.OPTIONS,4, StaticFonts.monofonto, textColor, hoverTextColor
         ){
             @Override
             public void action () {
@@ -128,7 +130,7 @@ public class OptionOverlay extends Overlay {
         musicVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.41f) ,
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                19, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Config.getMusicVolume()
+                TextManager.OPTIONS,6, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Config.getMusicVolume()
         ){
             @Override
             public void action () {
@@ -139,7 +141,7 @@ public class OptionOverlay extends Overlay {
         noiseVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.55f) ,
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                20, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Config.getNoiseVolume()
+                TextManager.OPTIONS,7, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Config.getNoiseVolume()
         ){
             @Override
             public void action () {
@@ -150,7 +152,7 @@ public class OptionOverlay extends Overlay {
         fullscreen = new GUICheckBox(
                 new Vec2(Window.width*0.5f, Window.height*0.41f),
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                16, StaticFonts.monofonto, textColor, hoverTextColor
+                TextManager.OPTIONS,3, StaticFonts.monofonto, textColor, hoverTextColor
         ){
             @Override
             public void action () {
@@ -166,7 +168,7 @@ public class OptionOverlay extends Overlay {
 
         fullscreen.setState(Config.getFullscreen());
 
-        help = new FontRenderer(18, StaticFonts.IBM, Window.height*0.04f,
+        help = new FontRenderer(TextManager.OPTIONS,5, StaticFonts.IBM, Window.height*0.04f,
                 new Vec2(Window.width * 0.5f, Window.height * 0.95f), Color4.BLACK);
     }
 

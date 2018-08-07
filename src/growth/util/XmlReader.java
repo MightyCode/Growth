@@ -366,19 +366,22 @@ public abstract class XmlReader {
 	 * Load the word after getting the language configurations.
 	 * @return The table with the sentences (string).
 	 */
-	public static String[] loadWord(){
+	public static String[][] loadWord(){
 		try{
-			String[] word;
 			Element root = getRootInJar("/word/" + Config.getLanguage() + ".xml");
 			assert root != null;
-			Element tag = search("info",root);
-			int size = Integer.parseInt(tag.getAttribute("number"));
-			word = new String[size];
-			tag = search("sentence",root);
-
-			for(int i = 0; i < size; i++){
-				word[i]=tag.getAttribute("s"+i);
+			NodeList tag = root.getElementsByTagName("screen");
+			String[][] word = new String[tag.getLength()][];
+			for(int i = 0 ; i < tag.getLength(); i++){
+				Element subRoot = (Element)tag.item(i);
+				int size = Integer.parseInt(subRoot.getAttribute("number"));
+				subRoot = (Element) subRoot.getChildNodes().item(1);
+				word[i] = new String[size];
+				for(int a = 0; a < size; a++){
+					word[i][a] = subRoot.getAttribute("s"+a);
+				}
 			}
+
 			return word;
 		} catch (Exception e){
 			e.printStackTrace();

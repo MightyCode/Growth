@@ -44,7 +44,7 @@ public class GUICheckBox extends GUIComponent {
      * @param textColor The normal text color.
      * @param hoverTextColor The color of the text when the button is hovering.
      */
-    public GUICheckBox(Vec2 pos, Vec2 size, int number, FontFace font, Color4 textColor, Color4 hoverTextColor){
+    public GUICheckBox(Vec2 pos, Vec2 size, int screen,  int number, FontFace font, Color4 textColor, Color4 hoverTextColor){
         super(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)),size);
 
         // Loading texture
@@ -59,7 +59,7 @@ public class GUICheckBox extends GUIComponent {
         this.textColor = textColor;
         this.hoverTextColor = hoverTextColor;
 
-        fontRenderer = new FontRenderer(number, font, size.getY()*0.4f, pos, textColor);
+        fontRenderer = new FontRenderer(screen,number, font, size.getY()*0.4f, pos, textColor);
         fontRenderer.setPos(new Vec2(this.pos.getX() + size.getX()/2, this.pos.getY()+size.getX()*0.1f));
     }
 

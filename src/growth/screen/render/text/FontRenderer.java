@@ -57,6 +57,9 @@ public class FontRenderer {
      */
     private int wordNumber;
 
+    private int screenNumber;
+
+
     /**
      *
      * @param text
@@ -76,10 +79,11 @@ public class FontRenderer {
         this.color = color;
     }
 
-    public FontRenderer(int wordNumber, FontFace font, float size, Vec2 pos, Color4 color) {
+    public FontRenderer(int screen, int wordNumber, FontFace font, float size, Vec2 pos, Color4 color) {
+        this.screenNumber = screen;
         this.wordNumber = wordNumber;
         this.font = font;
-        this.text = GameManager.textManager.getWord(this,wordNumber);
+        this.text = GameManager.textManager.getWord(this, screen, wordNumber);
         this.size = size;
         calc();
         setPos(pos);
@@ -266,7 +270,7 @@ public class FontRenderer {
     }
 
     public void update(){
-        setText(GameManager.textManager.getWord(wordNumber));
+        setText(GameManager.textManager.getWord(screenNumber, wordNumber));
     }
 
     public void unload(){

@@ -1,6 +1,7 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
+import growth.util.TextManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
 import growth.entity.gui.GUIButton;
@@ -40,7 +41,7 @@ public class DeathOverlay extends Overlay {
 
         // Init variables
         // Title
-        loose = new FontRenderer(10, StaticFonts.IBM, Window.width*0.05f, new Vec2(), Color4.WHITE);
+        loose = new FontRenderer(TextManager.DEATH,0, StaticFonts.IBM, Window.width*0.05f, new Vec2(), Color4.WHITE);
         loose.setPos(new Vec2(Window.width * 0.5f,Window.height * 0.20f));
 
         Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
@@ -52,7 +53,7 @@ public class DeathOverlay extends Overlay {
         retry = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height*0.45f),
                 size,
-                11,
+                TextManager.DEATH,1,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -68,7 +69,7 @@ public class DeathOverlay extends Overlay {
         quitter = new GUIButton(
                 new Vec2(Window.width *0.5f, Window.height*0.55f),
                 size,
-                12,
+                TextManager.DEATH,2,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,

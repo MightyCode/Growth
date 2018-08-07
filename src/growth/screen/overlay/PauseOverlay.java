@@ -1,6 +1,7 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
+import growth.util.TextManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
 import growth.entity.gui.GUIButton;
@@ -40,7 +41,7 @@ public class PauseOverlay extends Overlay{
         // Init variable
 
         // Title
-        pause = new FontRenderer(6, StaticFonts.IBM, Window.width*0.05f, new Vec2(), Color4.WHITE);
+        pause = new FontRenderer(TextManager.PAUSE,0, StaticFonts.IBM, Window.width*0.05f, new Vec2(), Color4.WHITE);
         pause.setPos(new Vec2(Window.width * 0.5f, Window.height * 0.20f));
 
         Vec2 size = new Vec2(Window.width / 4f, Window.height / 20f);
@@ -50,9 +51,8 @@ public class PauseOverlay extends Overlay{
         Color4 hoverTextColor = Color4.WHITE;
 
         continuer = new GUIButton(
-                new Vec2(Window.width / 2, Window.height/2.4f),
-                size,
-               7,
+                new Vec2(Window.width / 2, Window.height/2.4f), size,
+                TextManager.PAUSE,1,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -68,7 +68,7 @@ public class PauseOverlay extends Overlay{
         options = new GUIButton(
                 new Vec2(Window.width / 2, Window.height/2f),
                 size,
-                8,
+                TextManager.PAUSE,2,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,
@@ -84,7 +84,7 @@ public class PauseOverlay extends Overlay{
         quitter = new GUIButton(
                 new Vec2(Window.width / 2, Window.height/1.71f),
                 size,
-                9,
+                TextManager.PAUSE,3,
                 StaticFonts.monofonto,
                 backgroundColor,
                 hoverColor,

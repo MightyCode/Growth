@@ -72,7 +72,7 @@ public class GUIButton extends GUIComponent {
      * @param textColor The normal text color.
      * @param hoverTextColor The color of the text when the button is hovering.
      */
-    public GUIButton(Vec2 pos, Vec2 size, int number, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
+    public GUIButton(Vec2 pos, Vec2 size, int screen, int number, FontFace font, Color4 backgroundColor, Color4 hoverColor, Color4 textColor, Color4 hoverTextColor) {
         super(size);
 
         this.backgroundColor = backgroundColor;
@@ -80,7 +80,7 @@ public class GUIButton extends GUIComponent {
         this.textColor = textColor;
         this.hoverTextColor = hoverTextColor;
 
-        fontRenderer = new FontRenderer(number, font, size.getY() - 6, pos, textColor);
+        fontRenderer = new FontRenderer(screen, number, font, size.getY() - 6, pos, textColor);
         setPos(pos);
     }
 
