@@ -5,7 +5,9 @@ import growth.entity.module.player.*;
 import growth.entity.Eobject.Echaracter;
 import growth.main.Config;
 import growth.main.Growth;
+import growth.main.Window;
 import growth.screen.render.Animation;
+import growth.screen.render.texture.Texture;
 import growth.screen.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.game.tilemap.TileMap;
@@ -22,6 +24,11 @@ import growth.util.math.Vec2;
  */
 public class Player extends Echaracter {
 
+	private boolean action;
+	private boolean oldAction;
+	private Texture actionT;
+	private Vec2 actionSize;
+
 	/**
 	 * Player's states.
 	 * These static final variables counting the different state of player.
@@ -37,8 +44,6 @@ public class Player extends Echaracter {
 	public static final int WALKING_P = 1;
 	public static final int FALLING_P = 3;
 	public static final int JUMPING_P = 4;
-
-	public int sd = 5;
 
 	/**
 	 * Player class constructor.
@@ -92,25 +97,9 @@ public class Player extends Echaracter {
 		animations.add(new Animation("/textures/game/entity/player/walk/", 10, 4));
 		animations.add(new Animation("/textures/game/entity/player/jump/", 1, 100));
 		animations.add(new Animation("/textures/game/entity/player/fall/", 1, 100));
-	}
 
-
-	/**
-	 * Change the current health value.
-	 * @param newValue New current health value.
-	 */
-	public void setHealthPoint(int newValue){
-		super.setHealthPoint(newValue);
-		GameScreen.hud.setHearth(healthPoint);
-	}
-
-	/**
-	 * Change the max value of health.
-	 * @param newValue New maximum health value.
-	 */
-	public void setMaxHealthPoint(int newValue){
-		super.setMaxHealthPoint(newValue);
-		GameScreen.hud.setMaxHealth(maxHealthPoint);
+		actionT = new Texture("/textures/game/entity/player/other/action.png");
+		actionSize = new Vec2(Window.height*0.04f);
 	}
 
 	/**
@@ -149,6 +138,35 @@ public class Player extends Echaracter {
 						- size.getX(), size.getY());
 			}
 		}
+
+		if(action){
+			actionT.bind();
+			TextureRenderer.image(new Vec2(pos.getX() + size.getX() * 0.2f,pos.getY() - size.getY() * 0.8f), actionSize);
+		}
+
+		action = false;
+	}
+
+	public void setAction(boolean newState){
+		action = newState;
+	}
+
+	/**
+	 * Change the current health value.
+	 * @param newValue New current health value.
+	 */
+	public void setHealthPoint(int newValue){
+		super.setHealthPoint(newValue);
+		GameScreen.hud.setHearth(healthPoint);
+	}
+
+	/**
+	 * Change the max value of health.
+	 * @param newValue New maximum health value.
+	 */
+	public void setMaxHealthPoint(int newValue){
+		super.setMaxHealthPoint(newValue);
+		GameScreen.hud.setMaxHealth(maxHealthPoint);
 	}
 
 	/**

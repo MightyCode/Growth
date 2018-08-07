@@ -137,6 +137,10 @@ public class EntityManager {
         return objects.get(id);
     }
 
+    public Player getPlayer(){
+        return player;
+    }
+
     /**
      * Get the position x of an entity.
      * @param id The id of the entity.

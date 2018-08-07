@@ -261,7 +261,6 @@ public class GameScreen extends Screen {
         tileMap.display(false);
     }
 
-
     /**
      * Display the transition between two map
      */

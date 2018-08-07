@@ -204,6 +204,14 @@ public class FontRenderer {
         setText(text);
     }
 
+    public int getSreenNumber() { return screenNumber; }
+
+    public void setWordNumber(int screen, int word) {
+        screenNumber = screen;
+        wordNumber = word;
+        update();
+    }
+
     /**
      * Get text size.
      *

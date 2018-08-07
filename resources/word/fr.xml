@@ -32,17 +32,36 @@
         />
     </screen>
 
-    <!--  13 - ++ : Option overlay -->
+    <!--  3 - ++ : Option overlay -->
     <screen id="3" number="8">
         <sentence
                 s0="General"
                 s1="Vidéo"
                 s2="Controles"
                 s3="Plein écran"
-                s4="En englais"
+                s4="En anglais"
                 s5="Veuillez redémarrer le jeu pour bien appliquer les changements."
                 s6="Music : "
                 s7="Bruit : "
+        />
+    </screen>
+
+    <!--  4 - ++ : Zone name -->
+    <screen id="4" number="4">
+        <sentence
+                s0="Forêt"
+                s1="Grotte"
+                s2="null"
+                s3="null"
+        />
+    </screen>
+
+    <!--  5 - ++ : Zone name -->
+    <screen id="5" number="3">
+        <sentence
+                s0="Dans le Sargbre"
+                s1="Village gland"
+                s2="Plaine de la forêt"
         />
     </screen>
 </word>

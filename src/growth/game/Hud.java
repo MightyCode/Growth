@@ -112,7 +112,6 @@ public class Hud {
     private Vec2 acornSize;
 
     private Texture zone, location;
-    private String zoneName, locationName;
     private int type;
     private int counter;
     private static final int TIME = (int)Window.TPS * 4;
@@ -148,10 +147,10 @@ public class Hud {
         location = new Texture("/textures/game/hud/Leaf2.png");
         zone = new Texture("/textures/game/hud/Leaf1.png");
 
-        zoneFont = new FontRenderer(" ", StaticFonts.monofonto, Window.width*0.02f,
-                new Vec2(Window.width * 0.128f, Window.height * 0.065f), Color4.BLACK);
+        zoneFont = new FontRenderer(4,0, StaticFonts.monofonto, Window.width*0.02f,
+                new Vec2(Window.width * 0.128f, Window.height * 0.065f), Color4.BLACK.copy());
 
-        locationFont = new FontRenderer(" ", StaticFonts.monofonto, Window.width*0.02f,
+        locationFont = new FontRenderer(4,0, StaticFonts.monofonto, Window.width*0.02f,
                 new Vec2(1.f), new Color4(0.2f,0.2f,0.2f,1f));
     }
 
@@ -304,19 +303,19 @@ public class Hud {
         counter = 0;
         type = 0;
         locationFont.setOpacity(1);
-        locationFont.setText(locationName = location);
+        locationFont.setWordNumber(TextManager.LOCATION,Integer.parseInt(location));
         locationFont.setPos(new Vec2(Window.width * 0.128f, Window.height * 0.065f));
     }
 
     public void setZone(String zone, String location){
-        System.out.println("\n\n\n");
         counter = 0;
         type = 1;
+        System.out.println(zone + " " + location);
         locationFont.setOpacity(1);
-        locationFont.setText(locationName = location);
+        locationFont.setWordNumber(TextManager.LOCATION, Integer.parseInt(location));
         locationFont.setPos(new Vec2(Window.width * 0.128f, Window.height * 0.16f));
-        zoneFont.setText(zoneName = zone);
         zoneFont.setOpacity(1);
+        zoneFont.setWordNumber(TextManager.ZONE, Integer.parseInt(zone));
     }
 
     /**

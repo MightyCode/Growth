@@ -58,4 +58,8 @@ public class Color4 {
     public void setA(float a) {
         this.a = a;
     }
+
+    public Color4 copy(){
+        return new Color4(r,g,b,a);
+    }
 }

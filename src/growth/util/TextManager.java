@@ -16,6 +16,8 @@ public class TextManager {
     public static final int PAUSE = 1;
     public static final int DEATH = 2;
     public static final int OPTIONS = 3;
+    public static final int ZONE = 4;
+    public static final int LOCATION = 5;
 
     /**
      * The sentences of the game.

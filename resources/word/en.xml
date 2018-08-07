@@ -32,7 +32,7 @@
         />
     </screen>
 
-    <!--  13 - ++ : Option overlay -->
+    <!--  3 - ++ : Option overlay -->
     <screen id="3" number="8">
         <sentence
                 s0="General"
@@ -43,6 +43,25 @@
                 s5="Restart the game to properly implement the changes."
                 s6="Music : "
                 s7="Noise : "
+        />
+    </screen>
+
+    <!--  4 - ++ : Zone name -->
+    <screen id="4" number="4">
+        <sentence
+                s0="Forest"
+                s1="Cave"
+                s2="null"
+                s3="null"
+        />
+    </screen>
+
+    <!--  5 - ++ : Location name -->
+    <screen id="5" number="3">
+        <sentence
+                s0="In the Sargbre"
+                s1="Acorn village"
+                s2="Forest plain"
         />
     </screen>
 </word>

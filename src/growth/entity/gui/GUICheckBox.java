@@ -20,8 +20,8 @@ import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
  */
 public class GUICheckBox extends GUIComponent {
 
-    public static int HOVER_CHECK = 4;
-    public static int UNHOVER_CHECK = 5;
+    public static int HOVER_CHECK = 5;
+    public static int UNHOVER_CHECK = 4;
 
     /**
      * The colors of text of the check box.
