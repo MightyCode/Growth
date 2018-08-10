@@ -116,7 +116,7 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Configure GLFW
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         // Create the window if fullscreen
         if(Config.getFullscreen()){

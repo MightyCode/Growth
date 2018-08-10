@@ -93,4 +93,9 @@ public class Animation {
 	public void setSpeed(float newSpeed){speed = newSpeed;}
 
 	public float getSpeed(){return speed;}
+
+	public void reset(){
+		count = 0;
+		current = 0;
+	}
 }

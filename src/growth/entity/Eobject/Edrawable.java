@@ -26,6 +26,8 @@ public abstract class Edrawable extends Eobject{
 
     protected int animationPlayed;
 
+    protected int oldAnimation;
+
     /**
      * Animations table.
      * This ArrayList contains all of the animations use by the entity.
@@ -38,6 +40,7 @@ public abstract class Edrawable extends Eobject{
     }
 
     public void update(){
+        oldAnimation = animationPlayed;
         animationPlayed = IDLE;
         priority = IDLE_P;
     }
@@ -58,7 +61,10 @@ public abstract class Edrawable extends Eobject{
      * @param priorityValue The value.
      */
     public void setAnimations(int animationID, int priorityValue){
-        if(priorityValue > priority) animationPlayed = animationID;
+        if(priorityValue > priority){
+            animations.get(animationPlayed).reset();
+            animationPlayed = animationID;
+        }
     }
 
     /**
