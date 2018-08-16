@@ -6,6 +6,10 @@ import growth.util.Timer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallbackI;
+import org.lwjgl.openal.AL;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALCCapabilities;
+import org.lwjgl.openal.ALCapabilities;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
@@ -13,6 +17,7 @@ import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.openal.ALC10.*;
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
@@ -78,6 +83,8 @@ public class Window implements GLFWWindowFocusCallbackI {
      */
     private static final double FRAME_TIME = SECOND / FPS;
 
+    private static long  device, context;
+
     public static Config config;
 
     /**
@@ -106,8 +113,18 @@ public class Window implements GLFWWindowFocusCallbackI {
             throw new IllegalStateException("Unable to initialize GLFW");
 
         createNewWindow();
-    }
 
+        // Init openAl
+        String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
+        device            = alcOpenDevice(defaultDeviceName);
+
+        int[] attributes = {0};
+        context    = alcCreateContext(device, attributes);
+        alcMakeContextCurrent(context);
+
+        ALCCapabilities alcCapabilities = ALC.createCapabilities(device);
+        ALCapabilities alCapabilities  = AL.createCapabilities(alcCapabilities);
+    }
     /**
      * Create a new window.
      */
@@ -121,13 +138,13 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Create the window if fullscreen
         if(Config.getFullscreen()){
             width = 1920; height = 1080;
-            System.out.println(width + "" + height);
+            System.out.println(width + " " + height);
             windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
 
         }
         else{
             windowID = glfwCreateWindow(width, height, "Growth", NULL, NULL);
-            System.out.println(width + "" + height);
+            System.out.println(width + " " + height);
         }
 
         System.out.println("\nWindow with id : "+ windowID +" created");
@@ -252,6 +269,11 @@ public class Window implements GLFWWindowFocusCallbackI {
         System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Boin Alexandre" +
                 "\033[0m and mainly\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
         System.out.println("\n-------------------------- \n");
+
+        // Terminate openAl
+        alcDestroyContext(context);
+        alcCloseDevice(device);
+
         System.exit(0);
     }
 

@@ -24,7 +24,7 @@ public class GameManager {
      * Current screen.
      * This variable contains the current screen displayed.
      */
-    private Screen currentScreen;
+    private static Screen currentScreen;
 
     /**
      * Screen's states.
@@ -61,7 +61,7 @@ public class GameManager {
     /**
      * The camera of the game.
      */
-    public static final Camera CAMERA = new Camera(0,0);
+    public static Camera camera = new Camera(0,0);
 
     /**
      * ScreenManager class constructor.
@@ -76,7 +76,7 @@ public class GameManager {
         mouseManager = new MouseManager();
 
         // Load the fist screen
-        currentScreen = (new MenuScreen(this));
+        currentScreen = (new MenuScreen());
     }
 
     /**
@@ -99,24 +99,33 @@ public class GameManager {
      *
      * @param screen Set the new current screen.
      */
-    public void setScreen(int screen) {
+    public static void setScreen(int screen) {
         currentScreenUnload();
         currentScreen = null;
         System.runFinalization();
         switch (screen) {
             case MENUSCREEN:
-                currentScreen = (new MenuScreen(this));
+                currentScreen = new MenuScreen();
                 break;
             case GAMESCREEN:
-                currentScreen = (new GameScreen(this));
+                currentScreen = new GameScreen();
                 break;
+            default:
+                currentScreen = new MenuScreen();
+                    break;
         }
+    }
+
+    public static void setState(int state) { currentScreen.setState(state); }
+
+    public static Screen getScreen(){
+        return currentScreen;
     }
 
     /**
      * Unload the currentScreen.
      */
-    private void currentScreenUnload() {
+    private static void currentScreenUnload() {
         currentScreen.unload();
     }
 
@@ -132,5 +141,6 @@ public class GameManager {
         currentScreen.unload();
         currentScreen = null;
         StaticFonts.unload();
+        soundManager.unload();
     }
 }

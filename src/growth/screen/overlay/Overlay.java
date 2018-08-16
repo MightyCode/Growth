@@ -1,6 +1,7 @@
 package growth.screen.overlay;
 
 import growth.main.Window;
+import growth.screen.GameManager;
 import growth.screen.screens.Screen;
 
 /**
@@ -10,59 +11,46 @@ import growth.screen.screens.Screen;
  * @author MightyCode
  * @version 1.0
  */
-public abstract class Overlay {
+public class Overlay {
 
     /**
      * The state of the overlay.
      */
-    protected static int overlayState;
-    /**
-     * Screen.
-     * This variable contains the screen which have instance this overlay.
-     */
-    protected final Screen screen;
+    public int overlayState;
 
     /**
      * Overlay abstract class constructor.
      * Instance the child class and set overlay's child variables.
      */
-    Overlay(Screen screen) {
-        this.screen = screen;
+    public Overlay() {
         overlayState = 0;
     }
 
     /**
      * Update the overlay.
      */
-    public abstract void update();
+    public void update(){}
 
     /**
      * Update the overlay.
      */
-    public abstract void display();
+    public void display(){}
 
     /**
      * Set the screen.
      */
     public void setScreen(int newScreen){
-        Window.gameManager.setScreen(newScreen);
-    }
-
-    /**
-     * Set the state of the screen which have instance the overlay.
-     */
-    public static void setScreenState(int newsState){
-        Screen.setState(newsState);
+        GameManager.setScreen(newScreen);
     }
 
     /**
      * Change the state of the overlay.
      * @param newState The new state.
      */
-    public static  void setState(int newState){overlayState = newState;}
+    public void setState(int newState){overlayState = newState;}
 
     /**
      * Free memory.
      */
-    public abstract void unload();
+    public void unload(){ }
 }

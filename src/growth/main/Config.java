@@ -1,5 +1,7 @@
 package growth.main;
 
+import growth.screen.GameManager;
+import growth.sound.SoundManager;
 import growth.util.FileMethods;
 import growth.util.XmlReader;
 
@@ -87,12 +89,12 @@ public class Config {
         File test = new File("data/");
         if (!test.exists() && !test.isDirectory()){
             System.out.println("Create file Data");
-            File config = new File("data\\config");
-            File data = new File("data\\saves");
+            File config = new File("data/config");
+            File data = new File("data/saves");
             config.mkdirs();
             data.mkdirs();
 
-            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+            if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
                 System.out.println("Error on creation of Data");
                 Window.exit();
             }
@@ -101,9 +103,9 @@ public class Config {
         test = new File("data/config");
         if (!test.exists() && !test.isDirectory()){
             System.out.println("Create file Config");
-            File config = new File("data\\config");
+            File config = new File("data/config");
             config.mkdirs();
-            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+            if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
                 System.out.println("Error on creation of config");
                 Window.exit();
             }
@@ -113,7 +115,7 @@ public class Config {
         test = new File(Config.CONFIG_PATH);
         if (!test.exists() && !test.isDirectory()){
             System.out.println("Create file Config.xml");
-            if(!FileMethods.copyFromJar("/config/configOriginal.xml","data/config/config.xml")){
+            if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
                 System.out.println("Error on creation of Config.xml");
                 Window.exit();
             }
@@ -121,6 +123,8 @@ public class Config {
 
         // Load configurationss
         XmlReader.loadConfig();
+        SoundManager.setNoiseVolume(noiseVolume);
+        SoundManager.setMusicVolume(musicVolume);
     }
 
     /**

@@ -42,6 +42,6 @@ public class ShapeRenderer {
      * @param color The color of the rectangle.
      */
     public static void rectC(Vec2 pos, Vec2 size, Color4 color) {
-        rect(new Vec2(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY()), size, color);
+        rect(new Vec2(pos.getX() - GameManager.camera.getPosX(), pos.getY() - GameManager.camera.getPosY()), size, color);
     }
 }

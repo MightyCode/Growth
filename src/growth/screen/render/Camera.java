@@ -61,6 +61,7 @@ public class Camera {
      */
     private Emoveable user;
 
+    private boolean breaks;
 
     /**
      * Minimal position x of camera.
@@ -91,15 +92,15 @@ public class Camera {
         this.posY = posY;
     }
 
-    /**
-     * Set new origin position of map.
-     *
-     * @param isTween Apply the tween (true) or no (false).
-     */
     public void setPosition(boolean isTween){
-        //pos = new Vec2(Window.width / 2 - user.getPos().getX(),Window.height / 2 - user.getPos().getY());
+        if(breaks){
+            breaks = false;
+            return;
+        }
+
         int posX = (int)( Window.width / 2 - user.getPos().getX());
         int posY = (int)( Window.height / 2 - user.getPos().getY());
+
         float speedX = user.getSpeed().getX();
 
         if(speedX > 0) {
@@ -110,18 +111,22 @@ public class Camera {
             if(addCamera > maxOffset) addCamera = maxOffset;
         }
 
-        if (!isTween){
-            addCamera = 0;
-        }
+        if (!isTween) addCamera = 0;
+        posX+=addCamera;
+        setPosition(posX, posY, isTween);
+        fixBounds();
+        breaks = false;
+    }
 
+    public void setPosition(float posX, float posY, boolean isTween){
+        breaks = true;
         float newTweenX = (isTween)? tweenX : 1;
         float newTweenY = (isTween)? tweenY : 1;
 
-        glTranslatef((int)((posX - this.posX + addCamera) * newTweenX),(int)((posY - this.posY) * newTweenY),0);
+        glTranslatef((int)((posX - this.posX) * newTweenX),(int)((posY - this.posY) * newTweenY),0);
 
-        this.posX += (int)((posX - this.posX + addCamera) * newTweenX);
+        this.posX += (int)((posX - this.posX) * newTweenX);
         this.posY += (int)((posY - this.posY) * newTweenY);
-        fixBounds();
     }
 
     /**

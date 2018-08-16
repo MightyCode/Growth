@@ -107,10 +107,10 @@ public class GUIButton extends GUIComponent {
     public void display() {
         if (!mouseOver) {
             ShapeRenderer.rectC(pos, size, backgroundColor);
-            fontRenderer.render();
+            fontRenderer.renderC();
         } else {
             ShapeRenderer.rectC(pos, size, hoverColor);
-            fontRenderer.render();
+            fontRenderer.renderC();
         }
     }
 

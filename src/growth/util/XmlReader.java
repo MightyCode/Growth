@@ -11,10 +11,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.jar.JarFile;
-import java.util.jar.JarOutputStream;
-
 /**
  * XmlReader class.
  * This class charge the different xml's files.
@@ -34,7 +30,7 @@ public abstract class XmlReader {
 	public static Map createMap(String map_path) {
 		try {
 
-			Element root = getRootInJar(Config.MAP_PATH + map_path);
+			Element root = getRoot(Config.MAP_PATH + map_path);
 
 			assert root != null;
 			int width = Integer.parseInt(root.getAttribute("width"));
@@ -151,7 +147,7 @@ public abstract class XmlReader {
 	 */
 	public static Tile[] createTileSet(String tileSet_path) {
 		try {
-			Element root = getRootInJar(tileSet_path);
+			Element root = getRoot(tileSet_path);
 
 			// Get all child nodes of the root
 			assert root != null;
@@ -212,7 +208,7 @@ public abstract class XmlReader {
 	 */
 	public static void loadConfig(){
 		try {
-			Element root = getRoot(Config.CONFIG_PATH);
+			Element root = getRootNoRes(Config.CONFIG_PATH);
 
 			assert root != null;
 			// General configuration
@@ -354,16 +350,16 @@ public abstract class XmlReader {
 		}
 	}
 
-    public static String getValueInJar(String path, String attributeName, String... nodeName){
-        try{
-            Element root = getRootInJar(path);
-            assert root != null;
-            return search(nodeName, root).getAttribute(attributeName);
-        } catch (Exception e){
-            e.printStackTrace();
-            return "fail !!";
-        }
-    }
+	public static String getValueNoRes(String path, String attributeName, String... nodeName){
+		try{
+			Element root = getRootNoRes(path);
+			assert root != null;
+			return search(nodeName, root).getAttribute(attributeName);
+		} catch (Exception e){
+			e.printStackTrace();
+			return "fail !!";
+		}
+	}
 
 	/**
 	 * Load the word after getting the language configurations.
@@ -371,7 +367,7 @@ public abstract class XmlReader {
 	 */
 	public static String[][] loadWord(){
 		try{
-			Element root = getRootInJar("/word/" + Config.getLanguage() + ".xml");
+			Element root = getRoot("/word/" + Config.getLanguage() + ".xml");
 			assert root != null;
 			NodeList tag = root.getElementsByTagName("screen");
 			String[][] word = new String[tag.getLength()][];
@@ -443,6 +439,10 @@ public abstract class XmlReader {
 	 * @return The root tag class.
 	 */
 	private static Element getRoot(String path){
+		return getRootNoRes("resources" + path);
+	}
+
+	private static Element getRootNoRes(String path){
 		try {
 			return (((DocumentBuilderFactory.newInstance()).newDocumentBuilder()).parse(path)).getDocumentElement();
 		} 	catch (Exception e) {
@@ -450,20 +450,6 @@ public abstract class XmlReader {
 			return null;
 		}
 	}
-
-    /**
-     * Get a root's tag with the xml file's path.
-     * @param path The path of the file.
-     * @return The root tag class.
-     */
-    private static Element getRootInJar(String path){
-        try {
-            return (((DocumentBuilderFactory.newInstance()).newDocumentBuilder()).parse(XmlReader.class.getResourceAsStream(path))).getDocumentElement();
-        } 	catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
 	/**
 	 * Test if a string is a number

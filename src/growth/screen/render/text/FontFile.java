@@ -1,6 +1,7 @@
 package growth.screen.render.text;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class FontFile {
     public FontFile(String path) {
         try {
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(path)));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("resources" + path));
 
             String line;
             Map<String, String> values = new HashMap<String, String>();

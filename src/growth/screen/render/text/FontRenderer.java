@@ -154,14 +154,25 @@ public class FontRenderer {
     /**
      * Render the text.
      */
+    public void renderC() {
+        font.getTexture().bind();
+        glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
+        glBegin(GL_QUADS);
+        for (int i = 0; i < mesh.size(); i++) {
+            glTexCoord2f(texture.get(i).getX(), texture.get(i).getY());
+            glVertex2f(mesh.get(i).getX() * size + pos.getX() - GameManager.camera.getPosX(), mesh.get(i).getY() * size + pos.getY() - GameManager.camera.getPosY());
+        }
+        glEnd();
+    }
+
     public void render() {
         font.getTexture().bind();
         glColor4f(color.getR(), color.getG(), color.getB(), color.getA());
         glBegin(GL_QUADS);
-            for (int i = 0; i < mesh.size(); i++) {
-                glTexCoord2f(texture.get(i).getX(), texture.get(i).getY());
-                glVertex2f(mesh.get(i).getX() * size + pos.getX() - GameManager.CAMERA.getPosX(), mesh.get(i).getY() * size + pos.getY() - GameManager.CAMERA.getPosY());
-            }
+        for (int i = 0; i < mesh.size(); i++) {
+            glTexCoord2f(texture.get(i).getX(), texture.get(i).getY());
+            glVertex2f(mesh.get(i).getX() * size + pos.getX(), mesh.get(i).getY() * size + pos.getY());
+        }
         glEnd();
     }
 

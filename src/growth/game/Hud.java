@@ -1,6 +1,7 @@
 package growth.game;
 
 import growth.main.Window;
+import growth.screen.overlay.Overlay;
 import growth.screen.render.text.FontRenderer;
 import growth.screen.render.text.StaticFonts;
 import growth.screen.render.texture.Texture;
@@ -123,6 +124,7 @@ public class Hud {
      * And set the param
      */
     public Hud(){
+        super();
         // Set the size of heart and the size, position of the acorn counter
         heartSize = new Vec2(Window.height * 0.06f,Window.height * 0.06f);
         heartSizeT = new Vec2();
@@ -191,7 +193,7 @@ public class Hud {
                             Window.width*0.15f,Window.height*0.09f, Math.map(counter, TIME / 2, TIME, 2f, 0));
                     locationFont.setOpacity(Math.map(counter, TIME / 2, TIME, 2f, 0));
                 }
-                locationFont.render();
+                locationFont.renderC();
 
             } else if (type == 1){
                 location.bind();
@@ -210,8 +212,8 @@ public class Hud {
                     locationFont.setOpacity(Math.map(counter, TIME / 2, TIME, 2f, 0));
                     zoneFont.setOpacity(Math.map(counter, TIME / 2, TIME, 2.5f, 0));
                 }
-                locationFont.render();
-                zoneFont.render();
+                locationFont.renderC();
+                zoneFont.renderC();
             }
         }
     }

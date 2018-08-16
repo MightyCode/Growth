@@ -36,8 +36,8 @@ public class DeathOverlay extends Overlay {
      * Death overlay class constructor.
      * Instance the class and set overlay's variables.
      */
-    public DeathOverlay(Screen screen) {
-        super(screen);
+    public DeathOverlay() {
+        super();
 
         // Init variables
         // Title
@@ -62,7 +62,7 @@ public class DeathOverlay extends Overlay {
         ) {
             @Override
             public void action() {
-                Window.gameManager.setScreen(GameManager.GAMESCREEN);
+                GameManager.setScreen(GameManager.GAMESCREEN);
             }
         };
 
@@ -78,8 +78,7 @@ public class DeathOverlay extends Overlay {
         ) {
             @Override
             public void action() {
-                Screen.setState(GameScreen.STATE_NORMAL);
-                Window.gameManager.setScreen(GameManager.MENUSCREEN);
+                GameManager.setScreen(GameManager.MENUSCREEN);
             }
         };
     }
@@ -102,7 +101,7 @@ public class DeathOverlay extends Overlay {
                 new Vec2(0.8f * Window.width, 0.75f * Window.height), new Color4(0.0f, 0.0f, 0.0f, 0.5f));
 
         // Textures and button
-        loose.render();
+        loose.renderC();
 
         retry.display();
         quitter.display();

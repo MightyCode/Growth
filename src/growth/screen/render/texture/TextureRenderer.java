@@ -58,22 +58,22 @@ public class TextureRenderer {
     /**
      * Method to display an image without the camera translation and without mark alpha..
      */
-    public static void imageC(float posX, float posY, float sizeX, float sizeY) { image(posX - GameManager.CAMERA.getPosX(), posY - GameManager.CAMERA.getPosY(), sizeX, sizeY, 1.f); }
+    public static void imageC(float posX, float posY, float sizeX, float sizeY) { image(posX - GameManager.camera.getPosX(), posY - GameManager.camera.getPosY(), sizeX, sizeY, 1.f); }
 
     /**
      * Surcharge method with the alpha.
      */
-    public static void imageC(float posX, float posY, float sizeX, float sizeY, float alpha) { image(posX - GameManager.CAMERA.getPosX(), posY - GameManager.CAMERA.getPosY(), sizeX, sizeY, alpha); }
+    public static void imageC(float posX, float posY, float sizeX, float sizeY, float alpha) { image(posX - GameManager.camera.getPosX(), posY - GameManager.camera.getPosY(), sizeX, sizeY, alpha); }
 
     /**
      * Surcharge method using Vec2 and without mark the alpha.
      */
-    public static void imageC(Vec2 pos, Vec2 size) { image(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY(), size.getX(), size.getY(), 1.f); }
+    public static void imageC(Vec2 pos, Vec2 size) { image(pos.getX() - GameManager.camera.getPosX(), pos.getY() - GameManager.camera.getPosY(), size.getX(), size.getY(), 1.f); }
 
     /**
      * Surcharge method using Vec2.
      */
-    public static void imageC(Vec2 pos, Vec2 size, float alpha) { image(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY(), size.getX(), size.getY(), alpha); }
+    public static void imageC(Vec2 pos, Vec2 size, float alpha) { image(pos.getX() - GameManager.camera.getPosX(), pos.getY() - GameManager.camera.getPosY(), size.getX(), size.getY(), alpha); }
 
     /**
      * Display a part of a texture on the screen.
@@ -127,21 +127,21 @@ public class TextureRenderer {
      * Method to display a part of the texture without the camera translation and without mark alpha..
      */
     public static void imageC(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY) {
-        image(posX - GameManager.CAMERA.getPosX(), posY - GameManager.CAMERA.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, 1.f);
+        image(posX - GameManager.camera.getPosX(), posY - GameManager.camera.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, 1.f);
     }
 
     /**
      * Surcharge method.
      */
     public static void imageC(float posX, float posY, float sizeX, float sizeY, float fromX, float fromY, float toX, float toY, float alpha) {
-        image(posX - GameManager.CAMERA.getPosX(), posY - GameManager.CAMERA.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, alpha);
+        image(posX - GameManager.camera.getPosX(), posY - GameManager.camera.getPosY(), sizeX, sizeY, fromX, fromY, toX, toY, alpha);
     }
 
     /**
      * Surcharge method using Vec2 and without mark the alpha.
      */
     public static void imageC(Vec2 pos, Vec2 size, Vec2 from, Vec2 to) {
-        image(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY(), size.getX(), size.getY(),
+        image(pos.getX() - GameManager.camera.getPosX(), pos.getY() - GameManager.camera.getPosY(), size.getX(), size.getY(),
                 from.getX(), from.getY(), to.getX(), to.getY(), 1.f);
     }
 
@@ -149,7 +149,7 @@ public class TextureRenderer {
      * Surcharge method using Vec2.
      */
     public static void imageC(Vec2 pos, Vec2 size, Vec2 from, Vec2 to, float alpha) {
-        image(pos.getX() - GameManager.CAMERA.getPosX(), pos.getY() - GameManager.CAMERA.getPosY(), size.getX(), size.getY(),
+        image(pos.getX() - GameManager.camera.getPosX(), pos.getY() - GameManager.camera.getPosY(), size.getX(), size.getY(),
                 from.getX(), from.getY(), to.getX(), to.getY(), alpha);
     }
 

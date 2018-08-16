@@ -1,12 +1,10 @@
 package growth.screen.screens;
 
-import growth.entity.Eobject.Emoveable;
-import growth.entity.Eobject.Eobject;
 import growth.game.Hud;
 import growth.entity.EntityManager;
 import growth.main.Config;
 import growth.main.Window;
-import growth.screen.render.Camera;
+import growth.screen.overlay.Overlay;
 import growth.screen.render.Render;
 import growth.screen.GameManager;
 import growth.screen.overlay.DeathOverlay;
@@ -18,11 +16,7 @@ import growth.util.FileMethods;
 import growth.util.XmlReader;
 import growth.util.math.Math;
 import growth.util.math.Vec2;
-import org.lwjgl.system.CallbackI;
-
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 
 /**
  * Game class.
@@ -53,7 +47,7 @@ public class GameScreen extends Screen {
     public static final int STATE_NORMAL = 0;
     public static final int STATE_TRANSITION = 1;
     public static final int STATE_PAUSE = 2;
-    public static final int STATE_INVENTORY = 3;
+    //public static final int STATE_INVENTORY = 3;
     public static final int STATE_DEATH = 4;
     public static final int STATE_OPTION = 5;
 
@@ -75,44 +69,24 @@ public class GameScreen extends Screen {
      */
     public static TileMap tileMap = null;
 
-    /**
-     * Pause Overlay.
-     * This variable contains the pause overlay.
-     */
-    private final PauseOverlay pause;
-
-    /**
-     * Death Overlay.
-     * This variable contains the overlay of death that appears when the player dies.
-     */
-    private final DeathOverlay death;
-
-    /**
-     * Option overlay.
-     * This variable contains the overlay where the player change its options.
-     */
-    private final OptionOverlay option;
 
     /**
      * Game screen class constructor.
      * Instance the class and set all of the GameScreen's variables.
-     *
-     * @param gameManager Add gameManager to change the global screen.
      */
-    public GameScreen(GameManager gameManager) {
-        super(gameManager);
-
+    public GameScreen() {
+        super();
         File test = new File("data/saves");
         if(!test.exists() && !test.isDirectory()){
             System.out.println("Create file save");
-            File save = new File("data\\saves");
+            File save = new File("data/saves");
             save.mkdirs();
         }
 
         // Load the current party
         test = new File(Config.SAVE_PATH);
         if(Config.getPartyNumber().equals("-1") || (!test.exists() && !test.isDirectory())){
-            if(!FileMethods.copyFromJar("/config/saveOriginal.xml","data/saves/save-1.xml")){
+            if(!FileMethods.copy("resources/config/saveOriginal.xml","data/saves/save-1.xml")){
                 System.out.println("Error to create the party");
                 setScreen(GameManager.MENUSCREEN);
             }
@@ -128,19 +102,10 @@ public class GameScreen extends Screen {
         /* Init gameScreen's variables */
         // Init screen vars
         screenState = STATE_NORMAL;
-        // Init screen's overlay
-        pause = new PauseOverlay(this);
-        death = new DeathOverlay(this);
-        option = new OptionOverlay(this){
-            @Override
-            public void quit(){
-                Screen.setState(STATE_PAUSE);
-            }
-        };
 
         // Init tileMap
         tileMap = new TileMap( Config.TILESET_PATH);
-        GameManager.CAMERA.setTween(0.3f, 1f);
+        GameManager.camera.setTween(0.3f, 1f);
 
         Player player = new Player(this, tileMap, new Vec2(tileSize));
 
@@ -149,40 +114,24 @@ public class GameScreen extends Screen {
         tileMap.setEntity(player);
 
         // Player begin in the ground on Panel 1
-        tileMap.changeMap(Integer.parseInt(XmlReader.getValue(Config.getPartyPath(),"map","location")),
-                Integer.parseInt(XmlReader.getValue(Config.getPartyPath(),"point","location")));
+        tileMap.begin(Integer.parseInt(XmlReader.getValueNoRes(Config.getPartyPath(),"map","location")),
+                Integer.parseInt(XmlReader.getValueNoRes(Config.getPartyPath(),"point","location")));
 
         // Add player for the camera
-        GameManager.CAMERA.setEntityToCamera(player);
-
-        // Set the position of map before beginning of the game
-        GameManager.CAMERA.setPosition(false);
+        GameManager.camera.setEntityToCamera(player);
     }
 
     /**
      * Update the screen in terms of the game's state.
      */
     public void update() {
+        currentOverlay.update();
         switch (screenState) {
             case STATE_NORMAL:
                 updateGame();
                 break;
             case STATE_TRANSITION:
                 updateTransition();
-                break;
-            case STATE_PAUSE:
-                pause.update();
-                break;
-            case STATE_INVENTORY:
-                break;
-            case STATE_DEATH:
-                death.update();
-                break;
-            case STATE_OPTION:
-                option.update();
-                break;
-            default:
-                updateGame();
                 break;
         }
     }
@@ -191,11 +140,14 @@ public class GameScreen extends Screen {
      * Update the player and the map.
      */
     private void updateGame() {
-        if(GameManager.inputsManager.inputPressed(0))screenState = STATE_PAUSE;
+        if(GameManager.inputsManager.inputPressed(0)){
+            setState(STATE_PAUSE);
+            System.out.println(screenState);
+        }
 
         // Update player
         entityManager.update();
-        GameManager.CAMERA.setPosition(true);
+        GameManager.camera.setPosition(true);
         hud.update();
 
         entityManager.dispose();
@@ -219,7 +171,6 @@ public class GameScreen extends Screen {
      * Display the screen in terms of the game'state
      */
     public void display() {
-
         // clear the framebuffer
         Render.clear();
 
@@ -235,18 +186,12 @@ public class GameScreen extends Screen {
                 break;
             case STATE_PAUSE:
                 displayGame();
-                pause.display();
-                break;
-            case STATE_INVENTORY:
-                break;
-            case STATE_OPTION:
-                option.display();
                 break;
             case STATE_DEATH:
                 displayGame();
-                death.display();
                 break;
         }
+        currentOverlay.display();
     }
 
     /**
@@ -266,9 +211,33 @@ public class GameScreen extends Screen {
      */
     private void displayTransition() {
         if (transitionCounter <= transitionTime / 2) {
-            GameManager.CAMERA.transition( 0, Math.map(transitionCounter, 0, transitionTime / 2, 0, 1.5f));
+            GameManager.camera.transition( 0, Math.map(transitionCounter, 0, transitionTime / 2, 0, 1.5f));
         } else {
-            GameManager.CAMERA.transition(0, Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5f, 0));
+            GameManager.camera.transition(0, Math.map(transitionCounter, transitionTime / 2, transitionTime, 1.5f, 0));
+        }
+    }
+
+    @Override
+    public void setState(int newState){
+        super.setState(newState);
+        switch (screenState) {
+            case STATE_PAUSE:
+                currentOverlay = new PauseOverlay();
+                break;
+            case STATE_DEATH:
+                currentOverlay = new DeathOverlay();
+                break;
+            case STATE_OPTION:
+                currentOverlay = new OptionOverlay(){
+                    @Override
+                    public void quit(){
+                        GameManager.setState(STATE_PAUSE);
+                    }
+                };
+                break;
+            default:
+                 currentOverlay = new Overlay();
+                 break;
         }
     }
 
@@ -276,13 +245,13 @@ public class GameScreen extends Screen {
      * Unload the texture to free memory.
      */
     public void unload() {
+        super.unload();
         hud.unload();
-        pause.unload();
-        death.unload();
         tileMap.unload();
-        option.unload();
         entityManager.removeAll();
+        entityManager.getPlayer().unload();
         entityManager.setPlayer(null);
+        currentOverlay.unload();
     }
 
     /**
@@ -290,6 +259,6 @@ public class GameScreen extends Screen {
      * @param b The focus.
      */
     public void focus(boolean b) {
-        if (!b && screenState == STATE_NORMAL) screenState = STATE_PAUSE;
+        if (!b && screenState == STATE_NORMAL) setState(STATE_PAUSE);
     }
 }

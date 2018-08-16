@@ -128,7 +128,7 @@ public class TileMap {
 		tileSet = XmlReader.createTileSet(path);
 
 		// Init map
-		nbMap = Integer.parseInt(XmlReader.getValueInJar(Config.MAP_OPTION_PATH,"number", "number"))+1;
+		nbMap = Integer.parseInt(XmlReader.getValue(Config.MAP_OPTION_PATH,"number", "number"))+1;
 
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));
@@ -148,8 +148,8 @@ public class TileMap {
 		sizeY = numRows * GameScreen.tileSize;
 
 		// Init camera
-		GameManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
-		GameManager.CAMERA.setBoundMin(0, 0);
+		GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
+		GameManager.camera.setBoundMin(0, 0);
 
 		GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
 	}
@@ -168,8 +168,8 @@ public class TileMap {
 	public void display(boolean pos) {
 		tileSetT.bind();
 
-		colOffset = -GameManager.CAMERA.getPosX() / GameScreen.tileSize;
-		rowOffset = -GameManager.CAMERA.getPosY() / GameScreen.tileSize;
+		colOffset = -GameManager.camera.getPosX() / GameScreen.tileSize;
+		rowOffset = -GameManager.camera.getPosY() / GameScreen.tileSize;
 
 		int begin = (pos)? 0: currentLayer+1;
 		int end = (pos)? currentLayer+1 : 4;
@@ -188,7 +188,7 @@ public class TileMap {
 				//For each col
 				for (int col = colOffset; col < maxCol; col++) {
 
-					if(map[row][col]==0)continue;
+					if(row < 0 || col < 0 || map[row][col]==0 )continue;
 					TextureRenderer.image(
 							new Vec2(col * GameScreen.tileSize, row * GameScreen.tileSize),
 							new Vec2(GameScreen.tileSize, GameScreen.tileSize),
@@ -223,7 +223,7 @@ public class TileMap {
 	 * @param point The point to come.
 	 */
 	public void changeMap(int mapID, int point){
-		GameScreen.setState(GameScreen.STATE_TRANSITION);
+		GameManager.setState(GameScreen.STATE_TRANSITION);
 		newMapId = mapID;
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
 		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
@@ -266,7 +266,6 @@ public class TileMap {
 
 		String location = maps.get(currentMap).getLocation(), zone = maps.get(currentMap).getZone();
 		currentMap = newMapId;
-
 		chargeMap();
 
 		if(!zone.equals(maps.get(currentMap).getZone()))GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
@@ -278,12 +277,33 @@ public class TileMap {
 		sizeX = numCols * GameScreen.tileSize;
 		sizeY = numRows * GameScreen.tileSize;
 
-		GameManager.CAMERA.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
-		GameManager.CAMERA.setBoundMin(0, 0);
-		GameManager.CAMERA.setPosition(false);
+		GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
+		GameManager.camera.setBoundMin(0, 0);
+		GameManager.camera.setPosition(false);
 		System.out.println("New map, id: " + currentMap);
 	}
 
+	public void begin(int mapID, int point){
+		newMapId = mapID;
+		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
+		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
+		GameScreen.entityManager.setPosition(new Vec2(givePosX, givePosY));
+		String location = maps.get(currentMap).getLocation(), zone = maps.get(currentMap).getZone();
+		currentMap = newMapId;
+		chargeMap();
+
+		if(!zone.equals(maps.get(currentMap).getZone()))GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
+		else if(!location.equals(maps.get(currentMap).getLocation()))GameScreen.hud.setLocation(maps.get(currentMap).getLocation());
+
+		numCols = map[0].length;
+		numRows = map.length;
+
+		sizeX = numCols * GameScreen.tileSize;
+		sizeY = numRows * GameScreen.tileSize;
+
+		GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
+		GameManager.camera.setBoundMin(0, 0);
+	}
 
 	/**
 	 * Charge the current layer for collision and another features.

@@ -32,6 +32,12 @@ public abstract class Emoveable extends Edrawable{
         }
     }
 
+    public void display(){
+        for(Module module : modules){
+            module.display();
+        }
+    }
+
     public void died(){
         unload();
     }
@@ -45,4 +51,6 @@ public abstract class Emoveable extends Edrawable{
     }
 
     public void setFalling(boolean newState){ falling = newState;}
+
+    public boolean getFacing(){return facing;}
 }

@@ -49,7 +49,6 @@ public abstract class Edrawable extends Eobject{
 
     public void unload() {
         for(Animation animation: animations) if(!(animation == null)) animation.unload();
-
         super.unload();
     }
 
@@ -74,6 +73,8 @@ public abstract class Edrawable extends Eobject{
     public void setAnimations(int animationID){
         animationPlayed = animationID;
     }
+
+    public int getAnimations(){ return animationPlayed; }
 
     public void setAnimationSpeed(float speed){ animations.get(animationPlayed).setSpeed(speed);}
 }

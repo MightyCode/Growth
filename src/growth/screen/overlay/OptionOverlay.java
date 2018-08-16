@@ -60,9 +60,8 @@ public class OptionOverlay extends Overlay {
      * Option overlay class constructor.
      * Instance the class and set overlay's variables.
      */
-    protected OptionOverlay(Screen screen){
-        super(screen);
-
+    public OptionOverlay(){
+        super();
         background = new Texture("/textures/menu/bg.png");
         option = new Texture("/textures/menu/Option_title2.png");
 
@@ -80,7 +79,7 @@ public class OptionOverlay extends Overlay {
                 lock = true;
                 video.setLock(false);
                 inputs.setLock(false);
-                Overlay.setState(0);
+                Screen.setOverlayState(0);
             }
         };
 
@@ -95,7 +94,7 @@ public class OptionOverlay extends Overlay {
                 lock = true;
                 general.setLock(false);
                 inputs.setLock(false);
-                Overlay.setState(1);
+                Screen.setOverlayState(1);
             }
         };
 
@@ -107,7 +106,7 @@ public class OptionOverlay extends Overlay {
                 lock = true;
                 video.setLock(false);
                 video.setLock(false);
-                Overlay.setState(2);
+                Screen.setOverlayState(2);
             }
         };
 
@@ -224,7 +223,7 @@ public class OptionOverlay extends Overlay {
                 break;
         }
 
-        help.render();
+        help.renderC();
     }
 
     /**

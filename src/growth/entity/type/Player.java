@@ -6,6 +6,7 @@ import growth.entity.Eobject.Echaracter;
 import growth.main.Config;
 import growth.main.Growth;
 import growth.main.Window;
+import growth.screen.GameManager;
 import growth.screen.render.Animation;
 import growth.screen.render.texture.Texture;
 import growth.screen.render.texture.TextureRenderer;
@@ -25,7 +26,6 @@ import growth.util.math.Vec2;
 public class Player extends Echaracter {
 
 	private boolean action;
-	private boolean oldAction;
 	private Texture actionT;
 	private Vec2 actionSize;
 
@@ -36,6 +36,7 @@ public class Player extends Echaracter {
 	public static final int WALKING = 1;
 	public static final int JUMPING = 2;
 	public static final int FALLING = 3;
+	public static final int ATTACK = 4;
 
 	/**
 	 * Player's animations priority.
@@ -44,6 +45,7 @@ public class Player extends Echaracter {
 	public static final int WALKING_P = 1;
 	public static final int FALLING_P = 3;
 	public static final int JUMPING_P = 4;
+	public static final int ATTACK_P = 5;
 
 	/**
 	 * Player class constructor.
@@ -63,31 +65,35 @@ public class Player extends Echaracter {
 		collisionBox = new Vec2(this.size.getX()*0.65f, size.getY());
 
 		int tileSize = GameScreen.tileSize;
-		// Value
+
+		// Add the modules of action to the player
 		float walkSpeed = tileSize/25.6f;
 		float maxSpeed = tileSize/10f;
 		float stopSpeed = tileSize/89f;
+		modules.add(new Player_Movement(this,walkSpeed, maxSpeed, stopSpeed));
+
 		float fallSpeed = tileSize/110f;
 		float maxFallSpeed = tileSize - 2f;
+		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
+
 		float jumpStart = tileSize/-4.8f;
 		float stopJumpSpeed = tileSize/130f;
-
-		// Coefficient
-		float runSpeed = 1.45f;
-
-		// Add the modules of action to the player
-		modules.add(new Player_Movement(this,walkSpeed, maxSpeed, stopSpeed));
-		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
 		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
+
+		float runSpeed = 1.45f;
 		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
+
+		int attackTime = 20;
+		Vec2 attackSize = size.copy();
+		modules.add(new Player_Attack(this, attackTime, attackSize));
 		if(Growth.admin){
 			modules.add(new Admin_Layer(this));
 			modules.add(new Admin_PlayerHealth(this));
 		}
 
 		System.out.println(Config.getPartyPath());
-		setMaxHealthPoint(Integer.parseInt(XmlReader.getValue(Config.getPartyPath() , "maxLife", "life")));
-		setHealthPoint(Integer.parseInt(XmlReader.getValue(Config.getPartyPath() , "life", "life")));
+		setMaxHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Config.getPartyPath() , "maxLife", "life")));
+		setHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Config.getPartyPath() , "life", "life")));
 
 		// Sprite and Animation
 		facing = true;
@@ -97,6 +103,7 @@ public class Player extends Echaracter {
 		animations.add(new Animation("/textures/game/entity/player/walk/", 10, 4));
 		animations.add(new Animation("/textures/game/entity/player/jump/", 1, 100));
 		animations.add(new Animation("/textures/game/entity/player/fall/", 1, 100));
+		animations.add(new Animation("/textures/game/entity/player/fall/", 1, 5));
 
 		actionT = new Texture("/textures/game/entity/player/other/action.png");
 		actionSize = new Vec2(Window.height*0.04f);
@@ -107,7 +114,6 @@ public class Player extends Echaracter {
 	 */
 	public void update(){
 		super.update();
-
 		// Check border player collision to change the map
 		if (pos.getX() - collisionBox.getX() / 2 <= 0) {
 			GameScreen.tileMap.changeMap(0,pos.getX(), pos.getY());
@@ -116,7 +122,7 @@ public class Player extends Echaracter {
 		} else if(pos.getY() + collisionBox.getY()/ 2 >= tileMap.getSizeY()){
 			if(!GameScreen.tileMap.changeMap(3, pos.getX(), pos.getY())){
 				died();
-				GameScreen.setState(GameScreen.STATE_DEATH);
+				GameManager.setState(GameScreen.STATE_DEATH);
 			}
 		}
 
@@ -124,6 +130,7 @@ public class Player extends Echaracter {
 	}
 
 	public void display() {
+		super.display();
 		animations.get(animationPlayed).bind();
 		if(animations.size()>0) {
 			if (facing) {
@@ -173,7 +180,10 @@ public class Player extends Echaracter {
 	 * When the player die
 	 */
 	public void died(){
-		Screen.setState(GameScreen.STATE_DEATH);
-		super.died();
+		GameManager.setState(GameScreen.STATE_DEATH);
+	}
+	public void unload(){
+		super.unload();
+		actionT.unload();
 	}
 }

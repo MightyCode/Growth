@@ -36,10 +36,8 @@ public class PauseOverlay extends Overlay{
      * Pause overlay class constructor.
      * Instance the class and set overlay's variables.
      */
-    public PauseOverlay(Screen screen){
-        super(screen);
-        // Init variable
-
+    public PauseOverlay(){
+        super();
         // Title
         pause = new FontRenderer(TextManager.PAUSE,0, StaticFonts.IBM, Window.width*0.05f, new Vec2(), Color4.WHITE);
         pause.setPos(new Vec2(Window.width * 0.5f, Window.height * 0.20f));
@@ -60,9 +58,7 @@ public class PauseOverlay extends Overlay{
                 hoverTextColor
         ){
             @Override
-            public void action () {
-                Screen.setState(GameScreen.STATE_NORMAL);
-            }
+            public void action () { GameManager.setState(GameScreen.STATE_NORMAL); }
         };
 
         options = new GUIButton(
@@ -77,7 +73,7 @@ public class PauseOverlay extends Overlay{
         ){
             @Override
             public void action () {
-                Screen.setState(GameScreen.STATE_OPTION);
+                GameManager.setState(GameScreen.STATE_OPTION);
             }
         };
 
@@ -93,8 +89,7 @@ public class PauseOverlay extends Overlay{
         ){
             @Override
             public void action () {
-                Screen.setState(GameScreen.STATE_NORMAL);
-                Window.gameManager.setScreen(GameManager.MENUSCREEN);
+                GameManager.setScreen(GameManager.MENUSCREEN);
             }
         };
     }
@@ -104,7 +99,7 @@ public class PauseOverlay extends Overlay{
      */
     public void update(){
         if(GameManager.inputsManager.inputPressed(0)) {
-            Screen.setState(GameScreen.STATE_NORMAL);
+            GameManager.setState(GameScreen.STATE_NORMAL);
         }
 
         continuer.update();
@@ -122,7 +117,7 @@ public class PauseOverlay extends Overlay{
                 new Vec2(0.8f * Window.width, 0.75f * Window.height), new Color4(0.0f, 0.0f, 0.0f, 0.5f));
 
         // Textures and button
-        pause.render();
+        pause.renderC();
 
         continuer.display();
         options.display();

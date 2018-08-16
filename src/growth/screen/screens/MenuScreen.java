@@ -1,6 +1,7 @@
 package growth.screen.screens;
 
 import growth.main.Growth;
+import growth.screen.overlay.Overlay;
 import growth.util.TextManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
@@ -13,10 +14,6 @@ import growth.screen.GameManager;
 import growth.entity.gui.GUIButton;
 import growth.main.Window;
 import growth.screen.overlay.OptionOverlay;
-import javafx.beans.binding.Binding;
-
-import javax.tools.JavaCompiler;
-import javax.tools.ToolProvider;
 
 /**
  * Menu class.
@@ -37,21 +34,15 @@ public class MenuScreen extends Screen {
      */
     private GUIButton goToGame, newGame, chargeGame, options, quit;
 
-    /**
-     * The option overlay to change the current parameters.
-     */
-    private OptionOverlay option;
-
     private Texture background;
 
     /**
      * Menu screen class constructor.
      * Instance the menu and set the menu screen's variables.
-     *
-     * @param gameManager Add gameManager to change the global screen.
      */
-    public MenuScreen(GameManager gameManager) {
-        super(gameManager);
+    public MenuScreen() {
+        super();
+
         // Load the screen
         Render.setClearColor(1f, 1f);
 
@@ -85,7 +76,7 @@ public class MenuScreen extends Screen {
         ) {
             @Override
             public void action() {
-                Window.gameManager.setScreen(GameManager.GAMESCREEN);
+                GameManager.setScreen(GameManager.GAMESCREEN);
             }
         };
 
@@ -112,7 +103,7 @@ public class MenuScreen extends Screen {
         ) {
             @Override
             public void action() {
-                Window.gameManager.setScreen(GameManager.GAMESCREEN);
+                GameManager.setScreen(GameManager.GAMESCREEN);
             }
         };
 
@@ -128,7 +119,7 @@ public class MenuScreen extends Screen {
         ) {
             @Override
             public void action() {
-                MenuScreen.setState(1);
+                GameManager.setState(1);
             }
         };
 
@@ -147,14 +138,7 @@ public class MenuScreen extends Screen {
                 Window.exit();
             }
         };
-
-        // Load the option Overlay
-        option = new OptionOverlay(this) {
-            @Override
-            public void quit() {
-                Screen.setState(0);
-            }
-        };
+        GameManager.camera.setPosition(0,0,false);
     }
 
     /**
@@ -170,35 +154,44 @@ public class MenuScreen extends Screen {
                 quit.update();
                 break;
             case 1:
-                option.update();
+                currentOverlay.update();
                 break;
         }
-
     }
 
     /**
      * Display the menu.
      */
     public void display() {
-        switch (screenState) {
-            case 0:
+            if(screenState == 0){
                 Render.clear();
-
                 background.bind();
                 TextureRenderer.imageC(0, 0, Window.width, Window.height);
-
                 title.render();
                 admin.render();
-
                 goToGame.display();
                 newGame.display();
                 chargeGame.display();
                 options.display();
                 quit.display();
-                break;
-            case 1:
-                option.display();
-                break;
+            }
+            else
+            currentOverlay.display();
+    }
+
+    @Override
+    public void setState(int newState){
+        currentOverlay.unload();
+        super.setState(newState);
+        if(screenState == 0){
+            currentOverlay = new Overlay();
+        } else {
+            currentOverlay = new OptionOverlay() {
+                @Override
+                public void quit() {
+                    GameManager.setState(0);
+                }
+            };
         }
     }
 
@@ -206,6 +199,7 @@ public class MenuScreen extends Screen {
      * Unload resources in menu to free memory.
      */
     public void unload() {
+        currentOverlay.unload();
         // Unload the background
         background.unload();
 
@@ -217,6 +211,5 @@ public class MenuScreen extends Screen {
         quit.unload();
         title.unload();
         // Unload the overlay
-        option.unload();
     }
 }

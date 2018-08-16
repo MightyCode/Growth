@@ -1,6 +1,7 @@
 package growth.screen.screens;
 
 import growth.screen.GameManager;
+import growth.screen.overlay.Overlay;
 
 /**
  * Screen class.
@@ -11,26 +12,21 @@ import growth.screen.GameManager;
  */
 public abstract class Screen {
 
-    /**
-     * ScreenManger.
-     * This variable contains the screen manager to interact with it.
-     */
-    protected GameManager screenManager;
+    protected static Overlay currentOverlay;
 
     /**
      * Screen state.
      * This variable contains the different states of game.
      */
-    protected static int screenState = 0;
+    protected int screenState;
 
     /**
      * Screen class constructor.
      * Instance the class and set the screenManager reference.
-     *
-     * @param gameManager Reference of screenManager.
      */
-    public Screen(GameManager gameManager) {
-        this.screenManager = gameManager;
+    public Screen() {
+        screenState = 0;
+        currentOverlay = new Overlay();
     }
 
     /**
@@ -46,14 +42,18 @@ public abstract class Screen {
      * Base architecture of setting screen method
      */
     public void setScreen(int newScreen){
-        screenManager.setScreen(newScreen);
+        GameManager.setScreen(newScreen);
     }
 
     /**
      * Base architecture of setting state method
      */
-    public static void setState(int newState){
+    public void setState(int newState){
         screenState = newState;
+    }
+
+    public static void setOverlayState(int newState){
+        currentOverlay.setState(newState);
     }
 
     /**

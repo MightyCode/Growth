@@ -116,7 +116,7 @@ public class EntityManager {
      * @param id The id of the entity.
      */
     public void setCamera(int id){
-        GameManager.CAMERA.setEntityToCamera((Emoveable)objects.get(id));
+        GameManager.camera.setEntityToCamera((Emoveable)objects.get(id));
     }
 
     /**
