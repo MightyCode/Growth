@@ -20,6 +20,7 @@
 
 package growth.screen.render.texture;
 
+import growth.screen.GameManager;
 import org.lwjgl.BufferUtils;
 
 import javax.imageio.ImageIO;
@@ -44,7 +45,7 @@ public class Texture {
      * Texture ID.
      * This variable contains the OpenGL texture ID, generated in the class constructor.
      */
-    private int id;
+    private TextureId texId;
 
     /**
      * Texture Width.
@@ -63,12 +64,6 @@ public class Texture {
      * This variable stores a boolean value that is false if the texture hasn't been loaded yet or has been unloaded and true if it has been loaded without error.
      */
     private boolean loaded;
-
-    /**
-     * Path.
-     * This variables contains the path of texture charged.
-     */
-    private String path;
 
     /**
      * Texture class constructor. Empty.
@@ -101,7 +96,7 @@ public class Texture {
      */
     public void bind() {
         if (isTextureLoaded()) {
-            glBindTexture(GL_TEXTURE_2D, id);
+            glBindTexture(GL_TEXTURE_2D, texId.getId());
         } else {
             System.err.println("[Error] texture::bind() Binding a unloaded texture.");
         }
@@ -114,8 +109,8 @@ public class Texture {
      */
     public void load(String path) {
         try {
-            this.path = path;
-            BufferedImage image = ImageIO.read(new FileInputStream("resources" + this.path));
+            texId = new TextureId(path);
+            BufferedImage image = ImageIO.read(new FileInputStream("resources" + texId.getPath()));
             createImage(image);
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +125,7 @@ public class Texture {
      * @param image BufferedImage to load.
      */
     private void createImage(BufferedImage image) {
-        id = glGenTextures();
+        texId.setId(glGenTextures());
         loaded = true;
 
         try {
@@ -138,7 +133,7 @@ public class Texture {
 
             image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
-            System.out.println("Texture num : " + id + " , loaded with path : " + path);
+            System.out.println("Texture num : " + texId.getId() + " , loaded with path : " + texId.getPath());
 
             ByteBuffer buffer = BufferUtils.createByteBuffer(image.getHeight() * image.getWidth() * 4);
 
@@ -163,6 +158,7 @@ public class Texture {
             setParam(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
             upload(buffer);
+            GameManager.texManager.add(texId);
         } catch (Exception e) {
             e.printStackTrace();
             unload();
@@ -191,34 +187,12 @@ public class Texture {
     }
 
     /**
-     * Delete the texture.
-     */
-    public void unload() {
-        if (isTextureLoaded()) {
-            glDeleteTextures(id);
-            loaded = false;
-            System.out.println("Texture num : " + id + " , unloaded.");
-        } else {
-            System.err.println("[Error] texture::unload() Unloading an already unloaded texture.");
-        }
-    }
-
-    /**
      * Return if the texture already has been loaded.
      *
      * @return loaded
      */
     private boolean isTextureLoaded() {
         return loaded;
-    }
-
-    /**
-     * Return texture ID.
-     *
-     * @return id
-     */
-    public int getID() {
-        return id;
     }
 
     /**
@@ -237,5 +211,19 @@ public class Texture {
      */
     public int getHeight() {
         return height;
+    }
+
+    /**
+     * Delete the texture.
+     */
+    public void unload() {
+        if (isTextureLoaded()) {
+            glDeleteTextures(texId.getId());
+            GameManager.texManager.remove(texId);
+            loaded = false;
+            System.out.println("Texture num : " + texId.getId() + " , unloaded.");
+        } else {
+            System.err.println("[Error] texture::unload() Unloading an already unloaded texture.");
+        }
     }
 }

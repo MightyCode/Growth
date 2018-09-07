@@ -3,6 +3,7 @@ package growth.screen;
 import growth.inputs.InputManager;
 import growth.screen.render.Camera;
 import growth.screen.render.text.StaticFonts;
+import growth.screen.render.texture.TextureManager;
 import growth.screen.screens.GameScreen;
 import growth.screen.screens.MenuScreen;
 import growth.screen.screens.Screen;
@@ -34,29 +35,14 @@ public class GameManager {
     public static final int GAMESCREEN = 1;
 
     /**
-     * Text manager to manage every text on different language for the game.
+     * Different managers of the game.
      */
     public static TextManager textManager;
-
-    /**
-     * Sound manager to manage the sound on the game.
-     */
     public static SoundManager soundManager;
-
-    /**
-     * Input manager to manage the inputs related to the actions of the player.
-     */
     public static InputManager inputsManager;
-
-    /**
-     * Keyboard manager to manage the keyboard.
-     */
     public static KeyboardManager keyboardManager;
-
-    /**
-     * Input manager to manage the mouse.
-     */
     public static MouseManager mouseManager;
+    public static TextureManager texManager;
 
     /**
      * The camera of the game.
@@ -74,6 +60,7 @@ public class GameManager {
         inputsManager = new InputManager(input);
         keyboardManager = new KeyboardManager();
         mouseManager = new MouseManager();
+        texManager = new TextureManager();
 
         // Load the fist screen
         currentScreen = (new MenuScreen());
@@ -142,5 +129,6 @@ public class GameManager {
         currentScreen = null;
         StaticFonts.unload();
         soundManager.unload();
+        texManager.state();
     }
 }
