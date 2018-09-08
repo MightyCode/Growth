@@ -1,6 +1,7 @@
 package growth.sound;
 
 import growth.main.Config;
+import growth.main.Window;
 
 import java.util.HashMap;
 
@@ -33,7 +34,7 @@ public class SoundManager {
     }
 
     public void play(String index){
-        System.out.println("play " + index);
+        Window.console.println("play " + index);
         sound.get(index).play();
     }
 

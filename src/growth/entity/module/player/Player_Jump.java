@@ -3,7 +3,6 @@ package growth.entity.module.player;
 import growth.entity.type.Player;
 import growth.entity.module.Module;
 import growth.screen.GameManager;
-import growth.sound.Sound;
 import growth.util.math.Vec2;
 
 /**

@@ -1,8 +1,6 @@
 package growth.screen.overlay;
 
-import growth.main.Window;
 import growth.screen.GameManager;
-import growth.screen.screens.Screen;
 
 /**
  * Overlay abstract class.

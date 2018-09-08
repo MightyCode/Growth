@@ -2,7 +2,7 @@
 <word>
     <info language="en"/>
     <!--  0: menu -->
-    <screen id="0" number="6">
+    <screen id="0">
         <sentence
                 s0="Growth"
                 s1="Continue the game"
@@ -14,7 +14,7 @@
     </screen>
 
     <!--  1: Pause/Escape overlay -->
-    <screen id="1" number="4">
+    <screen id="1">
         <sentence
                 s0="Pause"
                 s1="Continue to play"
@@ -24,7 +24,7 @@
     </screen>
 
     <!--  2 : Death overlay -->
-    <screen id="2" number="3">
+    <screen id="2">
         <sentence
                 s0="Game over"
                 s1="Retry"
@@ -33,7 +33,7 @@
     </screen>
 
     <!--  3 - ++ : Option overlay -->
-    <screen id="3" number="8">
+    <screen id="3">
         <sentence
                 s0="General"
                 s1="Video"
@@ -47,7 +47,7 @@
     </screen>
 
     <!--  4 - ++ : Zone name -->
-    <screen id="4" number="4">
+    <screen id="4">
         <sentence
                 s0="Forest"
                 s1="Cave"
@@ -57,7 +57,7 @@
     </screen>
 
     <!--  5 - ++ : Location name -->
-    <screen id="5" number="3">
+    <screen id="5">
         <sentence
                 s0="In the Sargbre"
                 s1="Acorn village"

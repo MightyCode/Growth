@@ -9,7 +9,6 @@ import growth.screen.render.shape.ShapeRenderer;
 import growth.screen.render.text.FontRenderer;
 import growth.screen.render.text.StaticFonts;
 import growth.screen.screens.GameScreen;
-import growth.screen.screens.Screen;
 import growth.screen.GameManager;
 
 /**

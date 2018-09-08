@@ -2,6 +2,7 @@ package growth.entity.module.player;
 
 import growth.entity.type.Player;
 import growth.entity.module.Module;
+import growth.main.Window;
 import growth.screen.GameManager;
 
 /**
@@ -36,29 +37,29 @@ public class Admin_PlayerHealth extends Module {
      */
     public void update(){
         if(GameManager.inputsManager.inputPressed(11)) {
-            System.out.println("Before : " + player.getMaxHealthPoint());
+            Window.console.println("Before : " + player.getMaxHealthPoint());
             player.setMaxHealthPoint(player.getMaxHealthPoint()-2);
-            System.out.println(":(admin):");
-            System.out.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");
+            Window.console.println(":(admin):");
+            Window.console.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");
         }
 
         if(GameManager.inputsManager.inputPressed(12)) {
-            System.out.println("Before : " + player.getMaxHealthPoint());
+            Window.console.println("Before : " + player.getMaxHealthPoint());
             player.setMaxHealthPoint(player.getMaxHealthPoint()+2);
-            System.out.println(":(admin):");
-            System.out.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");
+            Window.console.println(":(admin):");
+            Window.console.println("\033[34mNew max player health value : \033[0m" + player.getMaxHealthPoint() + "\n");
         }
 
         if(GameManager.inputsManager.inputPressed(13)) {
             player.setHealthPoint(player.getHealthPoint()-1);
-            System.out.println(":(admin):");
-            System.out.println("\033[34mNew player health value : \033[0m" + player.getHealthPoint() + "\n");
+            Window.console.println(":(admin):");
+            Window.console.println("\033[34mNew player health value : \033[0m" + player.getHealthPoint() + "\n");
         }
 
         if(GameManager.inputsManager.inputPressed(14)) {
             player.setHealthPoint(player.getHealthPoint()+1);
-            System.out.println(":(admin):");
-            System.out.println("\033[34mNew player health value : \033[0m" + player.getHealthPoint() + "\n");
+            Window.console.println(":(admin):");
+            Window.console.println("\033[34mNew player health value : \033[0m" + player.getHealthPoint() + "\n");
         }
     }
 }

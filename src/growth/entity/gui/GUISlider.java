@@ -4,7 +4,6 @@ import growth.inputs.MouseManager;
 import growth.screen.render.Animation;
 import growth.screen.render.text.FontFace;
 import growth.screen.render.text.FontRenderer;
-import growth.screen.render.texture.Texture;
 import growth.screen.render.texture.TextureRenderer;
 import growth.util.math.Color4;
 import growth.util.math.Math;

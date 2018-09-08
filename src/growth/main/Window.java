@@ -87,11 +87,26 @@ public class Window implements GLFWWindowFocusCallbackI {
 
     public static Config config;
 
+    public static Console console;
+
     /**
      * Window class constructor.
      * Do nothing for the moment
      */
     public Window(){
+
+        // Set the screen manager
+        if(!Growth.admin) {
+            console = new Console() {
+                @Override
+                public void print(String s){}
+                @Override
+                public void println(String s){}
+            };
+        } else {
+            console = new Console();
+        }
+
         // Get the game global configurations.
         config = new Config();
         createWindow();
@@ -138,16 +153,16 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Create the window if fullscreen
         if(Config.getFullscreen()){
             width = 1920; height = 1080;
-            System.out.println(width + " " + height);
+            Window.console.println(width + " " + height);
             windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
 
         }
         else{
             windowID = glfwCreateWindow(width, height, "Growth", NULL, NULL);
-            System.out.println(width + " " + height);
+            Window.console.println(width + " " + height);
         }
 
-        System.out.println("\nWindow with id : "+ windowID +" created");
+        Window.console.println("\nWindow with id : "+ windowID +" created\n");
 
 
         if (windowID == NULL)
@@ -195,7 +210,7 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(windowID);
         glfwDestroyWindow(windowID);
-        System.out.println("Window with id : " + windowID + " deleted");
+        Window.console.println("Window with id : " + windowID + " deleted\n");
     }
 
     /**
@@ -232,7 +247,7 @@ public class Window implements GLFWWindowFocusCallbackI {
                 lastTick += TICK_TIME;
             } else if (timer.getDuration() - lastFrame >= FRAME_TIME) {
                 gameManager.display();
-                //System.out.println(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory());
+                //Window.console.println(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory());
                 glfwSwapBuffers(windowID);
                 glfwPollEvents();
                 frames++;
@@ -265,10 +280,10 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Terminate GLFW and free the error callback
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
-        System.out.println("\n-------------------------- \n");
-        System.out.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Boin Alexandre" +
+        Window.console.println("\n-------------------------- \n");
+        Window.console.println("Good Bye !!! \nGame proposed by\033[93m Bazin Maxence\033[0m. \nWith the collaboration of\033[93m Boin Alexandre" +
                 "\033[0m and mainly\033[93m Rehel Amaury. \n\n       \033[92m Growth \033[0m");
-        System.out.println("\n-------------------------- \n");
+        Window.console.println("\n-------------------------- \n");
 
         // Terminate openAl
         alcDestroyContext(context);

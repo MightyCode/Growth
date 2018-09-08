@@ -3,6 +3,7 @@ package growth.entity;
 import growth.entity.Eobject.Emoveable;
 import growth.entity.Eobject.Eobject;
 import growth.entity.type.Player;
+import growth.main.Window;
 import growth.screen.GameManager;
 import growth.util.math.Vec2;
 
@@ -82,7 +83,7 @@ public class EntityManager {
      * Remove all of the entity.
      */
     public void removeAll(){
-        System.out.println("Clear " + objects.size() + " entities.");
+        Window.console.println("Clear " + objects.size() + " entities.");
         for(int i = 0; i < objects.size(); i++){
             objects.get(0).unload();
             objects.remove(0);

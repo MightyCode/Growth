@@ -17,7 +17,6 @@ import growth.screen.render.texture.TextureRenderer;
 import growth.screen.GameManager;
 import growth.screen.screens.Screen;
 import growth.util.XmlReader;
-import sun.java2d.pipe.TextRenderer;
 
 /**
  * Option Overlay class.
@@ -236,7 +235,7 @@ public class OptionOverlay extends Overlay {
      * Unload the overlay.
      */
     public void unload() {
-        System.out.println("\n-------------------------- \n");
+        Window.console.println("\n-------------------------- \n");
         // Textures
         option.unload();
         background.unload();

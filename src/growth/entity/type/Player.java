@@ -12,7 +12,6 @@ import growth.screen.render.texture.Texture;
 import growth.screen.render.texture.TextureRenderer;
 import growth.screen.screens.GameScreen;
 import growth.game.tilemap.TileMap;
-import growth.screen.screens.Screen;
 import growth.util.XmlReader;
 import growth.util.math.Vec2;
 
@@ -91,7 +90,7 @@ public class Player extends Echaracter {
 			modules.add(new Admin_PlayerHealth(this));
 		}
 
-		System.out.println(Config.getPartyPath());
+		Window.console.println(Config.getPartyPath());
 		setMaxHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Config.getPartyPath() , "maxLife", "life")));
 		setHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Config.getPartyPath() , "life", "life")));
 

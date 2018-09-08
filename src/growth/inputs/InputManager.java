@@ -1,7 +1,6 @@
 package growth.inputs;
 
 import growth.screen.GameManager;
-import growth.screen.screens.GameScreen;
 
 /**
  * This class is the input manager.

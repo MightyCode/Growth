@@ -1,14 +1,10 @@
 package growth.main;
 
-import growth.screen.GameManager;
 import growth.sound.SoundManager;
 import growth.util.FileMethods;
 import growth.util.XmlReader;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * This class save the config of the game.
@@ -88,25 +84,25 @@ public class Config {
         // If the directory don't exists
         File test = new File("data/");
         if (!test.exists() && !test.isDirectory()){
-            System.out.println("Create file Data");
+            Window.console.println("Create file Data");
             File config = new File("data/config");
             File data = new File("data/saves");
             config.mkdirs();
             data.mkdirs();
 
             if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
-                System.out.println("Error on creation of Data");
+                Window.console.println("Error on creation of Data");
                 Window.exit();
             }
         }
 
         test = new File("data/config");
         if (!test.exists() && !test.isDirectory()){
-            System.out.println("Create file Config");
+            Window.console.println("Create file Config");
             File config = new File("data/config");
             config.mkdirs();
             if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
-                System.out.println("Error on creation of config");
+                Window.console.println("Error on creation of config");
                 Window.exit();
             }
         }
@@ -114,9 +110,9 @@ public class Config {
 
         test = new File(Config.CONFIG_PATH);
         if (!test.exists() && !test.isDirectory()){
-            System.out.println("Create file Config.xml");
+            Window.console.println("Create file Config.xml");
             if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
-                System.out.println("Error on creation of Config.xml");
+                Window.console.println("Error on creation of Config.xml");
                 Window.exit();
             }
         }

@@ -1,7 +1,6 @@
 package growth.game.tilemap;
 
 import growth.entity.type.Player;
-import growth.main.Config;
 import growth.main.Window;
 import growth.screen.render.texture.Texture;
 import growth.screen.render.texture.TextureRenderer;
@@ -10,7 +9,10 @@ import growth.screen.screens.GameScreen;
 import growth.util.XmlReader;
 import growth.util.math.Vec2;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import static growth.main.Config.MAP_PATH;
 
 /**
  * TileMap class.
@@ -107,7 +109,7 @@ public class TileMap {
 	 * Number of map.
 	 * This variable contains the number of variable charged on a xml file.
 	 */
-	private final int nbMap;
+	private int nbMap;
 
 	private Player player;
 
@@ -128,7 +130,11 @@ public class TileMap {
 		tileSet = XmlReader.createTileSet(path);
 
 		// Init map
-		nbMap = Integer.parseInt(XmlReader.getValue(Config.MAP_OPTION_PATH,"number", "number"))+1;
+		int a = 1;
+		while(new File("resources" + MAP_PATH + "map"+a+".xml").exists()){
+			a++;
+		}
+		nbMap = a;
 
 		for(int i = 1; i < nbMap; i++){
 			maps.add(XmlReader.createMap("map"+i+".xml"));
@@ -179,7 +185,6 @@ public class TileMap {
 
 		// For each layer
 		for(int i  =  begin; i < end ; i++){
-
 			int[][] map = maps.get(currentMap).getMap(i);
 
 			// For each row
@@ -280,7 +285,7 @@ public class TileMap {
 		GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
 		GameManager.camera.setBoundMin(0, 0);
 		GameManager.camera.setPosition(false);
-		System.out.println("New map, id: " + currentMap);
+		Window.console.println("New map, id: " + currentMap);
 	}
 
 	public void begin(int mapID, int point){
@@ -320,7 +325,7 @@ public class TileMap {
 	public void setLayer(int numberToAdd){
 		if(currentLayer + numberToAdd > 0 || currentLayer + numberToAdd < 2) {
 			currentLayer+= numberToAdd;
-			System.out.println("Change the current layer to " + currentLayer);
+			Window.console.println("Change the current layer to " + currentLayer);
 			chargeMap();
 		}
 	}

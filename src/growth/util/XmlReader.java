@@ -29,7 +29,6 @@ public abstract class XmlReader {
 	 */
 	public static Map createMap(String map_path) {
 		try {
-
 			Element root = getRoot(Config.MAP_PATH + map_path);
 
 			assert root != null;
@@ -226,7 +225,10 @@ public abstract class XmlReader {
 			// Inputs configuration
 			tag = search("inputs", root);
 
-			int inputNumber = Integer.parseInt(tag.getAttribute("number"));
+			int inputNumber = 0;
+			while(!tag.getAttribute("i"+inputNumber).equals("")) {
+				inputNumber++;
+			}
 
 			int[][] inputs = new int[inputNumber][2];
 
@@ -373,8 +375,11 @@ public abstract class XmlReader {
 			String[][] word = new String[tag.getLength()][];
 			for(int i = 0 ; i < tag.getLength(); i++){
 				Element subRoot = (Element)tag.item(i);
-				int size = Integer.parseInt(subRoot.getAttribute("number"));
 				subRoot = (Element) subRoot.getChildNodes().item(1);
+				int size = 0;
+				while(!subRoot.getAttribute("s" + size).equals("")) {
+					size++;
+				}
 				word[i] = new String[size];
 				for(int a = 0; a < size; a++){
 					word[i][a] = subRoot.getAttribute("s"+a);

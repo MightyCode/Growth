@@ -8,7 +8,7 @@ package growth.main;
  */
 public class Growth {
 
-    public static boolean admin;
+    public static final boolean admin = System.getenv("JAVA_DEV_ADMIN").equals("la couille est dans le potage");
 
     /**
      * Window.
@@ -20,8 +20,6 @@ public class Growth {
      * Run the game.
      */
     public static void main(String[] args) {
-            admin = true;
-
         window = new Window();
         window.run();
     }

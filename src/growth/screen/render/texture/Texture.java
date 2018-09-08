@@ -20,6 +20,7 @@
 
 package growth.screen.render.texture;
 
+import growth.main.Window;
 import growth.screen.GameManager;
 import org.lwjgl.BufferUtils;
 
@@ -133,7 +134,7 @@ public class Texture {
 
             image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
-            System.out.println("Texture num : " + texId.getId() + " , loaded with path : " + texId.getPath());
+            Window.console.println("Texture num : " + texId.getId() + " , loaded with path : " + texId.getPath());
 
             ByteBuffer buffer = BufferUtils.createByteBuffer(image.getHeight() * image.getWidth() * 4);
 
@@ -221,7 +222,7 @@ public class Texture {
             glDeleteTextures(texId.getId());
             GameManager.texManager.remove(texId);
             loaded = false;
-            System.out.println("Texture num : " + texId.getId() + " , unloaded.");
+            Window.console.println("Texture num : " + texId.getId() + " , unloaded.");
         } else {
             System.err.println("[Error] texture::unload() Unloading an already unloaded texture.");
         }

@@ -9,12 +9,6 @@ import growth.util.math.Color4;
 import growth.util.math.Vec2;
 
 public class Player_Attack extends Module {
-    /**
-     * Mother module class constructor.
-     * Instance the class and set the reference to the entity.
-     *
-     * @param entity Entity using the module.
-     */
 
     private int attackTime;
 
@@ -35,7 +29,6 @@ public class Player_Attack extends Module {
     public void update() {
         super.update();
         if(isAttack){
-            System.out.println("attack is comming");
             if(counter > attackTime){
                 isAttack = false;
                 counter = 0;

@@ -1,7 +1,6 @@
 package growth.game;
 
 import growth.main.Window;
-import growth.screen.overlay.Overlay;
 import growth.screen.render.text.FontRenderer;
 import growth.screen.render.text.StaticFonts;
 import growth.screen.render.texture.Texture;
@@ -312,7 +311,7 @@ public class Hud {
     public void setZone(String zone, String location){
         counter = 0;
         type = 1;
-        System.out.println(zone + " " + location);
+        Window.console.println(zone + " " + location);
         locationFont.setOpacity(1);
         locationFont.setWordNumber(TextManager.LOCATION, Integer.parseInt(location));
         locationFont.setPos(new Vec2(Window.width * 0.128f, Window.height * 0.16f));

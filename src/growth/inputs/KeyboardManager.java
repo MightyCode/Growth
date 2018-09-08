@@ -2,7 +2,8 @@ package growth.inputs;
 
 import growth.main.Window;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_J;
+import java.util.Arrays;
+
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 /**
@@ -36,10 +37,8 @@ public class KeyboardManager {
      * Instance the class.
      */
     public KeyboardManager(){
-        for(int i = 0; i < Keys; i++) {
-            state[i] = false;
-            tempState[i] = false;
-        }
+        Arrays.fill(state, false);
+        Arrays.fill(tempState, false);
     }
 
     /**
