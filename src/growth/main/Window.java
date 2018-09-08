@@ -153,7 +153,7 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Create the window if fullscreen
         if(Config.getFullscreen()){
             width = 1920; height = 1080;
-            Window.console.println(width + " " + height);
+            console.println(width + " " + height);
             windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
 
         }
@@ -162,12 +162,10 @@ public class Window implements GLFWWindowFocusCallbackI {
             Window.console.println(width + " " + height);
         }
 
-        Window.console.println("\nWindow with id : "+ windowID +" created\n");
-
+        Window.console.println("\u001B[33m\nWindow with id : "+ windowID +" created\n\u001B[30m");
 
         if (windowID == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
-
 
         // Get the thread stack and push a new frame
         try (MemoryStack stack = stackPush()) {
@@ -210,7 +208,7 @@ public class Window implements GLFWWindowFocusCallbackI {
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(windowID);
         glfwDestroyWindow(windowID);
-        Window.console.println("Window with id : " + windowID + " deleted\n");
+        console.println("\u001B[33mWindow with id : " + windowID + " deleted\n\u001B[30m");
     }
 
     /**
