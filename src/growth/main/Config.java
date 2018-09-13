@@ -1,5 +1,6 @@
 package growth.main;
 
+import growth.screen.GameManager;
 import growth.sound.SoundManager;
 import growth.util.FileMethods;
 import growth.util.XmlReader;
@@ -17,61 +18,30 @@ public class Config {
     /**
      * Project path
      */
-    private static String projectPath;
+    private String projectPath;
 
     /**
      * Fullscreen state.
      */
-    private static boolean fullscreen;
+    private boolean fullscreen;
+    private int currentWindowWidth;
+    private int currentWindowHeight;
+    private int[][] inputs;
+    private String language;
 
-    /**
-     * Current window size in width.
-     */
-    private static int currentWindowWidth;
+    private String partyNumber;
+    private String partyPath;
+    private int partyMax;
 
-    /**
-     * Current window size in height.
-     */
-    private static int currentWindowHeight;
-
-    /**
-     * Basic table of inputs.
-     */
-    private static int[][] inputs;
-
-    /**
-     * Current language use.
-     */
-    private static String language;
-
-    /**
-     * Current party number.
-     */
-    private static String partyNumber;
-
-    /**
-     * Current party path.
-     */
-    private static String partyPath;
-
-    /**
-     * Current noiseVolume.
-     */
-    private static int noiseVolume;
-
-    /**
-     * Current musicVolume.
-     */
-    private static int musicVolume;
+    private int noiseVolume;
+    private  int musicVolume;
 
     /**
      * Public static final string about the path for different thing.
      */
     public static final String CONFIG_PATH = "data/config/config.xml";
-    public static final String SAVE_PATH = "data/saves/save-";
-    public static final String MAP_PATH = "/map/";
-    public static final String MAP_OPTION_PATH = "/map/mapOptions.xml";
-    public static final String TILESET_PATH = "/map/tileset.xml";
+    public static final String SAVE_PATH = "data/saves/";
+    public static final String TILESET_PATH = "/textures/game/tiles/tileset.xml";
     public static final String ENTITY_PATH = "growth.entity.type.";
 
     /**
@@ -85,155 +55,90 @@ public class Config {
         File test = new File("data/");
         if (!test.exists() && !test.isDirectory()){
             Window.console.println("Create file Data");
-            File config = new File("data/config");
-            File data = new File("data/saves");
-            config.mkdirs();
+            File data = new File("data");
             data.mkdirs();
-
-            if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
-                Window.console.println("Error on creation of Data");
-                Window.exit();
-            }
         }
 
         test = new File("data/config");
         if (!test.exists() && !test.isDirectory()){
-            Window.console.println("Create file Config");
+            Window.console.println("Create file \"config\"");
             File config = new File("data/config");
             config.mkdirs();
-            if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
-                Window.console.println("Error on creation of config");
-                Window.exit();
-            }
         }
-
 
         test = new File(Config.CONFIG_PATH);
         if (!test.exists() && !test.isDirectory()){
-            Window.console.println("Create file Config.xml");
-            if(!FileMethods.copy("resources/config/configOriginal.xml","data/config/config.xml")){
+            Window.console.println("Create file \"config.xml\"");
+            if(!FileMethods.copy("resources/files/config.xml","data/config/config.xml")){
                 Window.console.println("Error on creation of Config.xml");
                 Window.exit();
             }
         }
 
-        // Load configurationss
-        XmlReader.loadConfig();
-        SoundManager.setNoiseVolume(noiseVolume);
-        SoundManager.setMusicVolume(musicVolume);
+        test = new File(SAVE_PATH);
+        if (!test.exists() && !test.isDirectory()){
+            Window.console.println("Create file \"saves\"");
+            File data = new File("data/saves");
+            data.mkdirs();
+            partyMax = -1;
+            partyNumber = String.valueOf(-1);
+        }
     }
 
-    /**
-     * Get the fullscreen state.
-     * @return The state (boolean).
-     */
-    public static boolean getFullscreen() { return fullscreen; }
+    public boolean getFullscreen() { return fullscreen; }
+    public void setFullscreen(int fullscreen) { this.fullscreen = fullscreen == 1; }
 
-    /**
-     * Set the fullscreen state.
-     * @param fullscreen The fullscreen state.
-     */
-    public static void setFullscreen(int fullscreen) { Config.fullscreen = fullscreen == 1; }
+    public int getWindowWidth() { return currentWindowWidth; }
+    public void setWindowWidth(int windowWidth) { currentWindowWidth = windowWidth; }
 
 
-    /**
-     * Get the window width size.
-     * @return The size(int).
-     */
-    public static int getWindowWidth() { return currentWindowWidth; }
+    public int getWindowHeight() { return currentWindowHeight; }
+    public void setWindowHeight(int windowHeight) { currentWindowHeight = windowHeight; }
 
-    /**
-     * Set the window size in width.
-     * @param windowWidth The new window size width.
-     */
-    public static void setWindowWidth(int windowWidth) { Config.currentWindowWidth = windowWidth; }
+    public int[][] getInputs() { return inputs; }
+    public void setInputs(int[][] inputs) { this.inputs = inputs; }
 
-    /**
-     * Get the window height size.
-     * @return The size(int).
-     */
-    public static int getWindowHeight() { return currentWindowHeight; }
+    public String getLanguage(){return language;}
+    public void setLanguage(String newLanguage){language = newLanguage;}
 
-    /**
-     * Set the window size in height.
-     * @param windowHeight The new window size height.
-     */
-    public static void setWindowHeight(int windowHeight) { Config.currentWindowHeight = windowHeight; }
+    public String getPartyNumber() { return partyNumber; }
+    public void setPartyNumber(String partyNumber) {
+        if(partyNumber.equals("-1") && partyMax > 0) partyNumber = "1";
+        else                                         this.partyNumber = partyNumber;
 
-    /**
-     * Get the inputs.
-     * @return The inputs table (int[][])
-     */
-    public static int[][] getInputs() { return inputs; }
-
-    /**
-     * Set the new inputs
-     * @param inputs The new inputs.
-     */
-    public static void setInputs(int[][] inputs) { Config.inputs = inputs; }
-
-    /**
-     * Get current the language.
-     * @return The aka(string)
-     */
-    public static String getLanguage(){return language;}
-
-    /**
-     * Set the new game's language.
-     * @param newLanguage The new language.
-     */
-    public static void setLanguage(String newLanguage){language = newLanguage;}
-
-    /**
-     * Get the current number of the party played.
-     * @return The party number.
-     */
-    public static String getPartyNumber() { return partyNumber; }
-
-    /**
-     * Set the new party number.
-     * @param partyNumber The new party number.
-     */
-    public static void setPartyNumber(String partyNumber) {
-        Config.partyNumber = partyNumber;
-        partyPath = SAVE_PATH + partyNumber + ".xml";
+        partyPath = SAVE_PATH + "save-" + partyNumber+ "/";
     }
 
-    /**
-     * Get party path.
-     * @return The party path(string).
-     */
-    public static String getPartyPath() { return partyPath; }
+    public String getPartyPath() { return partyPath; }
 
-    /**
-     * Set the party path.
-     * @param partyPath The new party path.
-     */
-    public static void setPartyPath(String partyPath) { Config.partyPath = partyPath; }
+    public int getPartyMax(){ return partyMax; }
 
-    /**
-     * Get music volume.
-     * @return The music volume(int).
-     */
-    public static int getMusicVolume() { return musicVolume; }
+    public void setPartyMax(int newMax){ partyMax = newMax; }
 
-    /**
-     * Set the new music volume.
-     * @param newVolume The new music volume.
-     */
-    public static void setMusicVolume(int newVolume){ musicVolume = newVolume; }
+    public int getMusicVolume() { return musicVolume; }
+    public void setMusicVolume(int newVolume){ musicVolume = newVolume;}
 
-    /**
-     * Get noise volume.
-     * @return The noise volume(int).
-     */
-    public static int getNoiseVolume() { return noiseVolume; }
+    public int getNoiseVolume() { return noiseVolume; }
+    public void setNoiseVolume(int newNoiseVolume){ noiseVolume = newNoiseVolume;}
+    public void checkSave(){
+        /*File test = new File("data/saves");
+        if(!test.exists() && !test.isDirectory()){
+            Window.console.println("Create file save");
+            File save = new File("data/saves");
+            save.mkdirs();
+        }
 
-    /**
-     * Set the new noise volume.
-     * @param newNoiseVolume The new noise volume.
-     */
-    public static void setNoiseVolume(int newNoiseVolume){ noiseVolume = newNoiseVolume; }
+        // Load the current party
+        test = new File(Config.SAVE_PATH);
+        if(Config.getPartyNumber().equals("-1") || (!test.exists() && !test.isDirectory())){
+            if(!FileMethods.copy("resources/config/save.xml","data/saves/save-1.xml")){
+                Window.console.println("Error to create the party");
+                GameManager.setScreen(GameManager.MENUSCREEN);
+            }
+            Config.setPartyNumber("1");
+        }*/
+    }
+
 
     /**
      * Save configurations on game's close.

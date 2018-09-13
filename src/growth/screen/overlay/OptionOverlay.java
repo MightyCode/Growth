@@ -123,27 +123,27 @@ public class OptionOverlay extends Overlay {
                 }
             }
         };
-        language.setState(Config.getLanguage().equals("en"));
+        language.setState(Window.config.getLanguage().equals("en"));
 
         musicVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.41f) ,
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                TextManager.OPTIONS,6, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Config.getMusicVolume()
+                TextManager.OPTIONS,6, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Window.config.getMusicVolume()
         ){
             @Override
             public void action () {
-                SoundManager.setMusicVolume((int)value);
+                GameManager.soundManager.setMusicVolume((int)value);
             }
         };
 
         noiseVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.55f) ,
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                TextManager.OPTIONS,7, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Config.getNoiseVolume()
+                TextManager.OPTIONS,7, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Window.config.getNoiseVolume()
         ){
             @Override
             public void action () {
-                SoundManager.setNoiseVolume((int)value);
+                GameManager.soundManager.setNoiseVolume((int)value);
             }
         };
 
@@ -155,16 +155,16 @@ public class OptionOverlay extends Overlay {
             @Override
             public void action () {
                 if(GUIState == 0){
-                    Config.setFullscreen(0);
+                    Window.config.setFullscreen(0);
                     XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","0","window");
                 } else{
-                    Config.setFullscreen(1);
+                    Window.config.setFullscreen(1);
                     XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","1","window");
                 }
             }
         };
 
-        fullscreen.setState(Config.getFullscreen());
+        fullscreen.setState(Window.config.getFullscreen());
 
         help = new FontRenderer(TextManager.OPTIONS,5, StaticFonts.IBM, Window.height*0.04f,
                 new Vec2(Window.width * 0.5f, Window.height * 0.95f), Color4.BLACK);

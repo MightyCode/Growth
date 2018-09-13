@@ -1,7 +1,9 @@
 package growth.screen.screens;
 
+import growth.main.Config;
 import growth.main.Growth;
 import growth.screen.overlay.Overlay;
+import growth.util.Party;
 import growth.util.TextManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
@@ -76,9 +78,13 @@ public class MenuScreen extends Screen {
         ) {
             @Override
             public void action() {
-                GameManager.setScreen(GameManager.GAMESCREEN);
+                Party.checkParty();
             }
         };
+
+        if(Window.config.getPartyNumber().equals( "-1")){
+            goToGame.setLock(true);
+        }
 
         chargeGame = new GUIButton(
                 new Vec2(Window.width * 0.5f, Window.height * 0.48f),
@@ -100,9 +106,10 @@ public class MenuScreen extends Screen {
                 hoverColor,
                 textColor,
                 hoverTextColor
-        ) {
+        ){
             @Override
             public void action() {
+                Party.createParty();
                 GameManager.setScreen(GameManager.GAMESCREEN);
             }
         };

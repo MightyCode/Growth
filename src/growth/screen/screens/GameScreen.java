@@ -76,23 +76,7 @@ public class GameScreen extends Screen {
      */
     public GameScreen() {
         super();
-        File test = new File("data/saves");
-        if(!test.exists() && !test.isDirectory()){
-            Window.console.println("Create file save");
-            File save = new File("data/saves");
-            save.mkdirs();
-        }
-
-        // Load the current party
-        test = new File(Config.SAVE_PATH);
-        if(Config.getPartyNumber().equals("-1") || (!test.exists() && !test.isDirectory())){
-            if(!FileMethods.copy("resources/config/saveOriginal.xml","data/saves/save-1.xml")){
-                Window.console.println("Error to create the party");
-                setScreen(GameManager.MENUSCREEN);
-            }
-            Config.setPartyNumber("1");
-        }
-
+        XmlReader.saveConfiguration();
         tileSize = Window.width/20;
 
         hud = new Hud();
@@ -114,8 +98,8 @@ public class GameScreen extends Screen {
         tileMap.setEntity(player);
 
         // Player begin in the ground on Panel 1
-        tileMap.begin(Integer.parseInt(XmlReader.getValueNoRes(Config.getPartyPath(),"map","location")),
-                Integer.parseInt(XmlReader.getValueNoRes(Config.getPartyPath(),"point","location")));
+        tileMap.begin(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getPartyPath()+"save.xml","map","location")),
+                Integer.parseInt(XmlReader.getValueNoRes(Window.config.getPartyPath()+"save.xml","point","location")));
 
         // Add player for the camera
         GameManager.camera.setEntityToCamera(player);
@@ -142,7 +126,6 @@ public class GameScreen extends Screen {
     private void updateGame() {
         if(GameManager.inputsManager.inputPressed(0)){
             setState(STATE_PAUSE);
-            Window.console.println(screenState);
         }
 
         // Update player
@@ -259,6 +242,6 @@ public class GameScreen extends Screen {
      * @param b The focus.
      */
     public void focus(boolean b) {
-        if (!b && screenState == STATE_NORMAL) setState(STATE_PAUSE);
+        /*if (!b && screenState == STATE_NORMAL) setState(STATE_PAUSE);*/
     }
 }

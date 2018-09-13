@@ -11,25 +11,15 @@ public abstract class Emoveable extends Edrawable{
 
     protected boolean falling;
 
-    /**
-     * Modules.
-     * This list contains the module using by the entity.
-     */
-    protected ArrayList<Module> modules;
-
     protected Vec2 speed;
 
     public Emoveable(){
         super();
         speed = new Vec2();
-        modules = new ArrayList<>();
     }
 
     public void update(){
         super.update();
-        for(Module module : modules){
-            module.update();
-        }
     }
 
     public void display(){

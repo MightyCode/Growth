@@ -1,6 +1,8 @@
 package growth.entity.type;
 
+import growth.entity.EntityManager;
 import growth.entity.Eobject.Eobject;
+import growth.entity.methods.EntityMethods;
 import growth.screen.GameManager;
 import growth.screen.render.shape.ShapeRenderer;
 import growth.screen.screens.GameScreen;
@@ -28,19 +30,17 @@ public class TpPoint extends Eobject {
     }
 
     public void update() {
-        float posX = GameScreen.entityManager.getPos().getX();
-        float posY = GameScreen.entityManager.getPos().getY();
-        if(posX > pos.getX() && posX < pos.getX()+size.getX()){
-            if(posY > pos.getY() && posY < pos.getY() + size.getY()){
-                GameScreen.entityManager.getPlayer().setAction(true);
-                if(GameManager.inputsManager.inputPressed(7)){
-                    GameScreen.tileMap.changeMap(map, point);
-                }
+        super.update();
+        if (EntityMethods.isCollidc(pos, size, GameScreen.entityManager.getPlayer())){
+            GameScreen.entityManager.getPlayer().setAction(true);
+            if (GameManager.inputsManager.inputPressed(7)) {
+                GameScreen.tileMap.changeMap(map, point);
             }
         }
     }
 
     public void display(){
+        super.display();
         ShapeRenderer.rect(pos,size,new Color4(0,0,0,0.5f));
     }
 }

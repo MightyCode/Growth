@@ -3,6 +3,7 @@ package growth.util;
 import growth.game.tilemap.Map;
 import growth.game.tilemap.Tile;
 import growth.main.Config;
+import growth.main.Window;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,7 +30,7 @@ public abstract class XmlReader {
 	 */
 	public static Map createMap(String map_path) {
 		try {
-			Element root = getRoot(Config.MAP_PATH + map_path);
+			Element root = getRootNoRes(map_path);
 
 			assert root != null;
 			int width = Integer.parseInt(root.getAttribute("width"));
@@ -212,39 +213,36 @@ public abstract class XmlReader {
 			assert root != null;
 			// General configuration
 			Element tag = search("general", root);
-			Config.setLanguage(tag.getAttribute("language"));
+			Window.config.setLanguage(tag.getAttribute("language"));
 
 			// Window size
 			 tag = search("window", root);
-			Config.setWindowWidth(Integer.parseInt(tag.getAttribute("width")));
-			Config.setWindowHeight(Integer.parseInt(tag.getAttribute("height")));
+			Window.config.setWindowWidth(Integer.parseInt(tag.getAttribute("width")));
+			Window.config.setWindowHeight(Integer.parseInt(tag.getAttribute("height")));
 
 			// Window fullscreen
-			Config.setFullscreen(Integer.parseInt(tag.getAttribute("fullscreen")));
+			Window.config.setFullscreen(Integer.parseInt(tag.getAttribute("fullscreen")));
 
 			// Inputs configuration
 			tag = search("inputs", root);
-
 			int inputNumber = 0;
 			while(!tag.getAttribute("i"+inputNumber).equals("")) {
 				inputNumber++;
 			}
-
 			int[][] inputs = new int[inputNumber][2];
-
 			for(int i = 0; i < inputNumber; i++){
 				String data = tag.getAttribute("i"+i);
 				inputs[i][Integer.parseInt(data.substring(0,1))] = Integer.parseInt(data.substring(2,data.length()));
 				inputs[i][Math.abs(Integer.parseInt(data.substring(0,1))-1)] = -1;
 			}
+			Window.config.setInputs(inputs);
 
-			Config.setInputs(inputs);
+			Window.config.setPartyMax(Integer.parseInt(search("game",root).getAttribute("max")));
+			Window.config.setPartyNumber(search("game",root).getAttribute("party"));
 
-			Config.setPartyNumber(search("game",root).getAttribute("number"));
 			tag = search("sound", root);
-
-			Config.setMusicVolume(Integer.parseInt(tag.getAttribute("music")));
-			Config.setNoiseVolume(Integer.parseInt(tag.getAttribute("noise")));
+			Window.config.setMusicVolume(Integer.parseInt(tag.getAttribute("music")));
+			Window.config.setNoiseVolume(Integer.parseInt(tag.getAttribute("noise")));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -263,17 +261,17 @@ public abstract class XmlReader {
 			assert root != null;
 			// General configuration
 			Element tag = search("general", root);
-			tag.setAttribute("language",Config.getLanguage());
+			tag.setAttribute("language",Window.config.getLanguage());
 			tag = search("window", root);
-			setAttribute(tag,"fullscreen",Config.getFullscreen());
-			setAttribute(tag,"width",Config.getWindowWidth());
-			setAttribute(tag,"height",Config.getWindowHeight());
+			setAttribute(tag,"fullscreen",Window.config.getFullscreen());
+			setAttribute(tag,"width",Window.config.getWindowWidth());
+			setAttribute(tag,"height",Window.config.getWindowHeight());
 			tag = search("sound",root);
-			setAttribute(tag,"music",Config.getMusicVolume());
-			setAttribute(tag,"noise",Config.getNoiseVolume());
+			setAttribute(tag,"music",Window.config.getMusicVolume());
+			setAttribute(tag,"noise",Window.config.getNoiseVolume());
 
 			tag = search("inputs",root);
-			int[][]inputs = Config.getInputs();
+			int[][]inputs = Window.config.getInputs();
 			for(int i = 0; i < inputs.length; i++){
 				if(inputs[i][1] == -1){
 					tag.setAttribute("i"+i,"0-"+inputs[i][0]);
@@ -283,8 +281,8 @@ public abstract class XmlReader {
 			}
 
 			tag = search("game",root);
-
-			tag.setAttribute("number", Config.getPartyNumber());
+			tag.setAttribute("party", Window.config.getPartyNumber());
+			tag.setAttribute("max", String.valueOf(Window.config.getPartyMax()));
 
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
@@ -369,7 +367,7 @@ public abstract class XmlReader {
 	 */
 	public static String[][] loadWord(){
 		try{
-			Element root = getRoot("/word/" + Config.getLanguage() + ".xml");
+			Element root = getRoot("/word/" + Window.config.getLanguage() + ".xml");
 			assert root != null;
 			NodeList tag = root.getElementsByTagName("screen");
 			String[][] word = new String[tag.getLength()][];

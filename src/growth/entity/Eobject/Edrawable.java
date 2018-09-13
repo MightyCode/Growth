@@ -43,6 +43,7 @@ public abstract class Edrawable extends Eobject{
         oldAnimation = animationPlayed;
         animationPlayed = IDLE;
         priority = IDLE_P;
+        super.update();
     }
 
     public abstract void display();

@@ -17,13 +17,15 @@ public class SoundManager {
     /**
      * These values between 0 and 100 manage all of the sound.
      */
-    private static float musicVolume;
-    private static float noiseVolume;
+    private float musicVolume;
+    private float noiseVolume;
     private static HashMap<String, Sound> sound = new HashMap<>();
     /**
      * Class constructor.
      */
     public SoundManager(){
+        musicVolume = Window.config.getMusicVolume();
+        noiseVolume = Window.config.getNoiseVolume();
     }
 
     public void addSound(String path, int type, String index){
@@ -42,7 +44,7 @@ public class SoundManager {
         sound.get(index).remove();
     }
 
-    public static float getVolume(int type){
+    public float getVolume(int type){
         if(type == Sound.NOISE){
             return noiseVolume;
         } else if(type == Sound.MUSIC){
@@ -59,17 +61,17 @@ public class SoundManager {
      * Return the music volume.
      * @return The volume.
      */
-    public static int getMusicVolume() { return (int)musicVolume*100; }
+    public int getMusicVolume() { return (int)musicVolume*100; }
 
     /**
      * Set the music volume for the sound Manager and the Config.
      * @param newMusicVolume The new music volume.
      */
-    public static void setMusicVolume(int newMusicVolume) {
+    public void setMusicVolume(int newMusicVolume) {
         if(newMusicVolume < 0) musicVolume = 0;
         else if(newMusicVolume > 100) musicVolume = 100;
         else musicVolume = ((float)newMusicVolume)/100;
-        Config.setMusicVolume((int)(musicVolume*100));
+        Window.config.setMusicVolume((int)(musicVolume*100));
         for(String currentKey : sound.keySet()) {
             sound.get(currentKey).reload();
         }
@@ -79,17 +81,17 @@ public class SoundManager {
      * Return the noise volume.
      * @return The volume.
      */
-    public static int getNoiseVolume() { return (int)noiseVolume*100; }
+    public int getNoiseVolume() { return (int)noiseVolume*100; }
 
     /**
      * Set the noise volume for the sound Manager and the Config.
      * @param newNoiseVolume The new noise volume.
      */
-    public static void setNoiseVolume(int newNoiseVolume) {
+    public void setNoiseVolume(int newNoiseVolume) {
         if(newNoiseVolume < 0) noiseVolume = 0.0f;
         if(newNoiseVolume > 100) noiseVolume = 0.1f;
         noiseVolume = ((float)newNoiseVolume)/100;
-        Config.setNoiseVolume((int)(noiseVolume*100));
+        Window.config.setNoiseVolume((int)(noiseVolume*100));
         for(String currentKey : sound.keySet()) {
             sound.get(currentKey).reload();
         }

@@ -1,5 +1,7 @@
 package growth.main;
 
+import java.awt.*;
+
 /**
  * Main class of the game.
  *
@@ -8,7 +10,7 @@ package growth.main;
  */
 public class Growth {
 
-    public static final boolean admin = System.getenv("JAVA_DEV_ADMIN").equals("la couille est dans le potage");
+    public static final boolean admin = /*System.getenv("JAVA_DEV_ADMIN").equals("la couille est dans le potage")*/ true;
 
     /**
      * Window.

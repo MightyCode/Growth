@@ -1,6 +1,7 @@
 package growth.util;
 
 import growth.main.Config;
+import growth.main.Window;
 import growth.screen.render.text.FontRenderer;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class TextManager {
     public void changeLanguage(String newLanguage) {
         // Change the param
         XmlReader.changeValue(Config.CONFIG_PATH, "language", newLanguage, "general");
-        Config.setLanguage(newLanguage);
+        Window.config.setLanguage(newLanguage);
         // Reload the new language
         word = XmlReader.loadWord();
         // Update every text users object

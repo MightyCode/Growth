@@ -1,5 +1,8 @@
 package growth.sound;
 
+import growth.screen.GameManager;
+import growth.screen.screens.GameScreen;
+
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
@@ -65,7 +68,7 @@ public class Sound {
     }
 
     public void play(){
-        float volume = SoundManager.getVolume(type);
+        float volume = GameManager.soundManager.getVolume(type);
         //Assign the sound we just loaded to the source
         alSourcef(sourcePointer, AL_GAIN, volume);
         alSourcef(sourcePointer, AL_LOOPING, loop?1:0);
@@ -73,7 +76,7 @@ public class Sound {
     }
 
     public void pause(){
-        float volume = SoundManager.getVolume(type);
+        float volume = GameManager.soundManager.getVolume(type);
         //Assign the sound we just loaded to the source
         alSourcef(sourcePointer, AL_GAIN, volume);
         alSourcePause(sourcePointer);
@@ -92,7 +95,7 @@ public class Sound {
     }
 
     public void reload(){
-        alSourcef(sourcePointer, AL_GAIN, SoundManager.getVolume(type));
+        alSourcef(sourcePointer, AL_GAIN, GameManager.soundManager.getVolume(type));
     }
 
     public void unload(){

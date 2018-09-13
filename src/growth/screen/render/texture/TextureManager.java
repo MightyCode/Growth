@@ -30,7 +30,7 @@ public class TextureManager {
 
     public void endState(){
         if(textureIds.size()>0){
-            Window.console.println("\u001B[31m\nRemaining textures don't unload : " + textureIds.size() + "");
+            Window.console.println("\u001B[31m\nNot unloaded textures : " + textureIds.size() + "");
             Window.console.println("\n::::::::::::::::::::");
             for(TextureId texx : textureIds) {
                 Window.console.println("Texture " + texx.getId() + ", from " + texx.getPath());

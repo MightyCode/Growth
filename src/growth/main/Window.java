@@ -3,6 +3,7 @@ package growth.main;
 import growth.screen.render.Render;
 import growth.screen.GameManager;
 import growth.util.Timer;
+import growth.util.XmlReader;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallbackI;
@@ -12,8 +13,12 @@ import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.openal.ALCapabilities;
 import org.lwjgl.system.MemoryStack;
 
+import java.awt.*;
 import java.nio.IntBuffer;
 import java.util.Objects;
+import java.io.*;
+import java.awt.GraphicsEnvironment;
+import java.net.URISyntaxException;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -109,6 +114,7 @@ public class Window implements GLFWWindowFocusCallbackI {
 
         // Get the game global configurations.
         config = new Config();
+        XmlReader.loadConfig();
         createWindow();
         glfwSetWindowFocusCallback(windowID,this);
     }
@@ -117,8 +123,8 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Create the window and get the window ID.
      */
     private static void createWindow(){
-        width = Config.getWindowWidth();
-        height = Config.getWindowHeight();
+        width = config.getWindowWidth();
+        height = config.getWindowHeight();
 
         // Setup an error callback.
         GLFWErrorCallback.createPrint(System.err).set();
@@ -151,7 +157,7 @@ public class Window implements GLFWWindowFocusCallbackI {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         // Create the window if fullscreen
-        if(Config.getFullscreen()){
+        if(config.getFullscreen()){
             width = 1920; height = 1080;
             console.println(width + " " + height);
             windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
@@ -222,9 +228,9 @@ public class Window implements GLFWWindowFocusCallbackI {
     /**
      * Main method of game.
      */
-    private static void loop() {
+    private static void loop(){
         // Set the screen manager
-        gameManager = new GameManager(Config.getInputs());
+        gameManager = new GameManager(config.getInputs());
         // Set render parameters
         Render.setClearColor(225,255);
         Render.glEnable2D();

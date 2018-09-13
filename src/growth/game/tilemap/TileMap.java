@@ -12,8 +12,6 @@ import growth.util.math.Vec2;
 import java.io.File;
 import java.util.ArrayList;
 
-import static growth.main.Config.MAP_PATH;
-
 /**
  * TileMap class.
  * This class is use to store the game structure.
@@ -131,13 +129,13 @@ public class TileMap {
 
 		// Init map
 		int a = 1;
-		while(new File("resources" + MAP_PATH + "map"+a+".xml").exists()){
+		while(new File(Window.config.getPartyPath()+"maps/map"+a+".xml").exists()){
 			a++;
 		}
 		nbMap = a;
 
 		for(int i = 1; i < nbMap; i++){
-			maps.add(XmlReader.createMap("map"+i+".xml"));
+			maps.add(XmlReader.createMap(Window.config.getPartyPath()+"maps/map"+i+".xml"));
 		}
 
 		currentMap = 0;
