@@ -1,6 +1,7 @@
 package growth.entity.Eobject;
 
 import growth.screen.render.Animation;
+import growth.screen.render.texture.TextureRenderer;
 
 import java.util.ArrayList;
 
@@ -46,11 +47,14 @@ public abstract class Edrawable extends Eobject{
         super.update();
     }
 
-    public abstract void display();
+    public void display(){
+        animations.get(animationPlayed).bind();
+        TextureRenderer.image(pos,size);
+    }
 
+    @Override
     public void unload() {
         for(Animation animation: animations) if(!(animation == null)) animation.unload();
-        super.unload();
     }
 
     /**

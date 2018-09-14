@@ -1,6 +1,7 @@
 package growth.entity.Eobject;
 
 import growth.entity.module.Module;
+import growth.screen.screens.GameScreen;
 import growth.util.math.Vec2;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public abstract class Emoveable extends Edrawable{
     }
 
     public void died(){
-        unload();
+        GameScreen.entityManager.removeEntity(this);
     }
 
     public Vec2 getSpeed() { return speed; }

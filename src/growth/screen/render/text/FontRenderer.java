@@ -258,7 +258,7 @@ public class FontRenderer {
     public void setPos(Vec2 pos) {
         this.pos = new Vec2();
         originPos = new Vec2(pos.getX(), pos.getY());
-        this.pos.setPosition(originPos.getX() - (getWidth()/2), originPos.getY() - size/2);
+        this.pos.setValues(originPos.getX() - (getWidth()/2), originPos.getY() - size/2);
     }
 
     public void setOpacity(float newOpacity){

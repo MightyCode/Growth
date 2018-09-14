@@ -132,7 +132,6 @@ public class GameScreen extends Screen {
         entityManager.update();
         GameManager.camera.setPosition(true);
         hud.update();
-
         entityManager.dispose();
     }
 
@@ -229,11 +228,11 @@ public class GameScreen extends Screen {
      */
     public void unload() {
         super.unload();
-        hud.unload();
-        tileMap.unload();
         entityManager.removeAll();
         entityManager.getPlayer().unload();
         entityManager.setPlayer(null);
+        hud.unload();
+        tileMap.unload();
         currentOverlay.unload();
     }
 

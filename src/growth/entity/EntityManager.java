@@ -1,10 +1,13 @@
 package growth.entity;
 
+import growth.entity.Eobject.Edrawable;
 import growth.entity.Eobject.Emoveable;
 import growth.entity.Eobject.Eobject;
 import growth.entity.type.Player;
 import growth.main.Window;
 import growth.screen.GameManager;
+import growth.screen.render.texture.Texture;
+import growth.screen.render.texture.TextureRenderer;
 import growth.util.math.Vec2;
 
 import java.util.ArrayList;
@@ -70,7 +73,8 @@ public class EntityManager {
      *
      * @param newEntity The new entity to add.
      */
-    public void addEntity(Eobject newEntity){ objects.add(newEntity); }
+    public void addEntity(Eobject newEntity){ objects.add(newEntity);
+    }
 
     /**
      * Remove an entity from the Array list.
@@ -83,8 +87,8 @@ public class EntityManager {
      * Remove all of the entity.
      */
     public void removeAll(){
-        Window.console.println("Clear " + objects.size() + " entities.");
-        for(int i = 0; i < objects.size(); i++){
+        Window.console.println("\nClear " + objects.size() + " entities.\n");
+        while(objects.size()>0){
             objects.get(0).unload();
             objects.remove(0);
         }

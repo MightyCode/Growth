@@ -88,13 +88,13 @@ public class TileMap {
 	 * Number rows to draw.
 	 * This variable contains the number of row to draw.
 	 */
-	private final int numRowsToDraw;
+	private int numRowsToDraw;
 
 	/**
 	 * Number columns to draw.
 	 * This variable contains the number of column to draw.
 	 */
-	private final int numColsToDraw;
+	private int numColsToDraw;
 
 	/**
 	 * Current layer.
@@ -139,23 +139,11 @@ public class TileMap {
 		}
 
 		currentMap = 0;
-
 		currentLayer = 1;
-		chargeMap();
 
 		// Init current map variables
-		numCols = map[0].length;
-		numRows = map.length;
 		numRowsToDraw = Window.height / GameScreen.tileSize + 2;
 		numColsToDraw = Window.width / GameScreen.tileSize + 2;
-		sizeX = numCols * GameScreen.tileSize;
-		sizeY = numRows * GameScreen.tileSize;
-
-		// Init camera
-		GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
-		GameManager.camera.setBoundMin(0, 0);
-
-		GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
 	}
 
 	/**
@@ -283,7 +271,6 @@ public class TileMap {
 		GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
 		GameManager.camera.setBoundMin(0, 0);
 		GameManager.camera.setPosition(false);
-		Window.console.println("New map, id: " + currentMap);
 	}
 
 	public void begin(int mapID, int point){

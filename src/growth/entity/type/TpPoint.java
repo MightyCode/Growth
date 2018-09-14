@@ -40,7 +40,8 @@ public class TpPoint extends Eobject {
     }
 
     public void display(){
-        super.display();
-        ShapeRenderer.rect(pos,size,new Color4(0,0,0,0.5f));
+       // ShapeRenderer.rect(pos,size,new Color4(0,0,0,0.5f));
     }
+
+    public void unload(){}
 }

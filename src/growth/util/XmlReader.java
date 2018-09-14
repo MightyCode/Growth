@@ -123,10 +123,12 @@ public abstract class XmlReader {
 			String[][] ent = new String[object.getLength()][];
 			for(int i = 0 ; i < object.getLength(); i++){
 				subRoot = (Element) object.item(i);
-				int numberAttributes = Integer.parseInt(subRoot.getAttribute("numbAttributes"));
-				ent[i] = new String[numberAttributes+1];
+				int length = 0;
+				while(!subRoot.getAttribute("a"+length).equals("")) length++;
+
+				ent[i] = new String[length+1];
 				ent[i][0] = subRoot.getAttribute("type");
-				for(int a = 1; a < numberAttributes+1; a++){
+				for(int a = 1; a < length+1; a++){
 					ent[i][a] = subRoot.getAttribute("a"+(a-1));
 				}
 			}

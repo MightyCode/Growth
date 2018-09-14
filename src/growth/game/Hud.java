@@ -311,7 +311,6 @@ public class Hud {
     public void setZone(String zone, String location){
         counter = 0;
         type = 1;
-        Window.console.println(zone + " " + location);
         locationFont.setOpacity(1);
         locationFont.setWordNumber(TextManager.LOCATION, Integer.parseInt(location));
         locationFont.setPos(new Vec2(Window.width * 0.128f, Window.height * 0.16f));

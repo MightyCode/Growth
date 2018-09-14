@@ -6,8 +6,8 @@
         <sentence
                 s0="Growth"
                 s1="Continue the game"
-                s2="New Game"
-                s3="Loading game"
+                s2="Loading game"
+                s3="New game"
                 s4="Options"
                 s5="Quit"
         />

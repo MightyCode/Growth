@@ -30,15 +30,14 @@ public class Party {
                 Window.config.setPartyMax(Window.config.getPartyMax() + 1);
                 Window.config.setPartyNumber(String.valueOf(Window.config.getPartyMax()));
             } else {
-                Window.config.setPartyMax(pn);
-                Window.config.setPartyNumber(String.valueOf(Window.config.getPartyMax()));
+                Window.config.setPartyNumber(String.valueOf(pn));
             }
         }
 
         File file = new File(Window.config.getPartyPath());
         file.mkdir();
         if (!FileMethods.copy("resources/files/save.xml", Window.config.getPartyPath() + "save.xml")) {
-            Window.console.println("Error on creation of Config.xml");
+            Window.console.println("Error on creation of save.xml");
         }
         file = new File(Window.config.getPartyPath() + "/maps");
         file.mkdir();
@@ -50,7 +49,7 @@ public class Party {
 
         for (int i = 1; i < n; i++) {
             if (FileMethods.copy("resources/files/maps/map"+i+".xml", Window.config.getPartyPath() + "maps/map" + i + ".xml")) {
-            } else { Window.console.println("Error on creation of Config.xml"); }
+            } else { Window.console.println("Error on creation maps of game"); }
         }
     }
 

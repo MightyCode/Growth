@@ -1,5 +1,8 @@
 package growth.game.tilemap;
 
+import growth.entity.Eobject.Echaracter;
+import growth.entity.Eobject.Edrawable;
+import growth.entity.Eobject.Emoveable;
 import growth.entity.Eobject.Eobject;
 import growth.main.Config;
 import growth.screen.screens.GameScreen;
@@ -129,7 +132,6 @@ public class Map {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/*

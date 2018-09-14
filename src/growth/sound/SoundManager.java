@@ -36,7 +36,6 @@ public class SoundManager {
     }
 
     public void play(String index){
-        Window.console.println("play " + index);
         sound.get(index).play();
     }
 

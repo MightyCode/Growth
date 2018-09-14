@@ -30,7 +30,6 @@
     <texture id="28" name="fence-Middle" type="0" x="11" y="1"/>
     <texture id="29" name="fence-Right" type="0" x="12" y="1"/>
 
-    <texture id="32" name="panel-1" type="0" x="15" y="1"/>
     <texture id="33" name="bush-1-1-Left" type="0" x="0" y="2"/>
     <texture id="34" name="bush-1-1-Right" type="0" x="1" y="2"/>
     <texture id="35" name="bush-2-1-Left" type="0" x="2" y="2"/>
