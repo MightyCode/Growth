@@ -54,6 +54,7 @@
     </layers>
 
     <objects>
+        <object type="Platform" a0="16" a1="7" a2="2" a3="1" a4="0" a5="7" a6="10"/>
     </objects>
 </map>
 

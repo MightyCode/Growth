@@ -278,12 +278,10 @@ public class TileMap {
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
 		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
 		GameScreen.entityManager.setPosition(new Vec2(givePosX, givePosY));
-		String location = maps.get(currentMap).getLocation(), zone = maps.get(currentMap).getZone();
 		currentMap = newMapId;
 		chargeMap();
 
-		if(!zone.equals(maps.get(currentMap).getZone()))GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
-		else if(!location.equals(maps.get(currentMap).getLocation()))GameScreen.hud.setLocation(maps.get(currentMap).getLocation());
+		GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
 
 		numCols = map[0].length;
 		numRows = map.length;

@@ -104,10 +104,10 @@ public class Camera {
         float speedX = user.getSpeed().getX();
 
         if(speedX > 0) {
-            addCamera -=5;
+            addCamera -=4;
             if(-maxOffset > addCamera) addCamera = -maxOffset;
         } else if(speedX < 0){
-            addCamera +=5;
+            addCamera +=4;
             if(addCamera > maxOffset) addCamera = maxOffset;
         }
 

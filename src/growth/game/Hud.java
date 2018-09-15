@@ -16,101 +16,48 @@ import static java.lang.Math.*;
  * Class of the game's hud.
  *
  * @author MightyCode
- * @version of game : 1
+ * @version of hud : 1.5
  */
 public class Hud {
 
     /**
-     * Maximum health.
-     * This variable contains the max health of the player.
+     * Health values
      */
     private int maxHealth;
-
-    /**
-     * Current health.
-     * This variable contains the current health of the player.
-     */
     private int currentHealth;
+    private int currentHeartUse;
+    private int numHeart;
+    private float sinCounter;
 
     /**
      * Heart's textures.
-     * These variables contain the texture for the 3 types of heart.
      */
     private Texture t_heart;
     private Texture t_halfHeart;
     private Texture t_deadHeart;
-
-    /**
-     * Heart id.
-     * This table contains the type of each heart displayed.
-     */
     private Texture[]heartType;
 
     /**
-     * Heart position.
-     * This table contains the position of each heart displayed.
+     * Heart position, size. Offset between two heart.
      */
     private Vec2[] heartPosDisplayed;
-
-    /**
-     * Heart size.
-     * This table contains the size of each heart displayed.
-     */
     private Vec2[] heartSizeDisplayed;
-
-    /**
-     * Current heart use.
-     * This variable contains the number of the last useful heart.
-     */
-    private int currentHeartUse;
-
-    /**
-     * Heart size
-     * These variables contain the base size of heart.
-     */
     private Vec2 heartSize;
-
-    /**
-     * Heart size use on calcs.
-     */
     private Vec2 heartSizeT;
-
-    /**
-     * Space between two heart.
-     * This variable contains the number of pixel between two heart.
-     */
     private float spaceBetweenTwoHeart;
 
-    /**
-     * Number of heart..
-     * This variable contains the number of displayed.
-     */
-    private int numHeart;
 
     /**
-     * Sin counter.
-     * This  variable contains the counter to apply the animation of the current heart use.
-     */
-    private float sinCounter;
-
-    /**
-     * Texture of the acorn counter.
+     * Acorn values and texture
      * This variable contains the texture use to display the acorn's counter.
      */
     private Texture acorn;
-
-    /**
-     * Texture of the acorn position.
-     * These variables contain the position x and y of the acorn texture.
-     */
     private Vec2 acornPos;
-
-    /**
-     * Texture of the acorn size.
-     * These variables contain the size x and y of the acorn texture.
-     */
     private Vec2 acornSize;
 
+    /**
+     * Location and zone system
+     */
     private Texture zone, location;
     private int type;
     private int counter;
@@ -197,16 +144,16 @@ public class Hud {
             } else if (type == 1){
                 location.bind();
                 if(counter < TIME / 2){
-                    TextureRenderer.imageC(Window.width * 0.05f,Window.height*0.025f,
+                    TextureRenderer.imageC(Window.width * 0.05f,Window.height*0.12f,
                             Window.width*0.15f,Window.height*0.09f, Math.map(counter, 0, TIME / 2, 0, 2.5f));
                     zone.bind();
-                    TextureRenderer.imageC(Window.width * 0.05f,Window.height*0.12f,
+                    TextureRenderer.imageC(Window.width * 0.05f,Window.height*0.025f,
                             Window.width*0.15f,Window.height*0.09f, Math.map(counter, 0, TIME / 2, 0, 2f));
                 } else {
-                    TextureRenderer.imageC(Window.width * 0.05f, Window.height * 0.025f,
+                    TextureRenderer.imageC(Window.width * 0.05f, Window.height * 0.12f,
                             Window.width * 0.15f, Window.height * 0.09f, Math.map(counter, TIME / 2, TIME, 2.5f, 0));
                     zone.bind();
-                    TextureRenderer.imageC(Window.width * 0.05f, Window.height * 0.12f,
+                    TextureRenderer.imageC(Window.width * 0.05f, Window.height * 0.025f,
                             Window.width * 0.15f, Window.height * 0.09f, Math.map(counter, TIME / 2, TIME, 2f, 0));
                     locationFont.setOpacity(Math.map(counter, TIME / 2, TIME, 2f, 0));
                     zoneFont.setOpacity(Math.map(counter, TIME / 2, TIME, 2.5f, 0));

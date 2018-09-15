@@ -26,7 +26,7 @@ public class Panel extends Edrawable {
         if (EntityMethods.isCollidc(pos, size, GameScreen.entityManager.getPlayer())){
             GameScreen.entityManager.getPlayer().setAction(true);
             if (GameManager.inputsManager.inputPressed(7)) {
-                Window.console.println("panel");
+
             }
         }
     }

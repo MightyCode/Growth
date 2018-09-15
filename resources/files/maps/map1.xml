@@ -57,9 +57,9 @@
 	</layers>
 
 	<objects>
-		<object type="Scenery" a0="/textures/game/scenery/sargbre/sargbre.png" a1="8.5" a2="-1" a3="4.5" a4="7"/>
+		<object type="Scenery" a0="/textures/game/scenery/sargbre/sargbre.png" a1="8.5f" a2="-1" a3="4.5f" a4="7"/>
 		<object type="TpPoint" a0="10" a1="4" a2="2" a3="2" a4="5" a5="3"/>
 		<object type="Scenery" a0="/textures/game/scenery/panel/panel.png" a1="14" a2="5" a3="1" a4="1"/>
-		<object type="Scenery" a0="/textures/game/scenery/house/house-1.png" a1="23.5" a2="0" a3="5" a4="6"/>
+		<object type="Scenery" a0="/textures/game/scenery/house/house-1.png" a1="23.5f" a2="0" a3="5" a4="6"/>
 	</objects>
 </map>
