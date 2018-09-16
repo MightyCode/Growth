@@ -214,16 +214,17 @@ public abstract class XmlReader {
 
 			assert root != null;
 			// General configuration
-			Element tag = search("general", root);
-			Window.config.setLanguage(tag.getAttribute("language"));
+			Element tag = search("general", root);;
+			Window.config.setValuesWithoutSave(tag.getAttribute("language"), Config.LANGUAGE);
 
 			// Window size
 			 tag = search("window", root);
-			Window.config.setWindowWidth(Integer.parseInt(tag.getAttribute("width")));
-			Window.config.setWindowHeight(Integer.parseInt(tag.getAttribute("height")));
+			Window.config.setValuesWithoutSave(tag.getAttribute("width"), Config.WINDOW_WIDTH);
+			Window.config.setValuesWithoutSave(tag.getAttribute("height"), Config.WINDOW_HEIGHT);
 
 			// Window fullscreen
-			Window.config.setFullscreen(Integer.parseInt(tag.getAttribute("fullscreen")));
+			Window.config.setValuesWithoutSave(tag.getAttribute("fullscreen"), Config.FULLSCREEN);
+			Window.config.setValuesWithoutSave(tag.getAttribute("framerate"), Config.LIMITED_FRAMERATE);
 
 			// Inputs configuration
 			tag = search("inputs", root);
@@ -239,13 +240,12 @@ public abstract class XmlReader {
 			}
 			Window.config.setInputs(inputs);
 
-			Window.config.setPartyMax(Integer.parseInt(search("game",root).getAttribute("max")));
-			Window.config.setPartyNumber(search("game",root).getAttribute("party"));
+			Window.config.setValuesWithoutSave(search("game", root).getAttribute("max"), Config.PARTY_MAX);
+			Window.config.setValuesWithoutSave(search("game", root).getAttribute("party"), Config.PARTY_NB);
 
 			tag = search("sound", root);
-			Window.config.setMusicVolume(Integer.parseInt(tag.getAttribute("music")));
-			Window.config.setNoiseVolume(Integer.parseInt(tag.getAttribute("noise")));
-
+			Window.config.setValuesWithoutSave(tag.getAttribute("music"), Config.MUSIC_VOL);
+			Window.config.setValuesWithoutSave(tag.getAttribute("noise"), Config.NOISE_VOL);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -263,14 +263,15 @@ public abstract class XmlReader {
 			assert root != null;
 			// General configuration
 			Element tag = search("general", root);
-			tag.setAttribute("language",Window.config.getLanguage());
+			tag.setAttribute("language", Window.config.getValue(Config.LANGUAGE));
 			tag = search("window", root);
-			setAttribute(tag,"fullscreen",Window.config.getFullscreen());
-			setAttribute(tag,"width",Window.config.getWindowWidth());
-			setAttribute(tag,"height",Window.config.getWindowHeight());
+			tag.setAttribute("width", Window.config.getValue(Config.WINDOW_WIDTH));
+			tag.setAttribute("height", Window.config.getValue(Config.WINDOW_HEIGHT));
+			tag.setAttribute("fullscreen", Window.config.getValue(Config.FULLSCREEN));
+			tag.setAttribute("framerate", Window.config.getValue(Config.LIMITED_FRAMERATE));
 			tag = search("sound",root);
-			setAttribute(tag,"music",Window.config.getMusicVolume());
-			setAttribute(tag,"noise",Window.config.getNoiseVolume());
+			tag.setAttribute("music", Window.config.getValue(Config.MUSIC_VOL));
+			tag.setAttribute("noise", Window.config.getValue(Config.NOISE_VOL));
 
 			tag = search("inputs",root);
 			int[][]inputs = Window.config.getInputs();
@@ -283,8 +284,8 @@ public abstract class XmlReader {
 			}
 
 			tag = search("game",root);
-			tag.setAttribute("party", Window.config.getPartyNumber());
-			tag.setAttribute("max", String.valueOf(Window.config.getPartyMax()));
+			tag.setAttribute("party", Window.config.getValue(Config.PARTY_NB));
+			tag.setAttribute("max", Window.config.getValue(Config.PARTY_MAX));
 
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
@@ -369,7 +370,7 @@ public abstract class XmlReader {
 	 */
 	public static String[][] loadWord(){
 		try{
-			Element root = getRoot("/word/" + Window.config.getLanguage() + ".xml");
+			Element root = getRoot("/strings/" + Window.config.getValue(Config.LANGUAGE) + ".xml");
 			assert root != null;
 			NodeList tag = root.getElementsByTagName("screen");
 			String[][] word = new String[tag.getLength()][];

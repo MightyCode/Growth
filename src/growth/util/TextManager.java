@@ -64,8 +64,7 @@ public class TextManager {
      */
     public void changeLanguage(String newLanguage) {
         // Change the param
-        XmlReader.changeValue(Config.CONFIG_PATH, "language", newLanguage, "general");
-        Window.config.setLanguage(newLanguage);
+        Window.config.setValue(newLanguage, Config.LANGUAGE);
         // Reload the new language
         word = XmlReader.loadWord();
         // Update every text users object

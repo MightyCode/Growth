@@ -123,8 +123,8 @@ public class Window implements GLFWWindowFocusCallbackI {
      * Create the window and get the window ID.
      */
     private static void createWindow(){
-        width = config.getWindowWidth();
-        height = config.getWindowHeight();
+        width = Integer.parseInt(config.getValue(Config.WINDOW_WIDTH));
+        height = Integer.parseInt(config.getValue(Config.WINDOW_HEIGHT));
 
         // Setup an error callback.
         GLFWErrorCallback.createPrint(System.err).set();
@@ -157,7 +157,7 @@ public class Window implements GLFWWindowFocusCallbackI {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         // Create the window if fullscreen
-        if(config.getFullscreen()){
+        if((config.getValue(Config.FULLSCREEN).equals("1"))){
             width = 1920; height = 1080;
             console.println(width + " " + height);
             windowID = glfwCreateWindow(width, height, "Growth", glfwGetPrimaryMonitor(), NULL);
@@ -192,6 +192,7 @@ public class Window implements GLFWWindowFocusCallbackI {
             );
         } // the stack frame is popped automatically
 
+
         // Make the OpenGL context current
         glfwMakeContextCurrent(windowID);
 
@@ -200,6 +201,8 @@ public class Window implements GLFWWindowFocusCallbackI {
         createCapabilities();
 
         Render.setViewPort(width, height);
+
+        glfwSwapInterval((config.getValue(Config.LIMITED_FRAMERATE).equals("1"))? 1 : 0);
 
         glEnable(GL_TEXTURE_2D);
         glActiveTexture(GL_TEXTURE0);

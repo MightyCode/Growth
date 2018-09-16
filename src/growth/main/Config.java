@@ -6,6 +6,9 @@ import growth.util.FileMethods;
 import growth.util.XmlReader;
 
 import java.io.File;
+import java.util.ArrayList;
+
+import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 
 /**
  * This class save the config of the game.
@@ -16,25 +19,14 @@ import java.io.File;
 public class Config {
 
     /**
-     * Project path
-     */
-    private String projectPath;
-
-    /**
      * Fullscreen state.
      */
-    private boolean fullscreen;
-    private int currentWindowWidth;
-    private int currentWindowHeight;
+
+    private String[] values = new String[10];
     private int[][] inputs;
-    private String language;
 
-    private String partyNumber;
-    private String partyPath;
-    private int partyMax;
-
-    private int noiseVolume;
-    private  int musicVolume;
+    public static final int FULLSCREEN = 0, WINDOW_WIDTH = 1, WINDOW_HEIGHT = 2, LANGUAGE = 3, PARTY_NB = 4, PARTY_PATH = 5, PARTY_MAX = 6, NOISE_VOL = 7, MUSIC_VOL = 8,
+            LIMITED_FRAMERATE = 9;
 
     /**
      * Public static final string about the path for different thing.
@@ -48,8 +40,8 @@ public class Config {
      * Class constructor.
      */
     public Config(){
-        // Information
-        projectPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        values[PARTY_NB] = "0";
+        values[PARTY_MAX] = "0";
 
         // If the directory don't exists
         File test = new File("data/");
@@ -80,17 +72,50 @@ public class Config {
             Window.console.println("Create file \"saves\"");
             File data = new File("data/saves");
             data.mkdirs();
-            partyMax = -1;
-            partyNumber = String.valueOf(-1);
+            values[PARTY_MAX] = "0";
+            values[PARTY_MAX] = "-1";
+
         }
     }
 
-    public boolean getFullscreen() { return fullscreen; }
+    public String getValue(int index) { return values[index]; }
+
+    public void setValue(String value, int index) {
+        // Before attributing
+        switch (index){
+            case PARTY_NB:
+                if(value.equals("-1") && Integer.parseInt(values[PARTY_MAX]) > 0) value = "1";
+                break;
+        }
+
+        // Attibuting the value
+        setValuesWithoutSave(value, index);
+
+        // After attributing
+        switch (index){
+            case PARTY_NB:
+                values[PARTY_PATH] = SAVE_PATH + "save-" + values[PARTY_NB] + "/";
+                break;
+            case LIMITED_FRAMERATE:
+                glfwSwapInterval((values[Config.LIMITED_FRAMERATE].equals("1"))? 1 : 0);
+                break;
+        }
+
+        XmlReader.saveConfiguration();
+    }
+
+    public int[][] getInputs() { return inputs; }
+    public void setInputs(int[][] inputs) { this.inputs = inputs; }
+
+    public void setValuesWithoutSave(String value,int index){
+        values[index] = value;
+    }
+
+    /*public boolean getFullscreen() { return fullscreen; }
     public void setFullscreen(int fullscreen) { this.fullscreen = fullscreen == 1; }
 
     public int getWindowWidth() { return currentWindowWidth; }
     public void setWindowWidth(int windowWidth) { currentWindowWidth = windowWidth; }
-
 
     public int getWindowHeight() { return currentWindowHeight; }
     public void setWindowHeight(int windowHeight) { currentWindowHeight = windowHeight; }
@@ -119,25 +144,7 @@ public class Config {
     public void setMusicVolume(int newVolume){ musicVolume = newVolume;}
 
     public int getNoiseVolume() { return noiseVolume; }
-    public void setNoiseVolume(int newNoiseVolume){ noiseVolume = newNoiseVolume;}
-    public void checkSave(){
-        /*File test = new File("data/saves");
-        if(!test.exists() && !test.isDirectory()){
-            Window.console.println("Create file save");
-            File save = new File("data/saves");
-            save.mkdirs();
-        }
-
-        // Load the current party
-        test = new File(Config.SAVE_PATH);
-        if(Config.getPartyNumber().equals("-1") || (!test.exists() && !test.isDirectory())){
-            if(!FileMethods.copy("resources/config/save.xml","data/saves/save-1.xml")){
-                Window.console.println("Error to create the party");
-                GameManager.setScreen(GameManager.MENUSCREEN);
-            }
-            Config.setPartyNumber("1");
-        }*/
-    }
+    public void setNoiseVolume(int newNoiseVolume){ noiseVolume = newNoiseVolume;}*/
 
 
     /**

@@ -90,8 +90,8 @@ public class Player extends Echaracter {
 			modules.add(new Admin_PlayerHealth(this));
 		}
 
-		setMaxHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getPartyPath()+"save.xml" , "maxLife", "life")));
-		setHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getPartyPath()+"save.xml" , "life", "life")));
+		setMaxHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getValue(Config.PARTY_PATH) +"save.xml" , "maxLife", "life")));
+		setHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getValue(Config.PARTY_PATH) +"save.xml" , "life", "life")));
 
 		// Sprite and Animation
 		facing = true;

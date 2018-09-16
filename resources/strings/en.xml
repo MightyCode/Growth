@@ -43,6 +43,7 @@
                 s5="Restart the game to properly implement the changes."
                 s6="Music : "
                 s7="Noise : "
+                s8="Limited framerate"
         />
     </screen>
 

@@ -1,6 +1,7 @@
 package growth.game.tilemap;
 
 import growth.entity.type.Player;
+import growth.main.Config;
 import growth.main.Window;
 import growth.screen.render.texture.Texture;
 import growth.screen.render.texture.TextureRenderer;
@@ -129,13 +130,13 @@ public class TileMap {
 
 		// Init map
 		int a = 1;
-		while(new File(Window.config.getPartyPath()+"maps/map"+a+".xml").exists()){
+		while(new File(Window.config.getValue(Config.PARTY_PATH) + "maps/map"+a+".xml").exists()){
 			a++;
 		}
 		nbMap = a;
 
 		for(int i = 1; i < nbMap; i++){
-			maps.add(XmlReader.createMap(Window.config.getPartyPath()+"maps/map"+i+".xml"));
+			maps.add(XmlReader.createMap(Window.config.getValue(Config.PARTY_PATH) + "maps/map"+i+".xml"));
 		}
 
 		currentMap = 0;
@@ -297,7 +298,7 @@ public class TileMap {
 	 * Charge the current layer for collision and another features.
 	 */
 	private void chargeMap(){
-		map = maps.get(currentMap).getMap(currentLayer);
+		map = maps.get(currentMap).getMap(1);
 		GameScreen.entityManager.removeAll();
 		maps.get(currentMap).loadEntity();
 	}
@@ -306,10 +307,9 @@ public class TileMap {
 	 * Change the layer to a higher layer.
 	 */
 	public void setLayer(int numberToAdd){
-		if(currentLayer + numberToAdd > 0 || currentLayer + numberToAdd < 2) {
+		if(currentLayer + numberToAdd >= -1 && currentLayer + numberToAdd < 3) {
 			currentLayer+= numberToAdd;
 			Window.console.println("Change the current layer to " + currentLayer);
-			chargeMap();
 		}
 	}
 

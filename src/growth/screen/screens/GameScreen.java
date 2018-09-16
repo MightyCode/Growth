@@ -98,8 +98,8 @@ public class GameScreen extends Screen {
         tileMap.setEntity(player);
 
         // Player begin in the ground on Panel 1
-        tileMap.begin(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getPartyPath()+"save.xml","map","location")),
-                Integer.parseInt(XmlReader.getValueNoRes(Window.config.getPartyPath()+"save.xml","point","location")));
+        tileMap.begin(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getValue(Config.PARTY_PATH) + "save.xml","map","location")),
+                Integer.parseInt(XmlReader.getValueNoRes(Window.config.getValue(Config.PARTY_PATH) + "save.xml","point","location")));
 
         // Add player for the camera
         GameManager.camera.setEntityToCamera(player);

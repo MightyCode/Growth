@@ -33,7 +33,7 @@ public class OptionOverlay extends Overlay {
     private Texture option, background;
 
     /**
-     * Font renderer to render the help text.q
+     * Font renderer to render the help text.
      */
     private FontRenderer help;
 
@@ -53,7 +53,7 @@ public class OptionOverlay extends Overlay {
      * Inputs for video
      */
 
-    private GUICheckBox fullscreen;
+    private GUICheckBox fullscreen, frameRate;
 
     /**
      * Option overlay class constructor.
@@ -123,12 +123,12 @@ public class OptionOverlay extends Overlay {
                 }
             }
         };
-        language.setState(Window.config.getLanguage().equals("en"));
+        language.setState(Window.config.getValue(Config.LANGUAGE).equals("en"));
 
         musicVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.41f) ,
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                TextManager.OPTIONS,6, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Window.config.getMusicVolume()
+                TextManager.OPTIONS,6, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Integer.parseInt(Window.config.getValue(Config.MUSIC_VOL))
         ){
             @Override
             public void action () {
@@ -139,7 +139,7 @@ public class OptionOverlay extends Overlay {
         noiseVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.55f) ,
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                TextManager.OPTIONS,7, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Window.config.getNoiseVolume()
+                TextManager.OPTIONS,7, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Integer.parseInt(Window.config.getValue(Config.NOISE_VOL))
         ){
             @Override
             public void action () {
@@ -155,16 +155,29 @@ public class OptionOverlay extends Overlay {
             @Override
             public void action () {
                 if(GUIState == 0){
-                    Window.config.setFullscreen(0);
-                    XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","0","window");
+                    Window.config.setValue("0", Config.FULLSCREEN);
                 } else{
-                    Window.config.setFullscreen(1);
-                    XmlReader.changeValue(Config.CONFIG_PATH, "fullscreen","1","window");
+                    Window.config.setValue("1", Config.FULLSCREEN);
                 }
             }
         };
+        fullscreen.setState(Window.config.getValue(Config.FULLSCREEN).equals("1"));
 
-        fullscreen.setState(Window.config.getFullscreen());
+        frameRate = new GUICheckBox(
+                new Vec2(Window.width*0.5f, Window.height*0.52f),
+                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                TextManager.OPTIONS,8, StaticFonts.monofonto, textColor, hoverTextColor
+        ){
+            @Override
+            public void action () {
+                if(GUIState == 0){
+                    Window.config.setValue("0", Config.LIMITED_FRAMERATE);
+                } else{
+                    Window.config.setValue("1", Config.LIMITED_FRAMERATE);
+                }
+            }
+        };
+        frameRate.setState(Window.config.getValue(Config.LIMITED_FRAMERATE).equals("1"));
 
         help = new FontRenderer(TextManager.OPTIONS,5, StaticFonts.IBM, Window.height*0.04f,
                 new Vec2(Window.width * 0.5f, Window.height * 0.95f), Color4.BLACK);
@@ -188,6 +201,7 @@ public class OptionOverlay extends Overlay {
                 break;
             case 1:
                 fullscreen.update();
+                frameRate.update();
                 break;
             case 2:
                 break;
@@ -217,6 +231,7 @@ public class OptionOverlay extends Overlay {
                 break;
             case 1:
                 fullscreen.display();
+                frameRate.display();
                 break;
             case 2:
                 break;
@@ -252,7 +267,7 @@ public class OptionOverlay extends Overlay {
 
         // Video
         fullscreen.unload();
-
+        frameRate.unload();
         // Control
 
         // Font renderer

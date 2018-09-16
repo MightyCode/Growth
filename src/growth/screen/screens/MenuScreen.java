@@ -82,7 +82,7 @@ public class MenuScreen extends Screen {
             }
         };
 
-        if(Window.config.getPartyNumber().equals( "-1")){
+        if(Window.config.getValue(Config.PARTY_NB).equals( "-1")){
             goToGame.setLock(true);
         }
 
