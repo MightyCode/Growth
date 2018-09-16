@@ -2,8 +2,7 @@
 	<ins>
 		<in name="3" x="29.5" y="6"/>
 		<in name="1" x="0.5" y="5"/>
-		<in name="5" x="15" y="6"/>
-        <in name="6" x="10.5" y="6"/>
+        <in name="5" x="10.5" y="6"/>
 	</ins>
 
 	<outs>

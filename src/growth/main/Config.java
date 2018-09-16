@@ -18,14 +18,18 @@ import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
  */
 public class Config {
 
-    /**
-     * Fullscreen state.
-     */
-
     private String[] values = new String[10];
     private int[][] inputs;
 
-    public static final int FULLSCREEN = 0, WINDOW_WIDTH = 1, WINDOW_HEIGHT = 2, LANGUAGE = 3, PARTY_NB = 4, PARTY_PATH = 5, PARTY_MAX = 6, NOISE_VOL = 7, MUSIC_VOL = 8,
+    public static final int FULLSCREEN = 0,
+            WINDOW_WIDTH = 1,
+            WINDOW_HEIGHT = 2,
+            LANGUAGE = 3,
+            PARTY_NB = 4,
+            PARTY_PATH = 5,
+            PARTY_MAX = 6,
+            NOISE_VOL = 7,
+            MUSIC_VOL = 8,
             LIMITED_FRAMERATE = 9;
 
     /**
@@ -81,6 +85,14 @@ public class Config {
     public String getValue(int index) { return values[index]; }
 
     public void setValue(String value, int index) {
+        setValuesWithoutSave(value, index);
+        XmlReader.saveConfiguration();
+    }
+
+    public int[][] getInputs() { return inputs; }
+    public void setInputs(int[][] inputs) { this.inputs = inputs;}
+
+    public void setValuesWithoutSave(String value,int index){
         // Before attributing
         switch (index){
             case PARTY_NB:
@@ -89,7 +101,7 @@ public class Config {
         }
 
         // Attibuting the value
-        setValuesWithoutSave(value, index);
+        values[index] = value;
 
         // After attributing
         switch (index){
@@ -100,52 +112,7 @@ public class Config {
                 glfwSwapInterval((values[Config.LIMITED_FRAMERATE].equals("1"))? 1 : 0);
                 break;
         }
-
-        XmlReader.saveConfiguration();
     }
-
-    public int[][] getInputs() { return inputs; }
-    public void setInputs(int[][] inputs) { this.inputs = inputs; }
-
-    public void setValuesWithoutSave(String value,int index){
-        values[index] = value;
-    }
-
-    /*public boolean getFullscreen() { return fullscreen; }
-    public void setFullscreen(int fullscreen) { this.fullscreen = fullscreen == 1; }
-
-    public int getWindowWidth() { return currentWindowWidth; }
-    public void setWindowWidth(int windowWidth) { currentWindowWidth = windowWidth; }
-
-    public int getWindowHeight() { return currentWindowHeight; }
-    public void setWindowHeight(int windowHeight) { currentWindowHeight = windowHeight; }
-
-    public int[][] getInputs() { return inputs; }
-    public void setInputs(int[][] inputs) { this.inputs = inputs; }
-
-    public String getLanguage(){return language;}
-    public void setLanguage(String newLanguage){language = newLanguage;}
-
-    public String getPartyNumber() { return partyNumber; }
-    public void setPartyNumber(String partyNumber) {
-        if(partyNumber.equals("-1") && partyMax > 0) partyNumber = "1";
-        else                                         this.partyNumber = partyNumber;
-
-        partyPath = SAVE_PATH + "save-" + partyNumber+ "/";
-    }
-
-    public String getPartyPath() { return partyPath; }
-
-    public int getPartyMax(){ return partyMax; }
-
-    public void setPartyMax(int newMax){ partyMax = newMax; }
-
-    public int getMusicVolume() { return musicVolume; }
-    public void setMusicVolume(int newVolume){ musicVolume = newVolume;}
-
-    public int getNoiseVolume() { return noiseVolume; }
-    public void setNoiseVolume(int newNoiseVolume){ noiseVolume = newNoiseVolume;}*/
-
 
     /**
      * Save configurations on game's close.

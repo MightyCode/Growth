@@ -1,5 +1,5 @@
 <save>
-    <location map="0" point="4"/>
+    <location map="4" point="4"/>
     <life maxLife="2" life="2"/>
 
     <tree for="0"/>

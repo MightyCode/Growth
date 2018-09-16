@@ -30,7 +30,7 @@ public class Party {
             }
 
             if(pn == 0){
-                int max = Integer.parseInt(Window.config.getValue(Config.PARTY_PATH)) + 1;
+                int max = Integer.parseInt(Window.config.getValue(Config.PARTY_MAX)) + 1;
                 Window.config.setValue(String.valueOf(max), Config.PARTY_MAX);
                 Window.config.setValue(Window.config.getValue(Config.PARTY_MAX), Config.PARTY_NB);
             } else {

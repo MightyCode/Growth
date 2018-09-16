@@ -28,7 +28,7 @@ public abstract class Eobject {
         }
     }
 
-    public abstract void display();
+    public void display(){}
 
     public Vec2 getPos() { return pos; }
 
@@ -38,5 +38,5 @@ public abstract class Eobject {
 
     public void setSize(Vec2 size) { this.size = size; }
 
-    public abstract void unload();
+    public void unload(){}
 }

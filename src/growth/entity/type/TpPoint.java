@@ -30,7 +30,6 @@ public class TpPoint extends Eobject {
     }
 
     public void update() {
-        super.update();
         if (EntityMethods.isCollidc(pos, size, GameScreen.entityManager.getPlayer())){
             GameScreen.entityManager.getPlayer().setAction(true);
             if (GameManager.inputsManager.inputPressed(7)) {
