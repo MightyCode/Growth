@@ -149,8 +149,11 @@ public class Player extends Echaracter {
 			actionT.bind();
 			TextureRenderer.image(new Vec2(pos.getX() + size.getX() * 0.2f,pos.getY() - size.getY() * 0.8f), actionSize);
 		}
-		action = false;
 		if(animationPlayed != oldAnimation) animations.get(oldAnimation).reset();
+	}
+
+	public void dispose(){
+		action = false;
 	}
 
 	public void setAction(boolean newState){

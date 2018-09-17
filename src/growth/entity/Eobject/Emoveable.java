@@ -44,4 +44,8 @@ public abstract class Emoveable extends Edrawable{
     public void setFalling(boolean newState){ falling = newState;}
 
     public boolean getFacing(){return facing;}
+
+    public void setFacing(boolean newFace){
+        facing = newFace;
+    }
 }

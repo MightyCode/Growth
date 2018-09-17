@@ -76,9 +76,10 @@ public class Map {
 	 * @param beginX The tile x to begin.
 	 * @param beginY The tile y to begin.
 	 */
-	public void setSpawnTile(int number, float beginX, float beginY) {
+	public void setSpawnTile(int number, float beginX, float beginY, int facing) {
 		spawn[number][0] = beginX;
 		spawn[number][1] = beginY;
+		spawn[number][2] = facing;
 	}
 
 	/**
@@ -168,6 +169,8 @@ public class Map {
 	float getTileToComeY(int point) {
 		return spawn[point][1];
 	}
+
+	int getFacing(int point){return (int)spawn[point][2];}
 
 	/**
 	 * Get the data for each exit point for one side.

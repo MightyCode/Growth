@@ -1,6 +1,6 @@
 <map id="5" width="20" height="12" zone="0" location="0">
     <ins>
-        <in name="3" x="19.5" y="4"/>
+        <in name="3" x="19.5" y="4" facing="0"/>
         <in name="5" x="6" y="10"/>
     </ins>
 

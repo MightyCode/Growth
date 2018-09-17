@@ -57,9 +57,12 @@ public abstract class XmlReader {
 
 			for(int a = 0; a < ins.getLength(); a++){
 				subRoot = (Element) ins.item(a);
+				int facing = -1;
+				if(!subRoot.getAttribute("facing").equals("")) facing = Integer.parseInt(subRoot.getAttribute("facing"));
 				map.setSpawnTile(Integer.parseInt(subRoot.getAttribute("name"))-1,
 						Float.parseFloat(subRoot.getAttribute("x")),
-						Float.parseFloat(subRoot.getAttribute("y")));
+						Float.parseFloat(subRoot.getAttribute("y")),
+						facing);
 			}
 
 			// Set the exit point of map

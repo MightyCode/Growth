@@ -114,6 +114,8 @@ public class TileMap {
 
 	private float givePosX, givePosY;
 
+	private int facing;
+
 	private int newMapId;
 
 	/**
@@ -123,7 +125,6 @@ public class TileMap {
 	 * @param path Path to file's xml to load.
 	 */
 	public TileMap(String path) {
-
 		// Init tileSet
 		tileSetT = new Texture("/textures/game/tiles/Tileset.png");
 		tileSet = XmlReader.createTileSet(path);
@@ -219,6 +220,7 @@ public class TileMap {
 		newMapId = mapID;
 		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
 		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
+		facing = maps.get(mapID).getFacing(point);
 	}
 
 	/**
@@ -255,6 +257,8 @@ public class TileMap {
 	 */
 	public void doTransition(){
 		GameScreen.entityManager.setPosition(new Vec2(givePosX, givePosY));
+		if(facing != -1) GameScreen.entityManager.getPlayer().setFacing(facing == 1);
+		GameScreen.entityManager.dispose();
 
 		String location = maps.get(currentMap).getLocation(), zone = maps.get(currentMap).getZone();
 		currentMap = newMapId;

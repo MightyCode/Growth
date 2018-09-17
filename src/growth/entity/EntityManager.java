@@ -44,6 +44,7 @@ public class EntityManager {
      * Update entities on screen.
      */
     public void update(){
+        entityDispose();
         for(Eobject object : objects){
             object.update();
         }
@@ -66,6 +67,10 @@ public class EntityManager {
             object.display();
         }
         player.display();
+    }
+
+    public void entityDispose(){
+        player.dispose();
     }
 
     /**
