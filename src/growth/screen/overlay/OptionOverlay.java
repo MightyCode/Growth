@@ -127,7 +127,7 @@ public class OptionOverlay extends Overlay {
 
         musicVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.41f) ,
-                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                new Vec2(Window.width*0.15f, Window.height*0.1f),
                 TextManager.OPTIONS,6, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Float.parseFloat(Window.config.getValue(Config.MUSIC_VOL))
         ){
             @Override
@@ -138,7 +138,7 @@ public class OptionOverlay extends Overlay {
 
         noiseVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.55f) ,
-                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                new Vec2(Window.width*0.15f, Window.height*0.1f),
                 TextManager.OPTIONS,7, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Float.parseFloat(Window.config.getValue(Config.NOISE_VOL))
         ){
             @Override
@@ -149,7 +149,7 @@ public class OptionOverlay extends Overlay {
 
         fullscreen = new GUICheckBox(
                 new Vec2(Window.width*0.5f, Window.height*0.41f),
-                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                new Vec2(Window.width*0.14f, Window.height*0.1f),
                 TextManager.OPTIONS,3, StaticFonts.monofonto, textColor, hoverTextColor
         ){
             @Override
@@ -164,8 +164,8 @@ public class OptionOverlay extends Overlay {
         fullscreen.setState(Window.config.getValue(Config.FULLSCREEN).equals("1"));
 
         frameRate = new GUICheckBox(
-                new Vec2(Window.width*0.5f, Window.height*0.52f),
-                new Vec2(Window.width*0.125f, Window.height*0.1f),
+                new Vec2(Window.width*0.5f, Window.height*0.60f),
+                new Vec2(Window.width*0.20f, Window.height*0.1f),
                 TextManager.OPTIONS,8, StaticFonts.monofonto, textColor, hoverTextColor
         ){
             @Override
