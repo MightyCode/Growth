@@ -41,7 +41,7 @@
                 s3="Plein écran"
                 s4="En anglais"
                 s5="Veuillez redémarrer le jeu pour bien appliquer les changements."
-                s6="Music : "
+                s6="Musique : "
                 s7="Bruit : "
                 s8="Affichage limité"
         />
@@ -50,7 +50,7 @@
     <!--  4 - ++ : Zone name -->
     <screen id="4">
         <sentence
-                s0="Forêt"
+                s0="ZONE: Forêt"
                 s1="Grotte"
                 s2="null"
                 s3="null"

@@ -10,20 +10,13 @@ import growth.util.math.Math;
 import growth.util.math.Vec2;
 
 public class GUISlider extends GUIComponent{
-
-    /**
-     * The colors of text of the check box.
-     */
-    private Color4 textColor;
-    private Color4 hoverTextColor;
-
     /**
      * The colors of the slider.
      */
 
     protected float value;
 
-    Animation slider, slider_hover;
+    private Animation slider, slider_hover;
 
     /**
      * The font renderer use by the check box.
@@ -33,8 +26,6 @@ public class GUISlider extends GUIComponent{
     private Vec2 cursorSize, cursorPos;
 
     private float minValue, maxValue;
-
-    private int oldSizeText;
 
     /**
      * GUICheck box class constructor with the number of the global string.
@@ -46,7 +37,7 @@ public class GUISlider extends GUIComponent{
      * @param textColor The normal text color.
      * @param hoverTextColor The color of the text when the button is hovering.
      */
-    public GUISlider(Vec2 pos, Vec2 size, int screen, int number, FontFace font, Color4 textColor, Color4 hoverTextColor, float minValue, float maxValue, int value){
+    public GUISlider(Vec2 pos, Vec2 size, int screen, int number, FontFace font, Color4 textColor, Color4 hoverTextColor, float minValue, float maxValue, float value){
         super(new Vec2(pos.getX() - (size.getX() / 2), pos.getY() - (size.getY() / 2)),size);
 
         // Loading animations
@@ -57,13 +48,8 @@ public class GUISlider extends GUIComponent{
         slider = new Animation("/textures/menu/GUISliderButton.png");
         slider_hover = new Animation("/textures/menu/GUISliderButton-hover.png");
 
-        this.textColor = textColor;
-        this.hoverTextColor = hoverTextColor;
-
         fontRenderer = new FontRenderer(screen, number, font, size.getY()*0.4f, pos, textColor);
-        fontRenderer.setPos(new Vec2(this.pos.getX() + size.getX()/2, this.pos.getY()+size.getX()*0.1f));
-        fontRenderer.setText(fontRenderer.getText()+value);
-        oldSizeText = fontRenderer.getText().length();
+        fontRenderer.setPos(new Vec2(this.pos.getX() + size.getX()/2, this.pos.getY() + size.getX()*0.1f));
 
         this.minValue = minValue;
         this.maxValue = maxValue;
@@ -71,8 +57,8 @@ public class GUISlider extends GUIComponent{
         this.value = value;
         cursorSize = new Vec2(this.size.getY()*0.30f);
         cursorPos = new Vec2();
-        cursorPos.setX(Math.map(value,minValue,maxValue,
-                this.pos.getX()+this.size.getX()*0.1f - cursorSize.getX()/2f,this.pos.getX()+ this.size.getX()*0.9f - cursorSize.getX()/2f));
+        cursorPos.setX(Math.map(value, minValue, maxValue,
+                this.pos.getX() + this.size.getX()*0.1f - cursorSize.getX()/2f,this.pos.getX()+ this.size.getX()*0.9f - cursorSize.getX()/2f));
         cursorPos.setY(this.pos.getY() +  this.size.getY()*0.7f - cursorSize.getY()/2);
     }
 
@@ -81,15 +67,6 @@ public class GUISlider extends GUIComponent{
      */
     public void update() {
         super.update();
-        if(oldSizeText == fontRenderer.getText().length()){
-            fontRenderer.setText(fontRenderer.getText().substring(0,fontRenderer.getText().length() - String.valueOf((int)value).length()));
-            value = Math.map(cursorPos.getX(),
-                    this.pos.getX()+this.size.getX()*0.1f - cursorSize.getX()/2,
-                    this.pos.getX()+ this.size.getX()*0.9f - cursorSize.getX()/2,minValue,maxValue);
-        }
-        fontRenderer.setText(fontRenderer.getText() + (int)value);
-
-        oldSizeText = fontRenderer.getText().length();
         if (lock) return;
 
         mouseOver = mouseOver();
@@ -99,10 +76,13 @@ public class GUISlider extends GUIComponent{
                 cursorPos.setX(MouseManager.mouseX() - cursorSize.getX()/2);
                 if(MouseManager.mouseX() < pos.getX() + size.getX()*0.1f){
                     cursorPos.setX(pos.getX() + size.getX()*0.1f - cursorSize.getX()/2);
-                }else if(MouseManager.mouseX() > pos.getX() + size.getX()*0.9f){
+                } else if(MouseManager.mouseX() > pos.getX() + size.getX()*0.9f){
                     cursorPos.setX(pos.getX() + size.getX()*0.9f - cursorSize.getX()/2);
                 }
                 action();
+                value = Math.map(cursorPos.getX(),
+                        this.pos.getX()+this.size.getX()*0.1f - cursorSize.getX()/2,
+                        this.pos.getX()+ this.size.getX()*0.9f - cursorSize.getX()/2, minValue, maxValue);
             }
         } else{
             animationPlayed = UNHOVER;
@@ -114,13 +94,16 @@ public class GUISlider extends GUIComponent{
      */
     public void display() {
         animations.get(animationPlayed).bind();
-        TextureRenderer.imageC(pos,size);
+        TextureRenderer.imageC(pos, size);
 
         slider.bind();
         if(mouseOver) slider_hover.bind();
         TextureRenderer.imageC(cursorPos, cursorSize);
 
+        String text = fontRenderer.getText();
+        fontRenderer.setText(fontRenderer.getText() + String.valueOf((int)value));
         fontRenderer.renderC();
+        fontRenderer.setText(text);
     }
 
     /**

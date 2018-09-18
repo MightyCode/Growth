@@ -128,7 +128,7 @@ public class OptionOverlay extends Overlay {
         musicVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.41f) ,
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                TextManager.OPTIONS,6, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Integer.parseInt(Window.config.getValue(Config.MUSIC_VOL))
+                TextManager.OPTIONS,6, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Float.parseFloat(Window.config.getValue(Config.MUSIC_VOL))
         ){
             @Override
             public void action () {
@@ -139,7 +139,7 @@ public class OptionOverlay extends Overlay {
         noiseVolume = new GUISlider(
                 new Vec2(Window.width*0.20f, Window.height*0.55f) ,
                 new Vec2(Window.width*0.125f, Window.height*0.1f),
-                TextManager.OPTIONS,7, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Integer.parseInt(Window.config.getValue(Config.NOISE_VOL))
+                TextManager.OPTIONS,7, StaticFonts.monofonto, textColor, hoverTextColor,0,100, Float.parseFloat(Window.config.getValue(Config.NOISE_VOL))
         ){
             @Override
             public void action () {

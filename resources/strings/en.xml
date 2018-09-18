@@ -50,7 +50,7 @@
     <!--  4 - ++ : Zone name -->
     <screen id="4">
         <sentence
-                s0="Forest"
+                s0="ZONE: Forest"
                 s1="Cave"
                 s2="null"
                 s3="null"
