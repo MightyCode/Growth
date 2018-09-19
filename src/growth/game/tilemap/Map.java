@@ -56,6 +56,8 @@ public class Map {
 
 	private String[][] entities;
 
+	private float[] color;
+
 	/**
 	 * Map class constructor.
 	 * Instance the class and set the map id.
@@ -163,6 +165,14 @@ public class Map {
 	 */
 	float[][] getExitPoints(int side){
 		return exit[side];
+	}
+
+	public void setColor(float[] color){
+		this.color = color;
+	}
+
+	public float[] getColor(){
+		return color;
 	}
 
 	public void setLocation(String newLocation){location = newLocation;}

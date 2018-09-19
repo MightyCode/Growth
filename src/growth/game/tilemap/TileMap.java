@@ -3,6 +3,7 @@ package growth.game.tilemap;
 import growth.entity.type.Player;
 import growth.main.Config;
 import growth.main.Window;
+import growth.screen.render.Render;
 import growth.screen.render.texture.Texture;
 import growth.screen.render.texture.TextureRenderer;
 import growth.screen.GameManager;
@@ -279,8 +280,6 @@ public class TileMap {
 		GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
 	}
 
-
-
 	/**
 	 * Charge the current layer for collision and another features.
 	 */
@@ -296,6 +295,11 @@ public class TileMap {
 
         GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
         GameManager.camera.setBoundMin(0, 0);
+
+		float[] color = maps.get(currentMap).getColor();
+		if(color[0] != -1){
+			Render.setClearColor(color[0], color[1], color[2]);
+		}
 	}
 
 	/**

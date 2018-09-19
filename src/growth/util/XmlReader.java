@@ -38,6 +38,26 @@ public abstract class XmlReader {
 			String location = root.getAttribute("location");
 			String zone = root.getAttribute("zone");
 
+			float[] color;
+			if(!root.getAttribute("color").equals("")){
+				String cl = root.getAttribute("color");
+				int i = 0;
+				color = new float[3];
+				for(int a = 0; a < 2; a++){
+					String answer = "";
+					while(!cl.substring(i,i+1).equals(",")){
+						answer+=cl.substring(i,i+1);
+						i++;
+					}
+					color[a] = Float.valueOf(answer);
+					i++;
+				}
+				color[2] = Float.valueOf(cl.substring(i,cl.length()));
+			} else {
+				color = new float[1];
+				color[0] = -1;
+			}
+
 			Element subRoot;
 
 			// Set the spawn point of map
@@ -54,6 +74,7 @@ public abstract class XmlReader {
 			Map map = new Map(Integer.parseInt(root.getAttribute("id")), newInsNumber);
 			map.setLocation(location);
 			map.setZone(zone);
+			map.setColor(color);
 
 			for(int a = 0; a < ins.getLength(); a++){
 				subRoot = (Element) ins.item(a);

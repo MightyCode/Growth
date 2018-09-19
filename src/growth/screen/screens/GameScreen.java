@@ -80,7 +80,6 @@ public class GameScreen extends Screen {
         tileSize = Window.width/20;
 
         hud = new Hud();
-        Render.setClearColor(0.67f, 0.85f, 0.90f, 1f);
         Window.console.println("\n-------------------------- \n");
 
         /* Init gameScreen's variables */

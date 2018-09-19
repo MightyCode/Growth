@@ -1,4 +1,4 @@
-<map id="5" width="20" height="12" zone="0" location="0">
+<map id="5" width="20" height="12" zone="0" location="0" color="0.667f, 0.424f, 0.224f">
     <ins>
         <in name="3" x="19.5" y="4" facing="0"/>
         <in name="5" x="6" y="10"/>
