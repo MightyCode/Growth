@@ -31,6 +31,13 @@ public class EntityManager {
 
     private ArrayList<Eobject> toRemove;
 
+    public static final int TYPE = 0;
+    public static final int NAME = 1;
+    public static final int POSX = 2;
+    public static final int POSY = 3;
+    public static final int SIZEX = 4;
+    public static final int SIZEY = 5;
+
     /**
      * Entity manager class constructor.
      * Instance the class and set the new array list.

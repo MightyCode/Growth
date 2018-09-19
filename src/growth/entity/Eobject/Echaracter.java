@@ -47,8 +47,8 @@ public abstract class Echaracter extends Emoveable {
      */
     protected int maxHealthPoint;
 
-    public Echaracter(GameScreen gm, TileMap tm) {
-        super();
+    public Echaracter(String name, GameScreen gm, TileMap tm) {
+        super(name);
         posTemp = new Vec2();
         gameScreen = gm;
         tileMap = tm;

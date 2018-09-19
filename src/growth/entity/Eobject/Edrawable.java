@@ -35,8 +35,8 @@ public abstract class Edrawable extends Eobject{
      */
     protected ArrayList<Animation> animations;
 
-    public Edrawable(){
-        super();
+    public Edrawable(String name){
+        super(name);
         animations = new ArrayList<>();
     }
 

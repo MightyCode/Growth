@@ -40,6 +40,7 @@ public abstract class GUIComponent extends Edrawable {
      * @param size The size of GUIComponent.
      */
     public GUIComponent(Vec2 pos, Vec2 size){
+        super("GUiComposant");
         this.pos = pos;
         this.size = size;
     }
@@ -49,6 +50,7 @@ public abstract class GUIComponent extends Edrawable {
      * @param size The size of GUIComponent.
      */
     public GUIComponent(Vec2 size){
+        super("GUiComposant");
         this.size = size;
     }
 

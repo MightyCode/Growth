@@ -1,5 +1,6 @@
 package growth.entity.type;
 
+import growth.entity.EntityManager;
 import growth.entity.Eobject.Emoveable;
 import growth.entity.methods.EntityMethods;
 import growth.main.Window;
@@ -14,13 +15,19 @@ public class Platform extends Emoveable {
     private Vec2 counter;
     private Vec2 duration;
 
+    public static final int RANGEX = 6;
+    public static final int RANGEY = 7;
+    public static final int DURATIONX = 8;
+    public static final int DURATIONY = 9;
+
     public Platform(String[] att){
+        super(att[EntityManager.NAME]);
         counter = new Vec2(0);
-        this.pos = new Vec2(Float.parseFloat(att[1]),Float.parseFloat(att[2])).multiply(GameScreen.tileSize,true);
+        this.pos = new Vec2(Float.parseFloat(att[EntityManager.POSX]),Float.parseFloat(att[EntityManager.POSY])).multiply(GameScreen.tileSize,true);
         initPos = pos.copy();
-        this.size = new Vec2(Float.parseFloat(att[3]),Float.parseFloat(att[4])).multiply(GameScreen.tileSize,true);
-        this.range = new Vec2(Float.parseFloat(att[5])/2,Float.parseFloat(att[6])/2).multiply(GameScreen.tileSize,true);
-        this.duration = new Vec2((float)(2*Math.PI)/(Window.TPS * Float.parseFloat(att[7])),(float)(2*Math.PI)/(Window.TPS * Float.parseFloat(att[8])));
+        this.size = new Vec2(Float.parseFloat(att[EntityManager.SIZEX]),Float.parseFloat(att[EntityManager.SIZEY])).multiply(GameScreen.tileSize,true);
+        this.range = new Vec2(Float.parseFloat(att[RANGEX])/2,Float.parseFloat(att[RANGEY])/2).multiply(GameScreen.tileSize,true);
+        this.duration = new Vec2((float)(2*Math.PI)/(Window.TPS * Float.parseFloat(att[DURATIONX])),(float)(2*Math.PI)/(Window.TPS * Float.parseFloat(att[DURATIONY])));
     }
 
     public void update(){

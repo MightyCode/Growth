@@ -55,7 +55,7 @@ public class Player extends Echaracter {
 	 */
 	public Player(GameScreen gameScreen, TileMap tileMap, Vec2 size) {
 		// Call mother constructor
-		super(gameScreen,tileMap);
+		super("player", gameScreen,tileMap);
 
 		/* Init player's variables */
 		// Size, and boxSize

@@ -1,5 +1,6 @@
 package growth.game.tilemap;
 
+import growth.entity.EntityManager;
 import growth.entity.Eobject.Echaracter;
 import growth.entity.Eobject.Edrawable;
 import growth.entity.Eobject.Emoveable;
@@ -130,7 +131,7 @@ public class Map {
 		for (String[] entity : entities) {
 			try {
 				GameScreen.entityManager.addEntity(
-						(Eobject) Class.forName(Config.ENTITY_PATH + entity[0]).getConstructor(String[].class).newInstance((Object) entity));
+						(Eobject) Class.forName(Config.ENTITY_PATH + entity[EntityManager.TYPE]).getConstructor(String[].class).newInstance((Object) entity));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

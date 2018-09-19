@@ -9,6 +9,12 @@
 		<out side="3" to="1" mapId="2" beg="0" end="12"/>
 	</outs>
 
+	<objects>
+		<object a0="Scenery" a1="sargbre1-1" a2="8.5f" a3="-1" a4="4.5f" a5="7" a6="/textures/game/scenery/sargbre/sargbre.png"/>
+		<object a0="TpPoint" a1="tppsargbre" a2="10" a3="4" a4="2" a5="2" a6="5" a7="3"/>
+		<object a0="Scenery" a1="sce1-1" a2="23.5f" a3="0" a4="5" a5="6" a6="/textures/game/scenery/house/house-1.png"/>
+	</objects>
+
 	<layers>
 		<layer position="1">
 			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -54,11 +60,4 @@
 
 		</layer>
 	</layers>
-
-	<objects>
-		<object type="Scenery" a0="/textures/game/scenery/sargbre/sargbre.png" a1="8.5f" a2="-1" a3="4.5f" a4="7"/>
-		<object type="TpPoint" a0="10" a1="4" a2="2" a3="2" a4="5" a5="3"/>
-		<object type="Scenery" a0="/textures/game/scenery/panel/panel.png" a1="14" a2="5" a3="1" a4="1"/>
-		<object type="Scenery" a0="/textures/game/scenery/house/house-1.png" a1="23.5f" a2="0" a3="5" a4="6"/>
-	</objects>
 </map>

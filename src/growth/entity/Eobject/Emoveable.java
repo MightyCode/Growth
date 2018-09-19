@@ -14,8 +14,8 @@ public abstract class Emoveable extends Edrawable{
 
     protected Vec2 speed;
 
-    public Emoveable(){
-        super();
+    public Emoveable(String name){
+        super(name);
         speed = new Vec2();
     }
 

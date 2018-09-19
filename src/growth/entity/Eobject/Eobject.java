@@ -10,13 +10,16 @@ public abstract class Eobject {
 
     protected Vec2 pos, size;
 
+    public String name;
+
     /**
      * Modules.
      * This list contains the module using by the entity.
      */
     protected ArrayList<Module> modules;
 
-    public Eobject(){
+    public Eobject(String name){
+        this.name = name;
         pos = new Vec2();
         size = new Vec2();
         modules = new ArrayList<>();

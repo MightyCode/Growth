@@ -10,6 +10,10 @@
 		<out side="3" to="1" mapId="4" beg="0" end="25"/>
 	</outs>
 
+	<objects>
+		<object a0="Scenery" a1="scesign3"  a2="49" a3="11" a4="1" a5="1" a6="/textures/game/scenery/panel/panel.png"/>
+	</objects>
+
 	<layers>
 		<layer position="1">
 			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -94,8 +98,4 @@
 
 		</layer>
 	</layers>
-
-	<objects>
-		<object type="Scenery" a0="/textures/game/scenery/panel/panel.png" a1="49" a2="11" a3="1" a4="1"/>
-	</objects>
 </map>

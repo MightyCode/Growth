@@ -12,10 +12,13 @@ import growth.util.math.Vec2;
 public class TpPoint extends Eobject {
 
     private int map;
-
     private int point;
 
+    public static final int TP_MAP = 6;
+    public static final int TP_POINT = 7;
+
     public TpPoint(Vec2 pos, Vec2 size, int map, int point){
+        super("Tppoint null");
         this.pos = pos.multiply(GameScreen.tileSize,true);
         this.size = size.multiply(GameScreen.tileSize,true);
         this.map = map;
@@ -23,10 +26,11 @@ public class TpPoint extends Eobject {
     }
 
     public TpPoint(String[] att){
-        this.pos = new Vec2(Float.parseFloat(att[1]),Float.parseFloat(att[2])).multiply(GameScreen.tileSize,true);
-        this.size = new Vec2(Float.parseFloat(att[3]),Float.parseFloat(att[4])).multiply(GameScreen.tileSize,true);
-        this.map = Integer.parseInt(att[5])-1;
-        this.point = Integer.parseInt(att[6])-1;
+        super(att[EntityManager.NAME]);
+        this.pos = new Vec2(Float.parseFloat(att[EntityManager.POSX]),Float.parseFloat(att[EntityManager.POSY])).multiply(GameScreen.tileSize,true);
+        this.size = new Vec2(Float.parseFloat(att[EntityManager.SIZEX]),Float.parseFloat(att[EntityManager.SIZEY])).multiply(GameScreen.tileSize,true);
+        this.map = Integer.parseInt(att[TP_MAP])-1;
+        this.point = Integer.parseInt(att[TP_POINT])-1;
     }
 
     public void update() {

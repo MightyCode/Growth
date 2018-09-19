@@ -1,5 +1,6 @@
 package growth.util;
 
+import growth.entity.EntityManager;
 import growth.game.tilemap.Map;
 import growth.game.tilemap.Tile;
 import growth.main.Config;
@@ -149,11 +150,13 @@ public abstract class XmlReader {
 				subRoot = (Element) object.item(i);
 				int length = 0;
 				while(!subRoot.getAttribute("a"+length).equals("")) length++;
+				length++;
 
-				ent[i] = new String[length+1];
-				ent[i][0] = subRoot.getAttribute("type");
-				for(int a = 1; a < length+1; a++){
-					ent[i][a] = subRoot.getAttribute("a"+(a-1));
+				ent[i] = new String[length];
+				ent[i][EntityManager.TYPE] = subRoot.getAttribute("a" + EntityManager.TYPE);
+				ent[i][EntityManager.NAME] = subRoot.getAttribute("a" + EntityManager.NAME);
+				for(int a = 2; a < length; a++){
+					ent[i][a] = subRoot.getAttribute("a"+a);
 				}
 			}
 			map.setEntities(ent);

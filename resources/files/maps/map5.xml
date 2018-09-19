@@ -8,6 +8,12 @@
         <out side="3" to="5" mapId="1" beg="0" end="20"/>
     </outs>
 
+    <objects>
+        <object a0="Platform" a1="plat1" a2="16" a3="7" a4="2" a5="1" a6="0" a7="7" a8="0" a9="9"/>
+        <object a0="Scenery" a1="scemonitor5" a2="2" a3="8.5f" a4="1" a5="1.5f" a6="/textures/game/scenery/monitor/monitor.png"/>
+        <object a0="Monitor" a1="mon1" a2="2" a3="8.5f" a4="1.2f" a5="2"/>
+    </objects>
+
     <layers>
         <layer position="1">
             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -53,11 +59,5 @@
 
         </layer>
     </layers>
-
-    <objects>
-        <object type="Platform" a0="16" a1="7" a2="2" a3="1" a4="0" a5="7" a6="0" a7="9"/>
-        <object type="Scenery" a0="/textures/game/scenery/monitor/monitor.png" a1="2" a2="8.5f" a3="1" a4="1.5f"/>
-        <object type="Monitor" a0="2" a1="8.5f" a2="1.2f" a3="2"/>
-    </objects>
 </map>
 
