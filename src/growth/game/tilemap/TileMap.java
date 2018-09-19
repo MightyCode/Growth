@@ -112,9 +112,7 @@ public class TileMap {
 
 	private Player player;
 
-	private float givePosX, givePosY;
-
-	private int facing;
+	private float[] saveValues;
 
 	private int newMapId;
 
@@ -146,6 +144,7 @@ public class TileMap {
 		// Init current map variables
 		numRowsToDraw = Window.height / GameScreen.tileSize + 2;
 		numColsToDraw = Window.width / GameScreen.tileSize + 2;
+		saveValues = new float[3];
 	}
 
 	/**
@@ -210,6 +209,36 @@ public class TileMap {
 		return false;
 	}
 
+
+    /**
+     * Check if there are a next map for the player's position.
+     *
+     * @param side The side to change the map.
+     * @param x The player position x.
+     * @param y The player position y.
+     *
+     * @return The new map id and the spawn point.
+     */
+    private int[] isMap(int side, float x, float y) {
+        float posX = x / GameScreen.tileSize;
+        float posY = y / GameScreen.tileSize;
+
+        float[][] neighbour = maps.get(currentMap).getExitPoints(Math.abs(side-2));
+
+        for (float[] aNeighbour : neighbour) {
+            if (side == 0 || side == 2) {
+                if (aNeighbour[2] < posY && posY < aNeighbour[3]) {
+                    return new int[]{1, (int) aNeighbour[0] - 1, (int)aNeighbour[1]};
+                }
+            } else if (side == 1 || side == 3) {
+                if (aNeighbour[2] < posX && posX < aNeighbour[3]) {
+                    return new int[]{1, (int) aNeighbour[0] - 1, (int)aNeighbour[1]};
+                }
+            }
+        }
+        return new int[]{0};
+    }
+
 	/**
 	 * Change the map with mapID.
 	 * @param mapID The new map.
@@ -218,85 +247,39 @@ public class TileMap {
 	public void changeMap(int mapID, int point){
 		GameManager.setState(GameScreen.STATE_TRANSITION);
 		newMapId = mapID;
-		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
-		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
-		facing = maps.get(mapID).getFacing(point);
+		saveValues = maps.get(mapID).saveValues(point);
 	}
 
-	/**
-	 * Check if there are a next map for the player's position.
-	 *
-	 * @param side The side to change the map.
-	 * @param x The player position x.
-	 * @param y The player position y.
-	 *
-	 * @return The new map id and the spawn point.
-	 */
-	private int[] isMap(int side, float x, float y) {
-		float posX = x / GameScreen.tileSize;
-		float posY = y / GameScreen.tileSize;
-
-		float[][] neighbour = maps.get(currentMap).getExitPoints(Math.abs(side-2));
-
-		for (float[] aNeighbour : neighbour) {
-			if (side == 0 || side == 2) {
-				if (aNeighbour[2] < posY && posY < aNeighbour[3]) {
-					return new int[]{1, (int) aNeighbour[0] - 1, (int)aNeighbour[1]};
-				}
-			} else if (side == 1 || side == 3) {
-				if (aNeighbour[2] < posX && posX < aNeighbour[3]) {
-					return new int[]{1, (int) aNeighbour[0] - 1, (int)aNeighbour[1]};
-				}
-			}
-		}
-		return new int[]{0};
-	}
 
 	/**
 	 * Set the new map and give the position to the player.
 	 */
 	public void doTransition(){
-		GameScreen.entityManager.setPosition(new Vec2(givePosX, givePosY));
-		if(facing != -1) GameScreen.entityManager.getPlayer().setFacing(facing == 1);
+		GameScreen.entityManager.setPosition(new Vec2(saveValues[0] * GameScreen.tileSize
+				, saveValues[1] * GameScreen.tileSize - player.getSize().getY()/2));
+		if(saveValues[2] != -1) GameScreen.entityManager.getPlayer().setFacing(saveValues[2] == 1);
+
 		GameScreen.entityManager.dispose();
 
 		String location = maps.get(currentMap).getLocation(), zone = maps.get(currentMap).getZone();
 		currentMap = newMapId;
 		chargeMap();
-
 		if(!zone.equals(maps.get(currentMap).getZone()))GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
 		else if(!location.equals(maps.get(currentMap).getLocation()))GameScreen.hud.setLocation(maps.get(currentMap).getLocation());
-
-		numCols = map[0].length;
-		numRows = map.length;
-
-		sizeX = numCols * GameScreen.tileSize;
-		sizeY = numRows * GameScreen.tileSize;
-
-		GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
-		GameManager.camera.setBoundMin(0, 0);
 		GameManager.camera.setPosition(false);
 	}
 
 	public void begin(int mapID, int point){
-		newMapId = mapID;
-		givePosX = maps.get(mapID).getTileToComeX(point) * GameScreen.tileSize;
-		givePosY = maps.get(mapID).getTileToComeY(point) * GameScreen.tileSize - player.getSize().getY()/2;
-		GameScreen.entityManager.setPosition(new Vec2(givePosX, givePosY));
-		currentMap = newMapId;
+		currentMap = mapID;
+		saveValues = maps.get(mapID).saveValues(point);
+		GameScreen.entityManager.setPosition(new Vec2(saveValues[0] * GameScreen.tileSize
+				, saveValues[1] * GameScreen.tileSize - player.getSize().getY()/2));
+		if(saveValues[2] != -1) GameScreen.entityManager.getPlayer().setFacing(saveValues[2] == 1);
 		chargeMap();
-
 		GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
-
-		numCols = map[0].length;
-		numRows = map.length;
-
-		sizeX = numCols * GameScreen.tileSize;
-		sizeY = numRows * GameScreen.tileSize;
-
-		GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
-		GameManager.camera.setBoundMin(0, 0);
 	}
+
+
 
 	/**
 	 * Charge the current layer for collision and another features.
@@ -305,6 +288,14 @@ public class TileMap {
 		map = maps.get(currentMap).getMap(1);
 		GameScreen.entityManager.removeAll();
 		maps.get(currentMap).loadEntity();
+        numCols = map[0].length;
+        numRows = map.length;
+
+        sizeX = numCols * GameScreen.tileSize;
+        sizeY = numRows * GameScreen.tileSize;
+
+        GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
+        GameManager.camera.setBoundMin(0, 0);
 	}
 
 	/**

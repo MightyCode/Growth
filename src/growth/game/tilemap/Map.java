@@ -152,25 +152,9 @@ public class Map {
 		}
 	}
 
-	/**
-	 * Get the tile to come in x with the map's side neighbour.
-	 *
-	 * @return Begin tile x.
-	 */
-	float getTileToComeX(int point) {
-		return spawn[point][0];
+	float[] saveValues(int point){
+		return spawn[point];
 	}
-
-	/**
-	 * Get the tile to come in y with the map's side neighbour.
-	 *
-	 * @return Begin tile y.
-	 */
-	float getTileToComeY(int point) {
-		return spawn[point][1];
-	}
-
-	int getFacing(int point){return (int)spawn[point][2];}
 
 	/**
 	 * Get the data for each exit point for one side.
