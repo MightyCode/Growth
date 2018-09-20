@@ -41,5 +41,18 @@ public abstract class Eobject {
 
     public void setSize(Vec2 size) { this.size = size; }
 
+
+    public void addModule(Module module){
+        modules.add(module);
+    }
+
+    public void deleteModule(int index){
+        modules.remove(index);
+    }
+
+    public Module getModule(int index){
+        return modules.get(index);
+    }
+
     public void unload(){}
 }

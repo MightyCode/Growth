@@ -11,9 +11,6 @@ import growth.screen.screens.GameScreen;
 import growth.util.XmlReader;
 import growth.util.math.Vec2;
 
-import java.io.File;
-import java.util.ArrayList;
-
 /**
  * TileMap class.
  * This class is use to store the game structure.
@@ -28,7 +25,7 @@ public class TileMap {
 	 * Current.
 	 * This variable contains the number of the current map.
 	 */
-	private int currentMap;
+	private int mapID;
 
 	/**
 	 * Map.
@@ -40,7 +37,7 @@ public class TileMap {
 	 * Array list of map.
 	 * This variable contains the every maps.
 	 */
-	private final ArrayList<Map> maps = new ArrayList<>();
+	private Map curMap;
 
 	/**
 	 * Number of row.
@@ -113,9 +110,7 @@ public class TileMap {
 
 	private Player player;
 
-	private float[] saveValues;
-
-	private int newMapId;
+	private int[] saveValues;
 
 	/**
 	 * Tilemap class constructor.
@@ -128,24 +123,14 @@ public class TileMap {
 		tileSetT = new Texture("/textures/game/tiles/Tileset.png");
 		tileSet = XmlReader.createTileSet(path);
 
-		// Init map
-		int a = 1;
-		while(new File(Window.config.getValue(Config.PARTY_PATH) + "maps/map"+a+".xml").exists()){
-			a++;
-		}
-		nbMap = a;
-
-		for(int i = 1; i < nbMap; i++){
-			maps.add(XmlReader.createMap(Window.config.getValue(Config.PARTY_PATH) + "maps/map"+i+".xml"));
-		}
-
-		currentMap = 0;
+		mapID = 0;
 		currentLayer = 1;
 
 		// Init current map variables
 		numRowsToDraw = Window.height / GameScreen.tileSize + 2;
 		numColsToDraw = Window.width / GameScreen.tileSize + 2;
-		saveValues = new float[3];
+		saveValues = new int[2];
+		curMap = new Map(0,0);
 	}
 
 	/**
@@ -173,7 +158,7 @@ public class TileMap {
 
 		// For each layer
 		for(int i  =  begin; i < end ; i++){
-			int[][] map = maps.get(currentMap).getMap(i);
+			int[][] map = curMap.getMap(i);
 
 			// For each row
 			for (int row = rowOffset; row < maxRow; row++) {
@@ -224,7 +209,7 @@ public class TileMap {
         float posX = x / GameScreen.tileSize;
         float posY = y / GameScreen.tileSize;
 
-        float[][] neighbour = maps.get(currentMap).getExitPoints(Math.abs(side-2));
+        float[][] neighbour = curMap.getExitPoints(Math.abs(side-2));
 
         for (float[] aNeighbour : neighbour) {
             if (side == 0 || side == 2) {
@@ -247,46 +232,36 @@ public class TileMap {
 	 */
 	public void changeMap(int mapID, int point){
 		GameManager.setState(GameScreen.STATE_TRANSITION);
-		newMapId = mapID;
-		saveValues = maps.get(mapID).saveValues(point);
+		saveValues[0] = mapID;
+		saveValues[1] = point;
 	}
-
 
 	/**
 	 * Set the new map and give the position to the player.
 	 */
 	public void doTransition(){
-		GameScreen.entityManager.setPosition(new Vec2(saveValues[0] * GameScreen.tileSize
-				, saveValues[1] * GameScreen.tileSize - player.getSize().getY()/2));
-		if(saveValues[2] != -1) GameScreen.entityManager.getPlayer().setFacing(saveValues[2] == 1);
-
 		GameScreen.entityManager.dispose();
-
-		String location = maps.get(currentMap).getLocation(), zone = maps.get(currentMap).getZone();
-		currentMap = newMapId;
 		chargeMap();
-		if(!zone.equals(maps.get(currentMap).getZone()))GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
-		else if(!location.equals(maps.get(currentMap).getLocation()))GameScreen.hud.setLocation(maps.get(currentMap).getLocation());
+		String location = curMap.getLocation(), zone = curMap.getZone();
+		if(!zone.equals(curMap.getZone()))GameScreen.hud.setZone(curMap.getZone() , curMap.getLocation());
+		else if(!location.equals(curMap.getLocation()))GameScreen.hud.setLocation( curMap.getLocation());
 		GameManager.camera.setPosition(false);
-	}
-
-	public void begin(int mapID, int point){
-		currentMap = mapID;
-		saveValues = maps.get(mapID).saveValues(point);
-		GameScreen.entityManager.setPosition(new Vec2(saveValues[0] * GameScreen.tileSize
-				, saveValues[1] * GameScreen.tileSize - player.getSize().getY()/2));
-		if(saveValues[2] != -1) GameScreen.entityManager.getPlayer().setFacing(saveValues[2] == 1);
-		chargeMap();
-		GameScreen.hud.setZone(maps.get(currentMap).getZone() , maps.get(currentMap).getLocation());
 	}
 
 	/**
 	 * Charge the current layer for collision and another features.
 	 */
 	private void chargeMap(){
-		map = maps.get(currentMap).getMap(1);
+		mapID = this.saveValues[0];
+		curMap = XmlReader.createMap(Window.config.getValue(Config.PART_PATH) + "temp/map" + (mapID+1) + ".xml");
+		float[] saveValues = curMap.saveValues(this.saveValues[1]);
+
+		GameScreen.entityManager.setPosition(new Vec2(saveValues[0] * GameScreen.tileSize
+				, saveValues[1] * GameScreen.tileSize - player.getSize().getY()/2));
+		if(saveValues[2] != -1) GameScreen.entityManager.getPlayer().setFacing(saveValues[2] == 1);
+		map = curMap.getMap(1);
 		GameScreen.entityManager.removeAll();
-		maps.get(currentMap).loadEntity();
+		curMap.loadEntity();
         numCols = map[0].length;
         numRows = map.length;
 
@@ -296,10 +271,16 @@ public class TileMap {
         GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
         GameManager.camera.setBoundMin(0, 0);
 
-		float[] color = maps.get(currentMap).getColor();
+		float[] color =curMap.getColor();
 		if(color[0] != -1){
 			Render.setClearColor(color[0], color[1], color[2]);
 		}
+	}
+
+	public void begin(int mapID, int point){
+		saveValues[0] = mapID; saveValues[1] = point;
+		chargeMap();
+		GameScreen.hud.setZone(curMap.getZone() , curMap.getLocation());
 	}
 
 	/**
@@ -367,4 +348,8 @@ public class TileMap {
 	public void unload() {
 		tileSetT.unload();
 	}
+
+    public int getCurrentMap() {
+		return mapID;
+    }
 }

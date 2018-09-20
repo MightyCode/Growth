@@ -1,10 +1,12 @@
 package growth.entity.module.player;
 
+import growth.entity.EntityManager;
 import growth.entity.type.Player;
 import growth.entity.module.Module;
 import growth.main.Window;
 import growth.screen.GameManager;
 import growth.screen.screens.GameScreen;
+import growth.util.MapModifier;
 
 /**
  * Administrator layer module class.

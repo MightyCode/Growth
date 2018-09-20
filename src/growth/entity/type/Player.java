@@ -28,6 +28,9 @@ public class Player extends Echaracter {
 	private Texture actionT;
 	private Vec2 actionSize;
 
+	public int[][] tree;
+	public int form;
+
 	/**
 	 * Player's states.
 	 * These static final variables counting the different state of player.
@@ -61,7 +64,7 @@ public class Player extends Echaracter {
 		// Size, and boxSize
 		this.pos = new Vec2();
 		this.size = size.copy();
-		collisionBox = new Vec2(this.size.getX()*0.65f, size.getY());
+		collisionBox = new Vec2(this.size.getX() * 0.65f, size.getY());
 
 		int tileSize = GameScreen.tileSize;
 
@@ -75,23 +78,16 @@ public class Player extends Echaracter {
 		float maxFallSpeed = tileSize - 2f;
 		modules.add(new Entity_Fall(this, fallSpeed, maxFallSpeed));
 
-		float jumpStart = tileSize/-4.8f;
-		float stopJumpSpeed = tileSize/130f;
-		modules.add(new Player_Jump(this, jumpStart, stopJumpSpeed));
-
 		float runSpeed = 1.45f;
 		modules.add(new Player_Sprint(this,(Player_Movement) modules.get(0), runSpeed));
 
-		int attackTime = 20;
+		/*int attackTime = 20;
 		Vec2 attackSize = size.copy();
-		modules.add(new Player_Attack(this, attackTime, attackSize));
+		modules.add(new Player_Attack(this, attackTime, attackSize));*/
 		if(Growth.admin){
 			modules.add(new Admin_Layer(this));
 			modules.add(new Admin_PlayerHealth(this));
 		}
-
-		setMaxHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getValue(Config.PARTY_PATH) +"save.xml" , "maxLife", "life")));
-		setHealthPoint(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getValue(Config.PARTY_PATH) +"save.xml" , "life", "life")));
 
 		// Sprite and Animation
 		facing = true;
@@ -105,6 +101,8 @@ public class Player extends Echaracter {
 
 		actionT = new Texture("/textures/game/entity/player/other/action.png");
 		actionSize = new Vec2(Window.height*0.04f);
+
+		form = -1;
 	}
 
 	/**
@@ -176,6 +174,18 @@ public class Player extends Echaracter {
 	public void setMaxHealthPoint(int newValue){
 		super.setMaxHealthPoint(newValue);
 		GameScreen.hud.setMaxHealth(maxHealthPoint);
+	}
+
+	public void setForm(int newForm){
+		if(newForm >=1 && newForm <= 3) form = newForm;
+	}
+
+	public int getForm(){
+		return form;
+	}
+
+	public void setTree(int[][] tree){
+		this.tree = tree;
 	}
 
 	/**

@@ -1,12 +1,9 @@
 package growth.main;
 
-import growth.screen.GameManager;
-import growth.sound.SoundManager;
 import growth.util.FileMethods;
 import growth.util.XmlReader;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 
@@ -25,9 +22,9 @@ public class Config {
             WINDOW_WIDTH = 1,
             WINDOW_HEIGHT = 2,
             LANGUAGE = 3,
-            PARTY_NB = 4,
-            PARTY_PATH = 5,
-            PARTY_MAX = 6,
+            PART_NB = 4,
+            PART_PATH = 5,
+            PART_MAX = 6,
             NOISE_VOL = 7,
             MUSIC_VOL = 8,
             LIMITED_FRAMERATE = 9;
@@ -44,8 +41,8 @@ public class Config {
      * Class constructor.
      */
     public Config(){
-        values[PARTY_NB] = "0";
-        values[PARTY_MAX] = "0";
+        values[PART_NB] = "0";
+        values[PART_MAX] = "0";
 
         // If the directory don't exists
         File test = new File("data/");
@@ -76,8 +73,8 @@ public class Config {
             Window.console.println("Create file \"saves\"");
             File data = new File("data/saves");
             data.mkdirs();
-            values[PARTY_MAX] = "0";
-            values[PARTY_MAX] = "-1";
+            values[PART_MAX] = "0";
+            values[PART_MAX] = "-1";
 
         }
     }
@@ -95,8 +92,8 @@ public class Config {
     public void setValuesWithoutSave(String value,int index){
         // Before attributing
         switch (index){
-            case PARTY_NB:
-                if(value.equals("-1") && Integer.parseInt(values[PARTY_MAX]) > 0) value = "1";
+            case PART_NB:
+                if(value.equals("-1") && Integer.parseInt(values[PART_MAX]) > 0) value = "1";
                 break;
         }
 
@@ -105,8 +102,8 @@ public class Config {
 
         // After attributing
         switch (index){
-            case PARTY_NB:
-                values[PARTY_PATH] = SAVE_PATH + "save-" + values[PARTY_NB] + "/";
+            case PART_NB:
+                values[PART_PATH] = SAVE_PATH + "save-" + values[PART_NB] + "/";
                 break;
             case LIMITED_FRAMERATE:
                 glfwSwapInterval((values[Config.LIMITED_FRAMERATE].equals("1"))? 1 : 0);

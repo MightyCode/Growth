@@ -3,7 +3,7 @@ package growth.screen.screens;
 import growth.main.Config;
 import growth.main.Growth;
 import growth.screen.overlay.Overlay;
-import growth.util.Party;
+import growth.util.Part;
 import growth.util.TextManager;
 import growth.util.math.Color4;
 import growth.util.math.Vec2;
@@ -78,11 +78,11 @@ public class MenuScreen extends Screen {
         ) {
             @Override
             public void action() {
-                Party.checkParty();
+                Part.checkParty();
             }
         };
 
-        if(Window.config.getValue(Config.PARTY_NB).equals( "-1")){
+        if(Window.config.getValue(Config.PART_NB).equals( "-1")){
             goToGame.setLock(true);
         }
 
@@ -109,7 +109,7 @@ public class MenuScreen extends Screen {
         ){
             @Override
             public void action() {
-                Party.createParty();
+                Part.createParty();
                 GameManager.setScreen(GameManager.GAMESCREEN);
             }
         };

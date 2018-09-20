@@ -1,9 +1,11 @@
 <save>
     <location map="0" point="4"/>
-    <life maxLife="2" life="2"/>
+    <player life="2" form="0"/>
 
-    <tree for="0"/>
-    <tree for="1"/>
-    <tree for="2"/>
-    <tree for="3"/>
+    <trees>
+        <tree id="0" nd0="0"/>
+        <tree id="1"/>
+        <tree id="2"/>
+        <tree id="3"/>
+    </trees>
 </save>

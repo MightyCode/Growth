@@ -12,8 +12,7 @@ import growth.screen.overlay.OptionOverlay;
 import growth.screen.overlay.PauseOverlay;
 import growth.game.tilemap.TileMap;
 import growth.entity.type.Player;
-import growth.util.FileMethods;
-import growth.util.XmlReader;
+import growth.util.*;
 import growth.util.math.Math;
 import growth.util.math.Vec2;
 import java.io.File;
@@ -76,29 +75,52 @@ public class GameScreen extends Screen {
      */
     public GameScreen() {
         super();
+        Window.console.println("\n-------------------------- \n");
+        File file = new File(Window.config.getValue(Config.PART_PATH) + "temp");
+        if(file.exists()) Part.deleteTemp();
+
+        Window.console.println("\n File temp created with " + ((file.mkdir())? "success":"fail") + "\n");
+
+        // Copy map to the temp
+        int n = 1;
+        while (new File(Window.config.getValue(Config.PART_PATH)+ "/maps/map" + n + ".xml").exists()) n++;
+
+
+        for (int i = 1; i < n; i++)
+            if (FileMethods.copy(
+                    Window.config.getValue(Config.PART_PATH) + "maps/map"+ i +".xml",
+                    Window.config.getValue(Config.PART_PATH) + "temp/map" + i + ".xml"
+            )){}
+            else Window.console.println("Error on creation maps of game");
+
         XmlReader.saveConfiguration();
         tileSize = Window.width/20;
 
         hud = new Hud();
-        Window.console.println("\n-------------------------- \n");
-
         /* Init gameScreen's variables */
         // Init screen vars
         screenState = STATE_NORMAL;
 
         // Init tileMap
-        tileMap = new TileMap( Config.TILESET_PATH);
+        tileMap = new TileMap(Config.TILESET_PATH);
         GameManager.camera.setTween(0.3f, 1f);
 
         Player player = new Player(this, tileMap, new Vec2(tileSize));
-
         entityManager.setPlayer(player);
+        LoadPlayerTree.playerTree();
 
         tileMap.setEntity(player);
 
         // Player begin in the ground on Panel 1
-        tileMap.begin(Integer.parseInt(XmlReader.getValueNoRes(Window.config.getValue(Config.PARTY_PATH) + "save.xml","map","location")),
-                Integer.parseInt(XmlReader.getValueNoRes(Window.config.getValue(Config.PARTY_PATH) + "save.xml","point","location")));
+        tileMap.begin(
+                Integer.parseInt(
+                        XmlReader.getValueNoRes(
+                                Window.config.getValue(Config.PART_PATH) + "save.xml", "map", "location" )
+                ),
+                Integer.parseInt(
+                        XmlReader.getValueNoRes(Window.config.getValue(Config.PART_PATH) + "save.xml", "point", "location" )
+                )
+        );
 
         // Add player for the camera
         GameManager.camera.setEntityToCamera(player);
@@ -233,6 +255,8 @@ public class GameScreen extends Screen {
         hud.unload();
         tileMap.unload();
         currentOverlay.unload();
+
+        Part.deleteTemp();
     }
 
     /**

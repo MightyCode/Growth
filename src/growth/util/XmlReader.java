@@ -267,8 +267,8 @@ public abstract class XmlReader {
 			}
 			Window.config.setInputs(inputs);
 
-			Window.config.setValuesWithoutSave(search("game", root).getAttribute("max"), Config.PARTY_MAX);
-			Window.config.setValuesWithoutSave(search("game", root).getAttribute("party"), Config.PARTY_NB);
+			Window.config.setValuesWithoutSave(search("game", root).getAttribute("max"), Config.PART_MAX);
+			Window.config.setValuesWithoutSave(search("game", root).getAttribute("part"), Config.PART_NB);
 
 			tag = search("sound", root);
 			Window.config.setValuesWithoutSave(tag.getAttribute("music"), Config.MUSIC_VOL);
@@ -311,8 +311,8 @@ public abstract class XmlReader {
 			}
 
 			tag = search("game",root);
-			tag.setAttribute("party", Window.config.getValue(Config.PARTY_NB));
-			tag.setAttribute("max", Window.config.getValue(Config.PARTY_MAX));
+			tag.setAttribute("part", Window.config.getValue(Config.PART_NB));
+			tag.setAttribute("max", Window.config.getValue(Config.PART_MAX));
 
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
@@ -326,11 +326,36 @@ public abstract class XmlReader {
 	}
 
 	/**
+	 * Load the word after getting the language configurations.
+	 */
+	public static String[][] loadWord(){
+		try{
+			Element root = getRoot("/strings/" + Window.config.getValue(Config.LANGUAGE) + ".xml");
+			assert root != null;
+			NodeList tag = root.getElementsByTagName("screen");
+			String[][] word = new String[tag.getLength()][];
+			for(int i = 0 ; i < tag.getLength(); i++){
+				Element subRoot = (Element)tag.item(i);
+				subRoot = (Element) subRoot.getChildNodes().item(1);
+				int size = 0;
+				while(!subRoot.getAttribute("s" + size).equals("")) {
+					size++;
+				}
+				word[i] = new String[size];
+				for(int a = 0; a < size; a++){
+					word[i][a] = subRoot.getAttribute("s"+a);
+				}
+			}
+
+			return word;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
 	 * Change a value.
-	 * @param path The path of the xml's file to change.
-	 * @param attributeName The name of the attribute to change.
-	 * @param newValue The new value.
-	 * @param nodesName The node(s) to access the attribute's tag.
 	 */
 	public static void changeValue(String path, String attributeName, String newValue, String... nodesName){
 		try{
@@ -364,10 +389,6 @@ public abstract class XmlReader {
 
 	/**
 	 * Get a value from a xml file.
-	 * @param path The path of the file.
-	 * @param attributeName The attributeName of the value.
-	 * @param nodeName The node(s) to access the attribute's tag.
-	 * @return The value (string).
 	 */
 	public static String getValue(String path, String attributeName, String... nodeName){
 		try{
@@ -392,41 +413,11 @@ public abstract class XmlReader {
 	}
 
 	/**
-	 * Load the word after getting the language configurations.
-	 * @return The table with the sentences (string).
-	 */
-	public static String[][] loadWord(){
-		try{
-			Element root = getRoot("/strings/" + Window.config.getValue(Config.LANGUAGE) + ".xml");
-			assert root != null;
-			NodeList tag = root.getElementsByTagName("screen");
-			String[][] word = new String[tag.getLength()][];
-			for(int i = 0 ; i < tag.getLength(); i++){
-				Element subRoot = (Element)tag.item(i);
-				subRoot = (Element) subRoot.getChildNodes().item(1);
-				int size = 0;
-				while(!subRoot.getAttribute("s" + size).equals("")) {
-					size++;
-				}
-				word[i] = new String[size];
-				for(int a = 0; a < size; a++){
-					word[i][a] = subRoot.getAttribute("s"+a);
-				}
-			}
-
-			return word;
-		} catch (Exception e){
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	/**
 	 * Method to charge a document easier.
 	 * @param path The path of the document.
 	 * @return The document class.
 	 */
-	private static Document getDocument(String path){
+    public static Document getDocument(String path){
 		try {
 			return ((DocumentBuilderFactory.newInstance()).newDocumentBuilder()).parse(path);
 		} catch (Exception e) {
@@ -440,7 +431,7 @@ public abstract class XmlReader {
 	 * @param root The name root's tag.
 	 * @return The tag class.
 	 */
-	private static Element search(String name, Element root){
+    public static Element search(String name, Element root){
 		NodeList rootNode = root.getChildNodes();
 		int i = 0;
 		if (rootNode.item(i).getNodeType() != Node.ELEMENT_NODE) i++;
@@ -458,7 +449,7 @@ public abstract class XmlReader {
 	 * @param root The initial root's tag.
 	 * @return THe final tag.
 	 */
-	private static Element search(String[] nodesName, Element root){
+    public static Element search(String[] nodesName, Element root){
 		Element layer = search(nodesName[0],root);
 		for(int i = 1; i < nodesName.length; i++){
 			layer = search(nodesName[i], layer);
@@ -471,11 +462,11 @@ public abstract class XmlReader {
 	 * @param path The path of the file.
 	 * @return The root tag class.
 	 */
-	private static Element getRoot(String path){
+    public static Element getRoot(String path){
 		return getRootNoRes("resources" + path);
 	}
 
-	private static Element getRootNoRes(String path){
+    public static Element getRootNoRes(String path){
 		try {
 			return (((DocumentBuilderFactory.newInstance()).newDocumentBuilder()).parse(path)).getDocumentElement();
 		} 	catch (Exception e) {
@@ -491,7 +482,7 @@ public abstract class XmlReader {
 	 *
 	 * @return boolean's result
 	 */
-	private static boolean notInteger(String string) {
+    public static boolean notInteger(String string) {
 		try {
 			Integer.parseInt(string);
 			return false;
