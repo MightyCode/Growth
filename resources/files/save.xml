@@ -1,6 +1,6 @@
 <save>
     <location map="0" point="4"/>
-    <player life="2" form="0"/>
+    <player life="2" form="0" acorn="" acornnb="0"/>
 
     <trees>
         <tree id="0" nd0="0"/>

@@ -3,6 +3,7 @@ package growth.util;
 import growth.main.Config;
 import growth.main.Window;
 import growth.screen.GameManager;
+import growth.screen.screens.GameScreen;
 
 import java.io.File;
 
@@ -94,5 +95,66 @@ public class Part {
             }
         }
         file.delete();
+    }
+
+    public static void copyTemp(){
+        File file = new File(Window.config.getValue(Config.PART_PATH) + "temp");
+        if(file.exists()) Part.deleteTemp();
+
+        Window.console.println("\n File temp created with " + ((file.mkdir())? "success":"fail") + "\n");
+
+        // Copy map to the temp
+        int n = 1;
+        while (new File(Window.config.getValue(Config.PART_PATH)+ "/maps/map" + n + ".xml").exists()) n++;
+
+        for (int i = 1; i < n; i++)
+            if (FileMethods.copy(
+                    Window.config.getValue(Config.PART_PATH) + "maps/map"+ i +".xml",
+                    Window.config.getValue(Config.PART_PATH) + "temp/map" + i + ".xml"
+            )){}
+            else Window.console.println("Error on creation maps of game");
+
+        FileMethods.copy(
+                Window.config.getValue(Config.PART_PATH) + "save.xml",
+                Window.config.getValue(Config.PART_PATH) + "temp/save.xml"
+        );
+    }
+
+    public static void saveParty(){
+        XmlReader.changeValue(
+                Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
+                "life",
+                String.valueOf(GameScreen.entityManager.getPlayer().getHealthPoint()),
+                "player"
+        );
+
+        XmlReader.changeValue(
+                Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
+                "form",
+                String.valueOf(GameScreen.entityManager.getPlayer().getForm()),
+                "player"
+        );
+
+        XmlReader.changeValue(
+                Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
+                "acornnb",
+                String.valueOf(GameScreen.entityManager.getPlayer().getAcornNumber()),
+                "player"
+        );
+
+        int n = 1;
+        while (new File(Window.config.getValue(Config.PART_PATH)+ "/temp/map" + n + ".xml").exists()) n++;
+
+        for (int i = 1; i < n; i++)
+            if (FileMethods.copy(
+                    Window.config.getValue(Config.PART_PATH) + "temp/map"+ i +".xml",
+                    Window.config.getValue(Config.PART_PATH) + "maps/map" + i + ".xml"
+            )){}
+            else Window.console.println("Error on creation save of game");
+
+        FileMethods.copy(
+                Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
+                Window.config.getValue(Config.PART_PATH) + "save.xml"
+        );
     }
 }

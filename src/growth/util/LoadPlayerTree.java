@@ -5,18 +5,29 @@ import growth.entity.type.Player;
 import growth.main.Config;
 import growth.main.Window;
 import growth.screen.screens.GameScreen;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 
 public abstract class LoadPlayerTree {
 
     public static void playerTree(){
         Player player = GameScreen.entityManager.getPlayer();
-        Element root = XmlReader.getRootNoRes(Window.config.getValue(Config.PART_PATH) + "save.xml");
+        Element root = XmlReader.getRootNoRes(Window.config.getValue(Config.PART_PATH) + "temp/save.xml");
         if(player.getForm() == -1){
             assert root != null;
             Element subRoot = XmlReader.search("player", root);
-            player.setForm(Integer.parseInt(subRoot.getAttribute("form")));
+            int form = Integer.parseInt(subRoot.getAttribute("form"));
+            if(form < 0) form = 0;
+            else if(form > 2) form = 2;
+
+            player.setForm(form);
         }
 
         assert root != null;
@@ -38,13 +49,12 @@ public abstract class LoadPlayerTree {
         player.setMaxHealthPoint(maxLife);
         player.setHealthPoint(
                 Integer.parseInt(XmlReader.getValueNoRes(
-                        Window.config.getValue(Config.PART_PATH) + "save.xml" ,
+                        Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
                         "life",
                         "player"
                         )
                 )
         );
-
 
         switch(player.getForm()){
             case 1:
@@ -69,6 +79,7 @@ public abstract class LoadPlayerTree {
 
                 break;
         }
+        GameScreen.entityManager.setPlayer(player);
     }
 
     private static int[][] loadTree(Element root){
@@ -85,5 +96,29 @@ public abstract class LoadPlayerTree {
             }
         }
         return load;
+    }
+
+    public static void changeNodeValue(String name){
+        String[] values = name.split("-");
+        int tree = Integer.parseInt(values[0]);
+        int node = Integer.parseInt(values[1]);
+        try {
+            String path = Window.config.getValue(Config.PART_PATH) + "temp/save.xml";
+            Document doc = XmlReader.getDocument(path);
+            assert doc != null;
+            Element root = doc.getDocumentElement();
+            assert root != null;
+            NodeList object = root.getElementsByTagName("tree");
+            Element subRoot = (Element) object.item(tree);
+            subRoot.setAttribute("nd"+node, "1");
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(path));
+            transformer.transform(source, result);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

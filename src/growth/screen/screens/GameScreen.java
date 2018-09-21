@@ -76,22 +76,7 @@ public class GameScreen extends Screen {
     public GameScreen() {
         super();
         Window.console.println("\n-------------------------- \n");
-        File file = new File(Window.config.getValue(Config.PART_PATH) + "temp");
-        if(file.exists()) Part.deleteTemp();
-
-        Window.console.println("\n File temp created with " + ((file.mkdir())? "success":"fail") + "\n");
-
-        // Copy map to the temp
-        int n = 1;
-        while (new File(Window.config.getValue(Config.PART_PATH)+ "/maps/map" + n + ".xml").exists()) n++;
-
-
-        for (int i = 1; i < n; i++)
-            if (FileMethods.copy(
-                    Window.config.getValue(Config.PART_PATH) + "maps/map"+ i +".xml",
-                    Window.config.getValue(Config.PART_PATH) + "temp/map" + i + ".xml"
-            )){}
-            else Window.console.println("Error on creation maps of game");
+        Part.copyTemp();
 
         XmlReader.saveConfiguration();
         tileSize = Window.width/20;

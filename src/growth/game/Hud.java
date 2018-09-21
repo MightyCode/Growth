@@ -54,6 +54,7 @@ public class Hud {
     private Texture acorn;
     private Vec2 acornPos;
     private Vec2 acornSize;
+    private FontRenderer acornnb;
 
     /**
      * Location and zone system
@@ -75,8 +76,11 @@ public class Hud {
         heartSize = new Vec2(Window.height * 0.06f,Window.height * 0.06f);
         heartSizeT = new Vec2();
 
-        acornSize = new Vec2(Window.height * 0.10f,Window.height * 0.10f);
-        acornPos = new Vec2(Window.width * 0.05f,Window.height * 0.85f);
+        acornSize = new Vec2(Window.height * 0.15f,Window.height * 0.15f);
+        acornPos = new Vec2(Window.width * 0.05f,Window.height * 0.80f);
+
+        acornnb = new FontRenderer("0", StaticFonts.monofonto, Window.width*0.03f,
+                new Vec2(Window.width * 0.102f, Window.height * 0.885f), new Color4(0.0f, 0.0f, 0.0f, 1f));
 
         spaceBetweenTwoHeart = heartSize.getX()*1.4f;
 
@@ -127,6 +131,7 @@ public class Hud {
         }
         acorn.bind();
         TextureRenderer.imageC(acornPos, acornSize,0.9f);
+        acornnb.renderC();
 
         if(counter < TIME){
             if(type == 0){
@@ -264,6 +269,16 @@ public class Hud {
         zoneFont.setOpacity(1);
         zoneFont.setWordNumber(TextManager.ZONE, Integer.parseInt(zone));
     }
+
+    public void setAcorn(boolean state){
+        if(state) acorn = new Texture("/textures/game/hud/Acorn-fl2.png");
+        else acorn = new Texture("/textures/game/hud/Acorn-f.png");
+    }
+
+    public void setAcornNb(int acornNb){
+        this.acornnb.setText(String.valueOf(acornNb));
+    }
+
 
     /**
      * Unload the texture.

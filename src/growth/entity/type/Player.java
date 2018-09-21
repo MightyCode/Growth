@@ -31,6 +31,9 @@ public class Player extends Echaracter {
 	public int[][] tree;
 	public int form;
 
+	private String holdAcorn;
+	private int acornNumber;
+
 	/**
 	 * Player's states.
 	 * These static final variables counting the different state of player.
@@ -87,6 +90,7 @@ public class Player extends Echaracter {
 		if(Growth.admin){
 			modules.add(new Admin_Layer(this));
 			modules.add(new Admin_PlayerHealth(this));
+			modules.add(new Admin_Save(this));
 		}
 
 		// Sprite and Animation
@@ -100,9 +104,20 @@ public class Player extends Echaracter {
 		animations.add(new Animation("/textures/game/entity/player/fall/", 1, 5));
 
 		actionT = new Texture("/textures/game/entity/player/other/action.png");
-		actionSize = new Vec2(Window.height*0.04f);
+		actionSize = new Vec2(Window.height * 0.04f);
 
 		form = -1;
+		setHoldAcorn(XmlReader.getValueNoRes(
+				Window.config.getValue(Config.PART_PATH) + "temp/save.xml" ,
+				"acorn",
+				"player"
+		));
+
+		setAcornNumber(Integer.parseInt(XmlReader.getValueNoRes(
+				Window.config.getValue(Config.PART_PATH) + "temp/save.xml" ,
+				"acornnb",
+				"player"
+					)));
 	}
 
 	/**
@@ -177,7 +192,7 @@ public class Player extends Echaracter {
 	}
 
 	public void setForm(int newForm){
-		if(newForm >=1 && newForm <= 3) form = newForm;
+		if(newForm >=0 && newForm <= 2) form = newForm;
 	}
 
 	public int getForm(){
@@ -186,6 +201,24 @@ public class Player extends Echaracter {
 
 	public void setTree(int[][] tree){
 		this.tree = tree;
+	}
+
+	public void setHoldAcorn(String holdAcorn){
+		this.holdAcorn = holdAcorn;
+		GameScreen.hud.setAcorn(!holdAcorn.equals(""));
+	}
+
+	public String getHoldAcorn(){
+		return holdAcorn;
+	}
+
+	public void setAcornNumber(int number){
+		acornNumber = number;
+		GameScreen.hud.setAcornNb(acornNumber);
+	}
+
+	public int getAcornNumber(){
+		return acornNumber;
 	}
 
 	/**

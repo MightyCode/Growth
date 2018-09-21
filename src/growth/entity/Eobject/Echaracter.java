@@ -185,11 +185,11 @@ public abstract class Echaracter extends Emoveable {
      * @param newValue New current health value.
      */
     public void setHealthPoint(int newValue) {
-        if (maxHealthPoint >= newValue && newValue >= 0) {
-            healthPoint = newValue;
-            if (healthPoint <= 0) {
-                died();
-            }
+        if(newValue > maxHealthPoint) newValue = maxHealthPoint;
+
+        healthPoint = newValue;
+        if (healthPoint <= 0) {
+            died();
         }
     }
 
