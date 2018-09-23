@@ -6,6 +6,7 @@ import growth.screen.GameManager;
 import growth.screen.screens.GameScreen;
 
 import java.io.File;
+import java.lang.reflect.GenericArrayType;
 
 public class Part {
     public static void createParty() {
@@ -120,6 +121,24 @@ public class Part {
         );
     }
 
+    public static void savePartyWithPoint(int point){
+        XmlReader.changeValue(
+                Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
+                "map",
+                String.valueOf(GameScreen.tileMap.getCurrentMap()),
+                "location"
+        );
+
+        XmlReader.changeValue(
+                Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
+                "point",
+                String.valueOf(point),
+                "location"
+        );
+
+        saveParty();
+    }
+
     public static void saveParty(){
         XmlReader.changeValue(
                 Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
@@ -134,6 +153,12 @@ public class Part {
                 String.valueOf(GameScreen.entityManager.getPlayer().getForm()),
                 "player"
         );
+
+        XmlReader.changeValue(
+                Window.config.getValue(Config.PART_PATH) + "temp/save.xml",
+                "acorn",
+                GameScreen.entityManager.getPlayer().getHoldAcorn(),
+                "player");
 
         XmlReader.changeValue(
                 Window.config.getValue(Config.PART_PATH) + "temp/save.xml",

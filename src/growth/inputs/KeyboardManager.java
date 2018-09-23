@@ -4,6 +4,7 @@ import growth.main.Window;
 
 import java.util.Arrays;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F11;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 /**

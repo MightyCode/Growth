@@ -7,12 +7,14 @@ import growth.main.Config;
 import growth.main.Window;
 import org.w3c.dom.*;
 
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+
 /**
  * XmlReader class.
  * This class charge the different xml's files.
@@ -120,7 +122,7 @@ public abstract class XmlReader {
 					// For all rows
 					while (counter2 < width) {
 
-						while (notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+						while (growth.util.math.Math.notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
 							x = 1;
 							numberOfCharacterRead++;
 						}
@@ -130,7 +132,7 @@ public abstract class XmlReader {
 						numberOfCharacterRead++;
 						x *= 10;
 
-						if(notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
+						if(growth.util.math.Math.notInteger(sMap.substring(numberOfCharacterRead, numberOfCharacterRead + 1))) {
 							x = 1;
 							numberOfCharacterRead++;
 							counter2++;
@@ -148,17 +150,15 @@ public abstract class XmlReader {
 			String[][] ent = new String[object.getLength()][];
 			for(int i = 0 ; i < object.getLength(); i++){
 				subRoot = (Element) object.item(i);
-				int length = 0;
-				while(!subRoot.getAttribute("a"+length).equals("")) length++;
-				length++;
+				int length = 2;
+				while(!subRoot.getAttribute("a" + length).equals("")) length++;
 
 				ent[i] = new String[length];
-				ent[i][EntityManager.TYPE] = subRoot.getAttribute("a" + EntityManager.TYPE);
-				ent[i][EntityManager.NAME] = subRoot.getAttribute("a" + EntityManager.NAME);
-				for(int a = 2; a < length; a++){
+				for(int a = 0; a < length; a++){
 					ent[i][a] = subRoot.getAttribute("a"+a);
 				}
 			}
+
 			map.setEntities(ent);
 			return map;
 		} catch (Exception e) {
@@ -241,7 +241,7 @@ public abstract class XmlReader {
 
 			assert root != null;
 			// General configuration
-			Element tag = search("general", root);;
+			Element tag = search("general", root);
 			Window.config.setValuesWithoutSave(tag.getAttribute("language"), Config.LANGUAGE);
 
 			// Window size
@@ -472,22 +472,6 @@ public abstract class XmlReader {
 		} 	catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}
-	}
-
-	/**
-	 * Test if a string is a number
-	 *
-	 * @param string String to test
-	 *
-	 * @return boolean's result
-	 */
-    public static boolean notInteger(String string) {
-		try {
-			Integer.parseInt(string);
-			return false;
-		} catch (NumberFormatException e) {
-			return true;
 		}
 	}
 }

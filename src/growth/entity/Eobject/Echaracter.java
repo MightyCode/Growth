@@ -136,7 +136,7 @@ public abstract class Echaracter extends Emoveable {
                 speed.setX(0);
                 posTemp.setX(currCol * GameScreen.tileSize + collisionBox.getX() / 2);
                 if(speed.getY()>0){
-                    speed.setY(speed.getY() * 0.96f);
+                    speed.setY(speed.getY() * 0.95f);
                 }
             } else {
                 posTemp.setX(posTemp.getX() + speed.getX());
@@ -152,7 +152,7 @@ public abstract class Echaracter extends Emoveable {
                 speed.setX(0);
                 posTemp.setX((currCol + 1) * GameScreen.tileSize - collisionBox.getX() / 2);
                 if(speed.getY()>0){
-                    speed.setY(speed.getY() * 0.96f);
+                    speed.setY(speed.getY() * 0.95f);
                 }
             } else {
                 posTemp.setX(posTemp.getX() + speed.getX());
