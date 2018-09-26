@@ -93,6 +93,7 @@ public class GameScreen extends Screen {
         Player player = new Player(this, tileMap, new Vec2(tileSize));
         entityManager.setPlayer(player);
         LoadPlayerTree.playerTree();
+        TileMap.mapCollision.addEntity(player);
 
         tileMap.setEntity(player);
 

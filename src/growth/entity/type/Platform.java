@@ -31,8 +31,8 @@ public class Platform extends Emoveable {
     }
 
     public void update(){
-        pos.setX(initPos.getX() + ((float) Math.sin(counter.getX())) * range.getX());
-        pos.setY(initPos.getY() + ((float) Math.sin(counter.getY())) * range.getY());
+        posTemp.setX(initPos.getX() + ((float) Math.sin(counter.getX())) * range.getX());
+        posTemp.setY(initPos.getY() + ((float) Math.sin(counter.getY())) * range.getY());
         counter.setX(counter.getX() + duration.getX());
         counter.setY(counter.getY() + duration.getY());
         if(counter.getX() > 2*Math.PI) counter.setX(0);

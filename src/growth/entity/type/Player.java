@@ -120,6 +120,11 @@ public class Player extends Echaracter {
 					)));
 	}
 
+	public void disposeBeforeUpdate(){
+		super.disposeBeforeUpdate();
+		action = false;
+	}
+
 	/**
 	 * Update the player.
 	 */
@@ -163,10 +168,6 @@ public class Player extends Echaracter {
 			TextureRenderer.image(new Vec2(pos.getX() + size.getX() * 0.2f,pos.getY() - size.getY() * 0.8f), actionSize);
 		}
 		if(animationPlayed != oldAnimation) animations.get(oldAnimation).reset();
-	}
-
-	public void dispose(){
-		action = false;
 	}
 
 	public void setAction(boolean newState){

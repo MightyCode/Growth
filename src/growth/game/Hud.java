@@ -62,8 +62,9 @@ public class Hud {
     private Texture zone, location;
     private int type;
     private int counter;
-    private static final int TIME = (int)Window.TPS * 4;
     private FontRenderer zoneFont, locationFont;
+
+    private static final int TIME = (int)Window.TPS * 4;
 
     /**
      * Hud class constructor.

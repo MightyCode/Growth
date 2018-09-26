@@ -5,7 +5,7 @@ import growth.screen.render.texture.TextureRenderer;
 
 import java.util.ArrayList;
 
-public abstract class Edrawable extends Eobject{
+public abstract class Edrawable extends Eobject {
 
     /**
      * Entity state
@@ -35,16 +35,15 @@ public abstract class Edrawable extends Eobject{
      */
     protected ArrayList<Animation> animations;
 
-    public Edrawable(String name){
+    public Edrawable(String name) {
         super(name);
         animations = new ArrayList<>();
     }
 
-    public void update(){
+    public void disposeBeforeUpdate(){
         oldAnimation = animationPlayed;
         animationPlayed = IDLE;
         priority = IDLE_P;
-        super.update();
     }
 
     public void display(){

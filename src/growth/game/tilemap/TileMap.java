@@ -72,34 +72,12 @@ public class TileMap {
 	private final Texture tileSetT;
 
 	/**
-	 * Row off set.
-	 * This variable contains the number of row where the player is.
+	 * Map variables
 	 */
 	private int rowOffset;
-
-	/**
-	 * Column off set.
-	 * This variable contains the number of column where the player is.
-	 */
 	private int colOffset;
-
-	/**
-	 * Number rows to draw.
-	 * This variable contains the number of row to draw.
-	 */
 	private int numRowsToDraw;
-
-	/**
-	 * Number columns to draw.
-	 * This variable contains the number of column to draw.
-	 */
 	private int numColsToDraw;
-
-	/**
-	 * Current layer.
-	 * This variable contains the layer where the player is.
-	 * This variable is using to do the collision with the good layer.
-	 */
 	private int currentLayer;
 
 	/**
@@ -112,6 +90,8 @@ public class TileMap {
 
 	private int[] saveValues;
 
+	public static MapCollision mapCollision;
+
 	/**
 	 * Tilemap class constructor.
 	 * Instance the class and set the tile's textures of tile set with the path.
@@ -120,6 +100,7 @@ public class TileMap {
 	 */
 	public TileMap(String path) {
 		// Init tileSet
+		mapCollision = new MapCollision();
 		tileSetT = new Texture("/textures/game/tiles/Tileset.png");
 		tileSet = XmlReader.createTileSet(path);
 
@@ -166,7 +147,7 @@ public class TileMap {
 				//For each col
 				for (int col = colOffset; col < maxCol; col++) {
 
-					if(row < 0 || col < 0 || map[row][col]==0 )continue;
+					if(row < 0 || col < 0 || map[row][col]== 0)continue;
 					TextureRenderer.image(
 							new Vec2(col * GameScreen.tileSize, row * GameScreen.tileSize),
 							new Vec2(GameScreen.tileSize, GameScreen.tileSize),
@@ -256,7 +237,9 @@ public class TileMap {
 		curMap = XmlReader.createMap(Window.config.getValue(Config.PART_PATH) + "temp/map" + (mapID+1) + ".xml");
 		float[] saveValues = curMap.saveValues(this.saveValues[1]);
 
-		GameScreen.entityManager.setPosition(new Vec2(saveValues[0] * GameScreen.tileSize
+		player.setPos(new Vec2(saveValues[0] * GameScreen.tileSize
+				, saveValues[1] * GameScreen.tileSize - player.getSize().getY()/2));
+		player.setPosTemp(new Vec2(saveValues[0] * GameScreen.tileSize
 				, saveValues[1] * GameScreen.tileSize - player.getSize().getY()/2));
 		if(saveValues[2] != -1) GameScreen.entityManager.getPlayer().setFacing(saveValues[2] == 1);
 		map = curMap.getMap(1);

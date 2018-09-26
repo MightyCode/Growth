@@ -25,11 +25,15 @@ public abstract class Eobject {
         modules = new ArrayList<>();
     }
 
+    public void disposeBeforeUpdate(){ }
+
     public void update(){
         for(Module module : modules){
             module.update();
         }
     }
+
+    public void disposeAfterUpdate(){ }
 
     public void display(){}
 

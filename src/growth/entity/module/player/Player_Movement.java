@@ -103,6 +103,7 @@ public class Player_Movement extends Module {
             }
         }
 
+        entity.setPosTemp(new Vec2(entity.getPosTemp().getX() + speedX, entity.getPosTemp().getY()));
         player.setSpeed(new Vec2(speedX,player.getSpeed().getY()));
     }
 

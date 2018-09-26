@@ -4,10 +4,12 @@ import growth.entity.Eobject.Edrawable;
 import growth.entity.Eobject.Emoveable;
 import growth.entity.Eobject.Eobject;
 import growth.entity.type.Player;
+import growth.game.tilemap.TileMap;
 import growth.main.Window;
 import growth.screen.GameManager;
 import growth.screen.render.texture.Texture;
 import growth.screen.render.texture.TextureRenderer;
+import growth.screen.screens.GameScreen;
 import growth.util.math.Vec2;
 
 import java.util.ArrayList;
@@ -51,11 +53,26 @@ public class EntityManager {
      * Update entities on screen.
      */
     public void update(){
-        entityDispose();
+        // DisposeBeforeUpdate
+        for(Eobject object : objects){
+            object.disposeBeforeUpdate();
+        }
+        player.disposeBeforeUpdate();
+
+        // Update
         for(Eobject object : objects){
             object.update();
         }
         player.update();
+
+        // Map collision
+        TileMap.mapCollision.applyCollision();
+
+        // DisposeAfterUpdate
+        for(Eobject object : objects){
+            object.disposeAfterUpdate();
+        }
+        player.disposeAfterUpdate();
     }
 
     public void dispose(){
@@ -74,10 +91,6 @@ public class EntityManager {
             object.display();
         }
         player.display();
-    }
-
-    public void entityDispose(){
-        player.dispose();
     }
 
     /**

@@ -66,6 +66,7 @@ public class Entity_Fall extends Module {
             }
         }
 
+        entity.setPosTemp(new Vec2(entity.getPosTemp().getX(), entity.getPosTemp().getX() + speedY));
         entity.setSpeed(new Vec2(entity.getSpeed().getX(),speedY));
     }
 }
