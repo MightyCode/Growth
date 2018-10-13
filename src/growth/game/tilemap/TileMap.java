@@ -80,12 +80,6 @@ public class TileMap {
 	private int numColsToDraw;
 	private int currentLayer;
 
-	/**
-	 * Number of map.
-	 * This variable contains the number of variable charged on a xml file.
-	 */
-	private int nbMap;
-
 	private Player player;
 
 	private int[] saveValues;
@@ -167,15 +161,14 @@ public class TileMap {
 	 *
 	 * @return isMap or not
 	 */
-	public boolean changeMap(int point, float posX, float posY){
-		int[] result = isMap(Math.abs(point-2), posX, posY);
-		if(result[0] == 1){
+	public boolean changeMap(int point, float posX, float posY) {
+		int[] result = isMap(Math.abs(point - 2), posX, posY);
+		if (result[0] == 1) {
 			changeMap(result[1], result[2]);
 			return true;
 		}
 		return false;
 	}
-
 
     /**
      * Check if there are a next map for the player's position.
@@ -222,10 +215,19 @@ public class TileMap {
 	 */
 	public void doTransition(){
 		GameScreen.entityManager.dispose();
-		chargeMap();
 		String location = curMap.getLocation(), zone = curMap.getZone();
-		if(!zone.equals(curMap.getZone()))GameScreen.hud.setZone(curMap.getZone() , curMap.getLocation());
-		else if(!location.equals(curMap.getLocation()))GameScreen.hud.setLocation( curMap.getLocation());
+		chargeMap();
+
+		// Display the name of the zone or place if they are new
+		if(!zone.equals(curMap.getZone())){
+			Window.console.print("Hey !!");
+			GameScreen.hud.setZone(curMap.getZone() , curMap.getLocation());
+		} else if(!location.equals(curMap.getLocation())){
+			Window.console.print("Hoo !!");
+			GameScreen.hud.setLocation( curMap.getLocation());
+		}
+
+		// Set the camera to the player instantly
 		GameManager.camera.setPosition(false);
 	}
 
@@ -233,8 +235,12 @@ public class TileMap {
 	 * Charge the current layer for collision and another features.
 	 */
 	private void chargeMap(){
+		// Change the ID
 		mapID = this.saveValues[0];
+
+		// Load the map
 		curMap = XmlReader.createMap(Window.config.getValue(Config.PART_PATH) + "temp/map" + (mapID+1) + ".xml");
+		assert curMap != null;
 		float[] saveValues = curMap.saveValues(this.saveValues[1]);
 
 		player.setPos(new Vec2(saveValues[0] * GameScreen.tileSize
@@ -243,8 +249,11 @@ public class TileMap {
 				, saveValues[1] * GameScreen.tileSize - player.getSize().getY()/2));
 		if(saveValues[2] != -1) GameScreen.entityManager.getPlayer().setFacing(saveValues[2] == 1);
 		map = curMap.getMap(1);
+
+		// Clear and load the new entities
 		GameScreen.entityManager.removeAll();
 		curMap.loadEntity();
+
         numCols = map[0].length;
         numRows = map.length;
 
@@ -254,7 +263,7 @@ public class TileMap {
         GameManager.camera.setBoundMax(Window.width - sizeX, Window.height  - sizeY);
         GameManager.camera.setBoundMin(0, 0);
 
-		float[] color =curMap.getColor();
+		float[] color = curMap.getColor();
 		if(color[0] != -1){
 			Render.setClearColor(color[0], color[1], color[2]);
 		}
