@@ -1,6 +1,6 @@
 Growth
 ===========
-Un petit jeu de plateforme.
+Un jeu de plateforme en solo.
 
 Présentation
 ------------
@@ -11,7 +11,7 @@ Ressources
 
 Drive : https://drive.google.com/drive/folders/1iJ5h85LxdmMIf20BRfiz2uT8j2ZpmwMW
 
-Pour aider à avencer le projet
+Pour aider à avancer le projet
 ------------------------------
 
 Drive : https://drive.google.com/drive/u/0/folders/1ec6gmzPMXxtgoaf6naer3W9UyVj3Dl14
@@ -28,4 +28,3 @@ Voir le fichier LICENCE
 ### Art
 Flat design pour l'aspect graphique.
 Feed back sonore pour quasiment toutes les actions en jeu.
-Les musiques utilisent des sonoritées naturelles.
