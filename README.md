@@ -8,7 +8,7 @@ Growth est un jeu de plateforme qui embarque des fonctionnalités innovantes et 
 
 Demo
 --------
-https://data.bazin-maxence.tk/Growth.v3.3.zip
+[Growth.v3.3.zip](https://data.bazin-maxence.tk/Growth.v3.3.zip)
 
 License
 -------
